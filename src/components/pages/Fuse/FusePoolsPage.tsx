@@ -198,7 +198,7 @@ const PoolRow = ({
             <>
               <Center height="100%" width="13%">
                 <b>
-                  {poolNumber == 18
+                  {poolNumber === 18
                     ? "3, 3" // TODO: Remove. Celebrating the ohmies
                     : poolNumber}
                 </b>
