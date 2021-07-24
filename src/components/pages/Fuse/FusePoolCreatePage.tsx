@@ -204,10 +204,10 @@ const PoolConfiguration = () => {
                 className="black-bg-option"
                 value={
                   Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
-                    .ChainlinkPriceOracle
+                    .ChainlinkPriceOracleV2
                 }
               >
-                ChainlinkPriceOracle
+                ChainlinkPriceOracleV2
               </option>
             </Select>
           </OptionRow>

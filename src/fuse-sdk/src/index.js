@@ -22,20 +22,20 @@ const axios = require("axios");
 
 export default class Fuse {
   static FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS =
-    "0x835482FE0532f169024d5E9410199369aAD5C77E";
+    "0xdCC4F6809be90a3c1aac11aC69339eF7702B1Bac";
   static FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS =
-    "0x41C7F2D48bde2397dFf43DadA367d2BD3527452F";
+    "0xac35ABCf136FB800e710B5AA4acDBD8E998bF661";
   static FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS =
-    "0xa731585ab05fC9f83555cf9Bff8F58ee94e18F85";
+    "0xAaff175801a04779E8284fA44697Ab4FB5209cC4";
   static FUSE_POOL_LENS_CONTRACT_ADDRESS =
-    "0x8dA38681826f4ABBe089643D2B3fE4C6e4730493";
+    "0x9266a47cf3fb8b86681026739f91934663C80395";
 
   static COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS =
-    "0x94b2200d28932679def4a7d08596a229553a994e";
+    "0x2E25cC8E3b1e1D7ceF7EF75B35E5ed5F33d5C61B";
   static CERC20_DELEGATE_CONTRACT_ADDRESS =
-    "0x67e70eeb9dd170f7b4a9ef620720c9069d5e706c";
+    "0x623880fff33AaBF2eBF8C4c2c8Ca11896D003ed6";
   static CETHER_DELEGATE_CONTRACT_ADDRESS =
-    "0x60884c8faad1b30b1c76100da92b76ed3af849ba";
+    "";
 
   static OPEN_ORACLE_PRICE_DATA_CONTRACT_ADDRESS =
     "0xc629c26dced4277419cde234012f8160a0278a79";
@@ -44,14 +44,14 @@ export default class Fuse {
 
   static PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES = {
     PreferredPriceOracle: "", // TODO: Set correct mainnet address after deployment
-    ChainlinkPriceOracle: "0xe102421A85D9C0e71C0Ef1870DaC658EB43E1493",
-    ChainlinkPriceOracleV2: "0xb0602af43Ca042550ca9DA3c33bA3aC375d20Df4",
+    ChainlinkPriceOracle: "",
+    ChainlinkPriceOracleV2: "0x8e3a1De5a3A447D50F6f7c193968E3E1dF14Ccf4",
     UniswapView: "", // NOT IN USE
-    Keep3rPriceOracle_Uniswap: "0xb90de476d438b37a4a143bf729a9b2237e544af6", // NO LONGER IN USE
-    Keep3rPriceOracle_SushiSwap: "0x08d415f90ccfb971dfbfdd6266f9a7cb1c166fc0", // NO LONGER IN USE
-    Keep3rV2PriceOracle_Uniswap: "0xd6a8cac634e59c00a3d4163f839d068458e39869", // NO LONGER IN USE
-    UniswapTwapPriceOracle_Uniswap: "0xCd8f1c72Ff98bFE3B307869dDf66f5124D57D3a9",
-    UniswapTwapPriceOracle_SushiSwap: "0xfD4B4552c26CeBC54cD80B1BDABEE2AC3E7eB324",
+    Keep3rPriceOracle_Uniswap: "", // NO LONGER IN USE
+    Keep3rPriceOracle_SushiSwap: "", // NO LONGER IN USE
+    Keep3rV2PriceOracle_Uniswap: "", // NO LONGER IN USE
+    UniswapTwapPriceOracle_Uniswap: "",
+    UniswapTwapPriceOracle_SushiSwap: "",
     UniswapLpTokenPriceOracle: "", // TODO: Set correct mainnet address after deployment
     RecursivePriceOracle: "", // TODO: Set correct mainnet address after deployment
     YVaultV1PriceOracle: "", // TODO: Set correct mainnet address after deployment
@@ -60,9 +60,9 @@ export default class Fuse {
     AlphaHomoraV2PriceOracle: "", // TODO: Set correct mainnet address after deployment
     SynthetixPriceOracle: "", // TODO: Set correct mainnet address after deployment
     BalancerLpTokenPriceOracle: "", // TODO: Set correct mainnet address after deployment
-    MasterPriceOracle: "0x1887118E49e0F4A78Bd71B792a49dE03504A764D",
-    CurveLpTokenPriceOracle: "0x43c534203339bbf15f62b8dde91e7d14195e7a60",
-    CurveLiquidityGaugeV2PriceOracle: "0xd9eefdb09d75ca848433079ea72ef609a1c1ea21",
+    MasterPriceOracle: "",
+    CurveLpTokenPriceOracle: "",
+    CurveLiquidityGaugeV2PriceOracle: "",
   };
 
   static DAI_POT = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7";
@@ -129,6 +129,7 @@ export default class Fuse {
     JumpRateModel_Stables_Majors: "0xb579d2761470bba14018959d6dffcc681c09c04b",
     JumpRateModel_Gov_Seeds: "0xcdC0a449E011249482824efFcfA05c883d36CfC7",
     JumpRateModel_ALCX: "0x58c3e7119ec200c09b2b3a9f8ce3bd77b6b47012",
+    JumpRateModel_Cream_Stables_Majors: "0x4711C493eD3421Dda33b778A08E59F7e5D770B5e"
   };
 
   constructor(web3Provider) {
@@ -741,28 +742,28 @@ export default class Fuse {
         conf.underlying.length > 0 &&
         !Web3.utils.toBN(conf.underlying).isZero()
         ? await this.deployCErc20(
-            conf,
-            supportMarket,
-            collateralFactor,
-            reserveFactor,
-            adminFee,
-            Fuse.CERC20_DELEGATE_CONTRACT_ADDRESS
-              ? Fuse.CERC20_DELEGATE_CONTRACT_ADDRESS
-              : null,
-            options,
-            bypassPriceFeedCheck
-          )
+          conf,
+          supportMarket,
+          collateralFactor,
+          reserveFactor,
+          adminFee,
+          Fuse.CERC20_DELEGATE_CONTRACT_ADDRESS
+            ? Fuse.CERC20_DELEGATE_CONTRACT_ADDRESS
+            : null,
+          options,
+          bypassPriceFeedCheck
+        )
         : await this.deployCEther(
-            conf,
-            supportMarket,
-            collateralFactor,
-            reserveFactor,
-            adminFee,
-            Fuse.CETHER_DELEGATE_CONTRACT_ADDRESS
-              ? Fuse.CETHER_DELEGATE_CONTRACT_ADDRESS
-              : null,
-            options
-          );
+          conf,
+          supportMarket,
+          collateralFactor,
+          reserveFactor,
+          adminFee,
+          Fuse.CETHER_DELEGATE_CONTRACT_ADDRESS
+            ? Fuse.CETHER_DELEGATE_CONTRACT_ADDRESS
+            : null,
+          options
+        );
     };
 
     this.deployCEther = async function (
@@ -1032,7 +1033,7 @@ export default class Fuse {
           var chainlinkPriceFeed = await chainlinkPriceOracle.methods
             .hasPriceFeed(conf.underlying)
             .call();
-        } catch {}
+        } catch { }
 
       if (chainlinkPriceFeed === undefined || !chainlinkPriceFeed) {
         // Check for PreferredPriceOracle with underlying ChainlinkPriceOracle with a corresponding feed
@@ -1052,7 +1053,7 @@ export default class Fuse {
           var chainlinkPriceFeed = await chainlinkPriceOracle.methods
             .hasPriceFeed(conf.underlying)
             .call();
-        } catch {}
+        } catch { }
       }
 
       if (chainlinkPriceFeed === undefined || !chainlinkPriceFeed) {
@@ -1325,12 +1326,12 @@ export default class Fuse {
               // Double-check with user that pair is correct
               var correctUniswapV2Pair = confirm(
                 "We have determined that the correct Uniswap V2 pair for " +
-                  (isNotReversed
-                    ? underlyingSymbol + "/ETH"
-                    : "ETH/" + underlyingSymbol) +
-                  " is " +
-                  uniswapV2Pair +
-                  ". Is this correct?"
+                (isNotReversed
+                  ? underlyingSymbol + "/ETH"
+                  : "ETH/" + underlyingSymbol) +
+                " is " +
+                uniswapV2Pair +
+                ". Is this correct?"
               );
 
               if (!correctUniswapV2Pair) {
@@ -1343,10 +1344,10 @@ export default class Fuse {
                     : "Non-fixed prices must have a Uniswap V2 pair from which to source prices!";
                 isNotReversed = confirm(
                   "Press OK if the Uniswap V2 pair is " +
-                    underlyingSymbol +
-                    "/ETH. If it is reversed (ETH/" +
-                    underlyingSymbol +
-                    "), press Cancel."
+                  underlyingSymbol +
+                  "/ETH. If it is reversed (ETH/" +
+                  underlyingSymbol +
+                  "), press Cancel."
                 );
               }
 
@@ -1399,10 +1400,10 @@ export default class Fuse {
                 else
                   prompt(
                     "It looks like prices have never been reported for " +
-                      underlyingSymbol +
-                      ". Please click OK once you have reported and posted prices for" +
-                      underlyingSymbol +
-                      "."
+                    underlyingSymbol +
+                    ". Please click OK once you have reported and posted prices for" +
+                    underlyingSymbol +
+                    "."
                   );
               } else {
                 await uniswapOrUniswapAnchoredView.methods

@@ -476,6 +476,17 @@ export const AssetSettings = ({
             className="black-bg-option"
             value={
               Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+                .JumpRateModel_Cream_Stables_Majors
+            }
+            Cream
+            Stable
+            Majors
+            JumpRateModels
+          ></option>
+          {/* <option
+            className="black-bg-option"
+            value={
+              Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
                 .JumpRateModel_DAI
             }
           >
@@ -490,7 +501,7 @@ export const AssetSettings = ({
             }
           >
             ETH WhitePaperRateModel
-          </option>
+          </option> */}
         </Select>
 
         {cTokenData &&
