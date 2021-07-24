@@ -478,11 +478,9 @@ export const AssetSettings = ({
               Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
                 .JumpRateModel_Cream_Stables_Majors
             }
-            Cream
-            Stable
-            Majors
-            JumpRateModels
-          ></option>
+          >
+            Cream Stable Majors JumpRateModels
+          </option>
           {/* <option
             className="black-bg-option"
             value={
