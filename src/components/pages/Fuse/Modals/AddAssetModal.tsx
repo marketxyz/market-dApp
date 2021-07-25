@@ -231,7 +231,8 @@ export const AssetSettings = ({
         bigCollateralFacotr,
         bigReserveFactor,
         bigAdminFee,
-        { from: address }
+        { from: address },
+        true
       );
 
       LogRocket.track("Fuse-DeployAsset");
