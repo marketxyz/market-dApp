@@ -204,6 +204,24 @@ const PoolConfiguration = () => {
                 className="black-bg-option"
                 value={
                   Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                    .PreferredPriceOracle
+                }
+              >
+                PreferredPriceOracle
+              </option>
+              <option
+                className="black-bg-option"
+                value={
+                  Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                    .UniswapTwapPriceOracle_Quickswap
+                }
+              >
+                UniswapTwapPriceOracle_Quickswap
+              </option>
+              <option
+                className="black-bg-option"
+                value={
+                  Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
                     .ChainlinkPriceOracleV2
                 }
               >

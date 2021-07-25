@@ -1,7 +1,7 @@
 import Fuse from "../fuse-sdk/src";
 
-export const infuraURL = `https://polygon-mumbai.infura.io/v3/5740d6972b5641bbad68560dbb166ae7`;
-export const turboGethURL = `https://polygon-mumbai.g.alchemy.com/v2/IOCXKcTV9lTl7jMSaPkm36wK-VonfGX_`;
+export const infuraURL = `https://polygon-mainnet.infura.io/v3/5740d6972b5641bbad68560dbb166ae7`;
+export const turboGethURL = `https://polygon-mainnet.g.alchemy.com/v2/IOCXKcTV9lTl7jMSaPkm36wK-VonfGX_`;
 
 export function chooseBestWeb3Provider() {
   if (typeof window === "undefined") {
