@@ -680,6 +680,8 @@ export default class Fuse {
           deployArgs = [conf.baseRatePerYear, conf.multiplierPerYear];
           break;
       }
+      console.log(deployArgs);
+      console.log("contracts/" + model + ".sol:" + model)
 
       // Deploy InterestRateModel
       var interestRateModel = new this.web3.eth.Contract(
