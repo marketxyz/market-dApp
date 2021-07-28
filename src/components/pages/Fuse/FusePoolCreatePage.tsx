@@ -213,10 +213,10 @@ const PoolConfiguration = () => {
                 className="black-bg-option"
                 value={
                   Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
-                    .UniswapTwapPriceOracle_Quickswap
+                    .UniswapTwapPriceOracle_SushiSwap
                 }
               >
-                UniswapTwapPriceOracle_Quickswap
+                UniswapTwapPriceOracle_SushiSwap
               </option>
               <option
                 className="black-bg-option"

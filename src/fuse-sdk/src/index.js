@@ -22,18 +22,18 @@ const axios = require("axios");
 
 export default class Fuse {
   static FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS =
-    "0x623880fff33AaBF2eBF8C4c2c8Ca11896D003ed6";
+    "0xC09F090ac7aF2b47afC4c5628D245fe3CC6B7f59";
   static FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS =
-    "0x4711C493eD3421Dda33b778A08E59F7e5D770B5e";
+    "0x24E5571B16EB84EE2A125e8183580e1C8B7b8E6E";
   static FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS =
-    "0x51b0f34880b9caf8ea7bae1618bfa0ef121b6c01";
+    "0x2B1A820FEE17de9B634F2A0f743042884Fb8FF92";
   static FUSE_POOL_LENS_CONTRACT_ADDRESS =
-    "0x0AC49840d192456fA30014faDd1C00D69F746A74";
+    "0x07937f7D53685471533370D1149D1acf6026adED";
 
   static COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS =
-    "0x1E202B02ED8dA3216FF86b08E3Ed6ccCE914E32F";
+    "0x6A81F42e60B380b74b300a23A66F8C88cD77ACfA";
   static CERC20_DELEGATE_CONTRACT_ADDRESS =
-    "0x9266a47cf3fb8b86681026739f91934663C80395";
+    "0x4aA7fA8a1d69FE0CaF86b13B30a210664181F839";
   static CETHER_DELEGATE_CONTRACT_ADDRESS =
     "";
 
@@ -43,15 +43,14 @@ export default class Fuse {
     "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC";
 
   static PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES = {
-    PreferredPriceOracle: "0xD8A3CE785F456a5138CCAE2CE577453533c4ed32", // TODO: Set correct mainnet address after deployment
+    PreferredPriceOracle: "0xcC15Fb78E8606F512D1a09363861849a03FBEa3a", // TODO: Set correct mainnet address after deployment
     ChainlinkPriceOracle: "",
-    ChainlinkPriceOracleV2: "0x5AcfD5399A535453C7806094e1304788d09DdD9c",
+    ChainlinkPriceOracleV2: "0xed38054140E34E1f2637C88D40b35C2E2E907Dd3",
     UniswapView: "", // NOT IN USE
     Keep3rPriceOracle_Uniswap: "", // NO LONGER IN USE
     Keep3rPriceOracle_SushiSwap: "", // NO LONGER IN USE
     Keep3rV2PriceOracle_Uniswap: "", // NO LONGER IN USE
-    UniswapTwapPriceOracle_Quickswap: "0xE4d8CA96be2c500cADBAf9a2Fe8f1112AAE76803",
-    UniswapTwapPriceOracle_SushiSwap: "",
+    UniswapTwapPriceOracle_SushiSwap: "0x6C4C8ECE6CbB2f4DA8fE20D8B5E08272a4a08275",
     UniswapLpTokenPriceOracle: "", // TODO: Set correct mainnet address after deployment
     RecursivePriceOracle: "", // TODO: Set correct mainnet address after deployment
     YVaultV1PriceOracle: "", // TODO: Set correct mainnet address after deployment
@@ -69,10 +68,10 @@ export default class Fuse {
   static DAI_JUG = "0x19c0976f590d67707e62397c87829d896dc0f1f1";
 
   static UNISWAP_V2_FACTORY_ADDRESS =
-    "0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32";
+    "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
   static UNISWAP_V2_PAIR_INIT_CODE_HASH =
-    "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f";
-  static WETH_ADDRESS = "0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa";
+    "0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303";
+  static WETH_ADDRESS = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
   static PRICE_ORACLE_RUNTIME_BYTECODE_HASHES = {
     SimplePriceOracle:
