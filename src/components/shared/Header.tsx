@@ -14,6 +14,7 @@ import { PixelSize, Row } from "utils/chakraUtils";
 
 import { AccountButton } from "./AccountButton";
 import { DASHBOARD_BOX_PROPS, DASHBOARD_BOX_SPACING } from "./DashboardBox";
+import DashboardBox from "./DashboardBox";
 import {
   AnimatedFuseSmallLogo,
   AnimatedPoolLogo,
@@ -22,6 +23,8 @@ import {
   PoolLogo,
 } from "./Logos";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+
+import { networkSwitcher, currentNetwork } from "../../fuse-sdk/src/index";
 
 import { useTranslation } from "react-i18next";
 
@@ -112,6 +115,29 @@ export const Header = ({
 
         <UtilsLink ml={4} isAuthed={isAuthed} />
       </Row>
+
+      <DashboardBox
+            ml={1}
+            as="button"
+            height="40px"
+            flexShrink={0}
+            width="75px"
+            fontSize="15px"
+            fontWeight="bold"
+          >
+            <Menu autoSelect={false} placement="bottom">
+            <MenuButton>
+              <SubMenuText text={t(currentNetwork)} />
+            </MenuButton>
+
+            <Portal>
+            <MenuList>
+              <MenuItem>Mainnet</MenuItem>
+              <MenuItem>Polygon</MenuItem>
+            </MenuList>
+            </Portal>
+          </Menu>
+          </DashboardBox>
 
       <AccountButton />
     </Row>
