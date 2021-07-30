@@ -216,11 +216,15 @@ const networkMapping = {
   }
 }
 
-export let currentNetwork = "mainnet";
+let currentNetwork = 'polygon';
 
-export const networkSwitcher = (cn) => {
+function networkSwitcher(cn) {
   currentNetwork = cn;
-}
+  window.location.reload();
+  // alert(currentNetwork); 
+};
+
+export { currentNetwork, networkSwitcher};
 
 export default class Fuse {
   

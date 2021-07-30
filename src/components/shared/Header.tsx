@@ -127,13 +127,13 @@ export const Header = ({
           >
             <Menu autoSelect={false} placement="bottom">
             <MenuButton>
-              <SubMenuText text={t(currentNetwork)} />
+              <SubMenuText text={currentNetwork} />
             </MenuButton>
 
             <Portal>
             <MenuList>
-              <MenuItem>Mainnet</MenuItem>
-              <MenuItem>Polygon</MenuItem>
+              <MenuItem onClick={() => networkSwitcher('mainnet')}>mainnet</MenuItem>
+              <MenuItem onClick={() => networkSwitcher('polygon')}>polygon</MenuItem>
             </MenuList>
             </Portal>
           </Menu>
