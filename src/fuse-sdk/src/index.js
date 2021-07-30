@@ -121,34 +121,34 @@ const networkMapping = {
   'polygon': {
 
     FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS:
-    "",
+    "0xC09F090ac7aF2b47afC4c5628D245fe3CC6B7f59",
     FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS:
-    "",
+    "0x24E5571B16EB84EE2A125e8183580e1C8B7b8E6E",
     FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS:
-    "",
+    "0x2B1A820FEE17de9B634F2A0f743042884Fb8FF92",
     FUSE_POOL_LENS_CONTRACT_ADDRESS:
-    "",
+    "0x07937f7D53685471533370D1149D1acf6026adED",
     COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS:
-    "",
+    "0x6A81F42e60B380b74b300a23A66F8C88cD77ACfA",
     CERC20_DELEGATE_CONTRACT_ADDRESS:
-    "",
+    "0x4aA7fA8a1d69FE0CaF86b13B30a210664181F839",
     CETHER_DELEGATE_CONTRACT_ADDRESS:
     "",
     OPEN_ORACLE_PRICE_DATA_CONTRACT_ADDRESS:
-    "",
+    "0xc629c26dced4277419cde234012f8160a0278a79",
     COINBASE_PRO_REPORTER_ADDRESS:
-    "",
+    "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC",
 
     PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES: {
-      PreferredPriceOracle: "", // TODO: Set correct mainnet address after deployment
+      PreferredPriceOracle: "0xcC15Fb78E8606F512D1a09363861849a03FBEa3a", // TODO: Set correct mainnet address after deployment
       ChainlinkPriceOracle: "",
-      ChainlinkPriceOracleV2: "",
+      ChainlinkPriceOracleV2: "0xed38054140E34E1f2637C88D40b35C2E2E907Dd3",
       UniswapView: "", // NOT IN USE
       Keep3rPriceOracle_Uniswap: "", // NO LONGER IN USE
       Keep3rPriceOracle_SushiSwap: "", // NO LONGER IN USE
       Keep3rV2PriceOracle_Uniswap: "", // NO LONGER IN USE
       UniswapTwapPriceOracle_Uniswap: "",
-      UniswapTwapPriceOracle_SushiSwap: "",
+      UniswapTwapPriceOracle_SushiSwap: "0x6C4C8ECE6CbB2f4DA8fE20D8B5E08272a4a08275",
       UniswapLpTokenPriceOracle: "", // TODO: Set correct mainnet address after deployment
       RecursivePriceOracle: "", // TODO: Set correct mainnet address after deployment
       YVaultV1PriceOracle: "", // TODO: Set correct mainnet address after deployment
@@ -162,55 +162,56 @@ const networkMapping = {
       CurveLiquidityGaugeV2PriceOracle: "",
     },
 
-    DAI_POT: "",
-    DAI_JUG: "",
+    DAI_POT: "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7",
+    DAI_JUG: "0x19c0976f590d67707e62397c87829d896dc0f1f1",
 
     UNISWAP_V2_FACTORY_ADDRESS:
-    "",
+    "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
     UNISWAP_V2_PAIR_INIT_CODE_HASH:
-    "",
+    "0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303",
 
-    WETH_ADDRESS: "",
+    WETH_ADDRESS: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
 
     PRICE_ORACLE_RUNTIME_BYTECODE_HASHES: {
       SimplePriceOracle:
-        "",
+        "0x825c814c2e008137a46d355a57d0d89f6eea946ad01f0e8203fd33162e3ed799",
       PreferredPriceOracle:
-        "",
+        "0x3899c6d9b979281ffb059859e0c8c2028662201d3796e0ea10e841e1d68a997f",
       ChainlinkPriceOracle:
-        "",
+        "0x7a2a5633a99e8abb759f0b52e87875181704b8e29f6567d4a92f12c3f956d313",
       Keep3rPriceOracle:
-        "",
+        "0x36a0d4743a92d3565f3d2709c41e9983bb263c27c339ddbb8ffa87a939498f7d",
       MasterPriceOracle:
-        "",
+        "0xfa1349af05af40ffb5e66605a209dbbdc8355ba7dda76b2be10bafdf5ffd1dc6",
       UniswapAnchoredView:
-        "",
+        "0x764bdac98ac462a37513087378aef33380ac062baa2f86c2c30e5d6a78fabad0",
       UniswapView:
-        "",
+        "0x817d46149b29738f641c876c56fd7524db4c8d5376f7cc756e94c9e32c29b18b",
       UniswapLpTokenPriceOracle:
-        "",
+        "0xc79e96f40986213d5f9fc403b5f37e00d3b57842ef0fae24c750222c02592f9f",
       RecursivePriceOracle:
-        "",
+        "0x6f5280d0028fff9ae0aaa447c6c36ff3b270d9675b74762ed2caf9ce3371d63e",
       YVaultV1PriceOracle:
-        "",
+        "0xeb5c1b3acb093a4158251f5955540f220c72200ffaf32ce89bfefbce0c0b7f49",
       YVaultV2PriceOracle:
-        "",
+        "0x5a07033c6820e6ecc517dd94d03b5e38bf15334d4b3c0624dcdb810698196608",
       AlphaHomoraV1PriceOracle:
-        "",
+        "0xfbec68bfe8dfa9e8bab8af26ee5ae9adeb2dcbf2c91d11c3dd497b6b6c2deb64",
       SynthetixPriceOracle:
-        "",
+        "0x5c92648ceca2c5698fddc9a35af43275c821961ca9056c50da592566daaebdc6",
     },
 
     PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES: {
       WhitePaperInterestRateModel_ETH:
-        "",
+        "0x14ee0270C80bEd60bDC117d4F218DeE0A4909F28",
       WhitePaperInterestRateModel_WBTC:
-        "",
-      JumpRateModel_DAI: "",
-      JumpRateModel_UNI: "",
-      JumpRateModel_Stables_Majors: "",
-      JumpRateModel_Gov_Seeds: "",
-      JumpRateModel_ALCX: "",
+        "0x7ecAf96C79c2B263AFe4f486eC9a74F8e563E0a6",
+      JumpRateModel_DAI: "0x640dce7c7c6349e254b20eccfa2bb902b354c317",
+      JumpRateModel_UNI: "0xc35DB333EF7ce4F246DE9DE11Cc1929d6AA11672",
+      JumpRateModel_Stables_Majors: "0xb579d2761470bba14018959d6dffcc681c09c04b",
+      JumpRateModel_Gov_Seeds: "0xcdC0a449E011249482824efFcfA05c883d36CfC7",
+      JumpRateModel_ALCX: "0x58c3e7119ec200c09b2b3a9f8ce3bd77b6b47012",
+      JumpRateModel_Cream_Stables_Majors: "0x09653a4e9cA674d2cB3FFF6A2c78E468C7eEB5Ec"
     }
   }
 }
