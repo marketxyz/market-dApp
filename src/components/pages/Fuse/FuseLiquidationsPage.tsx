@@ -7,6 +7,17 @@ import {
   Switch,
   Text,
 } from "@chakra-ui/react";
+import Footer from "components/shared/Footer";
+import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { useRari } from "context/RariContext";
+import { useIsSmallScreen } from "hooks/useIsSmallScreen";
+import { memo, useState } from "react";
+import { useTranslation } from "react-i18next";
+// @ts-ignore
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { useQuery } from "react-query";
+import { Link as RouterLink } from "react-router-dom";
+import { smallUsdFormatter } from "utils/bigUtils";
 import {
   Center,
   Column,
@@ -14,30 +25,13 @@ import {
   RowOrColumn,
   useIsMobile,
 } from "utils/chakraUtils";
-import { useTranslation } from "react-i18next";
-import { useRari } from "context/RariContext";
-import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { smallUsdFormatter } from "utils/bigUtils";
-
+import { filterOnlyObjectProperties, FuseAsset } from "utils/fetchFusePoolData";
 import DashboardBox from "../../shared/DashboardBox";
 import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
-
-import { Link as RouterLink } from "react-router-dom";
+import CTokenIcon from "./CTokenIcon";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
-
-import { filterOnlyObjectProperties, FuseAsset } from "utils/fetchFusePoolData";
-
-import { SimpleTooltip } from "components/shared/SimpleTooltip";
-
-import Footer from "components/shared/Footer";
-import { memo, useState } from "react";
-
-// @ts-ignore
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { CTokenIcon } from "./FusePoolsPage";
-import { useQuery } from "react-query";
 
 export type LiquidatablePosition = {
   account: string;

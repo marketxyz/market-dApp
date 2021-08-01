@@ -1,41 +1,36 @@
 import {
   AvatarGroup,
   Box,
-  Heading,
-  Text,
-  Switch,
-  useDisclosure,
-  Spinner,
-  useToast,
+  Heading, Spinner, Switch, Text, useDisclosure, useToast
 } from "@chakra-ui/react";
-import { Column, RowOrColumn, Center, Row } from "utils/chakraUtils";
+import BigNumber from "bignumber.js";
+import LogRocket from "logrocket";
 import { memo, ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
+import { Center, Column, Row, RowOrColumn } from "utils/chakraUtils";
 import { useRari } from "../../../context/RariContext";
+import { useAuthedCallback } from "../../../hooks/useAuthedCallback";
+import { useFusePoolData } from "../../../hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "../../../hooks/useIsSemiSmallScreen";
-
+import { useTokenData } from "../../../hooks/useTokenData";
+import { createComptroller } from "../../../utils/createComptroller";
+import { handleGenericError } from "../../../utils/errorHandling";
+import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
 import DashboardBox from "../../shared/DashboardBox";
 import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
-
+import { SliderWithLabel } from "../../shared/SliderWithLabel";
+import CTokenIcon from "./CTokenIcon";
+import { WhitelistInfo } from "./FusePoolCreatePage";
+import { useExtraPoolInfo } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
-import { SliderWithLabel } from "../../shared/SliderWithLabel";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
-import { useFusePoolData } from "../../../hooks/useFusePoolData";
-import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
-import { CTokenIcon } from "./FusePoolsPage";
-import { createComptroller } from "../../../utils/createComptroller";
-import { useQueryClient, useQuery } from "react-query";
-import { WhitelistInfo } from "./FusePoolCreatePage";
 
-import { useExtraPoolInfo } from "./FusePoolInfoPage";
-import BigNumber from "bignumber.js";
-import { useTokenData } from "../../../hooks/useTokenData";
-import LogRocket from "logrocket";
-import { handleGenericError } from "../../../utils/errorHandling";
-import { useAuthedCallback } from "../../../hooks/useAuthedCallback";
+
+
 
 const activeStyle = { bg: "#FFF", color: "#000" };
 const noop = () => {};

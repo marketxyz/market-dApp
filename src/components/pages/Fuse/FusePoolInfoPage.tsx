@@ -6,44 +6,39 @@ import {
   Select,
   Spinner,
   Text,
-  useClipboard,
+  useClipboard
 } from "@chakra-ui/react";
-import {
-  Column,
-  RowOnDesktopColumnOnMobile,
-  RowOrColumn,
-  Center,
-  Row,
-  useIsMobile,
-} from "utils/chakraUtils";
+import Footer from "components/shared/Footer";
 import { memo, useState } from "react";
+import Chart from "react-apexcharts";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { Link as RouterLink, useParams } from "react-router-dom";
+import {
+  Center, Column, Row, RowOnDesktopColumnOnMobile,
+  RowOrColumn, useIsMobile
+} from "utils/chakraUtils";
 import { useRari } from "../../../context/RariContext";
+import Fuse from "../../../fuse-sdk";
+import { useFusePoolData } from "../../../hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "../../../hooks/useIsSemiSmallScreen";
+import { useTokenData } from "../../../hooks/useTokenData";
 import { shortUsdFormatter } from "../../../utils/bigUtils";
 import { FuseUtilizationChartOptions } from "../../../utils/chartOptions";
-
+import { createComptroller } from "../../../utils/createComptroller";
+import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
+import { shortAddress } from "../../../utils/shortAddress";
+import CaptionedStat from "../../shared/CaptionedStat";
 import DashboardBox, { DASHBOARD_BOX_PROPS } from "../../shared/DashboardBox";
 import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
-import { Link as RouterLink } from "react-router-dom";
-
-import Chart from "react-apexcharts";
-
+import CTokenIcon from "./CTokenIcon";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
-import { useQuery } from "react-query";
-import { useFusePoolData } from "../../../hooks/useFusePoolData";
 
-import { useTokenData } from "../../../hooks/useTokenData";
-import { CTokenIcon } from "./FusePoolsPage";
-import { shortAddress } from "../../../utils/shortAddress";
-import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
-import { createComptroller } from "../../../utils/createComptroller";
-import Fuse from "../../../fuse-sdk";
-import CaptionedStat from "../../shared/CaptionedStat";
-import Footer from "components/shared/Footer";
+
+
+
 
 export const useExtraPoolInfo = (comptrollerAddress: string) => {
   const { fuse, address } = useRari();

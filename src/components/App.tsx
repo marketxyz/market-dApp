@@ -1,10 +1,11 @@
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { Heading } from "@chakra-ui/react";
+import "@fontsource/plus-jakarta-sans";
 import loadable from "@loadable/component";
-import FullPageSpinner from "./shared/FullPageSpinner";
-import { Pool } from "../utils/poolUtils";
-import Layout from "./shared/Layout";
 import { memo } from "react";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Pool } from "../utils/poolUtils";
+import FullPageSpinner from "./shared/FullPageSpinner";
+import Layout from "./shared/Layout";
 
 const MultiPoolPortal = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/MultiPoolPortal"),
