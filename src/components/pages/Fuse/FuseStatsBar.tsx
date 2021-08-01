@@ -11,10 +11,13 @@ const FuseStatsBar = () => {
     <Flex
       id="stats-bar"
       w="100%"
-      px="16.66%"
+      marginRight="auto"
+      marginLeft="auto"
+      maxWidth="1200px"
       py="72px"
       alignItems="center"
       justifyContent="center"
+      px={["0px", "25px"]}
     >
       <Flex flexDir="column" expand w="50%" fontSize="sm" marginRight="84.5px">
         <Text fontSize="32px" lineHeight="40px" fontWeight="extrabold">

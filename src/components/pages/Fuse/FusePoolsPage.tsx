@@ -12,6 +12,7 @@ import { ModalDivider } from "../../shared/Modal";
 import FusePageLayout from "./FusePageLayout";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar, { useFilter } from "./FuseTabBar";
+import { FuseDashNav } from "./FuseDashNav";
 
 const FusePoolsPage = memo(() => {
   const { isAuthed } = useRari();
@@ -19,20 +20,18 @@ const FusePoolsPage = memo(() => {
 
   return (
     <>
-      <FusePageLayout>
-        <FuseStatsBar />
-      </FusePageLayout>
+      <FusePageLayout />
+      <FuseDashNav isAuthed={isAuthed} isFuse />
       <Column
         mainAxisAlignment="flex-start"
         crossAxisAlignment="center"
+        backgroundColor="#FBF2F4"
         color="#FFFFFF"
         mx="auto"
         width={isMobile ? "100%" : "1000px"}
         height="100%"
         px={isMobile ? 4 : 0}
       >
-        <Header isAuthed={isAuthed} isFuse />
-        <FuseStatsBar />
         <FuseTabBar />
         <DashboardBox width="100%" mt={4}>
           <PoolList />

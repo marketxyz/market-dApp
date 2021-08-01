@@ -4,7 +4,7 @@ import { Box, chakra, Flex, Text } from "@chakra-ui/react";
 
 const FuseNavbar = () => {
   return (
-    <Box bgColor="white" overflowX="hidden" w="100%" px="16.66%">
+    <Box bgColor="white" overflowX="hidden" w="100%" maxWidth="1200px" marginLeft="auto" marginRight="auto" px={["0px", "25px"]}>
       <Flex
         alignItems="center"
         justifyContent="space-between"
