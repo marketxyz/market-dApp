@@ -4,8 +4,19 @@ import { Box, chakra, Flex, Text } from "@chakra-ui/react";
 
 const FuseNavbar = () => {
   return (
-    <Box bgColor="white" overflowX="hidden" w="100%" maxWidth="1200px" marginLeft="auto" marginRight="auto" px={["0px", "25px"]}>
+    <Box
+      bgColor="white"
+      overflowX="hidden"
+      w="100%"
+      zIndex="100"
+      position="fixed"
+      top="0"
+      backgroundColor="transparent"
+      px={["0px", "25px"]}
+    >
       <Flex
+        mx="auto"
+        maxWidth="1200px"
         alignItems="center"
         justifyContent="space-between"
         width="100%"
@@ -19,6 +30,7 @@ const FuseNavbar = () => {
           alignItems="center"
           justifyContent="center"
           borderRadius="34.5px"
+          bgColor="white"
           boxShadow="base"
           py="4"
           px="6"
@@ -44,9 +56,9 @@ const FuseHeader = () => {
     <chakra.div
       position="relative"
       w="100%"
-      paddingTop="102px"
-      maxH="762px"
-      overflow="hidden"
+      paddingTop="210px"
+      maxH="870px"
+      overflowY="hidden"
     >
       <Flex
         flexDir="column"
@@ -94,9 +106,76 @@ const FuseHeader = () => {
           src="/static/fuse-header-dashboard-2.png"
           maxW="839px"
           objectFit="contain"
-          zIndex="50"
+          zIndex="100"
         />
       </Flex>
+      <chakra.div
+        bgColor="#ff00b3"
+        h="800px"
+        w="400px"
+        filter="blur(350px)"
+        position="absolute"
+        top="100%"
+        left="20%"
+        bottom="0"
+        transform="translate(-50%, -50%)"
+      />
+      <chakra.div
+        bgColor="#ff00b3"
+        h="800px"
+        w="400px"
+        filter="blur(350px)"
+        position="absolute"
+        top="100%"
+        right="10%"
+        bottom="0"
+        transform="translate(-50%, -50%)"
+      />
+      <chakra.img
+        src="/static/fuse/Icon4.svg"
+        position="absolute"
+        bottom="0"
+        left="10%"
+      />
+      <chakra.img
+        src="/static/fuse/Icon3.svg"
+        position="absolute"
+        bottom="calc(20% - 16px)"
+        left="10%"
+      />
+      <chakra.img
+        src="/static/fuse/Icon0.svg"
+        position="absolute"
+        top="30%"
+        left="15%"
+      />
+      <chakra.img
+        src="/static/fuse/Icon5.svg"
+        position="absolute"
+        bottom="-15%"
+        right="20%"
+        transform="rotate(15deg)"
+      />
+      <chakra.img
+        src="/static/fuse/Icon1.svg"
+        position="absolute"
+        bottom="45%"
+        right="25%"
+      />
+      <chakra.img
+        src="/static/fuse/Icon2.svg"
+        position="absolute"
+        bottom="20%"
+        right="15%"
+        transform="rotate(15deg)"
+      />
+      <chakra.img
+        src="/static/fuse/Icon6.png"
+        position="absolute"
+        bottom="-15%"
+        right="10%"
+        transform="rotate(15deg)"
+      />
       {/* <chakra.img
         src="/static/fuse-header-bg.png"
         position="absolute"

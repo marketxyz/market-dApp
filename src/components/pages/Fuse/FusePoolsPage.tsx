@@ -19,26 +19,10 @@ const FusePoolsPage = memo(() => {
   const isMobile = useIsSmallScreen();
 
   return (
-    <>
-      <FusePageLayout />
+    <FusePageLayout>
+      <FuseStatsBar />
       <FuseDashNav isAuthed={isAuthed} isFuse />
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        backgroundColor="#FBF2F4"
-        color="#FFFFFF"
-        mx="auto"
-        width={isMobile ? "100%" : "1000px"}
-        height="100%"
-        px={isMobile ? 4 : 0}
-      >
-        <FuseTabBar />
-        <DashboardBox width="100%" mt={4}>
-          <PoolList />
-        </DashboardBox>
-        <Footer />
-      </Column>
-    </>
+    </FusePageLayout>
   );
 });
 

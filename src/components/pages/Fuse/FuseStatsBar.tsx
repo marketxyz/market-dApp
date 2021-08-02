@@ -2,24 +2,34 @@ import { Flex, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
+import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 
 const FuseStatsBar = () => {
   const { t } = useTranslation();
   const { data: fuseTVL } = useFuseTVL();
+  const isMobile = useIsSmallScreen();
 
   return (
     <Flex
       id="stats-bar"
-      w="100%"
       marginRight="auto"
       marginLeft="auto"
-      maxWidth="1200px"
-      py="72px"
+      flexDir={isMobile ? "column" : "row"}
       alignItems="center"
       justifyContent="center"
-      px={["0px", "25px"]}
+      py="72px"
+      px={["5vw", "0"]}
+      w="100%"
+      maxWidth={["100%", "1200px"]}
+      gridGap="1.5rem"
     >
-      <Flex flexDir="column" expand w="50%" fontSize="sm" marginRight="84.5px">
+      <Flex
+        flexDir="column"
+        expand
+        w={["100%", "50%"]}
+        fontSize="sm"
+        marginRight={["0", "84.5px"]}
+      >
         <Text fontSize="32px" lineHeight="40px" fontWeight="extrabold">
           {t("Fuse")}
         </Text>
@@ -38,8 +48,8 @@ const FuseStatsBar = () => {
       </Flex>
       <Flex
         flexDir="column"
-        h="244px"
-        w="50%"
+        h={{ base: "10rem", lg: "15rem" }}
+        w={["100%", "50%"]}
         alignItems="center"
         justifyContent="center"
         position="relative"
@@ -50,8 +60,8 @@ const FuseStatsBar = () => {
       >
         <Text
           fontWeight="bold"
-          fontSize="48px"
-          lineHeight="60px"
+          fontSize={["36px", "48px"]}
+          lineHeight={["60px"]}
           textColor="white"
         >
           {fuseTVL ? smallUsdFormatter(fuseTVL) : "?"}
