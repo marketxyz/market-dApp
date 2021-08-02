@@ -76,7 +76,9 @@ export const fetchPools = async ({
           .getPublicPoolsWithData()
           .call({ gas: 1e18 }),
 
-    rari.web3.utils.fromWei(await rari.getEthUsdPriceBN()),
+    rari
+      .getEthUsdPriceBN()
+      .then((ethPrice) => rari.web3.utils.fromWei(ethPrice)),
   ]);
 
   const merged: MergedPool[] = [];

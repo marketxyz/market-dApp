@@ -3,11 +3,14 @@ import { Palette } from "node-vibrant/lib/color";
 import fetch from "node-fetch";
 import Web3 from "web3";
 import ERC20ABI from "../src/rari-sdk/abi/ERC20.json";
+import MaticTokens from "./maticTokens.json";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { turboGethURL } from "../src/utils/web3Providers";
 
 const web3 = new Web3(turboGethURL);
+
+const TokenKV = {};
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -15,26 +18,34 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
   const address = web3.utils.toChecksumAddress(request.query.address as string);
 
-  const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
-
-  const [decimals] = await Promise.all([
-    tokenContract.methods
-      .decimals()
-      .call()
-      .then((res) => parseFloat(res)),
-
-    // fetch(
-    //   "https://api.coingecko.com/api/v3/coins/ethereum/contract/" + address
-    // ).then((res) => res.json()),
-  ]);
-
-  let name: string;
-  let symbol: string;
+  let name: string | undefined;
+  let symbol: string | undefined;
   let logoURL: string | undefined;
+  let decimals: number | undefined;
+
+  for (const maticToken of MaticTokens) {
+    if (maticToken.address.toLowerCase() === address.toLowerCase()) {
+      name = maticToken.name;
+      symbol = maticToken.symbol;
+      logoURL = maticToken.logoURI;
+      decimals = maticToken.decimals;
+      break;
+    }
+  }
+
+  const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
+  if (!!name) {
+    [name, symbol, decimals] = await Promise.all([
+      tokenContract.methods.name().call(),
+      tokenContract.methods.symbol().call(),
+      tokenContract.methods
+        .decimals()
+        .call()
+        .then((res) => parseFloat(res)),
+    ]);
+  }
 
   // if (rawData.error) {
-  name = await tokenContract.methods.name().call();
-  symbol = await tokenContract.methods.symbol().call();
 
   //////////////////
   // Edge cases: //

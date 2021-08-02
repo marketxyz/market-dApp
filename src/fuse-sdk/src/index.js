@@ -43,33 +43,21 @@ export default class Fuse {
     "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC";
 
   static PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES = {
-    PreferredPriceOracle: "0xcC15Fb78E8606F512D1a09363861849a03FBEa3a", // TODO: Set correct mainnet address after deployment
-    ChainlinkPriceOracle: "",
+    /**
+     * @notice PreferredPriceOracle will mostly use ChainLinkV2 but
+     * if price feed for a token is not available there, it will use
+     * Uniswap TWAP
+     */
+    PreferredPriceOracle: "0xcC15Fb78E8606F512D1a09363861849a03FBEa3a",
     ChainlinkPriceOracleV2: "0xed38054140E34E1f2637C88D40b35C2E2E907Dd3",
-    UniswapView: "", // NOT IN USE
-    Keep3rPriceOracle_Uniswap: "", // NO LONGER IN USE
-    Keep3rPriceOracle_SushiSwap: "", // NO LONGER IN USE
-    Keep3rV2PriceOracle_Uniswap: "", // NO LONGER IN USE
     UniswapTwapPriceOracle_SushiSwap: "0x6C4C8ECE6CbB2f4DA8fE20D8B5E08272a4a08275",
-    UniswapLpTokenPriceOracle: "", // TODO: Set correct mainnet address after deployment
-    RecursivePriceOracle: "", // TODO: Set correct mainnet address after deployment
-    YVaultV1PriceOracle: "", // TODO: Set correct mainnet address after deployment
-    YVaultV2PriceOracle: "", // TODO: Set correct mainnet address after deployment
-    AlphaHomoraV1PriceOracle: "", // TODO: Set correct mainnet address after deployment
-    AlphaHomoraV2PriceOracle: "", // TODO: Set correct mainnet address after deployment
-    SynthetixPriceOracle: "", // TODO: Set correct mainnet address after deployment
-    BalancerLpTokenPriceOracle: "", // TODO: Set correct mainnet address after deployment
-    MasterPriceOracle: "",
-    CurveLpTokenPriceOracle: "",
-    CurveLiquidityGaugeV2PriceOracle: "",
   };
 
   static DAI_POT = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7";
   static DAI_JUG = "0x19c0976f590d67707e62397c87829d896dc0f1f1";
 
-  static UNISWAP_V2_FACTORY_ADDRESS =
-    "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
-  static UNISWAP_V2_PAIR_INIT_CODE_HASH =
+  static UNISWAP_V2_FACTORY_ADDRESS_SUSHI = "0xc35DADB65012eC5796536bD9864eD8773aBc74C4";
+  static UNISWAP_V2_PAIR_INIT_CODE_HASH_SUSHI =
     "0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303";
   static WETH_ADDRESS = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
@@ -103,31 +91,21 @@ export default class Fuse {
   };
 
   static ORACLES = [
-    "SimplePriceOracle",
     "PreferredPriceOracle",
-    "ChainlinkPriceOracle",
-    "Keep3rPriceOracle",
-    "MasterPriceOracle",
-    "UniswapAnchoredView",
-    "UniswapView",
-    "UniswapLpTokenPriceOracle",
-    "RecursivePriceOracle",
-    "YVaultV1PriceOracle",
-    "YVaultV2PriceOracle",
-    "AlphaHomoraV1PriceOracle",
-    "SynthetixPriceOracle",
+    "ChainlinkPriceOracleV2",
+    "UniswapTwapPriceOracle_SushiSwap"
   ];
 
   static PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES = {
-    WhitePaperInterestRateModel_ETH:
-      "0x14ee0270C80bEd60bDC117d4F218DeE0A4909F28",
-    WhitePaperInterestRateModel_WBTC:
-      "0x7ecAf96C79c2B263AFe4f486eC9a74F8e563E0a6",
-    JumpRateModel_DAI: "0x640dce7c7c6349e254b20eccfa2bb902b354c317",
-    JumpRateModel_UNI: "0xc35DB333EF7ce4F246DE9DE11Cc1929d6AA11672",
-    JumpRateModel_Stables_Majors: "0xb579d2761470bba14018959d6dffcc681c09c04b",
-    JumpRateModel_Gov_Seeds: "0xcdC0a449E011249482824efFcfA05c883d36CfC7",
-    JumpRateModel_ALCX: "0x58c3e7119ec200c09b2b3a9f8ce3bd77b6b47012",
+    // WhitePaperInterestRateModel_ETH:
+    //   "0x14ee0270C80bEd60bDC117d4F218DeE0A4909F28",
+    // WhitePaperInterestRateModel_WBTC:
+    //   "0x7ecAf96C79c2B263AFe4f486eC9a74F8e563E0a6",
+    // JumpRateModel_DAI: "0x640dce7c7c6349e254b20eccfa2bb902b354c317",
+    // JumpRateModel_UNI: "0xc35DB333EF7ce4F246DE9DE11Cc1929d6AA11672",
+    // JumpRateModel_Stables_Majors: "0xb579d2761470bba14018959d6dffcc681c09c04b",
+    // JumpRateModel_Gov_Seeds: "0xcdC0a449E011249482824efFcfA05c883d36CfC7",
+    // JumpRateModel_ALCX: "0x58c3e7119ec200c09b2b3a9f8ce3bd77b6b47012",
     JumpRateModel_Cream_Stables_Majors: "0x09653a4e9cA674d2cB3FFF6A2c78E468C7eEB5Ec"
   };
 
@@ -147,6 +125,20 @@ export default class Fuse {
           .toFixed(0)
       );
     };
+
+    this.getMaticUsdPriceBN = async function () {
+      return Web3.utils.toBN(
+        new BigNumber(
+          (
+            await axios.get(
+              "https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&ids=matic-network"
+            )
+          ).data["matic-network"].usd
+        )
+          .multipliedBy(1e18)
+          .toFixed(0)
+      );
+    }
 
     this.contracts = {
       FusePoolDirectory: new this.web3.eth.Contract(
@@ -612,6 +604,7 @@ export default class Fuse {
         }
       }
 
+      console.log(conf);
       // Deploy new asset to existing pool via SDK
       try {
         var [assetAddress, implementationAddress] = await this.deployCToken(
@@ -1319,9 +1312,9 @@ export default class Fuse {
                 ? [conf.underlying, Fuse.WETH_ADDRESS]
                 : [Fuse.WETH_ADDRESS, conf.underlying];
               var uniswapV2Pair = self.getCreate2Address(
-                Fuse.UNISWAP_V2_FACTORY_ADDRESS,
+                Fuse.UNISWAP_V2_FACTORY_ADDRESS_SUSHI,
                 tokens,
-                Fuse.UNISWAP_V2_PAIR_INIT_CODE_HASH
+                Fuse.UNISWAP_V2_PAIR_INIT_CODE_HASH_SUSHI
               );
 
               // Double-check with user that pair is correct

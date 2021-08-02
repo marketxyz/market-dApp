@@ -3,9 +3,7 @@ import Fuse from "../fuse-sdk";
 import BigNumber from "bignumber.js";
 
 export const fetchFuseTVL = async (fuse: Fuse) => {
-  const {
-    2: totalSuppliedETH,
-  } = await fuse.contracts.FusePoolLens.methods
+  const { 2: totalSuppliedETH } = await fuse.contracts.FusePoolLens.methods
     .getPublicPoolsWithData()
     .call({ gas: 1e18 });
 

@@ -161,12 +161,10 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
         if (process.env.NODE_ENV === "development") {
           return;
         }
-        console.log(netId, chainId);
-        const supportedNetworks = [1, 137];
-        if (
-          !supportedNetworks.includes(netId) ||
-          !supportedNetworks.includes(chainId)
-        ) {
+
+        const CHAIN_ID_ENV = parseInt(process.env.REACT_APP_CHAIN_ID || "1");
+
+        if (CHAIN_ID_ENV !== chainId || netId !== chainId) {
           setTimeout(() => {
             toast({
               title: "Wrong network!",

@@ -137,7 +137,7 @@ export const fetchFusePoolData = async (
 
   const ethPrice: number = fuse.web3.utils.fromWei(
     // prefer rari because it has caching
-    await (rari ?? fuse).getEthUsdPriceBN()
+    await (rari ?? fuse).getMaticUsdPriceBN()
   ) as any;
 
   let promises = [];
