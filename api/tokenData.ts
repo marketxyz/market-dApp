@@ -10,8 +10,6 @@ import { turboGethURL } from "../src/utils/web3Providers";
 
 const web3 = new Web3(turboGethURL);
 
-const TokenKV = {};
-
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Cache-Control", "max-age=3600, s-maxage=3600");
@@ -33,8 +31,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     }
   }
 
-  const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
   if (!!name) {
+    const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
     [name, symbol, decimals] = await Promise.all([
       tokenContract.methods.name().call(),
       tokenContract.methods.symbol().call(),
