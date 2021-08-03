@@ -26,6 +26,7 @@
     "axios": "^0.20.0",
     "bad-words": "^3.0.4",
     "bignumber.js": "^9.0.1",
+    "boring-avatars": "^1.5.8",
     "buttered-chakra": "^4.3.0",
     "cypress": "^5.3.0",
     "focus-visible": "^5.2.0",
