@@ -426,12 +426,14 @@ const PoolConfiguration = ({
                 </AvatarGroup>
 
                 <Text ml={2} flexShrink={0}>
-                  {assets.map(({ underlyingSymbol }, index, array) => {
-                    return (
-                      underlyingSymbol +
-                      (index !== array.length - 1 ? " / " : "")
-                    );
-                  })}
+                  {assets.map(
+                    ({ underlyingSymbol, ...other }, index, array) => {
+                      return (
+                        underlyingSymbol +
+                        (index !== array.length - 1 ? " / " : "")
+                      );
+                    }
+                  )}
                 </Text>
               </>
             ) : (

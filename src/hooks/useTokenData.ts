@@ -4,15 +4,15 @@ import { useQuery, useQueries } from "react-query";
 import ERC20ABI from "../../src/rari-sdk/abi/ERC20.json";
 import { useRari } from "../context/RariContext";
 
-export const ETH_TOKEN_DATA = {
-  symbol: "ETH",
+export const MATIC_TOKEN_DATA = {
+  symbol: "MATIC",
   address: "0x0000000000000000000000000000000000000000",
-  name: "Ethereum Network Token",
+  name: "Polygon (Matic) Network Token",
   decimals: 18,
-  color: "#627EEA",
+  color: "#8247e5",
   overlayTextColor: "#fff",
   logoURL:
-    "https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/64/Ethereum-ETH-icon.png",
+    "https://raw.githubusercontent.com/sushiswap/icons/master/token/polygon.jpg",
 };
 
 export interface TokenData {
@@ -41,7 +41,7 @@ export const useTokenDataWithContract = (address: string) => {
 export const fetchTokenData = async (address: string) => {
   let data;
 
-  if (address !== ETH_TOKEN_DATA.address) {
+  if (address !== MATIC_TOKEN_DATA.address) {
     try {
       data = {
         ...(await fetch(
@@ -67,7 +67,7 @@ export const fetchTokenData = async (address: string) => {
       };
     }
   } else {
-    data = ETH_TOKEN_DATA;
+    data = MATIC_TOKEN_DATA;
   }
 
   return data as TokenData;

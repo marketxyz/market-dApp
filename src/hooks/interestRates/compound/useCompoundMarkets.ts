@@ -10,7 +10,7 @@ import CErc20 from "./CErc20";
 import { MarketInfo } from "../types";
 
 // Util/Misc
-import { ETH_TOKEN_DATA } from "hooks/useTokenData";
+import { MATIC_TOKEN_DATA } from "hooks/useTokenData";
 
 type CTokenData = {
   cTokenAddress: string; // address of underlying token
@@ -70,7 +70,7 @@ export default function useCompoundMarkets() {
           // otherwise, use address from underlying()
           const underlyingAddress: string =
             symbol === "cETH"
-              ? ETH_TOKEN_DATA.address
+              ? MATIC_TOKEN_DATA.address
               : ((await cToken.methods.underlying().call()) as string);
 
           // add underlying token address & lend/borrow rates to list

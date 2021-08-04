@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import { useRari } from "../context/RariContext";
 import ERC20ABI from "../rari-sdk/abi/ERC20.json";
-import { ETH_TOKEN_DATA } from "./useTokenData";
+import { MATIC_TOKEN_DATA } from "./useTokenData";
 import Web3 from "web3";
 
 export const fetchTokenBalance = async (
@@ -13,7 +13,7 @@ export const fetchTokenBalance = async (
   let stringBalance;
 
   if (
-    tokenAddress === ETH_TOKEN_DATA.address ||
+    tokenAddress === MATIC_TOKEN_DATA.address ||
     tokenAddress === "NO_ADDRESS_HERE_USE_WETH_FOR_ADDRESS"
   ) {
     stringBalance = await web3.eth.getBalance(address);

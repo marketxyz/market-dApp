@@ -22,7 +22,7 @@ import DashboardBox, {
 import { ModalDivider, MODAL_PROPS } from "../../../shared/Modal";
 
 import {
-  ETH_TOKEN_DATA,
+  MATIC_TOKEN_DATA,
   TokenData,
   useTokenData,
 } from "../../../../hooks/useTokenData";
@@ -674,7 +674,7 @@ const AddAssetModal = ({
 
             {!existingAssets.some(
               // If ETH hasn't been added:
-              (asset) => asset.underlyingToken === ETH_TOKEN_DATA.address
+              (asset) => asset.underlyingToken === MATIC_TOKEN_DATA.address
             ) ? (
               <DashboardBox
                 flexShrink={0}
@@ -685,9 +685,9 @@ const AddAssetModal = ({
                 px={2}
                 fontSize="sm"
                 fontWeight="bold"
-                onClick={() => _setTokenAddress(ETH_TOKEN_DATA.address)}
+                onClick={() => _setTokenAddress(MATIC_TOKEN_DATA.address)}
               >
-                <Center expand>ETH</Center>
+                <Center expand>MATIC</Center>
               </DashboardBox>
             ) : null}
           </Center>

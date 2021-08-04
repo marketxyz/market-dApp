@@ -8,7 +8,7 @@ import LendingPool from "./LendingPool";
 
 // Utils
 import Web3 from "web3";
-import { ETH_TOKEN_DATA } from "hooks/useTokenData";
+import { MATIC_TOKEN_DATA } from "hooks/useTokenData";
 
 // Types
 import { MarketInfo, InterestRatesType } from "../types";
@@ -62,7 +62,7 @@ export default function useReserves() {
         // Aave lists ETH under WETH address, so we have
         // to map the WETH address to the ETH dummy address
         if (reserve.tokenAddress === WETH_TOKEN_ADDRESS)
-          reserve.tokenAddress = ETH_TOKEN_DATA.address;
+          reserve.tokenAddress = MATIC_TOKEN_DATA.address;
 
         return reserve;
       });

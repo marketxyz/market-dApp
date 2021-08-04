@@ -35,7 +35,7 @@ import { ModalDivider } from "../../../../shared/Modal";
 import { Mode } from ".";
 
 import {
-  ETH_TOKEN_DATA,
+  MATIC_TOKEN_DATA,
   useTokenData,
 } from "../../../../../hooks/useTokenData";
 import { useBorrowLimit } from "../../../../../hooks/useBorrowLimit";
@@ -352,7 +352,7 @@ const AmountSelect = ({
     try {
       setUserAction(UserAction.WAITING_FOR_TRANSACTIONS);
 
-      const isETH = asset.underlyingToken === ETH_TOKEN_DATA.address;
+      const isETH = asset.underlyingToken === MATIC_TOKEN_DATA.address;
       const isRepayingMax =
         amount!.eq(asset.borrowBalance) && !isETH && mode === Mode.REPAY;
 
