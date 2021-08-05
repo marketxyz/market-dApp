@@ -2,6 +2,7 @@ import {
   ArrowDownIcon,
   ArrowForwardIcon,
   ArrowRightIcon,
+  InfoOutlineIcon,
 } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -16,6 +17,7 @@ import {
   SimpleGrid,
   Spinner,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import Avatar from "boring-avatars";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
@@ -117,9 +119,17 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
               {rssScore}
             </Text>
           </Box>
+          <Tooltip
+            label="Some tooltip text"
+            placement="top"
+            bg="black"
+            hasArrow
+          >
+            <InfoOutlineIcon ml="2" />
+          </Tooltip>
         </Row>
       </Flex>
-      <Flex alignItems="center" justifyContent="space-between" mx="6">
+      <Row crossAxisAlignment="center" mainAxisAlignment="space-between" mx="6">
         {pool.underlyingTokens.length === 0 ? null : (
           <SimpleTooltip label={tokens.map((item) => item.symbol).join(" / ")}>
             <AvatarGroup size="sm" max={30}>
@@ -129,7 +139,11 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
             </AvatarGroup>
           </SimpleTooltip>
         )}
-      </Flex>
+        <Column mainAxisAlignment="center" crossAxisAlignment="center">
+          <Text fontWeight="bold">Max APY Percentage</Text>
+          <Text mt="2">20%</Text>
+        </Column>
+      </Row>
       <chakra.div w="100%" h="1px" bgColor="gray.200" />
       <Row
         mx="6"

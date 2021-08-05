@@ -2,6 +2,7 @@ import { memo, useEffect } from "react";
 import {
   Avatar,
   Box,
+  Flex,
   Heading,
   Progress,
   Spinner,
@@ -48,6 +49,8 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 
 import LogRocket from "logrocket";
 import Footer from "components/shared/Footer";
+import FusePageLayout from "./FusePageLayout";
+import FuseNavbar from "./FuseNavbar";
 
 const FusePoolPage = memo(() => {
   const { isAuthed } = useRari();
@@ -60,20 +63,18 @@ const FusePoolPage = memo(() => {
 
   return (
     <>
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        color="#FFFFFF"
-        mx="auto"
-        width={isMobile ? "100%" : "1150px"}
-        px={isMobile ? 4 : 0}
+      <Flex
+        w="100vw"
+        minH="100vh"
+        flexDir="column"
+        alignItems="flex-start"
+        bgColor="white"
+        justifyContent="flex-start"
+        fontFamily="Plus Jakarta Sans"
       >
-        <Header isAuthed={isAuthed} isFuse />
-
+        <FuseNavbar />
+        <Box paddingTop="108px"></Box>
         <FuseStatsBar />
-
-        <FuseTabBar />
-
         {
           /* If they have some asset enabled as collateral, show the collateral ratio bar */
           data && data.assets.some((asset) => asset.membership) ? (
@@ -83,7 +84,6 @@ const FusePoolPage = memo(() => {
             />
           ) : null
         }
-
         <RowOrColumn
           width="100%"
           mainAxisAlignment="flex-start"
@@ -124,7 +124,7 @@ const FusePoolPage = memo(() => {
           </DashboardBox>
         </RowOrColumn>
         <Footer />
-      </Column>
+      </Flex>
     </>
   );
 });
@@ -697,7 +697,7 @@ const AssetBorrowRow = ({
             }
           />
           <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
-          {tokenData?.symbol ?? asset.underlyingSymbol}
+            {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
         </Row>
 
