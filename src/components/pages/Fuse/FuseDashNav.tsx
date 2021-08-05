@@ -29,6 +29,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useFilter } from "./FuseTabBar";
 
 import { Link as RouterLink } from "react-router-dom";
+import { AddPoolButton } from "./AddPoolButton";
 
 const activeStyle = { bg: "#FFF", color: "#000" };
 const noop = {};
@@ -56,73 +57,81 @@ export const FuseDashNav = ({
   const location = useLocation();
 
   return (
-    <Row
+    <Box
       color="#000000"
       paddingTop="15px"
-      mainAxisAlignment="space-between"
-      crossAxisAlignment="center"
       overflowX="visible"
       overflowY="visible"
-      width="100%"
       borderBottom="1px solid #e6e4e7"
       borderTop="1px solid #e6e4e7"
       backgroundColor="#FFFFFF"
     >
 
         <Row
-            mainAxisAlignment="space-between"
-            crossAxisAlignment="center"
-            maxWidth="1200px"
-            marginRight="auto"
-            marginLeft="auto"
-            width="100%"
+          mainAxisAlignment="space-between"
+          crossAxisAlignment="center"
+          maxWidth="1200px"
+          marginRight="auto"
+          marginLeft="auto"
+          width="100%"
         >
 
           <Tabs defaultIndex={1}>
               <TabList>
-                  <Tab _selected={selectedTabStyles}>
+                  <Tab _active={{bg: "none"}} _selected={selectedTabStyles}>
                     <TabLink route="/fuse?filter=my-pools" text={t("Your Pools")} />
                   </Tab>
-                  <Tab  _selected={selectedTabStyles}>
+                  <Tab _active={{bg: "none"}} _selected={selectedTabStyles}>
                     <TabLink route="/fuse" text={t("All Pools")} />
                   </Tab>
-                  <Tab _selected={selectedTabStyles}>
+                  <Tab _active={{bg: "none"}} _selected={selectedTabStyles}>
                     <TabLink route="/fuse" text={t("Token")} />
                   </Tab>
               </TabList>
           </Tabs>
 
-          <InputGroup paddingBottom="15px" width="35%">
-              <InputLeftAddon
-                  pointerEvents="none"
-                  children={<SearchIcon color="#62526A" />}
-                  backgroundColor="#FFFFFF"
-                  border="2.5px solid #d9d8da"
-              />
-              <Input
-                _focus={{outline: "none"}}
-                _hover={{}}
-                border="2.5px solid #d9d8da"
-                fontSize="18px"
-                borderLeft="none"
-                borderRadius="11px"
-                type="text"
-                value={filter ?? ""}
-                onChange={(event) => {
-                  const value = encodeURIComponent(event.target.value);
+          <Box
+            display="inline-block"
+          >
+            <span style={{display: "inline-block", marginRight: "15px"}}>
+              <InputGroup marginBottom="10px">
+                  <InputLeftAddon
+                      pointerEvents="none"
+                      children={<SearchIcon color="#62526A" />}
+                      backgroundColor="#FFFFFF"
+                      border="2.5px solid #d9d8da"
+                  />
+                  <Input
+                    _focus={{outline: "none"}}
+                    border="2.5px solid #d9d8da"
+                    fontSize="18px"
+                    borderLeft="none"
+                    borderRadius="11px"
+                    paddingLeft="0px"
+                    type="text"
+                    value={filter ?? ""}
+                    onChange={(event) => {
+                      const value = encodeURIComponent(event.target.value);
 
-                  if (value) {
-                    navigate("?filter=" + value);
-                  } else {
-                    navigate("");
-                  }
-                }}
-                placeholder="Try searching for USDC"
-              />
-          </InputGroup>
+                      if (value) {
+                        navigate("?filter=" + value);
+                      } else {
+                        navigate("");
+                      }
+                    }}
+                    placeholder="Try searching for USDC"
+                  />
+              </InputGroup>
+            </span>
+            
+            <span style={{display: "inline-block"}}>
+              <AddPoolButton />
+            </span>
 
+          </Box>
+          
         </Row>
-    </Row>
+    </Box>
   );
 };
 
