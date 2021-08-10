@@ -15,6 +15,7 @@ import {
   TabList,
   Tabs,
   Spinner,
+  Divider,
 } from "@chakra-ui/react";
 import SmallWhiteCircle from "../../../../../static/small-white-circle.png";
 
@@ -531,6 +532,9 @@ const AmountSelect = ({
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
       height={showEnableAsCollateral ? "575px" : "500px"}
+      bg="#fff"
+      color="#000"
+      borderRadius="20px"
     >
       {userAction === UserAction.WAITING_FOR_TRANSACTIONS ? (
         <Column
@@ -570,14 +574,15 @@ const AmountSelect = ({
               />
             </Box>
 
-            <Heading fontSize="27px" ml={3}>
+            <Heading fontSize="27px" fontWeight="normal" ml={3}>
               {!isMobile && asset.underlyingName.length < 25
                 ? asset.underlyingName
                 : asset.underlyingSymbol}
             </Heading>
           </Row>
 
-          <ModalDivider />
+          {/* <ModalDivider /> */}
+          <Divider bg="#BBB" height="1px" />
 
           <Column
             mainAxisAlignment="flex-start"
@@ -594,7 +599,7 @@ const AmountSelect = ({
             >
               <TabBar color={tokenData?.color} mode={mode} setMode={setMode} />
 
-              <DashboardBox width="100%" height="70px">
+              <DashboardBox borderColor="#BBB" bg="#FFF" width="100%" height="70px">
                 <Row
                   p={4}
                   mainAxisAlignment="space-between"
@@ -602,7 +607,7 @@ const AmountSelect = ({
                   expand
                 >
                   <AmountInput
-                    color={tokenData?.color ?? "#FFF"}
+                    color={tokenData?.color ?? "#000"}
                     displayAmount={userEnteredAmount}
                     updateAmount={updateAmount}
                   />
@@ -632,13 +637,13 @@ const AmountSelect = ({
             />
 
             {showEnableAsCollateral ? (
-              <DashboardBox p={4} width="100%" mt={4}>
+              <DashboardBox bg="#fff" borderColor="#BBB" p={4} width="100%" mt={4}>
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
                   width="100%"
                 >
-                  <Text fontWeight="bold">{t("Enable As Collateral")}:</Text>
+                  <Text fontWeight="normal">{t("Enable As Collateral")}:</Text>
                   <SwitchCSS
                     symbol={asset.underlyingSymbol}
                     color={tokenData?.color}
@@ -657,7 +662,7 @@ const AmountSelect = ({
 
             <Button
               mt={4}
-              fontWeight="bold"
+              fontWeight="normal"
               fontSize={
                 depositOrWithdrawAlert ? depositOrWithdrawAlertFontSize : "2xl"
               }
@@ -739,7 +744,7 @@ const TabBar = ({
 
             .chakra-tabs__tablist {
               border-bottom: 1px solid;
-              border-color: #272727;
+              border-color: #BBB;
             }
             
         `}
@@ -974,7 +979,7 @@ const StatsColumn = ({
     : Math.abs(updatedBorrowAPR - borrowAPR) > 0.1;
 
   return (
-    <DashboardBox width="100%" height="190px" mt={4}>
+    <DashboardBox borderColor="#BBB" bg="#fff" width="100%" height="190px" mt={4}>
       {updatedAsset ? (
         <Column
           mainAxisAlignment="space-between"
@@ -990,7 +995,7 @@ const StatsColumn = ({
             width="100%"
             color={color}
           >
-            <Text fontWeight="bold" flexShrink={0}>
+            <Text fontWeight="normal" flexShrink={0}>
               {t("Supply Balance")}:
             </Text>
             <Text
@@ -1019,7 +1024,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="bold" flexShrink={0}>
+            <Text fontWeight="normal" flexShrink={0}>
               {isSupplyingOrWithdrawing ? t("Supply APY") : t("Borrow APR")}:
             </Text>
             <Text
@@ -1047,7 +1052,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="bold" flexShrink={0}>
+            <Text fontWeight="normal" flexShrink={0}>
               {t("Borrow Limit")}:
             </Text>
             <Text
@@ -1068,7 +1073,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="bold">{t("Debt Balance")}:</Text>
+            <Text fontWeight="normal">{t("Debt Balance")}:</Text>
             <Text
               fontWeight="bold"
               fontSize={!isSupplyingOrWithdrawing ? "sm" : "lg"}

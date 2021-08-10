@@ -306,7 +306,8 @@ const SupplyList = ({
       <Heading size="md" px={4} py={3}>
         {t("Supply Balance:")} {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
-      <ModalDivider />
+      
+      <Divider color="#F4F6F9" />
 
       {assets.length > 0 ? (
         <Row
@@ -619,7 +620,8 @@ const BorrowList = ({
       <Heading size="md" px={4} py={3}>
         {t("Borrow Balance:")} {smallUsdFormatter(borrowBalanceUSD)}
       </Heading>
-      <ModalDivider />
+
+      <Divider color="#F4F6F9" />
 
       {assets.length > 0 ? (
         <Row

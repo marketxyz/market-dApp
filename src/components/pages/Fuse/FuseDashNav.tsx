@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useState } from "react";
 
 import {
   Box,
@@ -18,6 +18,9 @@ import {
   InputLeftAddon,
   Input,
   Center,
+  Modal,
+  ModalOverlay,
+  ModalContent
 } from "@chakra-ui/react";
 import { PixelSize, Row, useWindowSize } from "utils/chakraUtils";
 
@@ -31,6 +34,7 @@ import { useFilter } from "./FuseTabBar";
 import { Link as RouterLink } from "react-router-dom";
 import { AddPoolButton } from "./AddPoolButton";
 import { useRari } from "context/RariContext";
+import FusePoolCreatePage, { CreatePoolConfiguration } from "./FusePoolCreatePage";
 
 const activeStyle = { bg: "#FFF", color: "#000" };
 const noop = {};
@@ -52,78 +56,89 @@ export const FuseDashNav = ({
   let navigate = useNavigate();
   const filter = useFilter();
 
+  const [createPoolModal, setCreatePoolModal] = useState(false);
+
   return (
-    <Box
-      color="#000000"
-      paddingTop="15px"
-      overflowX="visible"
-      overflowY="visible"
-      w="100%"
-      borderBottom="1px solid #e6e4e7"
-      borderTop="1px solid #e6e4e7"
-      backgroundColor="#FFFFFF"
-    >
-      <Row
-        mainAxisAlignment="space-between"
-        crossAxisAlignment="center"
-        maxWidth="1200px"
-        marginRight="auto"
-        marginLeft="auto"
-        width="100%"
+    <>
+      <Modal size="4xl" isOpen={createPoolModal} onClose={() => setCreatePoolModal(!createPoolModal)}>
+        <ModalOverlay />
+        <ModalContent p="5">
+          <CreatePoolConfiguration />
+        </ModalContent>
+      </Modal>
+
+      <Box
+        color="#000000"
+        paddingTop="15px"
+        overflowX="visible"
+        overflowY="visible"
+        w="100%"
+        borderBottom="1px solid #e6e4e7"
+        borderTop="1px solid #e6e4e7"
+        backgroundColor="#FFFFFF"
       >
-        <Tabs defaultIndex={1}>
-          <TabList>
-            <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-              <TabLink route="/fuse?filter=my-pools" text={t("Your Pools")} />
-            </Tab>
-            <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-              <TabLink route="/fuse" text={t("All Pools")} />
-            </Tab>
-            <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-              <TabLink route="/fuse" text={t("Token")} />
-            </Tab>
-          </TabList>
-        </Tabs>
+        <Row
+          mainAxisAlignment="space-between"
+          crossAxisAlignment="center"
+          maxWidth="1200px"
+          marginRight="auto"
+          marginLeft="auto"
+          width="100%"
+        >
+          <Tabs defaultIndex={1}>
+            <TabList>
+              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabLink route="/fuse?filter=my-pools" text={t("Your Pools")} />
+              </Tab>
+              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabLink route="/fuse" text={t("All Pools")} />
+              </Tab>
+              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabLink route="/fuse" text={t("Token")} />
+              </Tab>
+            </TabList>
+          </Tabs>
 
-        <Box display="inline-block">
-          <span style={{ display: "inline-block", marginRight: "15px" }}>
-            <InputGroup marginBottom="10px">
-              <InputLeftAddon
-                pointerEvents="none"
-                children={<SearchIcon color="#62526A" />}
-                backgroundColor="#FFFFFF"
-                border="2.5px solid #d9d8da"
-              />
-              <Input
-                _focus={{}}
-                _hover={{}}
-                border="2.5px solid #d9d8da"
-                fontSize="18px"
-                borderLeft="none"
-                borderRadius="11px"
-                paddingLeft="0px"
-                type="text"
-                value={filter ?? ""}
-                onChange={(event) => {
-                  const value = encodeURIComponent(event.target.value);
+          <Box display="inline-block">
+            <span style={{ display: "inline-block", marginRight: "15px" }}>
+              <InputGroup marginBottom="10px">
+                <InputLeftAddon
+                  pointerEvents="none"
+                  children={<SearchIcon color="#62526A" />}
+                  backgroundColor="#FFFFFF"
+                  border="2.5px solid #d9d8da"
+                />
+                <Input
+                  _focus={{}}
+                  _hover={{}}
+                  border="2.5px solid #d9d8da"
+                  fontSize="18px"
+                  borderLeft="none"
+                  borderRadius="11px"
+                  paddingLeft="0px"
+                  type="text"
+                  value={filter ?? ""}
+                  onChange={(event) => {
+                    const value = encodeURIComponent(event.target.value);
 
-                  if (value) {
-                    navigate("?filter=" + value);
-                  } else {
-                    navigate("");
-                  }
-                }}
-                placeholder="Try searching for USDC"
-              />
-            </InputGroup>
-          </span>
+                    if (value) {
+                      navigate("?filter=" + value);
+                    } else {
+                      navigate("");
+                    }
+                  }}
+                  placeholder="Try searching for USDC"
+                />
+              </InputGroup>
+            </span>
 
-          <span style={{ display: "inline-block" }}>
-            <AddPoolButton />
-          </span>
-        </Box>
-      </Row>
-    </Box>
+            <span style={{ display: "inline-block" }}>
+              <AddPoolButton switchModalVisibility={() => setCreatePoolModal(!createPoolModal)} />
+            </span>
+          </Box>
+        </Row>
+      </Box>
+    </>
   );
 };
 
