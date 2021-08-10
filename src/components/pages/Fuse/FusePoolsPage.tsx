@@ -1,43 +1,13 @@
-import {
-  ArrowDownIcon,
-  ArrowForwardIcon,
-  ArrowRightIcon,
-  InfoOutlineIcon,
-} from "@chakra-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
-import {
-  AvatarGroup,
-  Box,
-  Button,
-  chakra,
-  Divider,
-  Flex,
-  Icon,
-  Link,
-  SimpleGrid,
-  Spinner,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react";
-import Avatar from "boring-avatars";
-import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { SimpleGrid as Grid, Spinner } from "@chakra-ui/react";
 import { useRari } from "context/RariContext";
-import { MergedPool, useFusePools } from "hooks/fuse/useFusePools";
+import { useFusePools } from "hooks/fuse/useFusePools";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { letterScore, usePoolRSS } from "hooks/useRSS";
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
-import { Column, Row, useIsMobile } from "utils/chakraUtils";
-import { ModalDivider } from "../../shared/Modal";
-import CTokenIcon from "./CTokenIcon";
 import { FuseDashNav } from "./FuseDashNav";
 import FusePageLayout from "./FusePageLayout";
+import PoolCard from "./FusePoolCard";
 import FuseStatsBar from "./FuseStatsBar";
 import { useFilter } from "./FuseTabBar";
-import { useMemo } from "react";
-import { smallUsdFormatter } from "utils/bigUtils";
-import { usePoolAPY, usePoolsAPY } from "hooks/usePoolAPY";
-import { Pool } from "utils/poolUtils";
 
 const FusePoolsPage = memo(() => {
   const { isAuthed } = useRari();
@@ -56,17 +26,19 @@ export default FusePoolsPage;
 
 const PoolList = () => {
   const filter = useFilter();
-  const { t } = useTranslation();
-
   const { filteredPools } = useFusePools(filter);
-  const isMobile = useIsMobile();
 
   return (
-    <SimpleGrid
-      columns={2}
-      w="100%"
-      maxW={["0px", "1200px"]}
+    <Grid
+      templateRows={{
+        base: "repeat(1, minmax(0, 1fr))",
+        lg: "repeat(2, minmax(0, 1fr))",
+      }}
+      autoFlow="row"
+      columns={{ base: 1, lg: 2 }}
       my="2rem"
+      w={{ base: "90%", lg: "100%" }}
+      maxW={{ lg: "1200px" }}
       mx="auto"
       gridGap="8"
     >
@@ -77,113 +49,6 @@ const PoolList = () => {
       ) : (
         <Spinner my={8} />
       )}
-    </SimpleGrid>
-  );
-};
-
-const PoolCard = ({ data: pool }: { data: MergedPool }) => {
-  const { t } = useTranslation();
-  const rss = usePoolRSS(pool.id);
-  const rssScore = rss ? letterScore(rss.totalScore) : "?";
-  const tokens = useMemo(() => {
-    const tokens = pool.underlyingTokens.map((address, index) => ({
-      address,
-      symbol: pool.underlyingSymbols[index],
-    }));
-    return tokens.length >= 10 ? tokens.splice(0, 10) : tokens;
-  }, [pool.underlyingSymbols, pool.underlyingTokens]);
-
-  return (
-    <Flex
-      key={pool.id}
-      w="100%"
-      pt={6}
-      bgColor="white"
-      borderRadius="20px"
-      boxShadow="0px 21px 44px rgba(71, 29, 97, 0.105141)"
-      flexDir="column"
-      gridGap="6"
-    >
-      <Row
-        mainAxisAlignment="space-between"
-        crossAxisAlignment="flex-start"
-        gridGap="6"
-        mx="6"
-      >
-        <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Avatar size={40} name={pool.pool.name} variant="marble" />
-          <Text fontWeight="bold" ml="6">
-            {pool.pool.name}
-          </Text>
-        </Row>
-        <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Box
-            ml="4"
-            background="linear-gradient(210.72deg, #F03EC3 -13.86%, #8E09B0 105.5%)"
-            px="4"
-            py="2"
-            borderRadius="5px"
-          >
-            <Text fontSize="lg" textColor="white" fontWeight="medium">
-              {rssScore}
-            </Text>
-          </Box>
-          <Tooltip
-            label="Some tooltip text"
-            placement="top"
-            bg="black"
-            hasArrow
-          >
-            <InfoOutlineIcon ml="2" />
-          </Tooltip>
-        </Row>
-      </Row>
-      <Row crossAxisAlignment="center" mainAxisAlignment="space-between" mx="6">
-        {pool.underlyingTokens.length === 0 ? null : (
-          <SimpleTooltip label={tokens.map((item) => item.symbol).join(" / ")}>
-            <AvatarGroup size="sm" max={30}>
-              {tokens.map(({ address }) => {
-                return <CTokenIcon key={address} address={address} />;
-              })}
-            </AvatarGroup>
-          </SimpleTooltip>
-        )}
-        <Column mainAxisAlignment="center" crossAxisAlignment="center">
-          <Text fontWeight="bold">Max APY</Text>
-          <Text mt="2">20%</Text>
-        </Column>
-      </Row>
-      <chakra.div w="100%" h="1px" bgColor="gray.200" />
-      <Row
-        mx="6"
-        mainAxisAlignment="center"
-        crossAxisAlignment="center"
-        gridGap="6"
-      >
-        <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
-          <Text fontWeight="bold">{t("Total value supplied")}</Text>
-          <Text mt="2">{smallUsdFormatter(pool.suppliedUSD)}</Text>
-        </Column>
-        <chakra.div h="16" w="1px" bgColor="gray.300" />
-        <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
-          <Text fontWeight="bold">{t("Total borrowed")}</Text>
-          <Text mt="2">{smallUsdFormatter(pool.borrowedUSD)}</Text>
-        </Column>
-      </Row>
-      <Link
-        as={RouterLink}
-        borderTopWidth="1px"
-        borderTopColor="gray.200"
-        to={"/fuse/pool/" + pool.id}
-        w="100%"
-        py="4"
-        _hover={{ bgColor: "gray.100" }}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        View details <ArrowForwardIcon ml="4" />
-      </Link>
-    </Flex>
+    </Grid>
   );
 };
