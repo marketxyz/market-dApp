@@ -102,7 +102,8 @@ export const FuseDashNav = ({
                       border="2.5px solid #d9d8da"
                   />
                   <Input
-                    _focus={{outline: "none"}}
+                    _focus={{}}
+                    _hover={{}}
                     border="2.5px solid #d9d8da"
                     fontSize="18px"
                     borderLeft="none"

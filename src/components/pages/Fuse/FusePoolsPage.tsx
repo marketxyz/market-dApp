@@ -32,7 +32,7 @@ const FusePoolsPage = memo(() => {
         height="100%"
         px={isMobile ? 4 : 0}
       >
-        <FuseTabBar />
+        {/* <FuseTabBar /> */}
         <DashboardBox width="100%" mt={4}>
           <PoolList />
         </DashboardBox>
