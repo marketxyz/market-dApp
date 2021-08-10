@@ -104,10 +104,19 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
       flexDir="column"
       gridGap="6"
     >
-      <Flex alignItems="center" justifyContent="start" gridGap="6" mx="6">
-        <Avatar size={40} name={pool.pool.name} variant="marble" />
+      <Row
+        mainAxisAlignment="space-between"
+        crossAxisAlignment="flex-start"
+        gridGap="6"
+        mx="6"
+      >
         <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Text fontWeight="bold">{pool.pool.name}</Text>
+          <Avatar size={40} name={pool.pool.name} variant="marble" />
+          <Text fontWeight="bold" ml="6">
+            {pool.pool.name}
+          </Text>
+        </Row>
+        <Row mainAxisAlignment="center" crossAxisAlignment="center">
           <Box
             ml="4"
             background="linear-gradient(210.72deg, #F03EC3 -13.86%, #8E09B0 105.5%)"
@@ -128,7 +137,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
             <InfoOutlineIcon ml="2" />
           </Tooltip>
         </Row>
-      </Flex>
+      </Row>
       <Row crossAxisAlignment="center" mainAxisAlignment="space-between" mx="6">
         {pool.underlyingTokens.length === 0 ? null : (
           <SimpleTooltip label={tokens.map((item) => item.symbol).join(" / ")}>
@@ -140,7 +149,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           </SimpleTooltip>
         )}
         <Column mainAxisAlignment="center" crossAxisAlignment="center">
-          <Text fontWeight="bold">Max APY Percentage</Text>
+          <Text fontWeight="bold">Max APY</Text>
           <Text mt="2">20%</Text>
         </Column>
       </Row>
