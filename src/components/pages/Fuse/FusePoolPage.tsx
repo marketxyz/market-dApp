@@ -1,3 +1,4 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   AvatarGroup,
@@ -49,6 +50,8 @@ import FuseNavbar from "./FuseNavbar";
 import { PoolInfoBox } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
 import PoolModal, { Mode } from "./Modals/PoolModal";
+
+import { Link } from "react-router-dom";
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
@@ -140,6 +143,9 @@ const FusePoolPage = memo(() => {
           maxW={{ lg: "1200px" }}
           spacing={6}
         >
+          <Link to="/fuse">
+            <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
+          </Link>
           <Text
             lineHeight={1}
             textAlign="center"
