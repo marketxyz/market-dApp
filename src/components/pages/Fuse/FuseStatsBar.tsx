@@ -14,23 +14,28 @@ const FuseStatsBar = () => {
       id="stats-bar"
       marginRight="auto"
       marginLeft="auto"
-      flexDir={isMobile ? "column" : "row"}
+      flexDir={{ base: "column", lg: "row" }}
       alignItems="center"
       justifyContent="center"
       py="72px"
-      px={["5vw", "0"]}
+      px={{ base: "5vw", lg: 0 }}
       w="100%"
-      maxWidth={["100%", "1200px"]}
+      maxWidth={{ lg: "1200px" }}
       gridGap="1.5rem"
     >
       <Flex
         flexDir="column"
         expand
-        w={["100%", "50%"]}
+        w={{ base: "100%" }}
         fontSize="sm"
-        marginRight={["0", "84.5px"]}
+        marginRight={{ base: "0px", lg: "84.5px" }}
       >
-        <Text fontSize="32px" lineHeight="40px" fontWeight="extrabold">
+        <Text
+          fontSize="32px"
+          lineHeight="40px"
+          fontWeight="bold"
+          zIndex="100"
+        >
           {t("Fuse")}
         </Text>
         <Text
@@ -39,6 +44,7 @@ const FuseStatsBar = () => {
           mt="19px"
           textColor="#141212"
           fontWeight="medium"
+          zIndex="100"
         >
           {t(
             "There's {{tvl}} supplied to Fuse, the first truly open interest rate protocol. Lend, borrow, and create isolated lending markets with unlimited flexibility.",
@@ -49,7 +55,8 @@ const FuseStatsBar = () => {
       <Flex
         flexDir="column"
         h={{ base: "10rem", lg: "15rem" }}
-        w={["100%", "50%"]}
+        w={{ base: "100%", lg: "50%" }}
+        px={{ lg: "10vw" }}
         alignItems="center"
         justifyContent="center"
         position="relative"
@@ -66,8 +73,9 @@ const FuseStatsBar = () => {
         >
           {fuseTVL ? smallUsdFormatter(fuseTVL) : "?"}
         </Text>
-        <Text textColor="white">{t("Total value supplied across fuse")}</Text>
-        {/* <chakra.img src="/static/fuse-supply-bitmap.svg" position="absolute" /> */}
+        <Text textColor="white" whiteSpace="nowrap">
+          {t("Total value supplied across fuse")}
+        </Text>
       </Flex>
     </Flex>
   );

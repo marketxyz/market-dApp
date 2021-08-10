@@ -30,6 +30,7 @@ import { useFilter } from "./FuseTabBar";
 
 import { Link as RouterLink } from "react-router-dom";
 import { AddPoolButton } from "./AddPoolButton";
+import { useRari } from "context/RariContext";
 
 const activeStyle = { bg: "#FFF", color: "#000" };
 const noop = {};
@@ -37,16 +38,15 @@ const selectedTabStyles = { borderColor: "#DF2EAC", fontSize: "18px" };
 const tabStyles = { paddingBottom: "20px", fontSize: "18px" };
 
 export const FuseDashNav = ({
-  isAuthed,
   isPool,
   isFuse,
   padding,
 }: {
-  isAuthed: boolean;
   isFuse?: boolean;
   isPool?: boolean;
   padding?: boolean;
 }) => {
+  const { isAuthed } = useRari();
   const { t } = useTranslation();
   let { poolId } = useParams();
   let navigate = useNavigate();

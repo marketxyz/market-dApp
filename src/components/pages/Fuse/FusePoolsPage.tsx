@@ -10,13 +10,10 @@ import FuseStatsBar from "./FuseStatsBar";
 import { useFilter } from "./FuseTabBar";
 
 const FusePoolsPage = memo(() => {
-  const { isAuthed } = useRari();
-  const isMobile = useIsSmallScreen();
-
   return (
     <FusePageLayout>
       <FuseStatsBar />
-      <FuseDashNav isAuthed={isAuthed} isFuse />
+      <FuseDashNav isFuse />
       <PoolList />
     </FusePageLayout>
   );

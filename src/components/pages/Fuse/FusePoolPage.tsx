@@ -1,7 +1,9 @@
-import { memo, useEffect } from "react";
 import {
   Avatar,
   Box,
+  BoxProps,
+  chakra,
+  Divider,
   Flex,
   Heading,
   Progress,
@@ -10,51 +12,41 @@ import {
   Text,
   useDisclosure,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
-import {
-  Column,
-  Center,
-  Row,
-  RowOrColumn,
-  useIsMobile,
-} from "utils/chakraUtils";
-
-// Hooks
-import { useTranslation } from "react-i18next";
-import { useQuery, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
+import Footer from "components/shared/Footer";
+import { ModalDivider } from "components/shared/Modal";
+import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { SwitchCSS } from "components/shared/SwitchCSS";
 import { useRari } from "context/RariContext";
+import { useAuthedCallback } from "hooks/useAuthedCallback";
 import { useBorrowLimit } from "hooks/useBorrowLimit";
 import { useFusePoolData } from "hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "hooks/useIsSemiSmallScreen";
 import { useTokenData } from "hooks/useTokenData";
-import { useAuthedCallback } from "hooks/useAuthedCallback";
-
+import LogRocket from "logrocket";
+import { memo, useEffect } from "react";
+// Hooks
+import { useTranslation } from "react-i18next";
+import { useQuery, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 // Utils
 import { convertMantissaToAPR, convertMantissaToAPY } from "utils/apyUtils";
 import { shortUsdFormatter, smallUsdFormatter } from "utils/bigUtils";
+import {
+  Center,
+  Column,
+  Row,
+  RowOrColumn,
+  useIsMobile,
+} from "utils/chakraUtils";
 import { createComptroller } from "utils/createComptroller";
 import { USDPricedFuseAsset } from "utils/fetchFusePoolData";
-
-// Components
-import DashboardBox from "components/shared/DashboardBox";
-import { Header } from "components/shared/Header";
-import { ModalDivider } from "components/shared/Modal";
-import { SimpleTooltip } from "components/shared/SimpleTooltip";
-import { SwitchCSS } from "components/shared/SwitchCSS";
-
+import FuseNavbar from "./FuseNavbar";
 import FuseStatsBar from "./FuseStatsBar";
-import FuseTabBar from "./FuseTabBar";
 import PoolModal, { Mode } from "./Modals/PoolModal";
 
-import LogRocket from "logrocket";
-import Footer from "components/shared/Footer";
-import FusePageLayout from "./FusePageLayout";
-import FuseNavbar from "./FuseNavbar";
-
 const FusePoolPage = memo(() => {
-  const { isAuthed } = useRari();
-
   const isMobile = useIsSemiSmallScreen();
 
   let { poolId } = useParams();
@@ -72,9 +64,71 @@ const FusePoolPage = memo(() => {
         justifyContent="flex-start"
         fontFamily="Plus Jakarta Sans"
       >
-        <FuseNavbar />
-        <Box paddingTop="108px"></Box>
-        <FuseStatsBar />
+        <VStack overflowY="hidden" position="relative" w="100%">
+          <chakra.div
+            bgColor="#ff00b3"
+            h="400px"
+            w="800px"
+            filter="blur(350px)"
+            position="absolute"
+            top="100%"
+            left="50%"
+            bottom="0"
+            transform="translate(-50%, -50%)"
+          />
+          <chakra.img
+            src="/static/fuse/header-artifact-bottom-left.svg"
+            position="absolute"
+            bottom={{ base: "15%", lg: "-30%" }}
+            transform={{ base: "scale(0.50) rotate(-5deg)", lg: "initial" }}
+            left={{ base: "-30%", lg: "17%" }}
+          />
+          <chakra.img
+            src="/static/fuse/header-artifact-left.svg"
+            position="absolute"
+            bottom={{ base: "calc(20% - 16px)", lg: "-12px" }}
+            left={{ base: "-15%", lg: "12%" }}
+          />
+          <chakra.img
+            src="/static/fuse/header-bitcoin.svg"
+            position="absolute"
+            top="25%"
+            left={{ base: "-10%", lg: "12%" }}
+          />
+          <chakra.img
+            src="/static/fuse/Icon5.svg"
+            position="absolute"
+            bottom={{ base: "20%", lg: "-25%" }}
+            right={{ base: "-30%", lg: "10%" }}
+            transform={{
+              base: "scale(0.7) rotate(15deg)",
+              lg: "rotate(15deg)",
+            }}
+          />
+          <chakra.img
+            src="/static/fuse/header-eth.svg"
+            position="absolute"
+            top={{ base: "15%" }}
+            right={{ base: "0", lg: "10%" }}
+          />
+          <chakra.img
+            src="/static/fuse/Icon2.svg"
+            position="absolute"
+            bottom="30%"
+            right="10%"
+            transform="rotate(15deg)"
+          />
+          <chakra.img
+            src="/static/fuse/Icon6.png"
+            position="absolute"
+            bottom="-15%"
+            right="10%"
+            transform="rotate(15deg)"
+          />
+          <FuseNavbar />
+          <FuseStatsBar />
+        </VStack>
+        <Divider />
         {
           /* If they have some asset enabled as collateral, show the collateral ratio bar */
           data && data.assets.some((asset) => asset.membership) ? (
@@ -88,10 +142,15 @@ const FusePoolPage = memo(() => {
           width="100%"
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-start"
-          mt={4}
+          maxW={{ lg: "1200px" }}
+          bgColor="white"
+          textColor="black"
+          px={{ base: 6, lg: 0 }}
+          mx="auto"
+          mt={8}
           isRow={!isMobile}
         >
-          <DashboardBox width={isMobile ? "100%" : "50%"}>
+          <PoolDashboardBox width={isMobile ? "100%" : "50%"}>
             {data ? (
               <SupplyList
                 assets={data.assets}
@@ -103,9 +162,9 @@ const FusePoolPage = memo(() => {
                 <Spinner />
               </Center>
             )}
-          </DashboardBox>
+          </PoolDashboardBox>
 
-          <DashboardBox
+          <PoolDashboardBox
             ml={isMobile ? 0 : 4}
             mt={isMobile ? 4 : 0}
             width={isMobile ? "100%" : "50%"}
@@ -121,7 +180,7 @@ const FusePoolPage = memo(() => {
                 <Spinner />
               </Center>
             )}
-          </DashboardBox>
+          </PoolDashboardBox>
         </RowOrColumn>
         <Footer />
       </Flex>
@@ -130,6 +189,20 @@ const FusePoolPage = memo(() => {
 });
 
 export default FusePoolPage;
+
+const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
+  return (
+    <Box
+      backgroundColor="white"
+      borderRadius="10px"
+      border="1px"
+      borderColor="gray.200"
+      {...props}
+    >
+      {children}
+    </Box>
+  );
+};
 
 const CollateralRatioBar = ({
   assets,
@@ -151,7 +224,7 @@ const CollateralRatioBar = ({
   }, [ratio]);
 
   return (
-    <DashboardBox width="100%" height="65px" mt={4} p={4}>
+    <PoolDashboardBox width="100%" height="65px" mt={4} p={4}>
       <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
         <SimpleTooltip
           label={t("Keep this bar from filling up to avoid being liquidated!")}
@@ -201,7 +274,7 @@ const CollateralRatioBar = ({
           </Text>
         </SimpleTooltip>
       </Row>
-    </DashboardBox>
+    </PoolDashboardBox>
   );
 };
 
@@ -420,7 +493,9 @@ const AssetSupplyRow = ({
         width="100%"
         px={4}
         py={1.5}
-        className="hover-row"
+        _hover={{
+          bgColor: "gray.200",
+        }}
       >
         <Row
           mainAxisAlignment="flex-start"
@@ -677,8 +752,10 @@ const AssetBorrowRow = ({
         crossAxisAlignment="center"
         width="100%"
         px={4}
+        _hover={{
+          bgColor: "gray.200",
+        }}
         py={1.5}
-        className="hover-row"
         as="button"
         onClick={authedOpenModal}
       >
