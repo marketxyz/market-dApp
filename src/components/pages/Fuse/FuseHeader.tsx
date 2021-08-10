@@ -6,13 +6,7 @@ const FuseHeader = () => {
   const isMobile = useIsSmallScreen();
 
   return (
-    <chakra.div
-      position="relative"
-      w="100%"
-      maxH="870px"
-      overflowY="hidden"
-      pt="16"
-    >
+    <chakra.div position="relative" w="100%" overflowY="hidden" pt="16">
       <Flex
         flexDir="column"
         w="100%"
@@ -72,35 +66,36 @@ const FuseHeader = () => {
         />
       </Flex>
       <chakra.img
-        src="/static/fuse/Icon4.svg"
+        src="/static/fuse/header-artifact-bottom-left.svg"
         position="absolute"
-        bottom="0"
-        left="10%"
+        bottom={{ base: "15%", lg: "-20%" }}
+        transform={{ base: "scale(0.50) rotate(-5deg)", lg: "initial" }}
+        left={{ base: "-30%", lg: "17%" }}
       />
       <chakra.img
-        src="/static/fuse/Icon3.svg"
+        src="/static/fuse/header-artifact-left.svg"
         position="absolute"
-        bottom="calc(20% - 16px)"
-        left="10%"
+        bottom={{ base: "calc(20% - 16px)", lg: "-12px" }}
+        left={{ base: "-15%", lg: "12%" }}
       />
       <chakra.img
-        src="/static/fuse/Icon0.svg"
+        src="/static/fuse/header-bitcoin.svg"
         position="absolute"
-        top="30%"
-        left="15%"
+        top="25%"
+        left={{ base: "-10%", lg: "15%" }}
       />
       <chakra.img
         src="/static/fuse/Icon5.svg"
         position="absolute"
-        bottom="-15%"
-        right="20%"
-        transform="rotate(15deg)"
+        bottom={{ base: "20%", lg: "-15%" }}
+        right={{ base: "-30%", lg: "20%" }}
+        transform={{ base: "scale(0.7) rotate(15deg)", lg: "rotate(15deg)" }}
       />
       <chakra.img
-        src="/static/fuse/Icon1.svg"
+        src="/static/fuse/header-eth.svg"
         position="absolute"
-        bottom="45%"
-        right="25%"
+        top={{ base: "20%", lg: "20%" }}
+        right={{ base: "0", lg: "20%" }}
       />
       <chakra.img
         src="/static/fuse/Icon2.svg"

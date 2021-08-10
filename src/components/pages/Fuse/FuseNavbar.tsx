@@ -9,8 +9,9 @@ const FuseNavbar = () => {
         maxWidth="1200px"
         alignItems="center"
         justifyContent="space-between"
-        width="100%"
-        py="26px"
+        w="100%"
+        px={{ base: 4, lg: 0 }}
+        py={{ base: 2, lg: 6 }}
       >
         <Text fontWeight="bold" fontSize="lg" zIndex="100">
           MarketXYZ
