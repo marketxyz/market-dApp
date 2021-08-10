@@ -19,11 +19,10 @@ import { smallUsdFormatter } from "utils/bigUtils";
 import { Row, Column } from "utils/chakraUtils";
 import CTokenIcon from "./CTokenIcon";
 
-const PoolCard = ({ data: pool }: { data: MergedPool }) => {
-  const { t } = useTranslation();
-  const rss = usePoolRSS(pool.id);
-  const rssScore = rss ? letterScore(rss.totalScore) : "?";
-  const scoreGradient = useMemo(() => {
+export const usePoolRiskScoreGradient = (
+  rssScore: ReturnType<typeof letterScore> | "?"
+) => {
+  return useMemo(() => {
     return {
       A: "linear-gradient(180deg, #3DD630 0%, #26B61A 100%)",
       B: "linear-gradient(180deg, #309AD6 0%, #1A6BB6 100%)",
@@ -33,6 +32,12 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
       "?": "linear-gradient(180deg, #FE4848 0%, #B61A1A 100%)",
     }[rssScore];
   }, [rssScore]);
+};
+
+const PoolCard = ({ data: pool }: { data: MergedPool }) => {
+  const { t } = useTranslation();
+  const rss = usePoolRSS(pool.id);
+  const rssScore = rss ? letterScore(rss.totalScore) : "?";
   const tokens = useMemo(() => {
     const tokens = pool.underlyingTokens.map((address, index) => ({
       address,
@@ -40,6 +45,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
     }));
     return tokens.length >= 10 ? tokens.splice(0, 10) : tokens;
   }, [pool.underlyingSymbols, pool.underlyingTokens]);
+  const scoreGradient = usePoolRiskScoreGradient(rssScore);
 
   return (
     <Flex
