@@ -1,7 +1,10 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { chakra, Flex, Text } from "@chakra-ui/react";
+import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 
 const FuseHeader = () => {
+  const isMobile = useIsSmallScreen();
+
   return (
     <chakra.div
       position="relative"
@@ -17,19 +20,27 @@ const FuseHeader = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Text fontSize="56px" lineHeight="71px" fontWeight="bold" zIndex="50">
-          Stake & borrow on XYZ Market
-        </Text>
         <Text
-          fontSize="22px"
-          lineHeight="37px"
-          fontWeight="medium"
-          marginTop="38px"
+          fontSize={{ base: "36px", lg: "56px" }}
+          textAlign="center"
+          lineHeight={{ base: "51px", lg: "71px" }}
+          fontWeight="bold"
           zIndex="50"
         >
+          Stake & borrow on MarketXYZ
+        </Text>
+        <Text
+          fontSize={{ lg: "22px" }}
+          lineHeight={{ lg: "37px" }}
+          fontWeight="medium"
+          marginTop="38px"
+          textAlign="center"
+          zIndex="50"
+          mx={{ base: 12, lg: 0 }}
+        >
           Our DeFi product uses Fuse by Protocol to allow anyone to create{" "}
-          <br />a monety-market with the super-low fees by being built on XYZ
-          Market.
+          <br hidden={isMobile} />a monety-market with the super-low fees by
+          being built on XYZ Market.
         </Text>
         <chakra.button
           mt="55px"

@@ -23,6 +23,16 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
   const { t } = useTranslation();
   const rss = usePoolRSS(pool.id);
   const rssScore = rss ? letterScore(rss.totalScore) : "?";
+  const scoreGradient = useMemo(() => {
+    return {
+      A: "linear-gradient(180deg, #3DD630 0%, #26B61A 100%)",
+      B: "linear-gradient(180deg, #309AD6 0%, #1A6BB6 100%)",
+      C: "linear-gradient(180deg, #FDE82C 0%, #D8C625 100%)",
+      D: "linear-gradient(180deg, #FDAA2D 0%, #B6811A 100%)",
+      U: "linear-gradient(180deg, #FE4848 0%, #B61A1A 100%)",
+      "?": "linear-gradient(180deg, #FE4848 0%, #B61A1A 100%)",
+    }[rssScore];
+  }, [rssScore]);
   const tokens = useMemo(() => {
     const tokens = pool.underlyingTokens.map((address, index) => ({
       address,
@@ -68,7 +78,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         <Row mainAxisAlignment="center" crossAxisAlignment="center">
           <Box
             ml="4"
-            background="linear-gradient(210.72deg, #F03EC3 -13.86%, #8E09B0 105.5%)"
+            background={scoreGradient}
             px="4"
             py="2"
             borderRadius="5px"

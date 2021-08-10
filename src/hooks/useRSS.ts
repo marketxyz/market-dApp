@@ -42,39 +42,25 @@ export const useAssetRSS = (address: string) => {
   return data;
 };
 
-export const letterScore = (totalScore: number) => {
-  if (totalScore >= 95) {
-    return "A++";
-  }
-
-  if (totalScore >= 90) {
-    return "A+";
-  }
-
-  if (totalScore >= 80) {
-    return "A";
-  }
-
-  if (totalScore >= 70) {
-    return "A-";
-  }
-
-  if (totalScore >= 60) {
-    return "B";
-  }
-
-  if (totalScore >= 50) {
-    return "C";
-  }
-
-  if (totalScore >= 40) {
-    return "D";
-  }
-
-  if (totalScore >= 30) {
-    return "F";
-  } else {
-    return "UNSAFE";
+export const letterScore = (
+  totalScore: number
+): "A" | "B" | "C" | "D" | "U" => {
+  switch (true) {
+    case totalScore >= 70: {
+      return "A";
+    }
+    case totalScore >= 60: {
+      return "B";
+    }
+    case totalScore >= 50: {
+      return "C";
+    }
+    case totalScore >= 40: {
+      return "D";
+    }
+    default: {
+      return "U";
+    }
   }
 };
 
