@@ -1,11 +1,13 @@
 import {
   Avatar,
+  AvatarGroup,
   Box,
   BoxProps,
   chakra,
   Divider,
   Flex,
   Heading,
+  HStack,
   Progress,
   Spinner,
   Switch,
@@ -42,15 +44,15 @@ import {
 } from "utils/chakraUtils";
 import { createComptroller } from "utils/createComptroller";
 import { USDPricedFuseAsset } from "utils/fetchFusePoolData";
+import CTokenIcon from "./CTokenIcon";
 import FuseNavbar from "./FuseNavbar";
+import { PoolInfoBox } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
 import PoolModal, { Mode } from "./Modals/PoolModal";
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
-
-  let { poolId } = useParams();
-
+  const { poolId } = useParams();
   const data = useFusePoolData(poolId);
 
   return (
@@ -129,6 +131,44 @@ const FusePoolPage = memo(() => {
           <FuseStatsBar />
         </VStack>
         <Divider />
+        <HStack
+          mainAxisAlignment="center"
+          crossAxisAlignment="center"
+          width="100%"
+          my={8}
+          mx="auto"
+          maxW={{ lg: "1200px" }}
+          spacing={6}
+        >
+          <Text
+            lineHeight={1}
+            textAlign="center"
+            fontSize="xl"
+            fontWeight="bold"
+          >
+            {data?.name}
+          </Text>
+          {data?.assets && data?.assets?.length > 0 ? (
+            <>
+              <AvatarGroup size="sm" max={30}>
+                {data?.assets.map(
+                  ({
+                    underlyingToken,
+                    cToken,
+                  }: {
+                    underlyingToken: string;
+                    cToken: string;
+                  }) => {
+                    return (
+                      <CTokenIcon key={cToken} address={underlyingToken} />
+                    );
+                  }
+                )}
+              </AvatarGroup>
+            </>
+          ) : null}
+        </HStack>
+        <PoolInfoBox data={data} />
         {
           /* If they have some asset enabled as collateral, show the collateral ratio bar */
           data && data.assets.some((asset) => asset.membership) ? (
@@ -190,7 +230,7 @@ const FusePoolPage = memo(() => {
 
 export default FusePoolPage;
 
-const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
+export const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
   return (
     <Box
       backgroundColor="white"

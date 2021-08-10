@@ -7,7 +7,6 @@ import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 const FuseStatsBar = () => {
   const { t } = useTranslation();
   const { data: fuseTVL } = useFuseTVL();
-  const isMobile = useIsSmallScreen();
 
   return (
     <Flex
@@ -30,12 +29,7 @@ const FuseStatsBar = () => {
         fontSize="sm"
         marginRight={{ base: "0px", lg: "84.5px" }}
       >
-        <Text
-          fontSize="32px"
-          lineHeight="40px"
-          fontWeight="bold"
-          zIndex="100"
-        >
+        <Text fontSize="32px" lineHeight="40px" fontWeight="bold" zIndex="100">
           {t("Fuse")}
         </Text>
         <Text

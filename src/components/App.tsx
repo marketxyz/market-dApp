@@ -135,7 +135,6 @@ const App = memo(() => {
         <Route path="/fuse/liquidations" element={<FuseLiquidationsPage />} />
         <Route path="/fuse/new-pool" element={<FusePoolCreatePage />} />
         <Route path="/fuse/pool/:poolId" element={<FusePoolPage />} />
-        <Route path="/fuse/pool/:poolId/info" element={<FusePoolInfoPage />} />
         <Route path="/fuse/pool/:poolId/edit" element={<FusePoolEditPage />} />
 
         <Route path="/utils" element={<Navigate to="/" replace={true} />} />
