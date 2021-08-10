@@ -58,6 +58,7 @@ export const FuseDashNav = ({
       paddingTop="15px"
       overflowX="visible"
       overflowY="visible"
+      w="100%"
       borderBottom="1px solid #e6e4e7"
       borderTop="1px solid #e6e4e7"
       backgroundColor="#FFFFFF"

@@ -3,16 +3,7 @@ import { Box, Flex, chakra, Text } from "@chakra-ui/react";
 
 const FuseNavbar = () => {
   return (
-    <Box
-      bgColor="white"
-      overflowX="hidden"
-      w="100%"
-      zIndex="100"
-      position="fixed"
-      top="0"
-      backgroundColor="transparent"
-      px={["0px", "25px"]}
-    >
+    <Box bgColor="white" overflowX="hidden" w="100%" px={["0px", "25px"]}>
       <Flex
         mx="auto"
         maxWidth="1200px"
@@ -21,12 +12,13 @@ const FuseNavbar = () => {
         width="100%"
         py="26px"
       >
-        <Text fontWeight="bold" fontSize="lg">
-          Market
+        <Text fontWeight="bold" fontSize="lg" zIndex="100">
+          MarketXYZ
         </Text>
         <chakra.button
           display="flex"
           alignItems="center"
+          zIndex="100"
           justifyContent="center"
           borderRadius="34.5px"
           bgColor="white"
