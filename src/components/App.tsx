@@ -113,7 +113,7 @@ const App = memo(() => {
   return (
     <Layout>
       <Routes>
-        <Route path="/pools" element={<Outlet />}>
+        {/* <Route path="/pools" element={<Outlet />}>
           {Object.values(Pool).map((pool) => {
             return (
               <Route
@@ -125,11 +125,11 @@ const App = memo(() => {
           })}
 
           <Route path="/" element={<Navigate to="/" replace={true} />} />
-        </Route>
+        </Route> */}
 
-        <Route path="/tranches" element={<TranchesPage />} />
+        {/* <Route path="/tranches" element={<TranchesPage />} />
 
-        <Route path="/pool2" element={<Pool2Page />} />
+        <Route path="/pool2" element={<Pool2Page />} /> */}
 
         <Route path="/fuse" element={<FusePoolsPage />} />
         <Route path="/fuse/liquidations" element={<FuseLiquidationsPage />} />
@@ -137,12 +137,12 @@ const App = memo(() => {
         <Route path="/fuse/pool/:poolId" element={<FusePoolPage />} />
         <Route path="/fuse/pool/:poolId/edit" element={<FusePoolEditPage />} />
 
-        <Route path="/utils" element={<Navigate to="/" replace={true} />} />
+        {/* <Route path="/utils" element={<Navigate to="/" replace={true} />} />
         <Route path="/utils/interest-rates" element={<InterestRatesPage />} />
-        <Route path="/utils/positions" element={<StatsPage />} />
+        <Route path="/utils/positions" element={<StatsPage />} /> */}
 
         {/* Backwards Compatibility Routes */}
-        <Route
+        {/* <Route
           path="/interest_rates"
           element={<Navigate to="/utils/interest-rates" replace={true} />}
         />
@@ -153,10 +153,10 @@ const App = memo(() => {
         <Route
           path="/positions"
           element={<Navigate to="/utils/positions" replace={true} />}
-        />
+        /> */}
         {/* Backwards Compatibility Routes */}
 
-        <Route path="/" element={<MultiPoolPortal />} />
+        {/* <Route path="/" element={<MultiPoolPortal />} /> */}
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

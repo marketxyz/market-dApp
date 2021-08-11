@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, chakra, Flex, Image } from "@chakra-ui/react";
 
 const FuseNavbar = () => {
   return (
@@ -12,9 +12,15 @@ const FuseNavbar = () => {
         px={{ base: 4, lg: 0 }}
         py={{ base: 2, lg: 6 }}
       >
-        <Text fontWeight="bold" fontSize="xl" zIndex="100">
-          market
-        </Text>
+        <chakra.img
+          src="/static/logo-black-text.png"
+          alt="market logo"
+          width={"36"}
+          paddingTop={"2"}
+        />
+        {/* <Text fontWeight="bold" fontSize="xl" zIndex="100">
+
+        </Text> */}
         {/* <chakra.button
           display="flex"
           alignItems="center"

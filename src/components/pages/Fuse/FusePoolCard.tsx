@@ -66,9 +66,15 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
       >
         <Row mainAxisAlignment="center" crossAxisAlignment="center">
           <Avatar size={40} name={pool.pool.name} variant="marble" />
-          <Text fontWeight="bold" ml="6">
-            {pool.pool.name}
-          </Text>
+          <Link
+            as={RouterLink}
+            to={"/fuse/pool/" + pool.id}
+            _hover={{ textDecor: "none" }}
+          >
+            <Text fontWeight="bold" fontSize={"xl"} ml="6">
+              {pool.pool.name}
+            </Text>
+          </Link>
         </Row>
       </Row>
       <Row crossAxisAlignment="center" mainAxisAlignment="space-between" mx="6">
@@ -82,24 +88,25 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           </SimpleTooltip>
         )}
         <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Box
-            ml="4"
-            background={scoreGradient}
-            px="4"
-            py="2"
-            borderRadius="5px"
-          >
-            <Text fontSize="lg" textColor="white" fontWeight="medium">
-              {rssScore}
-            </Text>
-          </Box>
           <Tooltip
-            label="Some tooltip text"
+            label={
+              "Underlying RSS: " + (rss ? rss.totalScore.toFixed(2) : "?") + "%"
+            }
             placement="top"
             bg="black"
             hasArrow
           >
-            <InfoOutlineIcon ml="2" />
+            <Box
+              ml="4"
+              background={scoreGradient}
+              px="4"
+              py="2"
+              borderRadius="5px"
+            >
+              <Text fontSize="lg" textColor="white" fontWeight="semibold">
+                {rssScore}
+              </Text>
+            </Box>
           </Tooltip>
         </Row>
       </Row>
@@ -112,7 +119,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
       >
         <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
           <Text fontWeight="bold" textAlign="center">
-            {t("Total value supplied")}
+            {t("Total Supply")}
           </Text>
           <Text mt="2">{smallUsdFormatter(pool.suppliedUSD)}</Text>
         </Column>

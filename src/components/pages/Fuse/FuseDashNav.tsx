@@ -20,7 +20,8 @@ import {
   Center,
   Modal,
   ModalOverlay,
-  ModalContent
+  ModalContent,
+  Button,
 } from "@chakra-ui/react";
 import { PixelSize, Row, useWindowSize } from "utils/chakraUtils";
 
@@ -34,11 +35,19 @@ import { useFilter } from "./FuseTabBar";
 import { Link as RouterLink } from "react-router-dom";
 import { AddPoolButton } from "./AddPoolButton";
 import { useRari } from "context/RariContext";
-import FusePoolCreatePage, { CreatePoolConfiguration } from "./FusePoolCreatePage";
+import FusePoolCreatePage, {
+  CreatePoolConfiguration,
+} from "./FusePoolCreatePage";
+import { useDebounce } from "../../../hooks/useDebounce";
+import { useEffect } from "react";
 
 const activeStyle = { bg: "#FFF", color: "#000" };
 const noop = {};
-const selectedTabStyles = { borderColor: "#DF2EAC", fontSize: "18px" };
+const selectedTabStyles = {
+  borderColor: "#DF2EAC",
+  fontSize: "18px",
+  fontWeight: "800",
+};
 const tabStyles = { paddingBottom: "20px", fontSize: "18px" };
 
 export const FuseDashNav = ({
@@ -57,10 +66,26 @@ export const FuseDashNav = ({
   const filter = useFilter();
 
   const [createPoolModal, setCreatePoolModal] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const debouncedSearchTerm = useDebounce(searchText, 300);
+
+  useEffect(() => {
+    const value = encodeURIComponent(debouncedSearchTerm);
+
+    if (value) {
+      navigate("?filter=" + value);
+    } else {
+      navigate("");
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <>
-      <Modal size="4xl" isOpen={createPoolModal} onClose={() => setCreatePoolModal(!createPoolModal)}>
+      <Modal
+        size="4xl"
+        isOpen={createPoolModal}
+        onClose={() => setCreatePoolModal(!createPoolModal)}
+      >
         <ModalOverlay />
         <ModalContent p="5">
           <CreatePoolConfiguration />
@@ -88,14 +113,20 @@ export const FuseDashNav = ({
           <Tabs defaultIndex={1}>
             <TabList>
               <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabLink route="/fuse?filter=my-pools" text={t("Your Pools")} />
+                <TabBtn
+                  onClick={() => setSearchText("my-pools")}
+                  text={t("Your Pools")}
+                />
               </Tab>
               <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabLink route="/fuse" text={t("All Pools")} />
+                <TabBtn
+                  onClick={() => setSearchText("")}
+                  text={t("All Pools")}
+                />
               </Tab>
-              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+              {/* <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
                 <TabLink route="/fuse" text={t("Token")} />
-              </Tab>
+              </Tab> */}
             </TabList>
           </Tabs>
 
@@ -117,23 +148,19 @@ export const FuseDashNav = ({
                   borderRadius="11px"
                   paddingLeft="0px"
                   type="text"
-                  value={filter ?? ""}
-                  onChange={(event) => {
-                    const value = encodeURIComponent(event.target.value);
-
-                    if (value) {
-                      navigate("?filter=" + value);
-                    } else {
-                      navigate("");
-                    }
-                  }}
+                  value={searchText ?? ""}
+                  onChange={(event) => setSearchText(event.target.value)}
                   placeholder="Try searching for USDC"
                 />
               </InputGroup>
             </span>
 
             <span style={{ display: "inline-block" }}>
-              <AddPoolButton switchModalVisibility={() => setCreatePoolModal(!createPoolModal)} />
+              <AddPoolButton
+                switchModalVisibility={() =>
+                  setCreatePoolModal(!createPoolModal)
+                }
+              />
             </span>
           </Box>
         </Row>
@@ -144,47 +171,68 @@ export const FuseDashNav = ({
 
 // copied code
 
-const TabLink = ({ route, text }: { route: string; text: string }) => {
+const TabBtn = ({ onClick, text }: { onClick: any; text: string }) => {
   const isMobile = useIsSmallScreen();
-
-  const location = useLocation();
 
   return (
     <Link
       /* @ts-ignore */
       style={tabStyles}
-      href={route}
-      as={RouterLink}
+      onClick={onClick}
+      as={Button}
+      fontWeight={"400"}
+      background={"transparent"}
+      _hover={{ background: "transparent" }}
       className="no-underline"
-      to={route}
       ml={isMobile ? 0 : 4}
       mt={isMobile ? 4 : 0}
-      {...(route ===
-      location.pathname.replace(/\/+$/, "") + window.location.search
-        ? activeStyle
-        : noop)}
     >
       {text}
     </Link>
   );
 };
 
-const TabExternalLink = ({ route, text }: { route: string; text: string }) => {
-  const isMobile = useIsSmallScreen();
+// const TabLink = ({ route, text }: { route: string; text: string }) => {
+//   const isMobile = useIsSmallScreen();
 
-  return (
-    <Link
-      className="no-underline"
-      href={route}
-      isExternal
-      ml={isMobile ? 0 : 4}
-      mt={isMobile ? 4 : 0}
-    >
-      <DashboardBox height="35px">
-        <Center expand px={2} fontWeight="bold">
-          {text}
-        </Center>
-      </DashboardBox>
-    </Link>
-  );
-};
+//   const location = useLocation();
+
+//   return (
+//     <Link
+//       /* @ts-ignore */
+//       style={tabStyles}
+//       href={route}
+//       as={RouterLink}
+//       className="no-underline"
+//       to={route}
+//       ml={isMobile ? 0 : 4}
+//       mt={isMobile ? 4 : 0}
+//       {...(route ===
+//       location.pathname.replace(/\/+$/, "") + window.location.search
+//         ? activeStyle
+//         : noop)}
+//     >
+//       {text}
+//     </Link>
+//   );
+// };
+
+// const TabExternalLink = ({ route, text }: { route: string; text: string }) => {
+//   const isMobile = useIsSmallScreen();
+
+//   return (
+//     <Link
+//       className="no-underline"
+//       href={route}
+//       isExternal
+//       ml={isMobile ? 0 : 4}
+//       mt={isMobile ? 4 : 0}
+//     >
+//       <DashboardBox height="35px">
+//         <Center expand px={2} fontWeight="bold">
+//           {text}
+//         </Center>
+//       </DashboardBox>
+//     </Link>
+//   );
+// };
