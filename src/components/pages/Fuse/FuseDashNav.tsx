@@ -1,23 +1,14 @@
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 
 import {
   Box,
   Link,
-  Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Portal,
   Tab,
   TabList,
-  TabPanels,
-  TabPanel,
   Tabs,
   InputGroup,
   InputLeftAddon,
   Input,
-  Center,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -27,22 +18,14 @@ import { PixelSize, Row, useWindowSize } from "utils/chakraUtils";
 
 import { useTranslation } from "react-i18next";
 import { PhoneIcon, SearchIcon } from "@chakra-ui/icons";
-import DashboardBox from "components/shared/DashboardBox";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useFilter } from "./FuseTabBar";
+import { useNavigate } from "react-router-dom";
 
-import { Link as RouterLink } from "react-router-dom";
 import { AddPoolButton } from "./AddPoolButton";
-import { useRari } from "context/RariContext";
-import FusePoolCreatePage, {
-  CreatePoolConfiguration,
-} from "./FusePoolCreatePage";
+import { CreatePoolConfiguration } from "./FusePoolCreatePage";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { useEffect } from "react";
 
-const activeStyle = { bg: "#FFF", color: "#000" };
-const noop = {};
 const selectedTabStyles = {
   borderColor: "#DF2EAC",
   fontSize: "18px",
@@ -50,24 +33,16 @@ const selectedTabStyles = {
 };
 const tabStyles = { paddingBottom: "20px", fontSize: "18px" };
 
-export const FuseDashNav = ({
-  isPool,
-  isFuse,
-  padding,
-}: {
-  isFuse?: boolean;
-  isPool?: boolean;
-  padding?: boolean;
-}) => {
-  const { isAuthed } = useRari();
+export const FuseDashNav = (props: any) => {
   const { t } = useTranslation();
-  let { poolId } = useParams();
   let navigate = useNavigate();
-  const filter = useFilter();
 
   const [createPoolModal, setCreatePoolModal] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const debouncedSearchTerm = useDebounce(searchText, 300);
+  const [searchText, setSearchText] = useState(() => {
+    const query = new URLSearchParams(window.location.search);
+    return query.get("filter") ?? "";
+  });
+  const debouncedSearchTerm = useDebounce(searchText, 400);
 
   useEffect(() => {
     const value = encodeURIComponent(debouncedSearchTerm);
@@ -110,7 +85,7 @@ export const FuseDashNav = ({
           marginLeft="auto"
           width="100%"
         >
-          <Tabs defaultIndex={1}>
+          <Tabs index={searchText === "my-pools" ? 0 : 1}>
             <TabList>
               <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
                 <TabBtn
