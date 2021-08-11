@@ -1,5 +1,4 @@
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Box, Flex, chakra, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 const FuseNavbar = () => {
   return (
@@ -13,10 +12,10 @@ const FuseNavbar = () => {
         px={{ base: 4, lg: 0 }}
         py={{ base: 2, lg: 6 }}
       >
-        <Text fontWeight="bold" fontSize="lg" zIndex="100">
-          MarketXYZ
+        <Text fontWeight="bold" fontSize="xl" zIndex="100">
+          market
         </Text>
-        <chakra.button
+        {/* <chakra.button
           display="flex"
           alignItems="center"
           zIndex="100"
@@ -37,7 +36,7 @@ const FuseNavbar = () => {
         >
           <span>Put your money to work</span>
           <ChevronRightIcon />
-        </chakra.button>
+        </chakra.button> */}
       </Flex>
     </Box>
   );

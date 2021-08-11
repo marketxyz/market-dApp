@@ -1,4 +1,4 @@
-import { chakra, Flex, VStack } from "@chakra-ui/react";
+import { chakra, Divider, Flex, VStack } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import FuseHeader from "./FuseHeader";
 import FuseNavbar from "./FuseNavbar";
@@ -19,7 +19,7 @@ const FusePageLayout = ({ children }: FusePageLayoutProps) => {
       fontFamily="Plus Jakarta Sans"
     >
       <VStack overflowY="hidden" position="relative" w="100%">
-        <chakra.div
+        {/* <chakra.div
           bgColor="#ff00b3"
           h="800px"
           w="400px"
@@ -40,10 +40,10 @@ const FusePageLayout = ({ children }: FusePageLayoutProps) => {
           right="10%"
           bottom="0"
           transform="translate(-50%, -50%)"
-        />
-
+        /> */}
         <FuseNavbar />
-        <FuseHeader />
+        <Divider orientation="horizontal" />
+        {/* <FuseHeader /> */}
       </VStack>
       {children}
     </Flex>

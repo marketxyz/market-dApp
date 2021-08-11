@@ -70,7 +70,7 @@ const FusePoolPage = memo(() => {
         fontFamily="Plus Jakarta Sans"
       >
         <VStack overflowY="hidden" position="relative" w="100%">
-          <chakra.div
+          {/* <chakra.div
             bgColor="#ff00b3"
             h="400px"
             w="800px"
@@ -129,9 +129,9 @@ const FusePoolPage = memo(() => {
             bottom="-15%"
             right="10%"
             transform="rotate(15deg)"
-          />
+          /> */}
           <FuseNavbar />
-          <FuseStatsBar />
+          {/* <FuseStatsBar /> */}
         </VStack>
         <Divider />
         <HStack
@@ -352,7 +352,7 @@ const SupplyList = ({
       <Heading size="md" px={4} py={3}>
         {t("Supply Balance:")} {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
-      
+
       <Divider color="#F4F6F9" />
 
       {assets.length > 0 ? (
