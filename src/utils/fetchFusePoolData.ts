@@ -125,7 +125,19 @@ export const fetchFusePoolData = async (
     await fuse.contracts.FusePoolLens.methods
       .getPoolAssetsWithData(comptroller)
       .call({ from: address, gas: 1e18 })
-  ).map(filterOnlyObjectProperties);
+  ).map((obj: any) => {
+    obj = filterOnlyObjectProperties(obj);
+
+    if (
+      obj &&
+      obj.underlyingToken === "0x0000000000000000000000000000000000000000"
+    ) {
+      obj.underlyingName = "Polygon";
+      obj.underlyingSymbol = "MATIC";
+    }
+
+    return obj;
+  });
 
   let totalLiquidityUSD = 0;
 

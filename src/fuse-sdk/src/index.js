@@ -22,13 +22,13 @@ const axios = require("axios");
 
 export default class Fuse {
   static FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS =
-    "0x614D0d9793E22b250274F3180994Dcec84B04476";
+    "0x192F151704c90913B4C0254812714E54696a2C3B";
   static FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS =
-    "0xDd9AD330F084CB3DBB2AeCf534ff179494BCEc37";
+    "0xE24dBc2696C5f3cB9bdDEC4779aDd8eccC5705b1";
   static FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS =
     "0xE197bcC90aBF34E941BF6F55ad2956B5714EE179";
   static FUSE_POOL_LENS_CONTRACT_ADDRESS =
-    "0x4a0355c86f69ff2C4624D4B1aaf52b7FCeD4c6C5";
+    "0xbfD6f66Fdbe28e394247FF2aEE7f92f7008C84ca";
 
   static COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS =
     "0x9949308e533E3b7D726626d93A712be9243605Eb";
@@ -48,7 +48,7 @@ export default class Fuse {
      * if price feed for a token is not available there, it will use
      * Uniswap TWAP
      */
-    PreferredPriceOracle: "0xee44c8CEd933d52E72cDD14E0D57be98bb77FcbF",
+    PreferredPriceOracle: "0x098D2A0a70445CCD3eeC7C227A2A3Ec70ec76410",
     ChainlinkPriceOracleV2: "0xe5D95C15C5aDb53b798760430Fe550007b1C6977",
     UniswapTwapPriceOracle_SushiSwap: "0xF0E91C6AD21a5CaF42a88aFA68D6DdFce5E77bFB",
   };
@@ -793,7 +793,7 @@ export default class Fuse {
               "0x" +
               contracts["contracts/CEtherDelegate.sol:CEtherDelegate"].bin,
           })
-          .send(options);
+          .send(Object.assign({}, options));
         implementationAddress = cEtherDelegate.options.address;
       }
 
@@ -823,7 +823,7 @@ export default class Fuse {
             contracts["contracts/CEtherDelegator.sol:CEtherDelegator"].bin,
           arguments: deployArgs,
         })
-        .send(options);
+        .send(Object.assign({}, options));
 
       // Register new asset with Comptroller
       var comptroller = new this.web3.eth.Contract(
@@ -841,11 +841,11 @@ export default class Fuse {
               cEtherDelegator.options.address,
               collateralFactor
             )
-            .send(options);
+            .send(Object.assign({}, options));
         else
           await comptroller.methods
             ._supportMarket(cEtherDelegator.options.address)
-            .send(options);
+            .send(Object.assign({}, options));
       }
 
       // Return cToken proxy and implementation contract addresses
