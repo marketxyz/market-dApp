@@ -4,10 +4,10 @@ import { PixelMeasurement } from "utils/chakraUtils";
 export const DASHBOARD_BOX_SPACING = new PixelMeasurement(15);
 
 export const DASHBOARD_BOX_PROPS = {
-  backgroundColor: "#121212",
+  backgroundColor: "#FFF",
   borderRadius: "10px",
   border: "1px",
-  borderColor: "#272727",
+  borderColor: "#BBB",
 };
 
 const DashboardBox = ({ children, ...props }: BoxProps) => {

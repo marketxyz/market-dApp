@@ -11,6 +11,7 @@ import {
   Select,
   Spinner,
   useToast,
+  Divider
 } from "@chakra-ui/react";
 import { Column, Center } from "utils/chakraUtils";
 import { useEffect, useState } from "react";
@@ -395,7 +396,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <ModalDivider />
+      <Divider bg="#BBB" borderColor="#BBB" />
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -422,7 +423,9 @@ export const AssetSettings = ({
           max={50}
         />
       </ConfigRow>
-      <ModalDivider />
+      
+      <Divider bg="#BBB" borderColor="#BBB" />
+      
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -449,7 +452,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <ModalDivider />
+      <Divider bg="#BBB" borderColor="#BBB" />
 
       <ConfigRow>
         <SimpleTooltip
@@ -473,7 +476,7 @@ export const AssetSettings = ({
           onChange={(event) => setInterestRateModel(event.target.value)}
         >
           <option
-            className="black-bg-option"
+            className="white-bg-option"
             value={
               Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
                 .JumpRateModel_DAI
@@ -483,7 +486,7 @@ export const AssetSettings = ({
           </option>
 
           <option
-            className="black-bg-option"
+            className="white-bg-option"
             value={
               Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
                 .WhitePaperInterestRateModel_ETH
@@ -557,8 +560,8 @@ export const AssetSettings = ({
             borderRadius="10px"
             width="100%"
             height="70px"
-            color={tokenData.overlayTextColor! ?? "#000"}
-            bg={tokenData.color! ?? "#FFF"}
+            color={tokenData.overlayTextColor! ?? "#FFF"}
+            bg={tokenData.color! ?? "#000"}
             _hover={{ transform: "scale(1.02)" }}
             _active={{ transform: "scale(0.95)" }}
             isLoading={isDeploying}

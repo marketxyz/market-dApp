@@ -1,7 +1,13 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   AvatarGroup,
   Box,
-  Heading, Spinner, Switch, Text, useDisclosure, useToast
+  Heading, Spinner, Switch, Text, useDisclosure, useToast,
+  chakra,
+  Flex,
+  VStack,
+  Divider,
+  HStack
 } from "@chakra-ui/react";
 import BigNumber from "bignumber.js";
 import LogRocket from "logrocket";
@@ -23,17 +29,17 @@ import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
 import { SliderWithLabel } from "../../shared/SliderWithLabel";
 import CTokenIcon from "./CTokenIcon";
+import FuseNavbar from "./FuseNavbar";
 import { WhitelistInfo } from "./FusePoolCreatePage";
 import { useExtraPoolInfo } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
+import { Link } from "react-router-dom";
 
 
-
-
-const activeStyle = { bg: "#FFF", color: "#000" };
-const noop = () => {};
+const activeStyle = { bg: "#FFF", color: "#000", borderColor: "#BBB" };
+const noop = { bg: "#000", color: "#FFF" };
 
 const formatPercentage = (value: number) => value.toFixed(0) + "%";
 
@@ -118,38 +124,149 @@ const FusePoolEditPage = memo(() => {
 
   return (
     <>
-      {data ? (
-        <AddAssetModal
-          comptrollerAddress={data.comptroller}
-          existingAssets={data.assets}
-          poolName={data.name}
-          poolID={poolId}
-          isOpen={isAddAssetModalOpen}
-          onClose={closeAddAssetModal}
-        />
-      ) : null}
 
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        color="#FFFFFF"
-        mx="auto"
-        width={isMobile ? "100%" : "1150px"}
-        px={isMobile ? 4 : 0}
+    {data ? (
+      <AddAssetModal
+        comptrollerAddress={data.comptroller}
+        existingAssets={data.assets}
+        poolName={data.name}
+        poolID={poolId}
+        isOpen={isAddAssetModalOpen}
+        onClose={closeAddAssetModal}
+      />
+    ) : null}
+
+    <Flex
+        w="100vw"
+        minH="100vh"
+        flexDir="column"
+        alignItems="flex-start"
+        bgColor="white"
+        justifyContent="flex-start"
+        fontFamily="Plus Jakarta Sans"
       >
-        <Header isAuthed={isAuthed} isFuse />
-
-        <FuseStatsBar />
-
-        <FuseTabBar />
-
-        <RowOrColumn
+        <VStack overflowY="hidden" position="relative" w="100%">
+          <chakra.div
+            bgColor="#ff00b3"
+            h="400px"
+            w="800px"
+            filter="blur(350px)"
+            position="absolute"
+            top="100%"
+            left="50%"
+            bottom="0"
+            transform="translate(-50%, -50%)"
+          />
+          <chakra.img
+            src="/static/fuse/header-artifact-bottom-left.svg"
+            position="absolute"
+            bottom={{ base: "15%", lg: "-30%" }}
+            transform={{ base: "scale(0.50) rotate(-5deg)", lg: "initial" }}
+            left={{ base: "-30%", lg: "17%" }}
+          />
+          <chakra.img
+            src="/static/fuse/header-artifact-left.svg"
+            position="absolute"
+            bottom={{ base: "calc(20% - 16px)", lg: "-12px" }}
+            left={{ base: "-15%", lg: "12%" }}
+          />
+          <chakra.img
+            src="/static/fuse/header-bitcoin.svg"
+            position="absolute"
+            top="25%"
+            left={{ base: "-10%", lg: "12%" }}
+          />
+          <chakra.img
+            src="/static/fuse/Icon5.svg"
+            position="absolute"
+            bottom={{ base: "20%", lg: "-25%" }}
+            right={{ base: "-30%", lg: "10%" }}
+            transform={{
+              base: "scale(0.7) rotate(15deg)",
+              lg: "rotate(15deg)",
+            }}
+          />
+          <chakra.img
+            src="/static/fuse/header-eth.svg"
+            position="absolute"
+            top={{ base: "15%" }}
+            right={{ base: "0", lg: "10%" }}
+          />
+          <chakra.img
+            src="/static/fuse/Icon2.svg"
+            position="absolute"
+            bottom="30%"
+            right="10%"
+            transform="rotate(15deg)"
+          />
+          <chakra.img
+            src="/static/fuse/Icon6.png"
+            position="absolute"
+            bottom="-15%"
+            right="10%"
+            transform="rotate(15deg)"
+          />
+          <FuseNavbar />
+          <FuseStatsBar />
+        </VStack>
+        <Divider />
+        <HStack
+          mainAxisAlignment="center"
+          crossAxisAlignment="center"
           width="100%"
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
-          isRow={!isMobile}
+          my={8}
+          mx="auto"
+          maxW={{ lg: "1200px" }}
+          spacing={6}
         >
+          <Link to="/fuse">
+            <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
+          </Link>
+          <Text
+            lineHeight={1}
+            textAlign="center"
+            fontSize="xl"
+            fontWeight="bold"
+          >
+            {data?.name}
+          </Text>
+          {data?.assets && data?.assets?.length > 0 ? (
+            <>
+              <AvatarGroup size="sm" max={30}>
+                {data?.assets.map(
+                  ({
+                    underlyingToken,
+                    cToken,
+                  }: {
+                    underlyingToken: string;
+                    cToken: string;
+                  }) => {
+                    return (
+                      <CTokenIcon key={cToken} address={underlyingToken} />
+                    );
+                  }
+                )}
+              </AvatarGroup>
+            </>
+          ) : null}
+          </HStack>
+
+          <RowOrColumn
+            width="100%"
+            mainAxisAlignment="flex-start"
+            crossAxisAlignment="flex-start"
+            maxW={{ lg: "1200px" }}
+            bgColor="white"
+            textColor="black"
+            px={{ base: 6, lg: 0 }}
+            mx="auto"
+            mt={4}
+            isRow={!isMobile}
+            mb="8"
+          >
           <DashboardBox
+            bg="#fff"
+            borderColor="#BBB"
             width={isMobile ? "100%" : "50%"}
             height={isMobile ? "auto" : "440px"}
             mt={4}
@@ -168,6 +285,8 @@ const FusePoolEditPage = memo(() => {
 
           <Box pl={isMobile ? 0 : 4} width={isMobile ? "100%" : "50%"}>
             <DashboardBox
+              bg="#FFF"
+              borderColor="#BBB"
               width="100%"
               mt={4}
               height={isMobile ? "auto" : "440px"}
@@ -204,9 +323,9 @@ const FusePoolEditPage = memo(() => {
             </DashboardBox>
           </Box>
         </RowOrColumn>
-      </Column>
+      </Flex>
     </>
-  );
+  )
 });
 
 export default FusePoolEditPage;
@@ -395,7 +514,7 @@ const PoolConfiguration = ({
         {t("Pool {{num}} Configuration", { num: poolId })}
       </Heading>
 
-      <ModalDivider />
+      <Divider borderColor="#BBB" bg="#BBB" />
 
       {data ? (
         <Column
@@ -434,7 +553,7 @@ const PoolConfiguration = ({
             )}
           </ConfigRow>
 
-          <ModalDivider />
+          <Divider borderColor="#BBB" bg="#BBB" />
 
           <Column
             mainAxisAlignment="flex-start"
@@ -465,7 +584,7 @@ const PoolConfiguration = ({
               />
             ) : null}
 
-            <ModalDivider />
+            <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow>
               <Text fontWeight="bold">{t("Upgradeable")}:</Text>
@@ -488,7 +607,7 @@ const PoolConfiguration = ({
               )}
             </ConfigRow>
 
-            <ModalDivider />
+            <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow height="35px">
               <Text fontWeight="bold">{t("Close Factor")}:</Text>
@@ -507,7 +626,7 @@ const PoolConfiguration = ({
               />
             </ConfigRow>
 
-            <ModalDivider />
+            <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow height="35px">
               <Text fontWeight="bold">{t("Liquidation Incentive")}:</Text>
@@ -574,7 +693,7 @@ const AssetConfiguration = ({
         />
       </ConfigRow>
 
-      <ModalDivider />
+      <Divider borderColor="#BBB" bg="#BBB" />
 
       <ConfigRow>
         <Text fontWeight="bold" mr={2}>
@@ -604,7 +723,7 @@ const AssetConfiguration = ({
         })}
       </ConfigRow>
 
-      <ModalDivider />
+      <Divider borderColor="#BBB" bg="#BBB" />
 
       <ColoredAssetSettings
         comptrollerAddress={comptrollerAddress}
@@ -634,7 +753,7 @@ const ColoredAssetSettings = ({
 
   return tokenData ? (
     <AssetSettings
-      closeModal={noop}
+      closeModal={() => {}}
       comptrollerAddress={comptrollerAddress}
       poolName={poolName}
       poolID={poolID}
@@ -664,7 +783,9 @@ export const SaveButton = ({
       width="60px"
       height="35px"
       as="button"
-      fontWeight="bold"
+      fontWeight="normal"
+      bg="#000"
+      color="#FFF"
       onClick={onClick}
       {...others}
     >
@@ -690,7 +811,9 @@ const AddAssetButton = ({
       as="button"
       py={1}
       px={2}
-      fontWeight="bold"
+      fontWeight="normal"
+      bg="#000"
+      color="#FFF"
     >
       {t("Add Asset")}
     </DashboardBox>
