@@ -466,7 +466,9 @@ export const AssetSettings = ({
         </SimpleTooltip>
 
         <Select
-          {...DASHBOARD_BOX_PROPS}
+          backgroundColor="#FFF"
+          border="1px"
+          borderColor="#BBB"
           ml="auto"
           borderRadius="7px"
           fontWeight="bold"
