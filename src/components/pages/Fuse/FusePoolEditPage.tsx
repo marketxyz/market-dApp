@@ -595,8 +595,10 @@ const PoolConfiguration = ({
                   ml="auto"
                   as="button"
                   onClick={renounceOwnership}
+                  bg="#000"
+                  color="#FFF"
                 >
-                  <Center expand px={2} fontWeight="bold">
+                  <Center expand px={2} fontWeight="normal">
                     {t("Renounce Ownership")}
                   </Center>
                 </DashboardBox>
@@ -711,8 +713,8 @@ const AssetConfiguration = ({
                 as="button"
                 onClick={() => setSelectedAsset(asset)}
                 {...(asset.cToken === selectedAsset.cToken
-                  ? activeStyle
-                  : noop)}
+                  ? noop
+                  : activeStyle)}
               >
                 <Center expand px={4} py={1} fontWeight="bold">
                   {asset.underlyingSymbol}

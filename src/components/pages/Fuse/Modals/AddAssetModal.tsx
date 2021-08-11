@@ -609,7 +609,7 @@ const AddAssetModal = ({
     >
       <ModalOverlay />
       <ModalContent {...MODAL_PROPS}>
-        <Heading fontSize="27px" my={4} textAlign="center">
+        <Heading fontSize="27px" fontWeight="normal" my={4} textAlign="center">
           {t("Add Asset")}
         </Heading>
 
@@ -635,7 +635,7 @@ const AddAssetModal = ({
               <Heading
                 my={tokenData?.symbol ? 3 : 6}
                 fontSize="22px"
-                color={tokenData?.color ?? "#FFF"}
+                color={tokenData?.color ?? "#000"}
               >
                 {tokenData
                   ? tokenData.name ?? "Invalid Address!"
@@ -659,11 +659,13 @@ const AddAssetModal = ({
                 const address = event.target.value;
                 _setTokenAddress(address);
               }}
-              {...DASHBOARD_BOX_PROPS}
-              _placeholder={{ color: "#e0e0e0" }}
-              _focus={{ bg: "#121212" }}
-              _hover={{ bg: "#282727" }}
-              bg="#282727"
+              backgroundColor="#FFF"
+              borderRadius="10px"
+              border="1px"
+              borderColor="#BBB"
+              _placeholder={{ color: "#000" }}
+              _focus={{}}
+              _hover={{}}
             />
 
             {!existingAssets.some(
