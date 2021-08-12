@@ -5,7 +5,10 @@ import Rari from "rari-sdk/index";
 import Fuse from "fuse-sdk";
 import FuseJs from "fuse.js";
 
-import { filterOnlyObjectProperties } from "utils/fetchFusePoolData";
+import {
+  fetchFusePoolData,
+  filterOnlyObjectProperties,
+} from "utils/fetchFusePoolData";
 
 export interface FusePool {
   name: string;
@@ -116,7 +119,6 @@ export const useFusePools = (filter: string | null): UseFusePoolsReturn => {
     if (!pools) {
       return null;
     }
-
     if (!filter) {
       return poolSort(pools);
     }

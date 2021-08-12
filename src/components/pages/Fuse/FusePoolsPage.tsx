@@ -25,8 +25,7 @@ const PoolList = () => {
   const filter = useFilter();
   const { filteredPools } = useFusePools(filter);
 
-  return (
-    filteredPools ? (
+  return filteredPools ? (
     <Grid
       templateRows={{
         base: "repeat(1, minmax(0, 1fr))",
@@ -40,14 +39,13 @@ const PoolList = () => {
       mx="auto"
       gridGap="8"
     >
-        {filteredPools.map((pool, index) => {
-          return <PoolCard data={pool} />;
-        })}
-      </Grid>
-    ) : (
-      <Center width="100%">
-        <Spinner my={40} />
-      </Center>
-    )
+      {filteredPools.map((pool, index) => {
+        return <PoolCard data={pool} />;
+      })}
+    </Grid>
+  ) : (
+    <Center width="100%">
+      <Spinner my={40} />
+    </Center>
   );
 };

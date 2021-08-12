@@ -130,13 +130,13 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           </Text>
           <Text mt="2">{smallUsdFormatter(pool.borrowedUSD)}</Text>
         </Column>
-        <chakra.div h="16" w="1px" bgColor="gray.300" />
-        <Column mainAxisAlignment="center" crossAxisAlignment="center">
+        {/* <chakra.div h="16" w="1px" bgColor="gray.300" /> */}
+        {/* <Column mainAxisAlignment="center" crossAxisAlignment="center">
           <Text fontWeight="bold" textAlign="center">
             Max APY
           </Text>
           <Text mt="2">20%</Text>
-        </Column>
+        </Column> */}
       </Row>
       <Link
         as={RouterLink}

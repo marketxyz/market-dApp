@@ -142,9 +142,8 @@ export const fetchFusePoolData = async (
 
   let promises = [];
 
+  const comptrollerContract = createComptroller(comptroller, fuse);
   for (let i = 0; i < assets.length; i++) {
-    const comptrollerContract = createComptroller(comptroller, fuse);
-
     let asset = assets[i];
 
     promises.push(
