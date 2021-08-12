@@ -183,7 +183,7 @@ function HeaderCell({ children, column, ...props }: any) {
         return "https://app.compound.finance/";
       default:
         // column.key is the pool ID for Fuse pools
-        return "/fuse/pool/" + column.key;
+        return "/pool/" + column.key;
     }
   }, [column.key]);
 

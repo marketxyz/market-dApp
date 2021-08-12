@@ -116,7 +116,7 @@ const FuseTabBar = () => {
               <Link
                 /* @ts-ignore */
                 as={RouterLink}
-                to={`/fuse/pool/${poolId}`}
+                to={`/pool/${poolId}`}
                 className="no-underline"
               >
                 <Center expand px={2} fontWeight="bold">
@@ -134,7 +134,7 @@ const FuseTabBar = () => {
               <Link
                 /* @ts-ignore */
                 as={RouterLink}
-                to={`/fuse/pool/${poolId}/info`}
+                to={`/pool/${poolId}/info`}
                 className="no-underline"
               >
                 <Center expand px={2} fontWeight="bold">

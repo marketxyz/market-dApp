@@ -55,6 +55,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
       bgColor="white"
       borderRadius="20px"
       boxShadow="0px 21px 44px rgba(71, 29, 97, 0.105141)"
+      _hover={{ boxShadow: "0px 21px 44px rgba(71, 29, 97, 0.205141)" }}
       flexDir="column"
       gridGap="6"
     >
@@ -67,7 +68,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         <Row mainAxisAlignment="center" crossAxisAlignment="center">
           <Link
             as={RouterLink}
-            to={"/fuse/pool/" + pool.id}
+            to={"/pool/" + pool.id}
             _hover={{ textDecor: "none" }}
           >
             <Text fontWeight="bold" fontSize={"xl"} ml="2">

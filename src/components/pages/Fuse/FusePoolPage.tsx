@@ -41,7 +41,11 @@ import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 // Utils
 import { convertMantissaToAPR, convertMantissaToAPY } from "utils/apyUtils";
-import { shortUsdFormatter, smallUsdFormatter } from "utils/bigUtils";
+import {
+  midUsdFormatter,
+  shortUsdFormatter,
+  smallUsdFormatter,
+} from "utils/bigUtils";
 import {
   Center,
   Column,
@@ -225,19 +229,19 @@ const FusePoolPage = memo(() => {
               <Stat>
                 <StatLabel>{"Total Supply"}</StatLabel>
                 <StatNumber>
-                  {shortUsdFormatter(data?.totalSuppliedUSD)}
+                  {midUsdFormatter(data?.totalSuppliedUSD)}
                 </StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>{"Total Borrow"}</StatLabel>
                 <StatNumber>
-                  {shortUsdFormatter(data?.totalBorrowedUSD)}
+                  {midUsdFormatter(data?.totalBorrowedUSD)}
                 </StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>{"Liquidity"}</StatLabel>
                 <StatNumber>
-                  {shortUsdFormatter(data?.totalLiquidityUSD)}
+                  {midUsdFormatter(data?.totalLiquidityUSD)}
                 </StatNumber>
               </Stat>
               <Stat>

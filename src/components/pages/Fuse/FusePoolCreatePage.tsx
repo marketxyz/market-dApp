@@ -7,7 +7,7 @@ import {
   Spinner,
   IconButton,
   useToast,
-  Divider
+  Divider,
 } from "@chakra-ui/react";
 import { Column, Center, Row } from "utils/chakraUtils";
 import { memo, ReactNode, useState } from "react";
@@ -147,7 +147,7 @@ export const CreatePoolConfiguration = () => {
       LogRocket.track("Fuse-CreatePool");
 
       let id = event.returnValues.index;
-      navigate(`/fuse/pool/${id}/edit`);
+      navigate(`/pool/${id}/edit`);
     } catch (e) {
       handleGenericError(e, toast);
     }
@@ -156,16 +156,12 @@ export const CreatePoolConfiguration = () => {
   return (
     <>
       <DashboardBox borderColor="#BBB" bg="#fff" width="100%" mt={4}>
-
         <Heading fontWeight="bold" size="md" px={4} py={4}>
           {t("Create Pool")}
         </Heading>
 
         <Column mainAxisAlignment="flex-start" crossAxisAlignment="flex-start">
-          
-
-        <Divider bg="#BBB" />
-
+          <Divider bg="#BBB" />
 
           <OptionRow>
             <Text fontWeight="normal" mr={4}>
@@ -179,7 +175,6 @@ export const CreatePoolConfiguration = () => {
           </OptionRow>
 
           <Divider bg="#BBB" />
-
 
           <OptionRow>
             <Text fontWeight="normal" mr={4}>
