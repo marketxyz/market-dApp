@@ -57,10 +57,10 @@ const FuseStatsBar = () => {
         overflow="hidden"
         boxShadow="0px 21px 27px -12px rgba(9, 27, 177, 0.332741)"
         borderRadius="20px"
-        background="linear-gradient(to right top, #271C3F 5%, #442471 44.8%, #7F3EB1 94.01%)"
+        bg="linear-gradient(to bottom right,#9b61cd 0,#f21587 60%,#f2ef15 100%)"
       >
         <Text
-          fontWeight="bold"
+          fontWeight="extrabold"
           fontSize={["36px", "48px"]}
           lineHeight={["60px"]}
           textColor="white"

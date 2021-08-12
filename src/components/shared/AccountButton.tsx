@@ -101,35 +101,6 @@ const Buttons = ({
 
   return (
     <Row mainAxisAlignment="center" crossAxisAlignment="center">
-      {isMobile ? null : (
-        <>
-          {/* <DashboardBox
-            as="button"
-            flexShrink={0}
-            width="110px"
-            height="40px"
-            fontWeight="bold"
-            onClick={openMoonpayModal}
-          >
-            <Center expand>{t("Buy Crypto")}</Center>
-          </DashboardBox> */}
-
-          <DashboardBox
-            ml={1}
-            as="button"
-            height="40px"
-            flexShrink={0}
-            width="95px"
-            fontSize="15px"
-            onClick={openClaimRGTModal}
-            fontWeight="bold"
-          >
-            <Center expand>{t("Claim RGT")}</Center>
-          </DashboardBox>
-        </>
-      )}
-
-      {/* Connect + Account button */}
       <DashboardBox
         ml={isMobile ? 0 : 4}
         as="button"
@@ -138,6 +109,12 @@ const Buttons = ({
         flexGrow={0}
         width="133px"
         onClick={handleAccountButtonClick}
+        bgColor="white"
+        boxShadow="base"
+        borderColor="#DF2EAC"
+        borderWidth="2px"
+        _hover={{ boxShadow: "md" }}
+        _focus={{ boxShadow: "md" }}
       >
         <Row
           expand
@@ -192,11 +169,6 @@ export const SettingsModal = ({
     logout();
   };
 
-  const onClaimRGT = () => {
-    onClose();
-    setTimeout(() => openClaimRGTModal(), 100);
-  };
-
   return (
     <Modal
       motionPreset="slideInBottom"
@@ -216,16 +188,9 @@ export const SettingsModal = ({
           crossAxisAlignment="center"
           p={4}
         >
-          <GlowingButton
-            label={t("Claim RGT")}
-            onClick={onClaimRGT}
-            width="100%"
-            height="51px"
-            mb={4}
-          />
-
           <Button
-            bg="facebook.500"
+            bg="cyan.500"
+            color="white"
             width="100%"
             height="45px"
             fontSize="xl"
@@ -241,6 +206,7 @@ export const SettingsModal = ({
 
           <Button
             bg={"whatsapp.500"}
+            color={"white"}
             width="100%"
             height="45px"
             fontSize="xl"
@@ -256,6 +222,7 @@ export const SettingsModal = ({
 
           <Button
             bg="red.500"
+            color={"white"}
             width="100%"
             height="45px"
             fontSize="xl"

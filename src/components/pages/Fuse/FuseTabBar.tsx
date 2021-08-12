@@ -93,7 +93,7 @@ const FuseTabBar = () => {
         </ButtonGroup>
 
         <TabLink route="/fuse?filter=my-pools" text={t("My Pools")} />
-        <TabLink route="/fuse" text={t("All Pools")} />
+        <TabLink route="/" text={t("All Pools")} />
         <TabLink route="/fuse?filter=created-pools" text={t("Created Pools")} />
         <TabExternalLink
           route="https://rari.grafana.net/goto/61kctV_Gk"
@@ -116,7 +116,7 @@ const FuseTabBar = () => {
               <Link
                 /* @ts-ignore */
                 as={RouterLink}
-                to={`/fuse/pool/${poolId}`}
+                to={`/pool/${poolId}`}
                 className="no-underline"
               >
                 <Center expand px={2} fontWeight="bold">
@@ -134,7 +134,7 @@ const FuseTabBar = () => {
               <Link
                 /* @ts-ignore */
                 as={RouterLink}
-                to={`/fuse/pool/${poolId}/info`}
+                to={`/pool/${poolId}/info`}
                 className="no-underline"
               >
                 <Center expand px={2} fontWeight="bold">

@@ -10,7 +10,7 @@ export const getOpportunityLink = (
     case HomepageOpportunityType.EarnVault:
       return `/pools/${opportunity.vaultType}`;
     case HomepageOpportunityType.FusePool:
-      return `/fuse/pool/${opportunity.fusePoolId}`;
+      return `/pool/${opportunity.fusePoolId}`;
   }
   return "/";
 };

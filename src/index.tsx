@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 
 import "./index.css";
+import "@fontsource/inter";
 
 // Remove this ignore when TypeScript PR gets merged.
 // @ts-ignore
@@ -47,8 +48,8 @@ const customTheme = {
   ...theme,
   fonts: {
     ...theme.fonts,
-    body: `'Avenir Next', ${theme.fonts.body}`,
-    heading: `'Avenir Next', ${theme.fonts.heading}`,
+    body: `Inter, ${theme.fonts.body}`,
+    heading: `Inter, ${theme.fonts.heading}`,
   },
 };
 
@@ -65,28 +66,31 @@ function ScrollToTop() {
 
 const queryClient = new QueryClient();
 
-ReactDOM.render(
-  <>
-    <PWAPrompt
-      timesToShow={2}
-      permanentlyHideOnDismiss={false}
-      copyTitle="Add Rari to your homescreen!"
-      copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
-      copyClosePrompt="Close"
-    />
-    <ChakraProvider theme={customTheme}>
-      <ErrorBoundary FallbackComponent={ErrorPage}>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <BrowserRouter>
-            <RariProvider>
-              <ScrollToTop />
-              <App />
-            </RariProvider>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </ChakraProvider>
-  </>,
-  document.getElementById("root")
-);
+const Index = () => {
+  return (
+    <>
+      <PWAPrompt
+        timesToShow={2}
+        permanentlyHideOnDismiss={false}
+        copyTitle="Add Rari to your homescreen!"
+        copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
+        copyClosePrompt="Close"
+      />
+      <ChakraProvider theme={customTheme}>
+        <ErrorBoundary FallbackComponent={ErrorPage}>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <BrowserRouter>
+              <RariProvider>
+                <ScrollToTop />
+                <App />
+              </RariProvider>
+            </BrowserRouter>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </ChakraProvider>
+    </>
+  );
+};
+
+ReactDOM.render(<Index />, document.getElementById("root"));

@@ -1,33 +1,9 @@
 import { Heading } from "@chakra-ui/react";
-import "@fontsource/plus-jakarta-sans";
 import loadable from "@loadable/component";
 import { memo } from "react";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { Pool } from "../utils/poolUtils";
+import { Route, Routes } from "react-router-dom";
 import FullPageSpinner from "./shared/FullPageSpinner";
 import Layout from "./shared/Layout";
-
-const MultiPoolPortal = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/MultiPoolPortal"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const PoolPortal = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/PoolPortal"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const TranchesPage = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Tranches/TranchesPage"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
 const FusePoolsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolsPage"),
   {
@@ -65,28 +41,6 @@ const FusePoolCreatePage = loadable(
 
 const FuseLiquidationsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FuseLiquidationsPage"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const Pool2Page = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Pool2/Pool2Page"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const StatsPage = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Stats"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const InterestRatesPage = loadable(
-  () =>
-    import(/* webpackPrefetch: true */ "./pages/InterestRates/InterestRates"),
   {
     fallback: <FullPageSpinner />,
   }
@@ -131,11 +85,11 @@ const App = memo(() => {
 
         <Route path="/pool2" element={<Pool2Page />} /> */}
 
-        <Route path="/fuse" element={<FusePoolsPage />} />
-        <Route path="/fuse/liquidations" element={<FuseLiquidationsPage />} />
-        <Route path="/fuse/new-pool" element={<FusePoolCreatePage />} />
-        <Route path="/fuse/pool/:poolId" element={<FusePoolPage />} />
-        <Route path="/fuse/pool/:poolId/edit" element={<FusePoolEditPage />} />
+        <Route path="/" element={<FusePoolsPage />} />
+        <Route path="/liquidations" element={<FuseLiquidationsPage />} />
+        <Route path="/new-pool" element={<FusePoolCreatePage />} />
+        <Route path="/pool/:poolId" element={<FusePoolPage />} />
+        <Route path="/pool/:poolId/edit" element={<FusePoolEditPage />} />
 
         {/* <Route path="/utils" element={<Navigate to="/" replace={true} />} />
         <Route path="/utils/interest-rates" element={<InterestRatesPage />} />

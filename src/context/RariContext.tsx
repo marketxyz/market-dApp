@@ -108,13 +108,6 @@ async function launchModalLazy(
   const web3Modal = new Web3Modal.default({
     cacheProvider,
     providerOptions,
-    theme: {
-      background: DASHBOARD_BOX_PROPS.backgroundColor,
-      main: "#FFFFFF",
-      secondary: "#858585",
-      border: DASHBOARD_BOX_PROPS.borderColor,
-      hover: "#000000",
-    },
   });
 
   return web3Modal.connect();

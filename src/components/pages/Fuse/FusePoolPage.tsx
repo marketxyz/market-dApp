@@ -1,10 +1,13 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
+  Stat as ChakraStat,
+  StatLabel as ChakraStatLabel,
+  StatNumber as ChakraStatNumber,
   Avatar,
   AvatarGroup,
   Box,
   BoxProps,
-  chakra,
+  SimpleGrid,
   Divider,
   Flex,
   Heading,
@@ -16,7 +19,10 @@ import {
   useDisclosure,
   useToast,
   VStack,
-  Skeleton
+  Skeleton,
+  StatLabelProps,
+  StatNumberProps,
+  StatProps,
 } from "@chakra-ui/react";
 import Footer from "components/shared/Footer";
 import { ModalDivider } from "components/shared/Modal";
@@ -36,7 +42,11 @@ import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 // Utils
 import { convertMantissaToAPR, convertMantissaToAPY } from "utils/apyUtils";
-import { shortUsdFormatter, smallUsdFormatter } from "utils/bigUtils";
+import {
+  midUsdFormatter,
+  shortUsdFormatter,
+  smallUsdFormatter,
+} from "utils/bigUtils";
 import {
   Center,
   Column,
@@ -49,10 +59,39 @@ import { USDPricedFuseAsset } from "utils/fetchFusePoolData";
 import CTokenIcon from "./CTokenIcon";
 import FuseNavbar from "./FuseNavbar";
 import { PoolInfoBox } from "./FusePoolInfoPage";
-import FuseStatsBar from "./FuseStatsBar";
+// import FuseStatsBar from "./FuseStatsBar";
 import PoolModal, { Mode } from "./Modals/PoolModal";
 
 import { Link } from "react-router-dom";
+
+const StatLabel = (props: StatLabelProps) => (
+  <ChakraStatLabel
+    fontWeight="medium"
+    isTruncated
+    color={"gray.500"}
+    {...props}
+  />
+);
+
+const StatNumber = (props: StatNumberProps) => (
+  <ChakraStatNumber
+    fontSize={["3xl", "3xl", "2xl", "3xl"]}
+    fontWeight="medium"
+    color={"gray.900"}
+    {...props}
+  />
+);
+
+const Stat = (props: StatProps) => (
+  <ChakraStat
+    px={{ base: 4, sm: 6 }}
+    py="5"
+    bg={"white"}
+    shadow="base"
+    rounded="lg"
+    {...props}
+  />
+);
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
@@ -68,7 +107,6 @@ const FusePoolPage = memo(() => {
         alignItems="flex-start"
         bgColor="white"
         justifyContent="flex-start"
-        fontFamily="Plus Jakarta Sans"
       >
         <VStack overflowY="hidden" position="relative" w="100%">
           {/* <chakra.div
@@ -145,7 +183,7 @@ const FusePoolPage = memo(() => {
           spacing={6}
           px={{ base: 6, lg: 0 }}
         >
-          <Link to="/fuse">
+          <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
           </Link>
           <Text
@@ -176,7 +214,60 @@ const FusePoolPage = memo(() => {
             </>
           ) : null}
         </HStack>
-        <PoolInfoBox data={data} />
+        <Box
+          as="section"
+          bg={"gray.50"}
+          px="10"
+          py="4"
+          pb="8"
+          width={"100%"}
+          display={{ sm: "none", md: "block" }}
+        >
+          <Box maxW="7xl" mx="auto" px={{ base: "6", md: "8" }}>
+            <Text marginBottom={"2"} fontWeight="semibold" fontSize={"2xl"}>
+              Pool Statistics
+            </Text>
+            <SimpleGrid columns={{ base: 1, md: 4 }} spacing="3">
+              <Stat>
+                <StatLabel>{"Total Supply"}</StatLabel>
+                <StatNumber>
+                  {data ? midUsdFormatter(data.totalSuppliedUSD) : <Skeleton mt="2">Num</Skeleton>}
+                </StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>{"Total Borrow"}</StatLabel>
+                <StatNumber>
+                  {data ? midUsdFormatter(data?.totalBorrowedUSD) : <Skeleton mt="2">Num</Skeleton>}
+                </StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>{"Liquidity"}</StatLabel>
+                <StatNumber>
+                  {data ? midUsdFormatter(data?.totalLiquidityUSD) : <Skeleton mt="2">Num</Skeleton>}
+                </StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>{"Pool Utilization"}</StatLabel>
+                <StatNumber>
+                  {data ? (
+                    data.totalSuppliedUSD.toString() === "0"
+                    ? "0%"
+                    : (
+                        (data?.totalBorrowedUSD / data?.totalSuppliedUSD) *
+                        100
+                      ).toFixed(2) + "%"
+                  ) : <Skeleton mt="2">Num</Skeleton>}
+                </StatNumber>
+              </Stat>
+              {/* {[{label: ""}].map(({ label, value }) => (
+          <Stat key={label}>
+            <StatLabel>{label}</StatLabel>
+            <StatNumber>{value}</StatNumber>
+          </Stat>
+        ))} */}
+            </SimpleGrid>
+          </Box>
+        </Box>
         {
           /* If they have some asset enabled as collateral, show the collateral ratio bar */
           data && data.assets.some((asset) => asset.membership) ? (
@@ -195,7 +286,7 @@ const FusePoolPage = memo(() => {
           textColor="black"
           px={{ base: 6, lg: 0 }}
           mx="auto"
-          mt={8}
+          mt={4}
           isRow={!isMobile}
         >
           <PoolDashboardBox width={isMobile ? "100%" : "50%"}>
@@ -226,6 +317,7 @@ const FusePoolPage = memo(() => {
             )}
           </PoolDashboardBox>
         </RowOrColumn>
+        <PoolInfoBox data={data} />
         <Footer />
       </Flex>
     </>
@@ -623,6 +715,7 @@ const AssetSupplyRow = ({
           crossAxisAlignment="center"
         >
           <SwitchCSS symbol={asset.underlyingSymbol} color={tokenData?.color} />
+
           <Switch
             isChecked={asset.membership}
             className={asset.underlyingSymbol + "-switch"}
