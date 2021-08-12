@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
@@ -65,7 +65,7 @@ const FuseStatsBar = () => {
           lineHeight={["60px"]}
           textColor="white"
         >
-          {fuseTVL ? smallUsdFormatter(fuseTVL) : "?"}
+          {fuseTVL ? smallUsdFormatter(fuseTVL) : <Spinner color="#FFF" />}
         </Text>
         <Text textColor="white" whiteSpace="nowrap">
           {t("Total value supplied across fuse")}

@@ -16,6 +16,7 @@ import {
   useDisclosure,
   useToast,
   VStack,
+  Skeleton
 } from "@chakra-ui/react";
 import Footer from "components/shared/Footer";
 import { ModalDivider } from "components/shared/Modal";
@@ -142,6 +143,7 @@ const FusePoolPage = memo(() => {
           mx="auto"
           maxW={{ lg: "1200px" }}
           spacing={6}
+          px={{ base: 6, lg: 0 }}
         >
           <Link to="/fuse">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
@@ -152,7 +154,7 @@ const FusePoolPage = memo(() => {
             fontSize="xl"
             fontWeight="bold"
           >
-            {data?.name}
+            {data ? data.name : <Skeleton>hello</Skeleton>}
           </Text>
           {data?.assets && data?.assets?.length > 0 ? (
             <>
@@ -204,9 +206,7 @@ const FusePoolPage = memo(() => {
                 supplyBalanceUSD={data.totalSupplyBalanceUSD}
               />
             ) : (
-              <Center height="200px">
-                <Spinner />
-              </Center>
+              <TableSkeleton tableHeading="Supply Balance" />
             )}
           </PoolDashboardBox>
 
@@ -222,9 +222,7 @@ const FusePoolPage = memo(() => {
                 borrowBalanceUSD={data.totalBorrowBalanceUSD}
               />
             ) : (
-              <Center height="200px">
-                <Spinner />
-              </Center>
+              <TableSkeleton tableHeading="Borrow Balance" />
             )}
           </PoolDashboardBox>
         </RowOrColumn>
@@ -905,3 +903,20 @@ const AssetBorrowRow = ({
     </>
   );
 };
+
+const TableSkeleton = ({tableHeading}: any) => (
+  <Column
+    mainAxisAlignment="flex-start"
+    crossAxisAlignment="flex-start"
+    height="100%"
+    pb={1}
+  >
+    <Heading size="md" px={4} py={3}>
+      {tableHeading}: <Skeleton display="inline">Loading</Skeleton> 
+    </Heading>
+
+    <Divider color="#F4F6F9" />
+
+    <Skeleton w="100%" h="40" />
+  </Column>
+)

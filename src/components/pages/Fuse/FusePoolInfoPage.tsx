@@ -7,6 +7,7 @@ import {
   Spinner,
   Text,
   useClipboard,
+  Skeleton
 } from "@chakra-ui/react";
 import { DASHBOARD_BOX_PROPS } from "components/shared/DashboardBox";
 import Footer from "components/shared/Footer";
@@ -142,6 +143,7 @@ export const PoolInfoBox = ({
       mx="auto"
       isRow={!isMobile}
       bgColor="white"
+      px={{ base: 6, lg: 0 }}
     >
       <PoolDashboardBox
         width={isMobile ? "100%" : "50%"}
@@ -158,9 +160,7 @@ export const PoolInfoBox = ({
             comptrollerAddress={data.comptroller}
           />
         ) : (
-          <Center expand>
-            <Spinner my={8} />
-          </Center>
+          <Skeleton w="100%" h="100%" />
         )}
       </PoolDashboardBox>
       <PoolDashboardBox
@@ -176,9 +176,7 @@ export const PoolInfoBox = ({
             <Center expand>{t("There are no assets in this pool.")}</Center>
           )
         ) : (
-          <Center expand>
-            <Spinner my={8} />
-          </Center>
+          <Skeleton w="100%" h="100%" />
         )}
       </PoolDashboardBox>
     </RowOrColumn>

@@ -1,4 +1,4 @@
-import { SimpleGrid as Grid, Spinner } from "@chakra-ui/react";
+import { SimpleGrid as Grid, Spinner, Center } from "@chakra-ui/react";
 import { useRari } from "context/RariContext";
 import { useFusePools } from "hooks/fuse/useFusePools";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
@@ -26,6 +26,7 @@ const PoolList = () => {
   const { filteredPools } = useFusePools(filter);
 
   return (
+    filteredPools ? (
     <Grid
       templateRows={{
         base: "repeat(1, minmax(0, 1fr))",
@@ -39,13 +40,14 @@ const PoolList = () => {
       mx="auto"
       gridGap="8"
     >
-      {filteredPools ? (
-        filteredPools.map((pool, index) => {
+        {filteredPools.map((pool, index) => {
           return <PoolCard data={pool} />;
-        })
-      ) : (
-        <Spinner my={8} />
-      )}
-    </Grid>
+        })}
+      </Grid>
+    ) : (
+      <Center width="100%">
+        <Spinner my={40} />
+      </Center>
+    )
   );
 };
