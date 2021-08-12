@@ -67,7 +67,6 @@ const FusePoolPage = memo(() => {
         alignItems="flex-start"
         bgColor="white"
         justifyContent="flex-start"
-        fontFamily="Plus Jakarta Sans"
       >
         <VStack overflowY="hidden" position="relative" w="100%">
           {/* <chakra.div

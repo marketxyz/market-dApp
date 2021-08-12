@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 
 import "./index.css";
+import "@fontsource/inter";
 
 // Remove this ignore when TypeScript PR gets merged.
 // @ts-ignore
@@ -47,8 +48,8 @@ const customTheme = {
   ...theme,
   fonts: {
     ...theme.fonts,
-    body: `'Avenir Next', ${theme.fonts.body}`,
-    heading: `'Avenir Next', ${theme.fonts.heading}`,
+    body: `Inter, ${theme.fonts.body}`,
+    heading: `Inter, ${theme.fonts.heading}`,
   },
 };
 

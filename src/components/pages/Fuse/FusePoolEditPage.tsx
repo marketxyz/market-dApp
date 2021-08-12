@@ -2,12 +2,17 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   AvatarGroup,
   Box,
-  Heading, Spinner, Switch, Text, useDisclosure, useToast,
+  Heading,
+  Spinner,
+  Switch,
+  Text,
+  useDisclosure,
+  useToast,
   chakra,
   Flex,
   VStack,
   Divider,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
 import BigNumber from "bignumber.js";
 import LogRocket from "logrocket";
@@ -36,7 +41,6 @@ import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
 import { Link } from "react-router-dom";
-
 
 const activeStyle = { bg: "#FFF", color: "#000", borderColor: "#BBB" };
 const noop = { bg: "#000", color: "#FFF" };
@@ -124,26 +128,24 @@ const FusePoolEditPage = memo(() => {
 
   return (
     <>
+      {data ? (
+        <AddAssetModal
+          comptrollerAddress={data.comptroller}
+          existingAssets={data.assets}
+          poolName={data.name}
+          poolID={poolId}
+          isOpen={isAddAssetModalOpen}
+          onClose={closeAddAssetModal}
+        />
+      ) : null}
 
-    {data ? (
-      <AddAssetModal
-        comptrollerAddress={data.comptroller}
-        existingAssets={data.assets}
-        poolName={data.name}
-        poolID={poolId}
-        isOpen={isAddAssetModalOpen}
-        onClose={closeAddAssetModal}
-      />
-    ) : null}
-
-    <Flex
+      <Flex
         w="100vw"
         minH="100vh"
         flexDir="column"
         alignItems="flex-start"
         bgColor="white"
         justifyContent="flex-start"
-        fontFamily="Plus Jakarta Sans"
       >
         <VStack overflowY="hidden" position="relative" w="100%">
           <chakra.div
@@ -249,21 +251,21 @@ const FusePoolEditPage = memo(() => {
               </AvatarGroup>
             </>
           ) : null}
-          </HStack>
+        </HStack>
 
-          <RowOrColumn
-            width="100%"
-            mainAxisAlignment="flex-start"
-            crossAxisAlignment="flex-start"
-            maxW={{ lg: "1200px" }}
-            bgColor="white"
-            textColor="black"
-            px={{ base: 6, lg: 0 }}
-            mx="auto"
-            mt={4}
-            isRow={!isMobile}
-            mb="8"
-          >
+        <RowOrColumn
+          width="100%"
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="flex-start"
+          maxW={{ lg: "1200px" }}
+          bgColor="white"
+          textColor="black"
+          px={{ base: 6, lg: 0 }}
+          mx="auto"
+          mt={4}
+          isRow={!isMobile}
+          mb="8"
+        >
           <DashboardBox
             bg="#fff"
             borderColor="#BBB"
@@ -325,7 +327,7 @@ const FusePoolEditPage = memo(() => {
         </RowOrColumn>
       </Flex>
     </>
-  )
+  );
 });
 
 export default FusePoolEditPage;

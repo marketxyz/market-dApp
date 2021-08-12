@@ -1,32 +1,10 @@
 import { Heading } from "@chakra-ui/react";
-import "@fontsource/plus-jakarta-sans";
 import loadable from "@loadable/component";
 import { memo } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { Pool } from "../utils/poolUtils";
 import FullPageSpinner from "./shared/FullPageSpinner";
 import Layout from "./shared/Layout";
-
-const MultiPoolPortal = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/MultiPoolPortal"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const PoolPortal = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/PoolPortal"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const TranchesPage = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Tranches/TranchesPage"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
 
 const FusePoolsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolsPage"),
@@ -65,28 +43,6 @@ const FusePoolCreatePage = loadable(
 
 const FuseLiquidationsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FuseLiquidationsPage"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const Pool2Page = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Pool2/Pool2Page"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const StatsPage = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Stats"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
-
-const InterestRatesPage = loadable(
-  () =>
-    import(/* webpackPrefetch: true */ "./pages/InterestRates/InterestRates"),
   {
     fallback: <FullPageSpinner />,
   }

@@ -14,10 +14,10 @@ import {
   ModalContent,
   Button,
 } from "@chakra-ui/react";
-import { PixelSize, Row, useWindowSize } from "utils/chakraUtils";
+import { Row } from "utils/chakraUtils";
 
 import { useTranslation } from "react-i18next";
-import { PhoneIcon, SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { useNavigate } from "react-router-dom";
 
