@@ -86,18 +86,18 @@ export const FuseDashNav = (props: any) => {
           marginLeft="auto"
           width="100%"
         >
-          <Tabs index={searchText === "my-pools" ? 0 : 1}>
+          <Tabs index={searchText === "my-pools" ? 1 : 0}>
             <TabList>
-              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabBtn
-                  onClick={() => setSearchText("my-pools")}
-                  text={t("My Pools")}
-                />
-              </Tab>
               <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
                 <TabBtn
                   onClick={() => setSearchText("")}
                   text={t("All Pools")}
+                />
+              </Tab>
+              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabBtn
+                  onClick={() => setSearchText("my-pools")}
+                  text={t("My Pools")}
                 />
               </Tab>
               {/* <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
