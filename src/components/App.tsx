@@ -1,11 +1,9 @@
 import { Heading } from "@chakra-ui/react";
 import loadable from "@loadable/component";
 import { memo } from "react";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { Pool } from "../utils/poolUtils";
+import { Route, Routes } from "react-router-dom";
 import FullPageSpinner from "./shared/FullPageSpinner";
 import Layout from "./shared/Layout";
-
 const FusePoolsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolsPage"),
   {
@@ -87,11 +85,11 @@ const App = memo(() => {
 
         <Route path="/pool2" element={<Pool2Page />} /> */}
 
-        <Route path="/fuse" element={<FusePoolsPage />} />
-        <Route path="/fuse/liquidations" element={<FuseLiquidationsPage />} />
-        <Route path="/fuse/new-pool" element={<FusePoolCreatePage />} />
-        <Route path="/fuse/pool/:poolId" element={<FusePoolPage />} />
-        <Route path="/fuse/pool/:poolId/edit" element={<FusePoolEditPage />} />
+        <Route path="/" element={<FusePoolsPage />} />
+        <Route path="/liquidations" element={<FuseLiquidationsPage />} />
+        <Route path="/new-pool" element={<FusePoolCreatePage />} />
+        <Route path="/pool/:poolId" element={<FusePoolPage />} />
+        <Route path="/pool/:poolId/edit" element={<FusePoolEditPage />} />
 
         {/* <Route path="/utils" element={<Navigate to="/" replace={true} />} />
         <Route path="/utils/interest-rates" element={<InterestRatesPage />} />

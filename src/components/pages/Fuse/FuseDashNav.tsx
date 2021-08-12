@@ -21,12 +21,13 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { useNavigate } from "react-router-dom";
 
-import { AddPoolButton } from "./AddPoolButton";
+// import { AddPoolButton } from "./AddPoolButton";
 import { CreatePoolConfiguration } from "./FusePoolCreatePage";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { useEffect } from "react";
 
 const selectedTabStyles = {
+  borderBottomWidth: "3.5px",
   borderColor: "#DF2EAC",
   fontSize: "18px",
   fontWeight: "800",
@@ -90,7 +91,7 @@ export const FuseDashNav = (props: any) => {
               <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
                 <TabBtn
                   onClick={() => setSearchText("my-pools")}
-                  text={t("Your Pools")}
+                  text={t("My Pools")}
                 />
               </Tab>
               <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
@@ -130,13 +131,13 @@ export const FuseDashNav = (props: any) => {
               </InputGroup>
             </span>
 
-            <span style={{ display: "inline-block" }}>
+            {/* <span style={{ display: "inline-block" }}>
               <AddPoolButton
                 switchModalVisibility={() =>
                   setCreatePoolModal(!createPoolModal)
                 }
               />
-            </span>
+            </span> */}
           </Box>
         </Row>
       </Box>

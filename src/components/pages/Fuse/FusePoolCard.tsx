@@ -26,7 +26,7 @@ export const usePoolRiskScoreGradient = (
     return {
       A: "linear-gradient(180deg, #3DD630 0%, #26B61A 100%)",
       B: "linear-gradient(180deg, #309AD6 0%, #1A6BB6 100%)",
-      C: "linear-gradient(180deg, #FDE82C 0%, #D8C625 100%)",
+      C: "linear-gradient(185deg, #ffcb02 0%, #D8C625 100%)",
       D: "linear-gradient(180deg, #FDAA2D 0%, #B6811A 100%)",
       U: "linear-gradient(180deg, #FE4848 0%, #B61A1A 100%)",
       "?": "linear-gradient(180deg, #FE4848 0%, #B61A1A 100%)",
@@ -65,13 +65,12 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         mx="6"
       >
         <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Avatar size={40} name={pool.pool.name} variant="marble" />
           <Link
             as={RouterLink}
             to={"/fuse/pool/" + pool.id}
             _hover={{ textDecor: "none" }}
           >
-            <Text fontWeight="bold" fontSize={"xl"} ml="6">
+            <Text fontWeight="bold" fontSize={"xl"} ml="2">
               {pool.pool.name}
             </Text>
           </Link>
@@ -81,7 +80,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         {pool.underlyingTokens.length === 0 ? null : (
           <SimpleTooltip label={tokens.map((item) => item.symbol).join(" / ")}>
             <AvatarGroup size="sm" max={30}>
-              {tokens.map(({ address }) => {
+              {tokens.slice(0, 10).map(({ address }) => {
                 return <CTokenIcon key={address} address={address} />;
               })}
             </AvatarGroup>
@@ -142,7 +141,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         as={RouterLink}
         borderTopWidth="1px"
         borderTopColor="gray.200"
-        to={"/fuse/pool/" + pool.id}
+        to={"/pool/" + pool.id}
         w="100%"
         py="4"
         _hover={{ bgColor: "gray.100" }}

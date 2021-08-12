@@ -221,7 +221,7 @@ const FusePoolEditPage = memo(() => {
           maxW={{ lg: "1200px" }}
           spacing={6}
         >
-          <Link to="/fuse">
+          <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
           </Link>
           <Text

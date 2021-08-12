@@ -696,7 +696,7 @@ const PositionRow = ({
         as={RouterLink}
         width="100%"
         className="no-underline"
-        to={"/fuse/pool/" + position.poolID + `?address=${position.account}`}
+        to={"/pool/" + position.poolID + `?address=${position.account}`}
       >
         <Row
           mainAxisAlignment="flex-start"

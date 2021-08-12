@@ -66,28 +66,31 @@ function ScrollToTop() {
 
 const queryClient = new QueryClient();
 
-ReactDOM.render(
-  <>
-    <PWAPrompt
-      timesToShow={2}
-      permanentlyHideOnDismiss={false}
-      copyTitle="Add Rari to your homescreen!"
-      copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
-      copyClosePrompt="Close"
-    />
-    <ChakraProvider theme={customTheme}>
-      <ErrorBoundary FallbackComponent={ErrorPage}>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <BrowserRouter>
-            <RariProvider>
-              <ScrollToTop />
-              <App />
-            </RariProvider>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </ChakraProvider>
-  </>,
-  document.getElementById("root")
-);
+const Index = () => {
+  return (
+    <>
+      <PWAPrompt
+        timesToShow={2}
+        permanentlyHideOnDismiss={false}
+        copyTitle="Add Rari to your homescreen!"
+        copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
+        copyClosePrompt="Close"
+      />
+      <ChakraProvider theme={customTheme}>
+        <ErrorBoundary FallbackComponent={ErrorPage}>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <BrowserRouter>
+              <RariProvider>
+                <ScrollToTop />
+                <App />
+              </RariProvider>
+            </BrowserRouter>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </ChakraProvider>
+    </>
+  );
+};
+
+ReactDOM.render(<Index />, document.getElementById("root"));
