@@ -63,6 +63,8 @@ import { PoolInfoBox } from "./FusePoolInfoPage";
 import PoolModal, { Mode } from "./Modals/PoolModal";
 
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import PageTransitionLayout from "components/shared/PageTransitionLayout";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -99,7 +101,7 @@ const FusePoolPage = memo(() => {
   const data = useFusePoolData(poolId);
 
   return (
-    <>
+    <PageTransitionLayout>
       <Flex
         w="100vw"
         minH="100vh"
@@ -320,7 +322,7 @@ const FusePoolPage = memo(() => {
         <PoolInfoBox data={data} />
         <Footer />
       </Flex>
-    </>
+    </PageTransitionLayout>
   );
 });
 

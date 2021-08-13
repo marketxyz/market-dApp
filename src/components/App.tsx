@@ -4,6 +4,8 @@ import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import FullPageSpinner from "./shared/FullPageSpinner";
 import Layout from "./shared/Layout";
+import { AnimatePresence, motion } from "framer-motion";
+
 const FusePoolsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolsPage"),
   {
@@ -66,6 +68,7 @@ const PageNotFound = memo(() => {
 const App = memo(() => {
   return (
     <Layout>
+      <AnimatePresence>
       <Routes>
         {/* <Route path="/pools" element={<Outlet />}>
           {Object.values(Pool).map((pool) => {
@@ -84,7 +87,6 @@ const App = memo(() => {
         {/* <Route path="/tranches" element={<TranchesPage />} />
 
         <Route path="/pool2" element={<Pool2Page />} /> */}
-
         <Route path="/" element={<FusePoolsPage />} />
         <Route path="/liquidations" element={<FuseLiquidationsPage />} />
         <Route path="/new-pool" element={<FusePoolCreatePage />} />
@@ -114,6 +116,7 @@ const App = memo(() => {
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      </AnimatePresence>
     </Layout>
   );
 });

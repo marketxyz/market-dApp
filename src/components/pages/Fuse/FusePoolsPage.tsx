@@ -1,4 +1,5 @@
 import { SimpleGrid as Grid, Spinner, Center } from "@chakra-ui/react";
+import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { useRari } from "context/RariContext";
 import { useFusePools } from "hooks/fuse/useFusePools";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
@@ -11,11 +12,13 @@ import { useFilter } from "./FuseTabBar";
 
 const FusePoolsPage = memo(() => {
   return (
-    <FusePageLayout>
-      <FuseStatsBar />
-      <FuseDashNav isFuse />
-      <PoolList />
-    </FusePageLayout>
+    <PageTransitionLayout>
+      <FusePageLayout>
+        <FuseStatsBar />
+        <FuseDashNav isFuse />
+        <PoolList />
+      </FusePageLayout>
+    </PageTransitionLayout>
   );
 });
 
