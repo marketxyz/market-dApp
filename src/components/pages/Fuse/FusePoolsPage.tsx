@@ -29,7 +29,7 @@ const PoolList = () => {
   const { filteredPools }: any = useFusePools(filter);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const poolsPerPage = 5;
+  const poolsPerPage = 6;
   const indexOfLastPool = currentPage * poolsPerPage;
   const indexOfFirstPool = indexOfLastPool - poolsPerPage;
   const currentPools = filteredPools?.slice(indexOfFirstPool, indexOfLastPool);
