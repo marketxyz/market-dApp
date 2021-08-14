@@ -69,8 +69,8 @@ const App = memo(() => {
   return (
     <Layout>
       <AnimatePresence>
-      <Routes>
-        {/* <Route path="/pools" element={<Outlet />}>
+        <Routes>
+          {/* <Route path="/pools" element={<Outlet />}>
           {Object.values(Pool).map((pool) => {
             return (
               <Route
@@ -84,21 +84,21 @@ const App = memo(() => {
           <Route path="/" element={<Navigate to="/" replace={true} />} />
         </Route> */}
 
-        {/* <Route path="/tranches" element={<TranchesPage />} />
+          {/* <Route path="/tranches" element={<TranchesPage />} />
 
         <Route path="/pool2" element={<Pool2Page />} /> */}
-        <Route path="/" element={<FusePoolsPage />} />
-        <Route path="/liquidations" element={<FuseLiquidationsPage />} />
-        <Route path="/new-pool" element={<FusePoolCreatePage />} />
-        <Route path="/pool/:poolId" element={<FusePoolPage />} />
-        <Route path="/pool/:poolId/edit" element={<FusePoolEditPage />} />
+          <Route path="/" element={<FusePoolsPage />} />
+          <Route path="/liquidations" element={<FuseLiquidationsPage />} />
+          <Route path="/new-pool" element={<FusePoolCreatePage />} />
+          <Route path="/pool/:poolId" element={<FusePoolPage />} />
+          <Route path="/pool/:poolId/edit" element={<FusePoolEditPage />} />
 
-        {/* <Route path="/utils" element={<Navigate to="/" replace={true} />} />
+          {/* <Route path="/utils" element={<Navigate to="/" replace={true} />} />
         <Route path="/utils/interest-rates" element={<InterestRatesPage />} />
         <Route path="/utils/positions" element={<StatsPage />} /> */}
 
-        {/* Backwards Compatibility Routes */}
-        {/* <Route
+          {/* Backwards Compatibility Routes */}
+          {/* <Route
           path="/interest_rates"
           element={<Navigate to="/utils/interest-rates" replace={true} />}
         />
@@ -110,12 +110,12 @@ const App = memo(() => {
           path="/positions"
           element={<Navigate to="/utils/positions" replace={true} />}
         /> */}
-        {/* Backwards Compatibility Routes */}
+          {/* Backwards Compatibility Routes */}
 
-        {/* <Route path="/" element={<MultiPoolPortal />} /> */}
+          {/* <Route path="/" element={<MultiPoolPortal />} /> */}
 
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </AnimatePresence>
     </Layout>
   );

@@ -1,4 +1,13 @@
-import { SimpleGrid as Grid, Spinner, Center, Text, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Box } from "@chakra-ui/react";
+import {
+  SimpleGrid as Grid,
+  Spinner,
+  Center,
+  Text,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Box,
+} from "@chakra-ui/react";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { useRari } from "context/RariContext";
 import { useFusePools } from "hooks/fuse/useFusePools";
@@ -62,7 +71,12 @@ const PoolList = () => {
         mb="10"
         textAlign="center"
       >
-        <Pagination currentPage={currentPage} poolsPerPage={poolsPerPage} totalPools={filteredPools.length} paginate={paginate} />
+        <Pagination
+          currentPage={currentPage}
+          poolsPerPage={poolsPerPage}
+          totalPools={filteredPools.length}
+          paginate={paginate}
+        />
       </Box>
     </>
   ) : (
@@ -72,47 +86,47 @@ const PoolList = () => {
   );
 };
 
-const Pagination = ({totalPools, poolsPerPage, paginate, currentPage}: any) => {
+const Pagination = ({
+  totalPools,
+  poolsPerPage,
+  paginate,
+  currentPage,
+}: any) => {
   let pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPools / poolsPerPage); i++) {
     pageNumbers.push(i);
   }
 
+  const selectedProps = {
+    bgGradient: "linear(to-br, #9b61cd, #f21587)",
+    color: "#FFF",
+  };
+  const unSelectedProps = {
+    bg: "white",
+    _hover: { bg: "gray.100" },
+    color: "#606060",
+  };
+
   return (
-    <Box
-      py="4"
-      width="100%"
-    >
+    <Box py="4" width="100%">
       {pageNumbers.map((num: any) => (
-        currentPage === num ? (
-          <Text
-            fontSize="lg"
-            bgGradient="linear(to-r, #BB3EF0, #5109B0)"
-            color="#FFF"
-            display="inline"
-            px="4"
-            py="2"
-            borderRadius="5px"
-            onClick={() => paginate(num)}
-            cursor="pointer"
-          >{num}</Text>
-        ) : (
-          <Text
-            fontSize="lg"
-            bg="white"
-            _hover={{bg: "gray.100"}}
-            color="#606060"
-            display="inline"
-            px="4"
-            py="2"
-            mx="2"
-            borderRadius="5px"
-            onClick={() => paginate(num)}
-            cursor="pointer"
-          >{num}</Text>
-        )
+        <Text
+          {...(currentPage === num ? selectedProps : unSelectedProps)}
+          fontSize="lg"
+          display="inline"
+          px="4"
+          py="2"
+          borderRadius="5px"
+          onClick={() => paginate(num)}
+          cursor="pointer"
+          shadow="lg"
+          mx="2"
+          borderColor={"black"}
+        >
+          {num}
+        </Text>
       ))}
     </Box>
-  )
-}
+  );
+};
