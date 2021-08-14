@@ -99,7 +99,7 @@ const Pagination = ({
   }
 
   const selectedProps = {
-    bgGradient: "linear(to-br, #9b61cd, #f21587)",
+    bgGradient: "linear(to-bl, #9b61cd, #f21587)",
     color: "#FFF",
   };
   const unSelectedProps = {
