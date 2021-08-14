@@ -47,23 +47,35 @@ const PoolList = () => {
 
   return filteredPools ? (
     <>
-      <Grid
-        templateRows={{
-          base: "repeat(1, minmax(0, 1fr))",
-          lg: "repeat(2, minmax(0, 1fr))",
-        }}
-        autoFlow="row"
-        columns={{ base: 1, lg: 2 }}
-        my="2rem"
-        w={{ base: "90%", lg: "100%" }}
-        maxW={{ lg: "1200px" }}
-        mx="auto"
-        gridGap="8"
-      >
-        {currentPools.map((pool: any, index: any) => {
-          return <PoolCard data={pool} />;
-        })}
-      </Grid>
+      {currentPools.length ? (
+        <Grid
+          templateRows={{
+            base: "repeat(1, minmax(0, 1fr))",
+            lg: "repeat(2, minmax(0, 1fr))",
+          }}
+          autoFlow="row"
+          columns={{ base: 1, lg: 2 }}
+          my="2rem"
+          w={{ base: "90%", lg: "100%" }}
+          maxW={{ lg: "1200px" }}
+          mx="auto"
+          gridGap="8"
+        >
+          {currentPools.map((pool: any, index: any) => {
+            return <PoolCard data={pool} />;
+          })}
+        </Grid>
+      ) : (
+        <Box
+          textAlign="center"
+          width="100%"
+          py="10"
+          fontSize="3xl"
+          fontWeight="semibold"
+        >
+          <Text color="black">No Pools Found</Text>
+        </Box>
+      )}
       <Box
         maxW={{ lg: "1200px" }}
         w="100%"
