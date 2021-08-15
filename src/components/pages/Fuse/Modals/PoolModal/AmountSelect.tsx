@@ -31,7 +31,6 @@ import { fetchTokenBalance } from "../../../../../hooks/useTokenBalance";
 import { BN, smallUsdFormatter } from "../../../../../utils/bigUtils";
 
 import DashboardBox from "../../../../shared/DashboardBox";
-import { ModalDivider } from "../../../../shared/Modal";
 
 import { Mode } from ".";
 
@@ -599,7 +598,12 @@ const AmountSelect = ({
             >
               <TabBar color={tokenData?.color} mode={mode} setMode={setMode} />
 
-              <DashboardBox borderColor="#BBB" bg="#FFF" width="100%" height="70px">
+              <DashboardBox
+                borderColor="#BBB"
+                bg="#FFF"
+                width="100%"
+                height="70px"
+              >
                 <Row
                   p={4}
                   mainAxisAlignment="space-between"
@@ -637,7 +641,13 @@ const AmountSelect = ({
             />
 
             {showEnableAsCollateral ? (
-              <DashboardBox bg="#fff" borderColor="#BBB" p={4} width="100%" mt={4}>
+              <DashboardBox
+                bg="#fff"
+                borderColor="#BBB"
+                p={4}
+                width="100%"
+                mt={4}
+              >
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
@@ -979,7 +989,13 @@ const StatsColumn = ({
     : Math.abs(updatedBorrowAPR - borrowAPR) > 0.1;
 
   return (
-    <DashboardBox borderColor="#BBB" bg="#fff" width="100%" height="190px" mt={4}>
+    <DashboardBox
+      borderColor="#BBB"
+      bg="#fff"
+      width="100%"
+      height="190px"
+      mt={4}
+    >
       {updatedAsset ? (
         <Column
           mainAxisAlignment="space-between"

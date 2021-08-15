@@ -12,7 +12,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  Button,
 } from "@chakra-ui/react";
 import { Row } from "utils/chakraUtils";
 
@@ -32,7 +31,7 @@ const selectedTabStyles = {
   fontSize: "18px",
   fontWeight: "800",
 };
-const tabStyles = { paddingBottom: "20px", fontSize: "18px" };
+const tabStyles = { paddingBottom: "8px", fontSize: "18px" };
 
 export const FuseDashNav = (props: any) => {
   const { t } = useTranslation();
@@ -53,7 +52,7 @@ export const FuseDashNav = (props: any) => {
     } else {
       navigate("");
     }
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, navigate]);
 
   return (
     <>
@@ -155,7 +154,6 @@ const TabBtn = ({ onClick, text }: { onClick: any; text: string }) => {
       /* @ts-ignore */
       style={tabStyles}
       onClick={onClick}
-      as={Button}
       fontWeight={"400"}
       background={"transparent"}
       _hover={{ background: "transparent" }}

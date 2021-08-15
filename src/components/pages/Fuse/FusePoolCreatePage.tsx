@@ -14,14 +14,8 @@ import { memo, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useRari } from "../../../context/RariContext";
-import { useIsSemiSmallScreen } from "../../../hooks/useIsSemiSmallScreen";
 
 import DashboardBox from "../../shared/DashboardBox";
-import { Header } from "../../shared/Header";
-import { ModalDivider } from "../../shared/Modal";
-
-import FuseStatsBar from "./FuseStatsBar";
-import FuseTabBar from "./FuseTabBar";
 import { SliderWithLabel } from "../../shared/SliderWithLabel";
 
 import BigNumber from "bignumber.js";
@@ -36,10 +30,6 @@ import LogRocket from "logrocket";
 const formatPercentage = (value: number) => value.toFixed(0) + "%";
 
 const FusePoolCreatePage = memo(() => {
-  const isMobile = useIsSemiSmallScreen();
-
-  const { isAuthed } = useRari();
-
   return (
     <>
       <CreatePoolConfiguration />

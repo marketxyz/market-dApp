@@ -11,7 +11,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-import { Row, Column, Center } from "utils/chakraUtils";
+import { Row, Column } from "utils/chakraUtils";
 import DashboardBox from "./DashboardBox";
 
 // @ts-ignore
@@ -23,7 +23,6 @@ import { useTranslation } from "react-i18next";
 import { MODAL_PROPS, ModalDivider, ModalTitleWithCloseButton } from "./Modal";
 import { LanguageSelect } from "./TranslateButton";
 
-import { GlowingButton } from "./GlowingButton";
 import { ClaimRGTModal } from "./ClaimRGTModal";
 import { version } from "../..";
 

@@ -2,7 +2,6 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
-import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 
 const FuseStatsBar = () => {
   const { t } = useTranslation();
@@ -24,7 +23,7 @@ const FuseStatsBar = () => {
     >
       <Flex
         flexDir="column"
-        expand
+        expand={"true"}
         w={{ base: "100%" }}
         fontSize="sm"
         marginRight={{ base: "0px", lg: "84.5px" }}
@@ -59,14 +58,18 @@ const FuseStatsBar = () => {
         borderRadius="20px"
         bg="linear-gradient(to bottom right,#9b61cd 0,#f21587 60%,#f2ef15 100%)"
       >
-        <Text
-          fontWeight="extrabold"
-          fontSize={["36px", "48px"]}
-          lineHeight={["60px"]}
-          textColor="white"
-        >
-          {fuseTVL ? smallUsdFormatter(fuseTVL) : <Spinner color="#FFF" />}
-        </Text>
+        {fuseTVL ? (
+          <Text
+            fontWeight="extrabold"
+            fontSize={["36px", "48px"]}
+            lineHeight={["60px"]}
+            textColor="white"
+          >
+            {smallUsdFormatter(fuseTVL)}
+          </Text>
+        ) : (
+          <Spinner color="#FFF" />
+        )}
         <Text textColor="white" whiteSpace="nowrap">
           {t("Total value supplied across fuse")}
         </Text>

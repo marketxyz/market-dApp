@@ -1,6 +1,5 @@
-import { chakra, Divider, Flex, VStack } from "@chakra-ui/react";
+import { Divider, Flex, VStack } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import FuseHeader from "./FuseHeader";
 import FuseNavbar from "./FuseNavbar";
 
 type FusePageLayoutProps = {

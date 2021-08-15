@@ -13,7 +13,6 @@ import {
   Heading,
   HStack,
   Progress,
-  Spinner,
   Switch,
   Text,
   useDisclosure,
@@ -63,7 +62,6 @@ import { PoolInfoBox } from "./FusePoolInfoPage";
 import PoolModal, { Mode } from "./Modals/PoolModal";
 
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 
 const StatLabel = (props: StatLabelProps) => (
@@ -176,8 +174,6 @@ const FusePoolPage = memo(() => {
         </VStack>
         <Divider />
         <HStack
-          mainAxisAlignment="center"
-          crossAxisAlignment="center"
           width="100%"
           my={8}
           mx="auto"
@@ -188,14 +184,19 @@ const FusePoolPage = memo(() => {
           <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
           </Link>
-          <Text
-            lineHeight={1}
-            textAlign="center"
-            fontSize="xl"
-            fontWeight="bold"
-          >
-            {data ? data.name : <Skeleton>hello</Skeleton>}
-          </Text>
+
+          {data ? (
+            <Text
+              lineHeight={1}
+              textAlign="center"
+              fontSize="xl"
+              fontWeight="bold"
+            >
+              {data.name}
+            </Text>
+          ) : (
+            <Skeleton>hello</Skeleton>
+          )}
           {data?.assets && data?.assets?.length > 0 ? (
             <>
               <AvatarGroup size="sm" max={30}>
@@ -233,32 +234,48 @@ const FusePoolPage = memo(() => {
               <Stat>
                 <StatLabel>{"Total Supply"}</StatLabel>
                 <StatNumber>
-                  {data ? midUsdFormatter(data.totalSuppliedUSD) : <Skeleton mt="2">Num</Skeleton>}
+                  {data ? (
+                    midUsdFormatter(data.totalSuppliedUSD)
+                  ) : (
+                    <Skeleton mt="2">Num</Skeleton>
+                  )}
                 </StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>{"Total Borrow"}</StatLabel>
                 <StatNumber>
-                  {data ? midUsdFormatter(data?.totalBorrowedUSD) : <Skeleton mt="2">Num</Skeleton>}
+                  {data ? (
+                    midUsdFormatter(data?.totalBorrowedUSD)
+                  ) : (
+                    <Skeleton mt="2">Num</Skeleton>
+                  )}
                 </StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>{"Liquidity"}</StatLabel>
                 <StatNumber>
-                  {data ? midUsdFormatter(data?.totalLiquidityUSD) : <Skeleton mt="2">Num</Skeleton>}
+                  {data ? (
+                    midUsdFormatter(data?.totalLiquidityUSD)
+                  ) : (
+                    <Skeleton mt="2">Num</Skeleton>
+                  )}
                 </StatNumber>
               </Stat>
               <Stat>
                 <StatLabel>{"Pool Utilization"}</StatLabel>
                 <StatNumber>
                   {data ? (
-                    data.totalSuppliedUSD.toString() === "0"
-                    ? "0%"
-                    : (
+                    data.totalSuppliedUSD.toString() === "0" ? (
+                      "0%"
+                    ) : (
+                      (
                         (data?.totalBorrowedUSD / data?.totalSuppliedUSD) *
                         100
                       ).toFixed(2) + "%"
-                  ) : <Skeleton mt="2">Num</Skeleton>}
+                    )
+                  ) : (
+                    <Skeleton mt="2">Num</Skeleton>
+                  )}
                 </StatNumber>
               </Stat>
               {/* {[{label: ""}].map(({ label, value }) => (
@@ -999,7 +1016,7 @@ const AssetBorrowRow = ({
   );
 };
 
-const TableSkeleton = ({tableHeading}: any) => (
+const TableSkeleton = ({ tableHeading }: any) => (
   <Column
     mainAxisAlignment="flex-start"
     crossAxisAlignment="flex-start"
@@ -1007,11 +1024,11 @@ const TableSkeleton = ({tableHeading}: any) => (
     pb={1}
   >
     <Heading size="md" px={4} py={3}>
-      {tableHeading}: <Skeleton display="inline">Loading</Skeleton> 
+      {tableHeading}: <Skeleton display="inline">Loading</Skeleton>
     </Heading>
 
     <Divider color="#F4F6F9" />
 
     <Skeleton w="100%" h="40" />
   </Column>
-)
+);

@@ -4,7 +4,7 @@ import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import FullPageSpinner from "./shared/FullPageSpinner";
 import Layout from "./shared/Layout";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 const FusePoolsPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolsPage"),
@@ -20,12 +20,12 @@ const FusePoolPage = loadable(
   }
 );
 
-const FusePoolInfoPage = loadable(
-  () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolInfoPage"),
-  {
-    fallback: <FullPageSpinner />,
-  }
-);
+// const FusePoolInfoPage = loadable(
+//   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolInfoPage"),
+//   {
+//     fallback: <FullPageSpinner />,
+//   }
+// );
 
 const FusePoolEditPage = loadable(
   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolEditPage"),

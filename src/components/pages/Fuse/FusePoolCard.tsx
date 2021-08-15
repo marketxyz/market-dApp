@@ -1,4 +1,4 @@
-import { InfoOutlineIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Flex,
@@ -9,7 +9,6 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import Avatar from "boring-avatars";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { MergedPool } from "hooks/fuse/useFusePools";
 import { usePoolRSS, letterScore } from "hooks/useRSS";
@@ -18,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { Row, Column } from "utils/chakraUtils";
 import CTokenIcon from "./CTokenIcon";
+import { motion } from "framer-motion";
 
 export const usePoolRiskScoreGradient = (
   rssScore: ReturnType<typeof letterScore> | "?"
@@ -48,111 +48,121 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
   const scoreGradient = usePoolRiskScoreGradient(rssScore);
 
   return (
-    <Flex
-      w="100%"
-      key={pool.id}
-      pt={6}
-      bgColor="white"
-      borderRadius="20px"
-      boxShadow="0px 21px 44px rgba(71, 29, 97, 0.105141)"
-      _hover={{ boxShadow: "0px 21px 44px rgba(71, 29, 97, 0.205141)" }}
-      flexDir="column"
-      gridGap="6"
-    >
-      <Row
-        mainAxisAlignment="space-between"
-        crossAxisAlignment="flex-start"
+    <motion.div whileHover={{ scale: 1.05 }}>
+      <Flex
+        w="100%"
+        key={pool.id}
+        pt={6}
+        bgColor="white"
+        borderRadius="20px"
+        boxShadow="0px 21px 44px rgba(71, 29, 97, 0.105141)"
+        _hover={{ boxShadow: "0px 6px 29px rgb(71 0 97 / 21%)" }}
+        flexDir="column"
         gridGap="6"
-        mx="6"
       >
-        <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Link
-            as={RouterLink}
-            to={"/pool/" + pool.id}
-            _hover={{ textDecor: "none" }}
-          >
-            <Text fontWeight="bold" fontSize={"xl"} ml="2">
-              {pool.pool.name}
-            </Text>
-          </Link>
-        </Row>
-      </Row>
-      <Row crossAxisAlignment="center" mainAxisAlignment="space-between" mx="6">
-        {pool.underlyingTokens.length === 0 ? null : (
-          <SimpleTooltip label={tokens.map((item) => item.symbol).join(" / ")}>
-            <AvatarGroup size="sm" max={30}>
-              {tokens.slice(0, 10).map(({ address }) => {
-                return <CTokenIcon key={address} address={address} />;
-              })}
-            </AvatarGroup>
-          </SimpleTooltip>
-        )}
-        <Row mainAxisAlignment="center" crossAxisAlignment="center">
-          <Tooltip
-            label={
-              "Underlying RSS: " + (rss ? rss.totalScore.toFixed(2) : "?") + "%"
-            }
-            placement="top"
-            bg="black"
-            hasArrow
-          >
-            <Box
-              ml="4"
-              background={scoreGradient}
-              px="4"
-              py="2"
-              borderRadius="5px"
+        <Row
+          mainAxisAlignment="space-between"
+          crossAxisAlignment="flex-start"
+          gridGap="6"
+          mx="6"
+        >
+          <Row mainAxisAlignment="center" crossAxisAlignment="center">
+            <Link
+              as={RouterLink}
+              to={"/pool/" + pool.id}
+              _hover={{ textDecor: "none" }}
             >
-              <Text fontSize="lg" textColor="white" fontWeight="semibold">
-                {rssScore}
+              <Text fontWeight="bold" fontSize={"xl"} ml="2">
+                {pool.pool.name}
               </Text>
-            </Box>
-          </Tooltip>
+            </Link>
+          </Row>
         </Row>
-      </Row>
-      <chakra.div w="100%" h="1px" bgColor="gray.200" />
-      <Row
-        mx="6"
-        mainAxisAlignment="center"
-        crossAxisAlignment="center"
-        gridGap="6"
-      >
-        <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
-          <Text fontWeight="bold" textAlign="center">
-            {t("Total Supply")}
-          </Text>
-          <Text mt="2">{smallUsdFormatter(pool.suppliedUSD)}</Text>
-        </Column>
-        <chakra.div h="16" w="1px" bgColor="gray.300" />
-        <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
-          <Text fontWeight="bold" textAlign="center">
-            {t("Total borrowed")}
-          </Text>
-          <Text mt="2">{smallUsdFormatter(pool.borrowedUSD)}</Text>
-        </Column>
-        {/* <chakra.div h="16" w="1px" bgColor="gray.300" /> */}
-        {/* <Column mainAxisAlignment="center" crossAxisAlignment="center">
+        <Row
+          crossAxisAlignment="center"
+          mainAxisAlignment="space-between"
+          mx="6"
+        >
+          {pool.underlyingTokens.length === 0 ? null : (
+            <SimpleTooltip
+              label={tokens.map((item) => item.symbol).join(" / ")}
+            >
+              <AvatarGroup size="sm" max={30}>
+                {tokens.slice(0, 10).map(({ address }) => {
+                  return <CTokenIcon key={address} address={address} />;
+                })}
+              </AvatarGroup>
+            </SimpleTooltip>
+          )}
+          <Row mainAxisAlignment="center" crossAxisAlignment="center">
+            <Tooltip
+              label={
+                "Underlying RSS: " +
+                (rss ? rss.totalScore.toFixed(2) : "?") +
+                "%"
+              }
+              placement="top"
+              bg="black"
+              hasArrow
+            >
+              <Box
+                ml="4"
+                background={scoreGradient}
+                px="4"
+                py="2"
+                borderRadius="5px"
+              >
+                <Text fontSize="lg" textColor="white" fontWeight="semibold">
+                  {rssScore}
+                </Text>
+              </Box>
+            </Tooltip>
+          </Row>
+        </Row>
+        <chakra.div w="100%" h="1px" bgColor="gray.200" />
+        <Row
+          mx="6"
+          mainAxisAlignment="center"
+          crossAxisAlignment="center"
+          gridGap="6"
+        >
+          <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
+            <Text fontWeight="bold" textAlign="center">
+              {t("Total Supply")}
+            </Text>
+            <Text mt="2">{smallUsdFormatter(pool.suppliedUSD)}</Text>
+          </Column>
+          <chakra.div h="16" w="1px" bgColor="gray.300" />
+          <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
+            <Text fontWeight="bold" textAlign="center">
+              {t("Total borrowed")}
+            </Text>
+            <Text mt="2">{smallUsdFormatter(pool.borrowedUSD)}</Text>
+          </Column>
+          {/* <chakra.div h="16" w="1px" bgColor="gray.300" /> */}
+          {/* <Column mainAxisAlignment="center" crossAxisAlignment="center">
           <Text fontWeight="bold" textAlign="center">
             Max APY
           </Text>
           <Text mt="2">20%</Text>
         </Column> */}
-      </Row>
-      <Link
-        as={RouterLink}
-        borderTopWidth="1px"
-        borderTopColor="gray.200"
-        to={"/pool/" + pool.id}
-        w="100%"
-        py="4"
-        _hover={{ bgColor: "gray.100" }}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        View details <ArrowForwardIcon ml="4" />
-      </Link>
-    </Flex>
+        </Row>
+        <Link
+          as={RouterLink}
+          borderTopWidth="1px"
+          borderTopColor="gray.200"
+          to={"/pool/" + pool.id}
+          w="100%"
+          py="4"
+          _hover={{ bgColor: "gray.100" }}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          View details <ArrowForwardIcon ml="4" />
+        </Link>
+      </Flex>
+    </motion.div>
   );
 };
 

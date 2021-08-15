@@ -1,4 +1,4 @@
-import { Box, chakra, Flex, Image } from "@chakra-ui/react";
+import { Box, chakra, Flex } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 
 const FuseNavbar = () => {
@@ -44,8 +44,20 @@ const FuseNavbar = () => {
           <span>Put your money to work</span>
           <ChevronRightIcon />
         </chakra.button> */}
-
-        <AccountButton></AccountButton>
+        <Box display="flex" flexDir="row">
+          {/* <Button
+            bgGradient="linear(to-r, #f21587, #9b61cd)"
+            color="white"
+            fontSize="lg"
+            borderRadius="7px"
+            fontWeight="bold"
+            _hover={{}}
+            _active={{}}
+          >
+            {t("Buy Crypto")}
+          </Button> */}
+          <AccountButton></AccountButton>
+        </Box>
       </Flex>
     </Box>
   );

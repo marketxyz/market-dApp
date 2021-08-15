@@ -30,15 +30,12 @@ import { createComptroller } from "../../../utils/createComptroller";
 import { handleGenericError } from "../../../utils/errorHandling";
 import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
 import DashboardBox from "../../shared/DashboardBox";
-import { Header } from "../../shared/Header";
-import { ModalDivider } from "../../shared/Modal";
 import { SliderWithLabel } from "../../shared/SliderWithLabel";
 import CTokenIcon from "./CTokenIcon";
 import FuseNavbar from "./FuseNavbar";
 import { WhitelistInfo } from "./FusePoolCreatePage";
 import { useExtraPoolInfo } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
-import FuseTabBar from "./FuseTabBar";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
 import { Link } from "react-router-dom";
 
@@ -108,8 +105,6 @@ export async function testForComptrollerErrorAndSend(
 }
 
 const FusePoolEditPage = memo(() => {
-  const { isAuthed } = useRari();
-
   const isMobile = useIsSemiSmallScreen();
 
   const {

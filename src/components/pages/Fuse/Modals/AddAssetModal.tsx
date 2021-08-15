@@ -11,15 +11,13 @@ import {
   Select,
   Spinner,
   useToast,
-  Divider
+  Divider,
 } from "@chakra-ui/react";
 import { Column, Center } from "utils/chakraUtils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import DashboardBox, {
-  DASHBOARD_BOX_PROPS,
-} from "../../../shared/DashboardBox";
+import DashboardBox from "../../../shared/DashboardBox";
 import { ModalDivider, MODAL_PROPS } from "../../../shared/Modal";
 
 import {
@@ -423,9 +421,8 @@ export const AssetSettings = ({
           max={50}
         />
       </ConfigRow>
-      
+
       <Divider bg="#BBB" borderColor="#BBB" />
-      
 
       <ConfigRow height="35px">
         <SimpleTooltip

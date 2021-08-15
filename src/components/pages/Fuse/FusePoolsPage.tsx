@@ -3,15 +3,10 @@ import {
   Spinner,
   Center,
   Text,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Box,
 } from "@chakra-ui/react";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
-import { useRari } from "context/RariContext";
 import { useFusePools } from "hooks/fuse/useFusePools";
-import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { memo, useState } from "react";
 import { FuseDashNav } from "./FuseDashNav";
 import FusePageLayout from "./FusePageLayout";
@@ -62,7 +57,7 @@ const PoolList = () => {
           gridGap="8"
         >
           {currentPools.map((pool: any, index: any) => {
-            return <PoolCard data={pool} />;
+            return <PoolCard data={pool} key={pool.id} />;
           })}
         </Grid>
       ) : (
@@ -135,6 +130,7 @@ const Pagination = ({
           shadow="lg"
           mx="2"
           borderColor={"black"}
+          key={num}
         >
           {num}
         </Text>

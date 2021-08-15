@@ -5,10 +5,7 @@ import Rari from "rari-sdk/index";
 import Fuse from "fuse-sdk";
 import FuseJs from "fuse.js";
 
-import {
-  fetchFusePoolData,
-  filterOnlyObjectProperties,
-} from "utils/fetchFusePoolData";
+import { filterOnlyObjectProperties } from "utils/fetchFusePoolData";
 
 export interface FusePool {
   name: string;

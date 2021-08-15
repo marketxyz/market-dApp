@@ -1,5 +1,4 @@
 import {
-  AvatarGroup,
   Box,
   Heading,
   Link,
@@ -7,9 +6,8 @@ import {
   Spinner,
   Text,
   useClipboard,
-  Skeleton
+  Skeleton,
 } from "@chakra-ui/react";
-import { DASHBOARD_BOX_PROPS } from "components/shared/DashboardBox";
 import Footer from "components/shared/Footer";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
@@ -37,7 +35,6 @@ import { shortAddress } from "../../../utils/shortAddress";
 import CaptionedStat from "../../shared/CaptionedStat";
 import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
-import CTokenIcon from "./CTokenIcon";
 import { PoolDashboardBox } from "./FusePoolPage";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
