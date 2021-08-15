@@ -53,6 +53,7 @@ const customTheme = {
   },
 };
 
+const queryClient = new QueryClient();
 // Scrolls to the top of the new page when we switch pages
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -63,8 +64,6 @@ function ScrollToTop() {
 
   return null;
 }
-
-const queryClient = new QueryClient();
 
 const Index = () => {
   return (
@@ -81,8 +80,8 @@ const Index = () => {
           <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} />
             <BrowserRouter>
+              <ScrollToTop />
               <RariProvider>
-                <ScrollToTop />
                 <App />
               </RariProvider>
             </BrowserRouter>
