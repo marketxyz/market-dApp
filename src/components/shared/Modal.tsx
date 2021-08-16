@@ -45,5 +45,5 @@ export const ModalTitleWithCloseButton = ({
 };
 
 export const ModalDivider = ({ ...others }: { [key: string]: any }) => {
-  return <Box h="1px" width="100%" flexShrink={0} bg="#BBB" {...others} />;
+  return <Box h="1px" width="100%" flexShrink={0} bg="#bbb" {...others} />;
 };

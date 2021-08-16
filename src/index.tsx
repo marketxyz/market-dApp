@@ -14,7 +14,12 @@ import PWAPrompt from "react-ios-pwa-prompt";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  ColorModeScript,
+  extendTheme,
+  theme,
+} from "@chakra-ui/react";
 
 import ErrorPage from "./components/pages/ErrorPage";
 
@@ -44,14 +49,15 @@ if (process.env.NODE_ENV === "production") {
 
 console.log("Version " + version);
 
-const customTheme = {
-  ...theme,
+const extendedTheme = extendTheme({
+  initialColorMode: "dark",
+  useSystemColorMode: false,
   fonts: {
     ...theme.fonts,
     body: `Inter, ${theme.fonts.body}`,
     heading: `Inter, ${theme.fonts.heading}`,
   },
-};
+});
 
 const queryClient = new QueryClient();
 // Scrolls to the top of the new page when we switch pages
@@ -75,13 +81,16 @@ const Index = () => {
         copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
         copyClosePrompt="Close"
       />
-      <ChakraProvider theme={customTheme}>
+      <ChakraProvider theme={extendedTheme}>
         <ErrorBoundary FallbackComponent={ErrorPage}>
           <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} />
             <BrowserRouter>
               <ScrollToTop />
               <RariProvider>
+                <ColorModeScript
+                  initialColorMode={extendedTheme.config.initialColorMode}
+                />
                 <App />
               </RariProvider>
             </BrowserRouter>

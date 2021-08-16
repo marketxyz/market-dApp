@@ -17,15 +17,15 @@ import {
   Text,
   useDisclosure,
   useToast,
-  VStack,
   Skeleton,
   StatLabelProps,
   StatNumberProps,
   StatProps,
+  useColorModeValue,
+  Tooltip,
 } from "@chakra-ui/react";
 import Footer from "components/shared/Footer";
 import { ModalDivider } from "components/shared/Modal";
-import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { SwitchCSS } from "components/shared/SwitchCSS";
 import { useRari } from "context/RariContext";
 import { useAuthedCallback } from "hooks/useAuthedCallback";
@@ -68,7 +68,7 @@ const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
     fontWeight="medium"
     isTruncated
-    color={"gray.500"}
+    color={useColorModeValue("gray.500", "gray.400")}
     {...props}
   />
 );
@@ -77,7 +77,7 @@ const StatNumber = (props: StatNumberProps) => (
   <ChakraStatNumber
     fontSize={["3xl", "3xl", "2xl", "3xl"]}
     fontWeight="medium"
-    color={"gray.900"}
+    color={useColorModeValue("gray.900", "gray.200")}
     {...props}
   />
 );
@@ -86,7 +86,7 @@ const Stat = (props: StatProps) => (
   <ChakraStat
     px={{ base: 4, sm: 6 }}
     py="5"
-    bg={"white"}
+    bg={useColorModeValue("white", "gray.700")}
     shadow="base"
     rounded="lg"
     {...props}
@@ -97,6 +97,7 @@ const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
   const { poolId } = useParams();
   const data = useFusePoolData(poolId);
+  const bgColor = useColorModeValue("white", "gray.900");
 
   return (
     <PageTransitionLayout>
@@ -105,73 +106,10 @@ const FusePoolPage = memo(() => {
         minH="100vh"
         flexDir="column"
         alignItems="flex-start"
-        bgColor="white"
+        bgColor={bgColor}
         justifyContent="flex-start"
       >
-        <VStack overflowY="hidden" position="relative" w="100%">
-          {/* <chakra.div
-            bgColor="#ff00b3"
-            h="400px"
-            w="800px"
-            filter="blur(350px)"
-            position="absolute"
-            top="100%"
-            left="50%"
-            bottom="0"
-            transform="translate(-50%, -50%)"
-          />
-          <chakra.img
-            src="/static/fuse/header-artifact-bottom-left.svg"
-            position="absolute"
-            bottom={{ base: "15%", lg: "-30%" }}
-            transform={{ base: "scale(0.50) rotate(-5deg)", lg: "initial" }}
-            left={{ base: "-30%", lg: "17%" }}
-          />
-          <chakra.img
-            src="/static/fuse/header-artifact-left.svg"
-            position="absolute"
-            bottom={{ base: "calc(20% - 16px)", lg: "-12px" }}
-            left={{ base: "-15%", lg: "12%" }}
-          />
-          <chakra.img
-            src="/static/fuse/header-bitcoin.svg"
-            position="absolute"
-            top="25%"
-            left={{ base: "-10%", lg: "12%" }}
-          />
-          <chakra.img
-            src="/static/fuse/Icon5.svg"
-            position="absolute"
-            bottom={{ base: "20%", lg: "-25%" }}
-            right={{ base: "-30%", lg: "10%" }}
-            transform={{
-              base: "scale(0.7) rotate(15deg)",
-              lg: "rotate(15deg)",
-            }}
-          />
-          <chakra.img
-            src="/static/fuse/header-eth.svg"
-            position="absolute"
-            top={{ base: "15%" }}
-            right={{ base: "0", lg: "10%" }}
-          />
-          <chakra.img
-            src="/static/fuse/Icon2.svg"
-            position="absolute"
-            bottom="30%"
-            right="10%"
-            transform="rotate(15deg)"
-          />
-          <chakra.img
-            src="/static/fuse/Icon6.png"
-            position="absolute"
-            bottom="-15%"
-            right="10%"
-            transform="rotate(15deg)"
-          /> */}
-          <FuseNavbar />
-          {/* <FuseStatsBar /> */}
-        </VStack>
+        <FuseNavbar />
         <Divider />
         <HStack
           width="100%"
@@ -219,7 +157,7 @@ const FusePoolPage = memo(() => {
         </HStack>
         <Box
           as="section"
-          bg={"gray.50"}
+          bg={useColorModeValue("gray.50", "gray.900")}
           px="10"
           py="4"
           pb="8"
@@ -301,8 +239,7 @@ const FusePoolPage = memo(() => {
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-start"
           maxW={{ lg: "1200px" }}
-          bgColor="white"
-          textColor="black"
+          bgColor={bgColor}
           px={{ base: 6, lg: 0 }}
           mx="auto"
           mt={4}
@@ -348,10 +285,20 @@ export default FusePoolPage;
 export const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
   return (
     <Box
-      backgroundColor="white"
+      backgroundColor={useColorModeValue("white", "#21262e")}
       borderRadius="10px"
       border="1px"
-      borderColor="gray.200"
+      borderColor={useColorModeValue("gray.200", "gray.700")}
+      boxShadow={useColorModeValue(
+        "0px 21px 44px rgba(71, 29, 97, 0.105141)",
+        "0px 2px 44px rgb(71 29 97 / 29%)"
+      )}
+      _hover={{
+        boxShadow: useColorModeValue(
+          "0px 3px 29px rgb(71 0 97 / 21%)",
+          "0px 5px 44px rgb(242 21 139 / 19%)"
+        ),
+      }}
       {...props}
     >
       {children}
@@ -381,21 +328,21 @@ const CollateralRatioBar = ({
   return (
     <PoolDashboardBox width="100%" height="65px" mt={4} p={4}>
       <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
-        <SimpleTooltip
+        <Tooltip
           label={t("Keep this bar from filling up to avoid being liquidated!")}
         >
           <Text flexShrink={0} mr={4}>
             {t("Borrow Limit")}
           </Text>
-        </SimpleTooltip>
+        </Tooltip>
 
-        <SimpleTooltip label={t("This is how much you have borrowed.")}>
+        <Tooltip label={t("This is how much you have borrowed.")}>
           <Text flexShrink={0} mt="2px" mr={3} fontSize="10px">
             {smallUsdFormatter(borrowUSD)}
           </Text>
-        </SimpleTooltip>
+        </Tooltip>
 
-        <SimpleTooltip
+        <Tooltip
           label={`You're using ${ratio.toFixed(1)}% of your ${smallUsdFormatter(
             maxBorrow
           )} borrow limit.`}
@@ -417,9 +364,9 @@ const CollateralRatioBar = ({
               value={ratio}
             />
           </Box>
-        </SimpleTooltip>
+        </Tooltip>
 
-        <SimpleTooltip
+        <Tooltip
           label={t(
             "If your borrow amount reaches this value, you will be liquidated."
           )}
@@ -427,7 +374,7 @@ const CollateralRatioBar = ({
           <Text flexShrink={0} mt="2px" ml={3} fontSize="10px">
             {smallUsdFormatter(maxBorrow)}
           </Text>
-        </SimpleTooltip>
+        </Tooltip>
       </Row>
     </PoolDashboardBox>
   );
@@ -650,7 +597,7 @@ const AssetSupplyRow = ({
         px={4}
         py={1.5}
         _hover={{
-          bgColor: "gray.200",
+          bgColor: useColorModeValue("gray.200", "gray.700"),
         }}
       >
         <Row
@@ -695,13 +642,13 @@ const AssetSupplyRow = ({
               %
             </Text>
 
-            <SimpleTooltip
+            <Tooltip
               label={t(
                 "The Loan to Value (LTV) ratio defines the maximum amount of tokens in the pool that can be borrowed with a specific collateral. It’s expressed in percentage: if in a pool ETH has 75% LTV, for every 1 ETH worth of collateral, borrowers will be able to borrow 0.75 ETH worth of other tokens in the pool."
               )}
             >
               <Text fontSize="sm">{asset.collateralFactor / 1e16}% LTV</Text>
-            </SimpleTooltip>
+            </Tooltip>
           </Column>
         )}
 
@@ -911,7 +858,7 @@ const AssetBorrowRow = ({
         width="100%"
         px={4}
         _hover={{
-          bgColor: "gray.200",
+          bgColor: useColorModeValue("gray.200", "gray.700"),
         }}
         py={1.5}
         as="button"
@@ -950,7 +897,7 @@ const AssetBorrowRow = ({
               {borrowAPR.toFixed(3)}%
             </Text>
 
-            <SimpleTooltip
+            <Tooltip
               label={t(
                 "Total Value Lent (TVL) measures how much of this asset has been supplied in total. TVL does not account for how much of the lent assets have been borrowed, use 'liquidity' to determine the total unborrowed assets lent."
               )}
@@ -958,7 +905,7 @@ const AssetBorrowRow = ({
               <Text fontSize="sm">
                 {shortUsdFormatter(asset.totalSupplyUSD)} TVL
               </Text>
-            </SimpleTooltip>
+            </Tooltip>
           </Column>
         )}
 
@@ -983,7 +930,7 @@ const AssetBorrowRow = ({
           </Text>
         </Column>
 
-        <SimpleTooltip
+        <Tooltip
           label={t(
             "Liquidity is the amount of this asset that is available to borrow (unborrowed). To see how much has been supplied and borrowed in total, navigate to the Pool Info tab."
           )}
@@ -1010,7 +957,7 @@ const AssetBorrowRow = ({
               </Text>
             </Column>
           </Box>
-        </SimpleTooltip>
+        </Tooltip>
       </Row>
     </>
   );

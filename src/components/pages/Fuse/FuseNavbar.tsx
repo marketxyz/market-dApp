@@ -1,9 +1,20 @@
-import { Box, chakra, Flex } from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  chakra,
+  Flex,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 
 const FuseNavbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const bgColor = useColorModeValue("white", "gray.900");
+
   return (
-    <Box bgColor="white" overflowX="hidden" w="100%" px={["0px", "25px"]}>
+    <Box bgColor={bgColor} overflowX="hidden" w="100%" px={["0px", "25px"]}>
       <Flex
         mx="auto"
         maxWidth="1200px"
@@ -14,36 +25,15 @@ const FuseNavbar = () => {
         py={{ base: 2, lg: 6 }}
       >
         <chakra.img
-          src="/static/logo-black-text.png"
+          src={
+            colorMode === "light"
+              ? "/static/logo-black-text.png"
+              : "/static/logo-text.png"
+          }
           alt="market logo"
           width={"36"}
           paddingTop={"2"}
         />
-        {/* <Text fontWeight="bold" fontSize="xl" zIndex="100">
-
-        </Text> */}
-        {/* <chakra.button
-          display="flex"
-          alignItems="center"
-          zIndex="100"
-          justifyContent="center"
-          borderRadius="34.5px"
-          bgColor="white"
-          boxShadow="base"
-          py="4"
-          px="6"
-          transitionProperty="all"
-          transitionTimingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
-          transitionDuration="150ms"
-          _hover={{
-            boxShadow: "lg",
-          }}
-          fontWeight="bold"
-          gridGap="2"
-        >
-          <span>Put your money to work</span>
-          <ChevronRightIcon />
-        </chakra.button> */}
         <Box display="flex" flexDir="row">
           {/* <Button
             bgGradient="linear(to-r, #f21587, #9b61cd)"
@@ -56,6 +46,13 @@ const FuseNavbar = () => {
           >
             {t("Buy Crypto")}
           </Button> */}
+          <Button onClick={toggleColorMode}>
+            {colorMode === "light" ? (
+              <MoonIcon w={5} h={5} />
+            ) : (
+              <SunIcon color="yellow.300" w={5} h={5} />
+            )}
+          </Button>
           <AccountButton></AccountButton>
         </Box>
       </Flex>

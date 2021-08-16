@@ -16,6 +16,7 @@ import {
   Tabs,
   Spinner,
   Divider,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import SmallWhiteCircle from "../../../../../static/small-white-circle.png";
 
@@ -525,15 +526,16 @@ const AmountSelect = ({
       setUserAction(UserAction.NO_ACTION);
     }
   };
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
 
   return (
     <Column
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
       height={showEnableAsCollateral ? "575px" : "500px"}
-      bg="#fff"
-      color="#000"
-      borderRadius="20px"
+      bgColor={bgColor}
+      color={textColor}
     >
       {userAction === UserAction.WAITING_FOR_TRANSACTIONS ? (
         <Column
@@ -542,7 +544,7 @@ const AmountSelect = ({
           crossAxisAlignment="center"
           p={4}
         >
-          <HashLoader size={70} color={tokenData?.color ?? "#FFF"} loading />
+          <HashLoader size={70} color={tokenData?.color ?? bgColor} loading />
           <Heading mt="30px" textAlign="center" size="md">
             {t("Check your wallet to submit the transactions")}
           </Heading>
@@ -600,7 +602,7 @@ const AmountSelect = ({
 
               <DashboardBox
                 borderColor="#BBB"
-                bg="#FFF"
+                bg={bgColor}
                 width="100%"
                 height="70px"
               >
@@ -611,7 +613,7 @@ const AmountSelect = ({
                   expand
                 >
                   <AmountInput
-                    color={tokenData?.color ?? "#000"}
+                    color={tokenData?.color ?? bgColor}
                     displayAmount={userEnteredAmount}
                     updateAmount={updateAmount}
                   />
@@ -633,7 +635,7 @@ const AmountSelect = ({
             <StatsColumn
               symbol={tokenData?.symbol ?? assets[index].underlyingSymbol}
               amount={parseInt(amount?.toFixed(0) ?? "0") ?? 0}
-              color={tokenData?.color ?? "#FFF"}
+              color={tokenData?.color ?? bgColor}
               assets={assets}
               index={index}
               mode={mode}
@@ -642,7 +644,7 @@ const AmountSelect = ({
 
             {showEnableAsCollateral ? (
               <DashboardBox
-                bg="#fff"
+                bg={bgColor}
                 borderColor="#BBB"
                 p={4}
                 width="100%"
@@ -991,7 +993,7 @@ const StatsColumn = ({
   return (
     <DashboardBox
       borderColor="#BBB"
-      bg="#fff"
+      bg={useColorModeValue("white", "gray.800")}
       width="100%"
       height="190px"
       mt={4}

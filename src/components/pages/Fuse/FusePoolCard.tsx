@@ -8,8 +8,9 @@ import {
   chakra,
   Link,
   Text,
+  useColorModeValue,
+  useColorMode,
 } from "@chakra-ui/react";
-import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { MergedPool } from "hooks/fuse/useFusePools";
 import { usePoolRSS, letterScore } from "hooks/useRSS";
 import { useMemo } from "react";
@@ -46,6 +47,9 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
     return tokens.length >= 10 ? tokens.splice(0, 10) : tokens;
   }, [pool.underlyingSymbols, pool.underlyingTokens]);
   const scoreGradient = usePoolRiskScoreGradient(rssScore);
+  const { colorMode } = useColorMode();
+  const bgColor = useColorModeValue("white", "#21262e");
+  const dividerColor = useColorModeValue("gray.200", "gray.700");
 
   return (
     <motion.div whileHover={{ scale: 1.05 }}>
@@ -53,10 +57,20 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         w="100%"
         key={pool.id}
         pt={6}
-        bgColor="white"
+        bgColor={bgColor}
         borderRadius="20px"
-        boxShadow="0px 21px 44px rgba(71, 29, 97, 0.105141)"
-        _hover={{ boxShadow: "0px 6px 29px rgb(71 0 97 / 21%)" }}
+        boxShadow={
+          colorMode === "light"
+            ? "0px 21px 44px rgba(71, 29, 97, 0.105141)"
+            : "0px 2px 44px rgb(71 29 97 / 29%)"
+        }
+        // boxShadow="xl"
+        _hover={{
+          boxShadow:
+            colorMode === "light"
+              ? "0px 3px 29px rgb(71 0 97 / 21%)"
+              : "0px 5px 44px rgb(242 21 139 / 19%)",
+        }}
         flexDir="column"
         gridGap="6"
       >
@@ -84,15 +98,13 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           mx="6"
         >
           {pool.underlyingTokens.length === 0 ? null : (
-            <SimpleTooltip
-              label={tokens.map((item) => item.symbol).join(" / ")}
-            >
+            <Tooltip label={tokens.map((item) => item.symbol).join(" / ")}>
               <AvatarGroup size="sm" max={30}>
                 {tokens.slice(0, 10).map(({ address }) => {
                   return <CTokenIcon key={address} address={address} />;
                 })}
               </AvatarGroup>
-            </SimpleTooltip>
+            </Tooltip>
           )}
           <Row mainAxisAlignment="center" crossAxisAlignment="center">
             <Tooltip
@@ -102,7 +114,6 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
                 "%"
               }
               placement="top"
-              bg="black"
               hasArrow
             >
               <Box
@@ -119,7 +130,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
             </Tooltip>
           </Row>
         </Row>
-        <chakra.div w="100%" h="1px" bgColor="gray.200" />
+        <chakra.div w="100%" h="1px" bgColor={dividerColor} />
         <Row
           mx="6"
           mainAxisAlignment="center"
@@ -132,7 +143,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
             </Text>
             <Text mt="2">{smallUsdFormatter(pool.suppliedUSD)}</Text>
           </Column>
-          <chakra.div h="16" w="1px" bgColor="gray.300" />
+          <chakra.div h="16" w="2px" bgColor={dividerColor} />
           <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
             <Text fontWeight="bold" textAlign="center">
               {t("Total borrowed")}
@@ -150,14 +161,15 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         <Link
           as={RouterLink}
           borderTopWidth="1px"
-          borderTopColor="gray.200"
+          borderTopColor={dividerColor}
           to={"/pool/" + pool.id}
           w="100%"
           py="4"
-          _hover={{ bgColor: "gray.100" }}
+          _hover={{ bgColor: useColorModeValue("gray.100", "#2a303a") }}
           display="flex"
           justifyContent="center"
           alignItems="center"
+          borderBottomRadius="20px"
         >
           View details <ArrowForwardIcon ml="4" />
         </Link>

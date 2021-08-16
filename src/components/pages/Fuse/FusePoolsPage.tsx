@@ -4,6 +4,8 @@ import {
   Center,
   Text,
   Box,
+  TextProps,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { useFusePools } from "hooks/fuse/useFusePools";
@@ -68,7 +70,7 @@ const PoolList = () => {
           fontSize="3xl"
           fontWeight="semibold"
         >
-          <Text color="black">No Pools Found</Text>
+          <Text>No Pools Found</Text>
         </Box>
       )}
       <Box
@@ -105,14 +107,14 @@ const Pagination = ({
     pageNumbers.push(i);
   }
 
-  const selectedProps = {
+  const selectedProps: TextProps = {
     bgGradient: "linear(to-bl, #9b61cd, #f21587)",
     color: "#FFF",
   };
-  const unSelectedProps = {
-    bg: "white",
-    _hover: { bg: "gray.100" },
-    color: "#606060",
+  const unSelectedProps: TextProps = {
+    bg: useColorModeValue("white", "gray.700"),
+    _hover: { bg: useColorModeValue("gray.100", "gray.600") },
+    color: useColorModeValue("#606060", "white"),
   };
 
   return (

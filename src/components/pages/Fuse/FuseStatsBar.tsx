@@ -1,4 +1,4 @@
-import { Flex, Spinner, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
@@ -35,7 +35,7 @@ const FuseStatsBar = () => {
           fontSize="18px"
           lineHeight="31px"
           mt="19px"
-          textColor="#141212"
+          textColor={useColorModeValue("#141212", "gray.300")}
           fontWeight="medium"
           zIndex="100"
         >

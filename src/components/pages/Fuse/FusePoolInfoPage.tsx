@@ -7,6 +7,7 @@ import {
   Text,
   useClipboard,
   Skeleton,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Footer from "components/shared/Footer";
 import { memo, useState } from "react";
@@ -130,6 +131,7 @@ export const PoolInfoBox = ({
 }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
+  const bgColor = useColorModeValue("white", "gray.900");
 
   return (
     <RowOrColumn
@@ -139,7 +141,7 @@ export const PoolInfoBox = ({
       crossAxisAlignment="flex-start"
       mx="auto"
       isRow={!isMobile}
-      bgColor="white"
+      bgColor={bgColor}
       px={{ base: 6, lg: 0 }}
     >
       <PoolDashboardBox
@@ -252,7 +254,7 @@ const OracleAndInterestRates = ({
           </Link>
         ) : null}
       </Row>
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
       <Column
         mainAxisAlignment="flex-start"
         crossAxisAlignment="flex-start"
@@ -392,6 +394,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
   });
 
   const isMobile = useIsMobile();
+  const borrowLineColor = useColorModeValue("#2D3748", "#fff");
 
   return (
     <Column
@@ -442,7 +445,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Select>
       </Row>
 
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
 
       <Box
         height="200px"
@@ -501,7 +504,10 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
                     ],
                   },
 
-                  colors: ["#FFFFFF", selectedTokenData?.color ?? "#A6A6A6"],
+                  colors: [
+                    borrowLineColor,
+                    selectedTokenData?.color ?? "#A6A6A6",
+                  ],
                 } as any
               }
               type="line"
@@ -526,7 +532,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         )}
       </Box>
 
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
 
       <Row
         mainAxisAlignment="space-around"
@@ -556,7 +562,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         />
       </Row>
 
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
 
       <Row
         mainAxisAlignment="space-around"

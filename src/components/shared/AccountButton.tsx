@@ -9,6 +9,7 @@ import {
   Link,
   Text,
   Spinner,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { Row, Column } from "utils/chakraUtils";
@@ -92,6 +93,8 @@ const Buttons = ({
 
   const isMobile = useIsSmallScreen();
 
+  const bgColor = useColorModeValue("white", "gray.800");
+
   const handleAccountButtonClick = useCallback(() => {
     if (isAuthed) {
       openModal();
@@ -108,8 +111,8 @@ const Buttons = ({
         flexGrow={0}
         width="133px"
         onClick={handleAccountButtonClick}
-        bgColor="white"
-        boxShadow="base"
+        bgColor={bgColor}
+        boxShadow={"base"}
         borderColor="#DF2EAC"
         borderWidth="2px"
         _hover={{ boxShadow: "md" }}
@@ -168,6 +171,9 @@ export const SettingsModal = ({
     logout();
   };
 
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
+
   return (
     <Modal
       motionPreset="slideInBottom"
@@ -176,7 +182,7 @@ export const SettingsModal = ({
       isCentered
     >
       <ModalOverlay />
-      <ModalContent {...MODAL_PROPS}>
+      <ModalContent {...MODAL_PROPS} bgColor={bgColor} textColor={textColor}>
         <ModalTitleWithCloseButton text={t("Account")} onClose={onClose} />
 
         <ModalDivider />

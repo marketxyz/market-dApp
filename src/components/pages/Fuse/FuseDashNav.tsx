@@ -12,6 +12,7 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Row } from "utils/chakraUtils";
 
@@ -54,6 +55,10 @@ export const FuseDashNav = (props: any) => {
     }
   }, [debouncedSearchTerm, navigate]);
 
+  const bgColor = useColorModeValue("white", "gray.900");
+  const textColor = useColorModeValue("black", "white");
+  const borderColor = useColorModeValue("#e6e4e7", "gray.700");
+
   return (
     <>
       <Modal
@@ -66,16 +71,16 @@ export const FuseDashNav = (props: any) => {
           <CreatePoolConfiguration />
         </ModalContent>
       </Modal>
-
       <Box
-        color="#000000"
+        color={textColor}
         paddingTop="15px"
         overflowX="visible"
         overflowY="visible"
         w="100%"
-        borderBottom="1px solid #e6e4e7"
-        borderTop="1px solid #e6e4e7"
-        backgroundColor="#FFFFFF"
+        borderBottom={`1px solid`}
+        borderTop={`1px solid`}
+        borderColor={borderColor}
+        backgroundColor={bgColor}
       >
         <Row
           mainAxisAlignment="space-between"
@@ -110,9 +115,10 @@ export const FuseDashNav = (props: any) => {
               <InputGroup marginBottom="10px">
                 <InputLeftAddon
                   pointerEvents="none"
-                  children={<SearchIcon color="#62526A" />}
-                  backgroundColor="#FFFFFF"
-                  border="2.5px solid #d9d8da"
+                  children={<SearchIcon color="#d9d8da" opacity={"0.7"} />}
+                  backgroundColor={bgColor}
+                  border="2.5px solid"
+                  borderColor="inherit"
                 />
                 <Input
                   _focus={{}}

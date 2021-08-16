@@ -9,7 +9,7 @@ html {
   width: 100%;
   /* height: 100% !important; */
 
-  background-color: #000000 !important;
+  /* background-color: #fff !important; */
   overflow-x: hidden;
 }
 
@@ -18,14 +18,6 @@ html {
 
   scrollbar-width: none;
   -ms-overflow-style: none;
-}
-
-.apexcharts-tooltip,
-.apexcharts-tooltip.active,
-.apexcharts-xaxistooltip,
-.apexcharts-xaxistooltip.active,
-.apexcharts-marker {
-  transition: none !important;
 }
 
 *::-webkit-scrollbar {
@@ -50,7 +42,7 @@ These fonts only have ASCII glyphs.
 If you want to add some more glyphs but still remove useless ones go to: https://transfonter.org/ 
 Here's the symbols we currently support: " !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 */
-@font-face {
+/* @font-face {
   font-family: "Avenir Next";
   src: url(AvenirNext-Bold.woff2) format("woff2"),
     url(AvenirNext-Bold.woff) format("woff");
@@ -66,7 +58,7 @@ Here's the symbols we currently support: " !"#$%&'()*+,-./0123456789:;<=>?@ABCDE
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 @-webkit-keyframes GradientBackgroundAnimation {
   0% {
