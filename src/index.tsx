@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
+import * as Fathom from "fathom-client";
 
 import App from "./components/App";
 
@@ -66,12 +67,20 @@ function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    Fathom.trackPageview();
   }, [pathname]);
 
   return null;
 }
 
 const Index = () => {
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") {
+      Fathom.load(process.env.REACT_APP_FATHOM_SITE_ID!);
+      Fathom.trackPageview();
+    }
+  }, []);
+
   return (
     <>
       <PWAPrompt

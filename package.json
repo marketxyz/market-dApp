@@ -29,6 +29,7 @@
     "boring-avatars": "^1.5.8",
     "buttered-chakra": "^4.3.0",
     "cypress": "^5.3.0",
+    "fathom-client": "^3.1.0",
     "focus-visible": "^5.2.0",
     "fortmatic": "^2.2.1",
     "framer-motion": "^4.1.11",
