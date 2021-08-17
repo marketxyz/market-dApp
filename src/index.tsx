@@ -38,13 +38,18 @@ import { ErrorBoundary } from "react-error-boundary";
 import { version } from "../package.json";
 export { version };
 
-if (process.env.NODE_ENV === "production") {
+const isProd = process.env.NODE_ENV === "production";
+
+if (isProd) {
   console.log("Connecting to LogRocket...");
   LogRocket.init("eczu2e/rari-capital", {
     console: {
       shouldAggregateConsoleErrors: true,
     },
     release: version,
+  });
+  Fathom.load(process.env.REACT_APP_FATHOM_SITE_ID!, {
+    url: "https://finch.market.xyz/script.js",
   });
 }
 
@@ -67,7 +72,9 @@ function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    Fathom.trackPageview();
+    if (isProd) {
+      Fathom.trackPageview();
+    }
   }, [pathname]);
 
   return null;
@@ -75,8 +82,7 @@ function ScrollToTop() {
 
 const Index = () => {
   useEffect(() => {
-    if (process.env.NODE_ENV === "production") {
-      Fathom.load(process.env.REACT_APP_FATHOM_SITE_ID!);
+    if (isProd) {
       Fathom.trackPageview();
     }
   }, []);
