@@ -53,6 +53,16 @@ if (isProd) {
   });
 }
 
+/**
+ * @notice forcefully setting initial mode to dark
+ */
+if (
+  typeof localStorage !== "undefined" &&
+  !localStorage.getItem("chakra-ui-color-mode")
+) {
+  localStorage.setItem("chakra-ui-color-mode", "dark");
+}
+
 console.log("Version " + version);
 
 const extendedTheme = extendTheme({
