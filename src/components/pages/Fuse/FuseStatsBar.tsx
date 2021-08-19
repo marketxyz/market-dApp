@@ -1,138 +1,81 @@
-import { Heading } from "@chakra-ui/react";
-import { RowOrColumn, Column, Center } from "utils/chakraUtils";
-import { ReactNode } from "react";
+import { Flex, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { useRari } from "context/RariContext";
-import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { smallUsdFormatter } from "utils/bigUtils";
-import CaptionedStat from "components/shared/CaptionedStat";
-import DashboardBox from "components/shared/DashboardBox";
-
-import { useFuseTVL, fetchFuseNumberTVL } from "hooks/fuse/useFuseTVL";
-import { useFuseTotalBorrowAndSupply } from "hooks/fuse/useFuseTotalBorrowAndSupply";
-
-import { APYWithRefreshMovingStat } from "components/shared/MovingStat";
+import { useFuseTVL } from "hooks/fuse/useFuseTVL";
 
 const FuseStatsBar = () => {
-  const isMobile = useIsSmallScreen();
-
   const { t } = useTranslation();
-
-  const { isAuthed, fuse, rari } = useRari();
-
   const { data: fuseTVL } = useFuseTVL();
-  const { data: totalBorrowAndSupply } = useFuseTotalBorrowAndSupply();
 
   return (
-    <RowOrColumn
-      width="100%"
-      isRow={!isMobile}
-      mainAxisAlignment="flex-start"
-      crossAxisAlignment="flex-start"
-      height={isMobile ? "auto" : "125px"}
+    <Flex
+      id="stats-bar"
+      marginRight="auto"
+      marginLeft="auto"
+      flexDir={{ base: "column", lg: "row" }}
+      alignItems="center"
+      justifyContent="center"
+      py="72px"
+      px={{ base: "5vw", lg: 0 }}
+      w="100%"
+      maxWidth={{ lg: "1200px" }}
+      gridGap="1.5rem"
     >
-      <DashboardBox
-        width={isMobile ? "100%" : "100%"}
-        height={isMobile ? "auto" : "100%"}
+      <Flex
+        flexDir="column"
+        expand={"true"}
+        w={{ base: "100%" }}
+        fontSize="sm"
+        marginRight={{ base: "0px", lg: "84.5px" }}
       >
-        <Column
-          expand
-          mainAxisAlignment="center"
-          crossAxisAlignment={isMobile ? "center" : "flex-start"}
-          textAlign={isMobile ? "center" : "left"}
-          p={4}
-          fontSize="sm"
+        <Text fontSize="32px" lineHeight="40px" fontWeight="bold" zIndex="100">
+          {t("Fuse")}
+        </Text>
+        <Text
+          fontSize="18px"
+          lineHeight="31px"
+          mt="19px"
+          textColor={useColorModeValue("#141212", "gray.300")}
+          fontWeight="medium"
+          zIndex="100"
         >
-          <Heading size="lg" mb="2px">
-            {t("Fuse")}
-          </Heading>
-
           {t(
             "There's {{tvl}} supplied to Fuse, the first truly open interest rate protocol. Lend, borrow, and create isolated lending markets with unlimited flexibility.",
             { tvl: fuseTVL ? smallUsdFormatter(fuseTVL) : "?" }
           )}
-        </Column>
-      </DashboardBox>
-
-      {isAuthed &&
-      totalBorrowAndSupply &&
-      totalBorrowAndSupply.totalSuppliedUSD > 0 ? (
-        <>
-          <StatBox>
-            <CaptionedStat
-              crossAxisAlignment="center"
-              captionFirst={false}
-              statSize="3xl"
-              captionSize="sm"
-              stat={
-                totalBorrowAndSupply
-                  ? smallUsdFormatter(totalBorrowAndSupply.totalSuppliedUSD)
-                  : "$?"
-              }
-              caption={t("Your Supply Balance")}
-            />
-          </StatBox>
-
-          <StatBox>
-            <CaptionedStat
-              crossAxisAlignment="center"
-              captionFirst={false}
-              statSize="3xl"
-              captionSize="sm"
-              stat={
-                totalBorrowAndSupply
-                  ? smallUsdFormatter(totalBorrowAndSupply.totalBorrowedUSD)
-                  : "$?"
-              }
-              caption={t("Your Borrow Balance")}
-            />
-          </StatBox>
-        </>
-      ) : (
-        <StatBox width={isMobile ? "100%" : "496px"}>
-          <APYWithRefreshMovingStat
-            formatStat={smallUsdFormatter}
-            fetchInterval={40000}
-            loadingPlaceholder="$?"
-            apyInterval={100}
-            fetch={() => fetchFuseNumberTVL(rari, fuse)}
-            queryKey={"fuseTVL"}
-            apy={0.15}
-            statSize="3xl"
-            captionSize="xs"
-            caption={t("Total Value Supplied Across Fuse")}
-            crossAxisAlignment="center"
-            captionFirst={false}
-          />
-        </StatBox>
-      )}
-    </RowOrColumn>
+        </Text>
+      </Flex>
+      <Flex
+        flexDir="column"
+        h={{ base: "10rem", lg: "15rem" }}
+        w={{ base: "100%", lg: "50%" }}
+        px={{ lg: "10vw" }}
+        alignItems="center"
+        justifyContent="center"
+        position="relative"
+        overflow="hidden"
+        boxShadow="0px 21px 27px -12px rgba(9, 27, 177, 0.332741)"
+        borderRadius="20px"
+        bg="linear-gradient(to bottom right,#9b61cd 0,#f21587 60%,#f2ef15 100%)"
+      >
+        {fuseTVL ? (
+          <Text
+            fontWeight="extrabold"
+            fontSize={["36px", "48px"]}
+            lineHeight={["60px"]}
+            textColor="white"
+          >
+            {smallUsdFormatter(fuseTVL)}
+          </Text>
+        ) : (
+          <Spinner color="#FFF" />
+        )}
+        <Text textColor="white" whiteSpace="nowrap">
+          {t("Total value supplied across fuse")}
+        </Text>
+      </Flex>
+    </Flex>
   );
 };
 
 export default FuseStatsBar;
-
-const StatBox = ({
-  children,
-  ...others
-}: {
-  children: ReactNode;
-  [key: string]: any;
-}) => {
-  const isMobile = useIsSmallScreen();
-
-  return (
-    <DashboardBox
-      width={isMobile ? "100%" : "240px"}
-      height={isMobile ? "auto" : "100%"}
-      flexShrink={0}
-      mt={isMobile ? 4 : 0}
-      ml={isMobile ? 0 : 4}
-      {...others}
-    >
-      <Center expand p={4}>
-        {children}
-      </Center>
-    </DashboardBox>
-  );
-};

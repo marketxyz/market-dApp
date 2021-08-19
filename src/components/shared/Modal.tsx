@@ -1,11 +1,11 @@
-import { DASHBOARD_BOX_PROPS } from "./DashboardBox";
 import { Box, Heading, CloseButton } from "@chakra-ui/react";
 import { Row } from "utils/chakraUtils";
 
 export const MODAL_PROPS = {
   width: { md: "450px", base: "92%" },
-  color: "#FFFFFF",
-  ...DASHBOARD_BOX_PROPS,
+  color: "#000000",
+  backgroundColor: "#FFFFFF",
+  borderRadius: "10px",
 };
 
 export const ModalTitle = ({ text }: { text: string }) => {
@@ -45,5 +45,5 @@ export const ModalTitleWithCloseButton = ({
 };
 
 export const ModalDivider = ({ ...others }: { [key: string]: any }) => {
-  return <Box h="1px" width="100%" flexShrink={0} bg="#272727" {...others} />;
+  return <Box h="1px" width="100%" flexShrink={0} bg="#bbb" {...others} />;
 };

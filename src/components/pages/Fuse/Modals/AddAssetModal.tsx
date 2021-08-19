@@ -11,14 +11,13 @@ import {
   Select,
   Spinner,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { Column, Center } from "utils/chakraUtils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import DashboardBox, {
-  DASHBOARD_BOX_PROPS,
-} from "../../../shared/DashboardBox";
+import DashboardBox from "../../../shared/DashboardBox";
 import { ModalDivider, MODAL_PROPS } from "../../../shared/Modal";
 
 import {
@@ -395,7 +394,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <ModalDivider />
+      <Divider bg="#BBB" borderColor="#BBB" />
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -422,7 +421,8 @@ export const AssetSettings = ({
           max={50}
         />
       </ConfigRow>
-      <ModalDivider />
+
+      <Divider bg="#BBB" borderColor="#BBB" />
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -449,7 +449,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <ModalDivider />
+      <Divider bg="#BBB" borderColor="#BBB" />
 
       <ConfigRow>
         <SimpleTooltip
@@ -463,7 +463,9 @@ export const AssetSettings = ({
         </SimpleTooltip>
 
         <Select
-          {...DASHBOARD_BOX_PROPS}
+          backgroundColor="#FFF"
+          border="1px"
+          borderColor="#BBB"
           ml="auto"
           borderRadius="7px"
           fontWeight="bold"
@@ -473,7 +475,7 @@ export const AssetSettings = ({
           onChange={(event) => setInterestRateModel(event.target.value)}
         >
           <option
-            className="black-bg-option"
+            className="white-bg-option"
             value={
               Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
                 .JumpRateModel_DAI
@@ -483,7 +485,7 @@ export const AssetSettings = ({
           </option>
 
           <option
-            className="black-bg-option"
+            className="white-bg-option"
             value={
               Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
                 .WhitePaperInterestRateModel_ETH
@@ -557,8 +559,8 @@ export const AssetSettings = ({
             borderRadius="10px"
             width="100%"
             height="70px"
-            color={tokenData.overlayTextColor! ?? "#000"}
-            bg={tokenData.color! ?? "#FFF"}
+            color={tokenData.overlayTextColor! ?? "#FFF"}
+            bg={tokenData.color! ?? "#000"}
             _hover={{ transform: "scale(1.02)" }}
             _active={{ transform: "scale(0.95)" }}
             isLoading={isDeploying}
@@ -604,7 +606,7 @@ const AddAssetModal = ({
     >
       <ModalOverlay />
       <ModalContent {...MODAL_PROPS}>
-        <Heading fontSize="27px" my={4} textAlign="center">
+        <Heading fontSize="27px" fontWeight="normal" my={4} textAlign="center">
           {t("Add Asset")}
         </Heading>
 
@@ -630,7 +632,7 @@ const AddAssetModal = ({
               <Heading
                 my={tokenData?.symbol ? 3 : 6}
                 fontSize="22px"
-                color={tokenData?.color ?? "#FFF"}
+                color={tokenData?.color ?? "#000"}
               >
                 {tokenData
                   ? tokenData.name ?? "Invalid Address!"
@@ -654,11 +656,13 @@ const AddAssetModal = ({
                 const address = event.target.value;
                 _setTokenAddress(address);
               }}
-              {...DASHBOARD_BOX_PROPS}
-              _placeholder={{ color: "#e0e0e0" }}
-              _focus={{ bg: "#121212" }}
-              _hover={{ bg: "#282727" }}
-              bg="#282727"
+              backgroundColor="#FFF"
+              borderRadius="10px"
+              border="1px"
+              borderColor="#BBB"
+              _placeholder={{ color: "#000" }}
+              _focus={{}}
+              _hover={{}}
             />
 
             {!existingAssets.some(

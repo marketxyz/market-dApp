@@ -116,7 +116,6 @@ export const useFusePools = (filter: string | null): UseFusePoolsReturn => {
     if (!pools) {
       return null;
     }
-
     if (!filter) {
       return poolSort(pools);
     }

@@ -10,7 +10,6 @@ import {
 
 import { useQueryClient } from "react-query";
 import { useTranslation } from "react-i18next";
-import { DASHBOARD_BOX_PROPS } from "../components/shared/DashboardBox";
 
 import Rari from "../rari-sdk/index";
 
@@ -108,13 +107,6 @@ async function launchModalLazy(
   const web3Modal = new Web3Modal.default({
     cacheProvider,
     providerOptions,
-    theme: {
-      background: DASHBOARD_BOX_PROPS.backgroundColor,
-      main: "#FFFFFF",
-      secondary: "#858585",
-      border: DASHBOARD_BOX_PROPS.borderColor,
-      hover: "#000000",
-    },
   });
 
   return web3Modal.connect();
@@ -158,16 +150,17 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
         console.log("Network ID: " + netId, "Chain ID: " + chainId);
 
         // Don't show "wrong network" toasts if dev
-        if (process.env.NODE_ENV === "development") {
-          return;
-        }
+        // if (process.env.NODE_ENV === "development") {
+        //   return;
+        // }
+        const CHAIN_ID_ENV = parseInt(process.env.REACT_APP_CHAIN_ID || "1");
+        const CHAIN_NAME = process.env.REACT_APP_CHAIN_NAME || "Mainnet";
 
-        if (netId !== 1 || chainId !== 1) {
+        if (netId !== CHAIN_ID_ENV || chainId !== CHAIN_ID_ENV) {
           setTimeout(() => {
             toast({
               title: "Wrong network!",
-              description:
-                "You are on the wrong network! Switch to the mainnet and reload this page!",
+              description: `You are on the wrong network! Switch to the ${CHAIN_NAME.toLowerCase()} and reload this page!`,
               status: "warning",
               position: "top-right",
               duration: 300000,

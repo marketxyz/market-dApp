@@ -1,54 +1,30 @@
-import { Avatar, AvatarGroup, Link, Spinner, Text } from "@chakra-ui/react";
-import { Center, Column, Row, useIsMobile } from "utils/chakraUtils";
-import { useTranslation } from "react-i18next";
-import { useRari } from "context/RariContext";
-import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { smallUsdFormatter } from "utils/bigUtils";
-
-import DashboardBox from "../../shared/DashboardBox";
-import { Header } from "../../shared/Header";
-import { ModalDivider } from "../../shared/Modal";
-
-import { Link as RouterLink } from "react-router-dom";
-import FuseStatsBar from "./FuseStatsBar";
-import FuseTabBar, { useFilter } from "./FuseTabBar";
-import { useTokenData } from "hooks/useTokenData";
-
-import { filterPoolName } from "utils/fetchFusePoolData";
-
-import { letterScore, usePoolRSS } from "hooks/useRSS";
-import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import {
+  SimpleGrid as Grid,
+  Spinner,
+  Center,
+  Text,
+  Box,
+  TextProps,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { useFusePools } from "hooks/fuse/useFusePools";
-import Footer from "components/shared/Footer";
-import { memo } from "react";
+import { memo, useState } from "react";
+import { FuseDashNav } from "./FuseDashNav";
+import FusePageLayout from "./FusePageLayout";
+import PoolCard from "./FusePoolCard";
+import FuseStatsBar from "./FuseStatsBar";
+import { useFilter } from "./FuseTabBar";
 
 const FusePoolsPage = memo(() => {
-  const { isAuthed } = useRari();
-  const isMobile = useIsSmallScreen();
-
   return (
-    <>
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        color="#FFFFFF"
-        mx="auto"
-        width={isMobile ? "100%" : "1000px"}
-        height="100%"
-        px={isMobile ? 4 : 0}
-      >
-        <Header isAuthed={isAuthed} isFuse />
+    <PageTransitionLayout>
+      <FusePageLayout>
         <FuseStatsBar />
-
-        <FuseTabBar />
-
-        <DashboardBox width="100%" mt={4}>
-          <PoolList />
-        </DashboardBox>
-
-        <Footer />
-      </Column>
-    </>
+        <FuseDashNav isFuse />
+        <PoolList />
+      </FusePageLayout>
+    </PageTransitionLayout>
   );
 });
 
@@ -56,200 +32,111 @@ export default FusePoolsPage;
 
 const PoolList = () => {
   const filter = useFilter();
-  const { t } = useTranslation();
+  const { filteredPools }: any = useFusePools(filter);
 
-  const { filteredPools } = useFusePools(filter);
-  const isMobile = useIsMobile();
+  const [currentPage, setCurrentPage] = useState(1);
+  const poolsPerPage = 6;
+  const indexOfLastPool = currentPage * poolsPerPage;
+  const indexOfFirstPool = indexOfLastPool - poolsPerPage;
+  const currentPools = filteredPools?.slice(indexOfFirstPool, indexOfLastPool);
 
-  return (
-    <Column
-      mainAxisAlignment="flex-start"
-      crossAxisAlignment="flex-start"
-      expand
-    >
-      <Row
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        height="45px"
-        width="100%"
-        flexShrink={0}
-        pl={4}
-        pr={1}
-      >
-        <Text fontWeight="bold" width={isMobile ? "100%" : "40%"}>
-          {!isMobile ? t("Pool Assets") : t("Pool Directory")}
-        </Text>
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-        {isMobile ? null : (
-          <>
-            <Text fontWeight="bold" textAlign="center" width="13%">
-              {t("Pool Number")}
-            </Text>
-
-            <Text fontWeight="bold" textAlign="center" width="16%">
-              {t("Total Supplied")}
-            </Text>
-
-            <Text fontWeight="bold" textAlign="center" width="16%">
-              {t("Total Borrowed")}
-            </Text>
-
-            <Text fontWeight="bold" textAlign="center" width="15%">
-              {t("Pool Risk Score")}
-            </Text>
-          </>
-        )}
-      </Row>
-
-      <ModalDivider />
-
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        width="100%"
-      >
-        {filteredPools ? (
-          filteredPools.map((pool, index) => {
-            return (
-              <PoolRow
-                key={pool.id}
-                poolNumber={pool.id}
-                name={filterPoolName(pool.pool.name)}
-                tvl={pool.suppliedUSD}
-                borrowed={pool.borrowedUSD}
-                tokens={pool.underlyingTokens.map((address, index) => ({
-                  symbol: pool.underlyingSymbols[index],
-                  address,
-                }))}
-                noBottomDivider={index === filteredPools.length - 1}
-              />
-            );
-          })
-        ) : (
-          <Spinner my={8} />
-        )}
-      </Column>
-    </Column>
-  );
-};
-
-const PoolRow = ({
-  tokens,
-  poolNumber,
-  tvl,
-  borrowed,
-  name,
-  noBottomDivider,
-}: {
-  tokens: { symbol: string; address: string }[];
-  poolNumber: number;
-  tvl: number;
-  borrowed: number;
-  name: string;
-  noBottomDivider?: boolean;
-}) => {
-  const isEmpty = tokens.length === 0;
-
-  const rss = usePoolRSS(poolNumber);
-
-  const rssScore = rss ? letterScore(rss.totalScore) : "?";
-
-  const isMobile = useIsMobile();
-
-  return (
+  return filteredPools ? (
     <>
-      <Link
-        /* @ts-ignore */
-        as={RouterLink}
-        width="100%"
-        className="no-underline"
-        to={"/fuse/pool/" + poolNumber}
-      >
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          width="100%"
-          height="90px"
-          className="hover-row"
-          pl={4}
-          pr={1}
+      {currentPools.length ? (
+        <Grid
+          templateRows={{
+            base: "repeat(1, minmax(0, 1fr))",
+            lg: "repeat(2, minmax(0, 1fr))",
+          }}
+          autoFlow="row"
+          columns={{ base: 1, lg: 2 }}
+          my="2rem"
+          w={{ base: "90%", lg: "100%" }}
+          maxW={{ lg: "1200px" }}
+          mx="auto"
+          gridGap="8"
         >
-          <Column
-            pt={2}
-            width={isMobile ? "100%" : "40%"}
-            height="100%"
-            mainAxisAlignment="center"
-            crossAxisAlignment="flex-start"
-          >
-            {isEmpty ? null : (
-              <SimpleTooltip label={tokens.map((t) => t.symbol).join(" / ")}>
-                <AvatarGroup size="xs" max={30} mr={2}>
-                  {tokens.map(({ address }) => {
-                    return <CTokenIcon key={address} address={address} />;
-                  })}
-                </AvatarGroup>
-              </SimpleTooltip>
-            )}
-
-            <Text mt={isEmpty ? 0 : 2}>{name}</Text>
-          </Column>
-
-          {isMobile ? null : (
-            <>
-              <Center height="100%" width="13%">
-                <b>
-                  {poolNumber === 18
-                    ? "3, 3" // TODO: Remove. Celebrating the ohmies
-                    : poolNumber}
-                </b>
-              </Center>
-              <Center height="100%" width="16%">
-                <b>{smallUsdFormatter(tvl)}</b>
-              </Center>
-              <Center height="100%" width="16%">
-                <b>{smallUsdFormatter(borrowed)}</b>
-              </Center>
-              <Center height="100%" width="15%">
-                <SimpleTooltip
-                  label={
-                    "Underlying RSS: " +
-                    (rss ? rss.totalScore.toFixed(2) : "?") +
-                    "%"
-                  }
-                >
-                  <b>{rssScore}</b>
-                </SimpleTooltip>
-              </Center>
-            </>
-          )}
-        </Row>
-      </Link>
-
-      {noBottomDivider ? null : <ModalDivider />}
+          {currentPools.map((pool: any, index: any) => {
+            return <PoolCard data={pool} key={pool.id} />;
+          })}
+        </Grid>
+      ) : (
+        <Box
+          textAlign="center"
+          width="100%"
+          py="10"
+          fontSize="3xl"
+          fontWeight="semibold"
+        >
+          <Text>No Pools Found</Text>
+        </Box>
+      )}
+      <Box
+        maxW={{ lg: "1200px" }}
+        w="100%"
+        mx="auto"
+        mb="10"
+        textAlign="center"
+      >
+        <Pagination
+          currentPage={currentPage}
+          poolsPerPage={poolsPerPage}
+          totalPools={filteredPools.length}
+          paginate={paginate}
+        />
+      </Box>
     </>
+  ) : (
+    <Center width="100%">
+      <Spinner my={40} />
+    </Center>
   );
 };
 
-export const CTokenIcon = ({
-  address,
-  ...avatarProps
-}: {
-  address: string;
-  [key: string]: any;
-}) => {
-  const tokenData = useTokenData(address);
+const Pagination = ({
+  totalPools,
+  poolsPerPage,
+  paginate,
+  currentPage,
+}: any) => {
+  let pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalPools / poolsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  const selectedProps: TextProps = {
+    bgGradient: "linear(to-bl, #9b61cd, #f21587)",
+    color: "#FFF",
+  };
+  const unSelectedProps: TextProps = {
+    bg: useColorModeValue("white", "gray.700"),
+    _hover: { bg: useColorModeValue("gray.100", "gray.600") },
+    color: useColorModeValue("#606060", "white"),
+  };
 
   return (
-    <Avatar
-      {...avatarProps}
-      key={address}
-      bg="#FFF"
-      borderWidth="1px"
-      name={tokenData?.symbol ?? "Loading..."}
-      src={
-        tokenData?.logoURL ??
-        "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
-      }
-    />
+    <Box py="4" width="100%">
+      {pageNumbers.map((num: any) => (
+        <Text
+          {...(currentPage === num ? selectedProps : unSelectedProps)}
+          fontSize="lg"
+          display="inline"
+          px="4"
+          py="2"
+          borderRadius="5px"
+          onClick={() => paginate(num)}
+          cursor="pointer"
+          shadow="lg"
+          mx="2"
+          borderColor={"black"}
+          key={num}
+        >
+          {num}
+        </Text>
+      ))}
+    </Box>
   );
 };

@@ -1,0 +1,37 @@
+<svg width="267" height="474" viewBox="0 0 267 474" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g style="mix-blend-mode:overlay" opacity="0.1">
+<rect x="-204.039" y="151.592" width="353" height="353" rx="29" transform="rotate(-25 -204.039 151.592)" fill="url(#paint0_linear)"/>
+<rect x="-204.039" y="151.592" width="353" height="353" rx="29" transform="rotate(-25 -204.039 151.592)" stroke="url(#paint1_linear)" stroke-width="2.5"/>
+</g>
+<g style="mix-blend-mode:overlay" opacity="0.1">
+<rect x="-191.695" y="146.633" width="339" height="339" rx="29" transform="rotate(-25 -191.695 146.633)" fill="url(#paint2_linear)"/>
+<rect x="-191.695" y="146.633" width="339" height="339" rx="29" transform="rotate(-25 -191.695 146.633)" stroke="url(#paint3_linear)" stroke-width="2.5"/>
+</g>
+<g style="mix-blend-mode:overlay" opacity="0.444191">
+<rect x="190.16" y="266.386" width="35" height="35" rx="8" transform="rotate(16 190.16 266.386)" fill="white"/>
+</g>
+<g style="mix-blend-mode:overlay" opacity="0.444191">
+<rect x="103.739" y="186.053" width="16" height="16" rx="6" transform="rotate(-28 103.739 186.053)" fill="white"/>
+</g>
+<g style="mix-blend-mode:overlay" opacity="0.2">
+<rect x="49.1875" y="356.087" width="12" height="12" rx="4" transform="rotate(14 49.1875 356.087)" fill="white"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="60.7109" y1="328.092" x2="60.7109" y2="151.592" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.371829"/>
+<stop offset="1" stop-color="white" stop-opacity="0.0865624"/>
+</linearGradient>
+<linearGradient id="paint1_linear" x1="-149.484" y1="228.159" x2="3.65038" y2="472.049" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint2_linear" x1="62.5552" y1="316.133" x2="62.5552" y2="146.633" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.371829"/>
+<stop offset="1" stop-color="white" stop-opacity="0.0865624"/>
+</linearGradient>
+<linearGradient id="paint3_linear" x1="-139.303" y1="220.164" x2="7.75764" y2="454.381" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+</defs>
+</svg>

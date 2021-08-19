@@ -7,20 +7,15 @@ import {
   Spinner,
   IconButton,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { Column, Center, Row } from "utils/chakraUtils";
 import { memo, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useRari } from "../../../context/RariContext";
-import { useIsSemiSmallScreen } from "../../../hooks/useIsSemiSmallScreen";
 
 import DashboardBox from "../../shared/DashboardBox";
-import { Header } from "../../shared/Header";
-import { ModalDivider } from "../../shared/Modal";
-
-import FuseStatsBar from "./FuseStatsBar";
-import FuseTabBar from "./FuseTabBar";
 import { SliderWithLabel } from "../../shared/SliderWithLabel";
 
 import BigNumber from "bignumber.js";
@@ -35,35 +30,16 @@ import LogRocket from "logrocket";
 const formatPercentage = (value: number) => value.toFixed(0) + "%";
 
 const FusePoolCreatePage = memo(() => {
-  const isMobile = useIsSemiSmallScreen();
-
-  const { isAuthed } = useRari();
-
   return (
     <>
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        color="#FFFFFF"
-        mx="auto"
-        width={isMobile ? "100%" : "1150px"}
-        px={isMobile ? 4 : 0}
-      >
-        <Header isAuthed={isAuthed} isFuse />
-
-        <FuseStatsBar />
-
-        <FuseTabBar />
-
-        <PoolConfiguration />
-      </Column>
+      <CreatePoolConfiguration />
     </>
   );
 });
 
 export default FusePoolCreatePage;
 
-const PoolConfiguration = () => {
+export const CreatePoolConfiguration = () => {
   const { t } = useTranslation();
   const toast = useToast();
   const { fuse, address } = useRari();
@@ -161,7 +137,7 @@ const PoolConfiguration = () => {
       LogRocket.track("Fuse-CreatePool");
 
       let id = event.returnValues.index;
-      navigate(`/fuse/pool/${id}/edit`);
+      navigate(`/pool/${id}/edit`);
     } catch (e) {
       handleGenericError(e, toast);
     }
@@ -169,16 +145,16 @@ const PoolConfiguration = () => {
 
   return (
     <>
-      <DashboardBox width="100%" mt={4}>
-        <Column mainAxisAlignment="flex-start" crossAxisAlignment="flex-start">
-          <Heading size="sm" px={4} py={4}>
-            {t("Create Pool")}
-          </Heading>
+      <DashboardBox borderColor="#BBB" bg="#fff" width="100%" mt={4}>
+        <Heading fontWeight="bold" size="md" px={4} py={4}>
+          {t("Create Pool")}
+        </Heading>
 
-          <ModalDivider />
+        <Column mainAxisAlignment="flex-start" crossAxisAlignment="flex-start">
+          <Divider bg="#BBB" />
 
           <OptionRow>
-            <Text fontWeight="bold" mr={4}>
+            <Text fontWeight="normal" mr={4}>
               {t("Name")}
             </Text>
             <Input
@@ -188,10 +164,10 @@ const PoolConfiguration = () => {
             />
           </OptionRow>
 
-          <ModalDivider />
+          <Divider bg="#BBB" />
 
           <OptionRow>
-            <Text fontWeight="bold" mr={4}>
+            <Text fontWeight="normal" mr={4}>
               {t("Oracle")}
             </Text>
             <Select
@@ -201,7 +177,7 @@ const PoolConfiguration = () => {
               placeholder="Select Oracle"
             >
               <option
-                className="black-bg-option"
+                className="white-bg-option"
                 value={
                   Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
                     .ChainlinkPriceOracle
@@ -212,7 +188,7 @@ const PoolConfiguration = () => {
             </Select>
           </OptionRow>
 
-          <ModalDivider />
+          <Divider bg="#BBB" />
 
           <OptionRow>
             <SimpleTooltip
@@ -220,7 +196,7 @@ const PoolConfiguration = () => {
                 "If enabled you will be able to limit the ability to supply to the pool to a select group of addresses. The pool will not show up on the 'all pools' list."
               )}
             >
-              <Text fontWeight="bold">
+              <Text fontWeight="normal">
                 {t("Whitelisted")} <QuestionIcon ml={1} mb="4px" />
               </Text>
             </SimpleTooltip>
@@ -256,7 +232,7 @@ const PoolConfiguration = () => {
             />
           ) : null}
 
-          <ModalDivider />
+          <Divider bg="#BBB" />
 
           <OptionRow>
             <SimpleTooltip
@@ -264,7 +240,7 @@ const PoolConfiguration = () => {
                 "The percent, ranging from 0% to 100%, of a liquidatable account's borrow that can be repaid in a single liquidate transaction. If a user has multiple borrowed assets, the closeFactor applies to any single borrowed asset, not the aggregated value of a user’s outstanding borrowing. Compound's close factor is 50%."
               )}
             >
-              <Text fontWeight="bold">
+              <Text fontWeight="normal">
                 {t("Close Factor")} <QuestionIcon ml={1} mb="4px" />
               </Text>
             </SimpleTooltip>
@@ -278,7 +254,7 @@ const PoolConfiguration = () => {
             />
           </OptionRow>
 
-          <ModalDivider />
+          <Divider bg="#BBB" />
 
           <OptionRow>
             <SimpleTooltip
@@ -286,7 +262,7 @@ const PoolConfiguration = () => {
                 "The additional collateral given to liquidators as an incentive to perform liquidation of underwater accounts. For example, if the liquidation incentive is 10%, liquidators receive an extra 10% of the borrowers collateral for every unit they close. Compound's liquidation incentive is 8%."
               )}
             >
-              <Text fontWeight="bold">
+              <Text fontWeight="normal">
                 {t("Liquidation Incentive")} <QuestionIcon ml={1} mb="4px" />
               </Text>
             </SimpleTooltip>
@@ -311,7 +287,7 @@ const PoolConfiguration = () => {
         as="button"
         onClick={onDeploy}
       >
-        <Center expand fontWeight="bold">
+        <Center expand color="#FFF" fontWeight="normal">
           {isCreating ? <Spinner /> : t("Create")}
         </Center>
       </DashboardBox>

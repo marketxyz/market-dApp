@@ -15,6 +15,8 @@ import {
   TabList,
   Tabs,
   Spinner,
+  Divider,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import SmallWhiteCircle from "../../../../../static/small-white-circle.png";
 
@@ -30,7 +32,6 @@ import { fetchTokenBalance } from "../../../../../hooks/useTokenBalance";
 import { BN, smallUsdFormatter } from "../../../../../utils/bigUtils";
 
 import DashboardBox from "../../../../shared/DashboardBox";
-import { ModalDivider } from "../../../../shared/Modal";
 
 import { Mode } from ".";
 
@@ -525,12 +526,16 @@ const AmountSelect = ({
       setUserAction(UserAction.NO_ACTION);
     }
   };
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
 
   return (
     <Column
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
       height={showEnableAsCollateral ? "575px" : "500px"}
+      bgColor={bgColor}
+      color={textColor}
     >
       {userAction === UserAction.WAITING_FOR_TRANSACTIONS ? (
         <Column
@@ -539,7 +544,7 @@ const AmountSelect = ({
           crossAxisAlignment="center"
           p={4}
         >
-          <HashLoader size={70} color={tokenData?.color ?? "#FFF"} loading />
+          <HashLoader size={70} color={tokenData?.color ?? bgColor} loading />
           <Heading mt="30px" textAlign="center" size="md">
             {t("Check your wallet to submit the transactions")}
           </Heading>
@@ -570,14 +575,15 @@ const AmountSelect = ({
               />
             </Box>
 
-            <Heading fontSize="27px" ml={3}>
+            <Heading fontSize="27px" fontWeight="normal" ml={3}>
               {!isMobile && asset.underlyingName.length < 25
                 ? asset.underlyingName
                 : asset.underlyingSymbol}
             </Heading>
           </Row>
 
-          <ModalDivider />
+          {/* <ModalDivider /> */}
+          <Divider bg="#BBB" height="1px" />
 
           <Column
             mainAxisAlignment="flex-start"
@@ -594,7 +600,12 @@ const AmountSelect = ({
             >
               <TabBar color={tokenData?.color} mode={mode} setMode={setMode} />
 
-              <DashboardBox width="100%" height="70px">
+              <DashboardBox
+                borderColor="#BBB"
+                bg={bgColor}
+                width="100%"
+                height="70px"
+              >
                 <Row
                   p={4}
                   mainAxisAlignment="space-between"
@@ -602,7 +613,7 @@ const AmountSelect = ({
                   expand
                 >
                   <AmountInput
-                    color={tokenData?.color ?? "#FFF"}
+                    color={tokenData?.color ?? bgColor}
                     displayAmount={userEnteredAmount}
                     updateAmount={updateAmount}
                   />
@@ -624,7 +635,7 @@ const AmountSelect = ({
             <StatsColumn
               symbol={tokenData?.symbol ?? assets[index].underlyingSymbol}
               amount={parseInt(amount?.toFixed(0) ?? "0") ?? 0}
-              color={tokenData?.color ?? "#FFF"}
+              color={tokenData?.color ?? bgColor}
               assets={assets}
               index={index}
               mode={mode}
@@ -632,13 +643,19 @@ const AmountSelect = ({
             />
 
             {showEnableAsCollateral ? (
-              <DashboardBox p={4} width="100%" mt={4}>
+              <DashboardBox
+                bg={bgColor}
+                borderColor="#BBB"
+                p={4}
+                width="100%"
+                mt={4}
+              >
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
                   width="100%"
                 >
-                  <Text fontWeight="bold">{t("Enable As Collateral")}:</Text>
+                  <Text fontWeight="normal">{t("Enable As Collateral")}:</Text>
                   <SwitchCSS
                     symbol={asset.underlyingSymbol}
                     color={tokenData?.color}
@@ -657,7 +674,7 @@ const AmountSelect = ({
 
             <Button
               mt={4}
-              fontWeight="bold"
+              fontWeight="normal"
               fontSize={
                 depositOrWithdrawAlert ? depositOrWithdrawAlertFontSize : "2xl"
               }
@@ -739,7 +756,7 @@ const TabBar = ({
 
             .chakra-tabs__tablist {
               border-bottom: 1px solid;
-              border-color: #272727;
+              border-color: #BBB;
             }
             
         `}
@@ -974,7 +991,13 @@ const StatsColumn = ({
     : Math.abs(updatedBorrowAPR - borrowAPR) > 0.1;
 
   return (
-    <DashboardBox width="100%" height="190px" mt={4}>
+    <DashboardBox
+      borderColor="#BBB"
+      bg={useColorModeValue("white", "gray.800")}
+      width="100%"
+      height="190px"
+      mt={4}
+    >
       {updatedAsset ? (
         <Column
           mainAxisAlignment="space-between"
@@ -990,7 +1013,7 @@ const StatsColumn = ({
             width="100%"
             color={color}
           >
-            <Text fontWeight="bold" flexShrink={0}>
+            <Text fontWeight="normal" flexShrink={0}>
               {t("Supply Balance")}:
             </Text>
             <Text
@@ -1019,7 +1042,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="bold" flexShrink={0}>
+            <Text fontWeight="normal" flexShrink={0}>
               {isSupplyingOrWithdrawing ? t("Supply APY") : t("Borrow APR")}:
             </Text>
             <Text
@@ -1047,7 +1070,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="bold" flexShrink={0}>
+            <Text fontWeight="normal" flexShrink={0}>
               {t("Borrow Limit")}:
             </Text>
             <Text
@@ -1068,7 +1091,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="bold">{t("Debt Balance")}:</Text>
+            <Text fontWeight="normal">{t("Debt Balance")}:</Text>
             <Text
               fontWeight="bold"
               fontSize={!isSupplyingOrWithdrawing ? "sm" : "lg"}

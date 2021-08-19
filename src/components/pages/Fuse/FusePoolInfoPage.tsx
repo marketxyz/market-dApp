@@ -1,5 +1,4 @@
 import {
-  AvatarGroup,
   Box,
   Heading,
   Link,
@@ -7,43 +6,39 @@ import {
   Spinner,
   Text,
   useClipboard,
+  Skeleton,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import Footer from "components/shared/Footer";
+import { memo, useState } from "react";
+import Chart from "react-apexcharts";
+import { useTranslation } from "react-i18next";
+import { useQuery } from "react-query";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import {
+  Center,
   Column,
+  Row,
   RowOnDesktopColumnOnMobile,
   RowOrColumn,
-  Center,
-  Row,
   useIsMobile,
 } from "utils/chakraUtils";
-import { memo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
 import { useRari } from "../../../context/RariContext";
+import Fuse from "../../../fuse-sdk";
+import { useFusePoolData } from "../../../hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "../../../hooks/useIsSemiSmallScreen";
+import { useTokenData } from "../../../hooks/useTokenData";
 import { shortUsdFormatter } from "../../../utils/bigUtils";
 import { FuseUtilizationChartOptions } from "../../../utils/chartOptions";
-
-import DashboardBox, { DASHBOARD_BOX_PROPS } from "../../shared/DashboardBox";
+import { createComptroller } from "../../../utils/createComptroller";
+import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
+import { shortAddress } from "../../../utils/shortAddress";
+import CaptionedStat from "../../shared/CaptionedStat";
 import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
-import { Link as RouterLink } from "react-router-dom";
-
-import Chart from "react-apexcharts";
-
+import { PoolDashboardBox } from "./FusePoolPage";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
-import { useQuery } from "react-query";
-import { useFusePoolData } from "../../../hooks/useFusePoolData";
-
-import { useTokenData } from "../../../hooks/useTokenData";
-import { CTokenIcon } from "./FusePoolsPage";
-import { shortAddress } from "../../../utils/shortAddress";
-import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
-import { createComptroller } from "../../../utils/createComptroller";
-import Fuse from "../../../fuse-sdk";
-import CaptionedStat from "../../shared/CaptionedStat";
-import Footer from "components/shared/Footer";
 
 export const useExtraPoolInfo = (comptrollerAddress: string) => {
   const { fuse, address } = useRari();
@@ -104,10 +99,8 @@ export const useExtraPoolInfo = (comptrollerAddress: string) => {
 
 const FusePoolInfoPage = memo(() => {
   const { isAuthed } = useRari();
-
   const isMobile = useIsSemiSmallScreen();
-  const { t } = useTranslation();
-  let { poolId } = useParams();
+  const { poolId } = useParams();
   const data = useFusePoolData(poolId);
 
   return (
@@ -122,62 +115,72 @@ const FusePoolInfoPage = memo(() => {
         px={isMobile ? 4 : 0}
       >
         <Header isAuthed={isAuthed} isFuse />
-
         <FuseStatsBar />
-
         <FuseTabBar />
-
-        <RowOrColumn
-          width="100%"
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
-          isRow={!isMobile}
-        >
-          <DashboardBox
-            width={isMobile ? "100%" : "50%"}
-            mt={4}
-            height={isMobile ? "auto" : "450px"}
-          >
-            {data ? (
-              <OracleAndInterestRates
-                assets={data.assets}
-                name={data.name}
-                totalSuppliedUSD={data.totalSuppliedUSD}
-                totalBorrowedUSD={data.totalBorrowedUSD}
-                totalLiquidityUSD={data.totalLiquidityUSD}
-                comptrollerAddress={data.comptroller}
-              />
-            ) : (
-              <Center expand>
-                <Spinner my={8} />
-              </Center>
-            )}
-          </DashboardBox>
-
-          <DashboardBox
-            ml={isMobile ? 0 : 4}
-            width={isMobile ? "100%" : "50%"}
-            mt={4}
-            height={isMobile ? "500px" : "450px"}
-          >
-            {data ? (
-              data.assets.length > 0 ? (
-                <AssetAndOtherInfo assets={data.assets} />
-              ) : (
-                <Center expand>{t("There are no assets in this pool.")}</Center>
-              )
-            ) : (
-              <Center expand>
-                <Spinner my={8} />
-              </Center>
-            )}
-          </DashboardBox>
-        </RowOrColumn>
+        <PoolInfoBox data={data} />
         <Footer />
       </Column>
     </>
   );
 });
+
+export const PoolInfoBox = ({
+  data,
+}: {
+  data: ReturnType<typeof useFusePoolData>;
+}) => {
+  const isMobile = useIsMobile();
+  const { t } = useTranslation();
+  const bgColor = useColorModeValue("white", "gray.900");
+
+  return (
+    <RowOrColumn
+      width="100%"
+      maxW={{ lg: "1200px" }}
+      mainAxisAlignment="flex-start"
+      crossAxisAlignment="flex-start"
+      mx="auto"
+      isRow={!isMobile}
+      bgColor={bgColor}
+      px={{ base: 6, lg: 0 }}
+    >
+      <PoolDashboardBox
+        width={isMobile ? "100%" : "50%"}
+        mt={4}
+        height={isMobile ? "auto" : "450px"}
+      >
+        {data ? (
+          <OracleAndInterestRates
+            assets={data.assets}
+            name={data.name}
+            totalSuppliedUSD={data.totalSuppliedUSD}
+            totalBorrowedUSD={data.totalBorrowedUSD}
+            totalLiquidityUSD={data.totalLiquidityUSD}
+            comptrollerAddress={data.comptroller}
+          />
+        ) : (
+          <Skeleton w="100%" h="100%" />
+        )}
+      </PoolDashboardBox>
+      <PoolDashboardBox
+        ml={isMobile ? 0 : 4}
+        width={isMobile ? "100%" : "50%"}
+        mt={4}
+        height={isMobile ? "500px" : "450px"}
+      >
+        {data ? (
+          data.assets.length > 0 ? (
+            <AssetAndOtherInfo assets={data.assets} />
+          ) : (
+            <Center expand>{t("There are no assets in this pool.")}</Center>
+          )
+        ) : (
+          <Skeleton w="100%" h="100%" />
+        )}
+      </PoolDashboardBox>
+    </RowOrColumn>
+  );
+};
 
 export default FusePoolInfoPage;
 
@@ -197,7 +200,6 @@ const OracleAndInterestRates = ({
   comptrollerAddress: string;
 }) => {
   let { poolId } = useParams();
-
   const { t } = useTranslation();
 
   const data = useExtraPoolInfo(comptrollerAddress);
@@ -229,11 +231,11 @@ const OracleAndInterestRates = ({
           ml="auto"
           href={`https://rari.grafana.net/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
         >
-          <DashboardBox height="35px">
+          <PoolDashboardBox height="35px">
             <Center expand px={2} fontWeight="bold">
               {t("Metrics")}
             </Center>
-          </DashboardBox>
+          </PoolDashboardBox>
         </Link>
 
         {data?.isPowerfulAdmin ? (
@@ -244,49 +246,15 @@ const OracleAndInterestRates = ({
             to="../edit"
             ml={2}
           >
-            <DashboardBox height="35px">
+            <PoolDashboardBox height="35px">
               <Center expand px={2} fontWeight="bold">
                 {t("Edit")}
               </Center>
-            </DashboardBox>
+            </PoolDashboardBox>
           </Link>
         ) : null}
       </Row>
-
-      <ModalDivider />
-
-      <Column
-        mainAxisAlignment="center"
-        crossAxisAlignment="center"
-        width="100%"
-        my={4}
-        px={4}
-      >
-        {assets.length > 0 ? (
-          <>
-            <AvatarGroup mt={1} size="xs" max={30}>
-              {assets.map(({ underlyingToken, cToken }) => {
-                return <CTokenIcon key={cToken} address={underlyingToken} />;
-              })}
-            </AvatarGroup>
-
-            <Text mt={3} lineHeight={1} textAlign="center">
-              {name} (
-              {assets.map(({ underlyingSymbol }, index, array) => {
-                return (
-                  underlyingSymbol + (index !== array.length - 1 ? " / " : "")
-                );
-              })}
-              )
-            </Text>
-          </>
-        ) : (
-          <Text>{name}</Text>
-        )}
-      </Column>
-
-      <ModalDivider />
-
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
       <Column
         mainAxisAlignment="flex-start"
         crossAxisAlignment="flex-start"
@@ -426,6 +394,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
   });
 
   const isMobile = useIsMobile();
+  const borrowLineColor = useColorModeValue("#2D3748", "#fff");
 
   return (
     <Column
@@ -450,7 +419,8 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Heading>
 
         <Select
-          {...DASHBOARD_BOX_PROPS}
+          bgColor="white"
+          textColor="black"
           borderRadius="7px"
           fontWeight="bold"
           width="130px"
@@ -475,7 +445,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Select>
       </Row>
 
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
 
       <Box
         height="200px"
@@ -534,7 +504,10 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
                     ],
                   },
 
-                  colors: ["#FFFFFF", selectedTokenData?.color ?? "#A6A6A6"],
+                  colors: [
+                    borrowLineColor,
+                    selectedTokenData?.color ?? "#A6A6A6",
+                  ],
                 } as any
               }
               type="line"
@@ -559,7 +532,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         )}
       </Box>
 
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
 
       <Row
         mainAxisAlignment="space-around"
@@ -589,7 +562,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         />
       </Row>
 
-      <ModalDivider />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
 
       <Row
         mainAxisAlignment="space-around"

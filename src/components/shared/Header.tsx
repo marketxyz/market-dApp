@@ -83,7 +83,7 @@ export const Header = ({
 
         <PoolsLink ml={3} />
 
-        <HeaderLink ml={4} name={t("Fuse")} route="/fuse" />
+        <HeaderLink ml={4} name={t("Fuse")} route="/" />
 
         <HeaderLink ml={4} name={t("Pool2")} route="/pool2" />
 

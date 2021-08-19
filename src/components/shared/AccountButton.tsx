@@ -9,9 +9,10 @@ import {
   Link,
   Text,
   Spinner,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
-import { Row, Column, Center } from "utils/chakraUtils";
+import { Row, Column } from "utils/chakraUtils";
 import DashboardBox from "./DashboardBox";
 
 // @ts-ignore
@@ -23,7 +24,6 @@ import { useTranslation } from "react-i18next";
 import { MODAL_PROPS, ModalDivider, ModalTitleWithCloseButton } from "./Modal";
 import { LanguageSelect } from "./TranslateButton";
 
-import { GlowingButton } from "./GlowingButton";
 import { ClaimRGTModal } from "./ClaimRGTModal";
 import { version } from "../..";
 
@@ -93,6 +93,8 @@ const Buttons = ({
 
   const isMobile = useIsSmallScreen();
 
+  const bgColor = useColorModeValue("white", "gray.800");
+
   const handleAccountButtonClick = useCallback(() => {
     if (isAuthed) {
       openModal();
@@ -101,35 +103,6 @@ const Buttons = ({
 
   return (
     <Row mainAxisAlignment="center" crossAxisAlignment="center">
-      {isMobile ? null : (
-        <>
-          {/* <DashboardBox
-            as="button"
-            flexShrink={0}
-            width="110px"
-            height="40px"
-            fontWeight="bold"
-            onClick={openMoonpayModal}
-          >
-            <Center expand>{t("Buy Crypto")}</Center>
-          </DashboardBox> */}
-
-          <DashboardBox
-            ml={1}
-            as="button"
-            height="40px"
-            flexShrink={0}
-            width="95px"
-            fontSize="15px"
-            onClick={openClaimRGTModal}
-            fontWeight="bold"
-          >
-            <Center expand>{t("Claim RGT")}</Center>
-          </DashboardBox>
-        </>
-      )}
-
-      {/* Connect + Account button */}
       <DashboardBox
         ml={isMobile ? 0 : 4}
         as="button"
@@ -138,6 +111,12 @@ const Buttons = ({
         flexGrow={0}
         width="133px"
         onClick={handleAccountButtonClick}
+        bgColor={bgColor}
+        boxShadow={"base"}
+        borderColor="#DF2EAC"
+        borderWidth="2px"
+        _hover={{ boxShadow: "md" }}
+        _focus={{ boxShadow: "md" }}
       >
         <Row
           expand
@@ -192,10 +171,8 @@ export const SettingsModal = ({
     logout();
   };
 
-  const onClaimRGT = () => {
-    onClose();
-    setTimeout(() => openClaimRGTModal(), 100);
-  };
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
 
   return (
     <Modal
@@ -205,7 +182,7 @@ export const SettingsModal = ({
       isCentered
     >
       <ModalOverlay />
-      <ModalContent {...MODAL_PROPS}>
+      <ModalContent {...MODAL_PROPS} bgColor={bgColor} textColor={textColor}>
         <ModalTitleWithCloseButton text={t("Account")} onClose={onClose} />
 
         <ModalDivider />
@@ -216,16 +193,9 @@ export const SettingsModal = ({
           crossAxisAlignment="center"
           p={4}
         >
-          <GlowingButton
-            label={t("Claim RGT")}
-            onClick={onClaimRGT}
-            width="100%"
-            height="51px"
-            mb={4}
-          />
-
           <Button
-            bg="facebook.500"
+            bg="cyan.500"
+            color="white"
             width="100%"
             height="45px"
             fontSize="xl"
@@ -241,6 +211,7 @@ export const SettingsModal = ({
 
           <Button
             bg={"whatsapp.500"}
+            color={"white"}
             width="100%"
             height="45px"
             fontSize="xl"
@@ -256,6 +227,7 @@ export const SettingsModal = ({
 
           <Button
             bg="red.500"
+            color={"white"}
             width="100%"
             height="45px"
             fontSize="xl"
