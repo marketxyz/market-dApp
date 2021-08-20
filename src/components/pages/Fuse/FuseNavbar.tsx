@@ -31,7 +31,7 @@ const FuseNavbar = () => {
               : "/static/logo-text.png"
           }
           alt="market logo"
-          width={"36"}
+          width={"32"}
           paddingTop={"2"}
         />
         <Box display="flex" flexDir="row">
@@ -46,14 +46,14 @@ const FuseNavbar = () => {
           >
             {t("Buy Crypto")}
           </Button> */}
-          <Button onClick={toggleColorMode}>
+          <Button onClick={toggleColorMode} m={2}>
             {colorMode === "light" ? (
               <MoonIcon w={5} h={5} />
             ) : (
               <SunIcon color="yellow.300" w={5} h={5} />
             )}
           </Button>
-          <AccountButton></AccountButton>
+          <AccountButton />
         </Box>
       </Flex>
     </Box>
