@@ -73,7 +73,6 @@ export const FuseDashNav = (props: any) => {
       </Modal>
       <Box
         color={textColor}
-        paddingTop="15px"
         overflowX="visible"
         overflowY="visible"
         w="100%"
