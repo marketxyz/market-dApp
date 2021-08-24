@@ -8,10 +8,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
+import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 
 const FuseNavbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = useColorModeValue("white", "gray.900");
+  const isMobile = useIsSmallScreen();
 
   return (
     <Box bgColor={bgColor} overflowX="hidden" w="100%" px={["0px", "25px"]}>
@@ -22,17 +24,22 @@ const FuseNavbar = () => {
         justifyContent="space-between"
         w="100%"
         px={{ base: 4, lg: 0 }}
-        py={{ base: 2, lg: 6 }}
+        py={{ base: 2, lg: 4 }}
       >
         <chakra.img
           src={
             colorMode === "light"
-              ? "/static/logo-black-text.png"
+              ? isMobile
+                ? "/static/market-logo.png"
+                : "/static/logo-black-text.png"
+              : isMobile
+              ? "/static/market-logo.png"
               : "/static/logo-text.png"
           }
           alt="market logo"
-          width={"32"}
-          paddingTop={"2"}
+          h="45"
+          w="45"
+          mt={isMobile ? 0 : 2}
         />
         <Box display="flex" flexDir="row">
           {/* <Button
@@ -48,7 +55,7 @@ const FuseNavbar = () => {
           </Button> */}
           <Button onClick={toggleColorMode} m={2}>
             {colorMode === "light" ? (
-              <MoonIcon w={5} h={5} />
+              <MoonIcon color="gray.300" w={5} h={5} />
             ) : (
               <SunIcon color="yellow.300" w={5} h={5} />
             )}
