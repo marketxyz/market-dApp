@@ -13,6 +13,7 @@ import {
   ModalOverlay,
   ModalContent,
   useColorModeValue,
+  Flex,
 } from "@chakra-ui/react";
 import { Row } from "utils/chakraUtils";
 
@@ -27,12 +28,12 @@ import { useDebounce } from "../../../hooks/useDebounce";
 import { useEffect } from "react";
 
 const selectedTabStyles = {
-  borderBottomWidth: "3.5px",
+  borderBottomWidth: "1px",
   borderColor: "#DF2EAC",
   fontSize: "18px",
   fontWeight: "800",
 };
-const tabStyles = { paddingBottom: "8px", fontSize: "18px" };
+const tabStyles = { paddingBottom: "6px", fontSize: "18px", marginTop: "5px" };
 
 export const FuseDashNav = (props: any) => {
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ export const FuseDashNav = (props: any) => {
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("black", "white");
   const borderColor = useColorModeValue("#e6e4e7", "gray.700");
+  const isMobile = useIsSmallScreen();
 
   return (
     <>
@@ -73,7 +75,6 @@ export const FuseDashNav = (props: any) => {
       </Modal>
       <Box
         color={textColor}
-        paddingTop="15px"
         overflowX="visible"
         overflowY="visible"
         w="100%"
@@ -82,37 +83,23 @@ export const FuseDashNav = (props: any) => {
         borderColor={borderColor}
         backgroundColor={bgColor}
       >
-        <Row
+        {/*<Row
           mainAxisAlignment="space-between"
           crossAxisAlignment="center"
           maxWidth="1200px"
           marginRight="auto"
           marginLeft="auto"
           width="100%"
+        >*/}
+        <Flex
+          alignItems="center"
+          direction={isMobile ? "column" : "row-reverse"}
+          justifyContent={isMobile ? "center" : "space-between"}
+          px={isMobile ? 0 : "8"}
         >
-          <Tabs index={searchText === "my-pools" ? 1 : 0}>
-            <TabList>
-              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabBtn
-                  onClick={() => setSearchText("")}
-                  text={t("All Pools")}
-                />
-              </Tab>
-              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabBtn
-                  onClick={() => setSearchText("my-pools")}
-                  text={t("My Pools")}
-                />
-              </Tab>
-              {/* <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabLink route="/fuse" text={t("Token")} />
-              </Tab> */}
-            </TabList>
-          </Tabs>
-
-          <Box display="inline-block">
+          <Box display="inline-block" mt={isMobile ? 3 : 0} ml={2}>
             <span style={{ display: "inline-block", marginRight: "15px" }}>
-              <InputGroup marginBottom="10px">
+              <InputGroup>
                 <InputLeftAddon
                   pointerEvents="none"
                   children={<SearchIcon color="#d9d8da" opacity={"0.7"} />}
@@ -144,7 +131,28 @@ export const FuseDashNav = (props: any) => {
               />
             </span> */}
           </Box>
-        </Row>
+
+          <Tabs index={searchText === "my-pools" ? 1 : 0}>
+            <TabList>
+              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabBtn
+                  onClick={() => setSearchText("")}
+                  text={t("All Pools")}
+                />
+              </Tab>
+              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabBtn
+                  onClick={() => setSearchText("my-pools")}
+                  text={t("My Pools")}
+                />
+              </Tab>
+              {/* <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
+                <TabLink route="/fuse" text={t("Token")} />
+              </Tab> */}
+            </TabList>
+          </Tabs>
+        </Flex>
+        {/* </Row> */}
       </Box>
     </>
   );
