@@ -37,8 +37,8 @@ const FuseNavbar = () => {
               : "/static/logo-text.png"
           }
           alt="market logo"
-          h="45"
-          w="45"
+          w={isMobile ? "auto" : "40"}
+          h={isMobile ? "36px" : "auto"}
           mt={isMobile ? 0 : 2}
         />
         <Box display="flex" flexDir="row">

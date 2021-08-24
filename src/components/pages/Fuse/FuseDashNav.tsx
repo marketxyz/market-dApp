@@ -95,6 +95,7 @@ export const FuseDashNav = (props: any) => {
           alignItems="center"
           direction={isMobile ? "column" : "row-reverse"}
           justifyContent={isMobile ? "center" : "space-between"}
+          px={isMobile ? 0 : "8"}
         >
           <Box display="inline-block" mt={isMobile ? 3 : 0} ml={2}>
             <span style={{ display: "inline-block", marginRight: "15px" }}>
