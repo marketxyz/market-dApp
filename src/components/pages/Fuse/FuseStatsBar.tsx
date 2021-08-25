@@ -1,7 +1,17 @@
-import { Flex, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Spinner,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import type { FlexProps } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
+import { motion } from "framer-motion";
+
+const MotionFlex = motion<FlexProps>(Flex);
 
 const FuseStatsBar = () => {
   const { t } = useTranslation();
@@ -28,9 +38,14 @@ const FuseStatsBar = () => {
         fontSize="sm"
         marginRight={{ base: "0px", lg: "84.5px" }}
       >
-        <Text fontSize="32px" lineHeight="40px" fontWeight="bold" zIndex="100">
+        <Heading
+          fontSize="40px"
+          lineHeight="40px"
+          fontWeight="bold"
+          zIndex="100"
+        >
           {t("Fuse")}
-        </Text>
+        </Heading>
         <Text
           fontSize="18px"
           lineHeight="31px"
@@ -45,7 +60,7 @@ const FuseStatsBar = () => {
           )}
         </Text>
       </Flex>
-      <Flex
+      <MotionFlex
         flexDir="column"
         h={{ base: "10rem", lg: "15rem" }}
         w={{ base: "100%", lg: "50%" }}
@@ -54,26 +69,31 @@ const FuseStatsBar = () => {
         justifyContent="center"
         position="relative"
         overflow="hidden"
-        boxShadow="0px 21px 27px -12px rgba(9, 27, 177, 0.332741)"
+        boxShadow="3px 18px 23px -26px rgb(92 31 70 / 51%)"
         borderRadius="20px"
-        bg="linear-gradient(to bottom right,#9b61cd 0,#f21587 60%,#f2ef15 100%)"
+        bg={useColorModeValue(
+          "radial-gradient(circle, rgb(242 21 135 / 90%) 35%, rgba(180,118,234,0.10) 150%)",
+          "radial-gradient(circle, rgb(242 21 225 / 60%) -239%, rgba(180,118,234,0.059) 71%)"
+        )}
+        backdropFilter={useColorModeValue("brightness(0.8)", "brightness(0.5)")}
+        whileHover={{ scale: 1.06 }}
       >
         {fuseTVL ? (
-          <Text
+          <Heading
             fontWeight="extrabold"
             fontSize={["36px", "48px"]}
             lineHeight={["60px"]}
             textColor="white"
           >
             {smallUsdFormatter(fuseTVL)}
-          </Text>
+          </Heading>
         ) : (
           <Spinner color="#FFF" />
         )}
         <Text textColor="white" whiteSpace="nowrap">
           {t("Total value supplied across fuse")}
         </Text>
-      </Flex>
+      </MotionFlex>
     </Flex>
   );
 };

@@ -51,14 +51,14 @@ const PoolList = () => {
             lg: "repeat(2, minmax(0, 1fr))",
           }}
           autoFlow="row"
-          columns={{ base: 1, lg: 2 }}
+          columns={{ base: 1, md: 2, lg: 2, xl: 3 }}
           my="2rem"
-          w={{ base: "90%", lg: "100%" }}
-          maxW={{ lg: "1200px" }}
+          w={"95%"}
           mx="auto"
           gridGap="8"
+          gridRowGap="12"
         >
-          {currentPools.map((pool: any, index: any) => {
+          {currentPools.map((pool: any) => {
             return <PoolCard data={pool} key={pool.id} />;
           })}
         </Grid>

@@ -1,16 +1,15 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
 import {
   Flex,
   Box,
   Tooltip,
   AvatarGroup,
   chakra,
-  Link,
   Text,
   useColorModeValue,
-  useColorMode,
+  Heading,
+  Link,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { MergedPool } from "hooks/fuse/useFusePools";
 import { usePoolRSS, letterScore } from "hooks/useRSS";
 import { useMemo } from "react";
@@ -19,6 +18,8 @@ import { smallUsdFormatter } from "utils/bigUtils";
 import { Row, Column } from "utils/chakraUtils";
 import CTokenIcon from "./CTokenIcon";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 export const usePoolRiskScoreGradient = (
   rssScore: ReturnType<typeof letterScore> | "?"
@@ -44,12 +45,21 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
       address,
       symbol: pool.underlyingSymbols[index],
     }));
-    return tokens.length >= 10 ? tokens.splice(0, 10) : tokens;
+    return tokens;
   }, [pool.underlyingSymbols, pool.underlyingTokens]);
   const scoreGradient = usePoolRiskScoreGradient(rssScore);
-  const { colorMode } = useColorMode();
   const bgColor = useColorModeValue("white", "#21262e");
   const dividerColor = useColorModeValue("gray.200", "gray.700");
+  const boxShadow = useColorModeValue(
+    "0px 21px 44px rgba(71, 29, 97, 0.105141)",
+    "0px 2px 44px rgb(71 29 97 / 29%)"
+  );
+  const hoverBoxShadow = useColorModeValue(
+    "0px 3px 29px rgb(71 0 97 / 21%)",
+    "0px 5px 44px rgb(242 21 139 / 19%)"
+  );
+
+  const navigate = useNavigate();
 
   return (
     <motion.div whileHover={{ scale: 1.05 }}>
@@ -59,20 +69,14 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         pt={6}
         bgColor={bgColor}
         borderRadius="20px"
-        boxShadow={
-          colorMode === "light"
-            ? "0px 21px 44px rgba(71, 29, 97, 0.105141)"
-            : "0px 2px 44px rgb(71 29 97 / 29%)"
-        }
-        // boxShadow="xl"
+        boxShadow={boxShadow}
         _hover={{
-          boxShadow:
-            colorMode === "light"
-              ? "0px 3px 29px rgb(71 0 97 / 21%)"
-              : "0px 5px 44px rgb(242 21 139 / 19%)",
+          boxShadow: hoverBoxShadow,
         }}
         flexDir="column"
         gridGap="6"
+        onClick={() => navigate("/pool/" + pool.id)}
+        cursor="pointer"
       >
         <Row
           mainAxisAlignment="space-between"
@@ -81,15 +85,9 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           mx="6"
         >
           <Row mainAxisAlignment="center" crossAxisAlignment="center">
-            <Link
-              as={RouterLink}
-              to={"/pool/" + pool.id}
-              _hover={{ textDecor: "none" }}
-            >
-              <Text fontWeight="bold" fontSize={"xl"} ml="2">
-                {pool.pool.name}
-              </Text>
-            </Link>
+            <Heading fontWeight="bold" fontSize={"xl"} ml="2">
+              {pool.pool.name}
+            </Heading>
           </Row>
         </Row>
         <Row
@@ -138,25 +136,30 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           gridGap="6"
         >
           <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
-            <Text fontWeight="bold" textAlign="center">
+            <Text
+              fontWeight="normal"
+              textAlign="center"
+              color={useColorModeValue("", "gray.300")}
+            >
               {t("Total Supply")}
             </Text>
-            <Text mt="2">{smallUsdFormatter(pool.suppliedUSD)}</Text>
+            <Text mt="1.5" fontWeight="bold" fontFamily="Manrope">
+              {smallUsdFormatter(pool.suppliedUSD)}
+            </Text>
           </Column>
           <chakra.div h="16" w="2px" bgColor={dividerColor} />
           <Column mainAxisAlignment="flex-start" crossAxisAlignment="center">
-            <Text fontWeight="bold" textAlign="center">
+            <Text
+              fontWeight="normal"
+              textAlign="center"
+              color={useColorModeValue("", "gray.300")}
+            >
               {t("Total borrowed")}
             </Text>
-            <Text mt="2">{smallUsdFormatter(pool.borrowedUSD)}</Text>
+            <Text mt="1.5" fontWeight="bold" fontFamily="Manrope">
+              {smallUsdFormatter(pool.borrowedUSD)}
+            </Text>
           </Column>
-          {/* <chakra.div h="16" w="1px" bgColor="gray.300" /> */}
-          {/* <Column mainAxisAlignment="center" crossAxisAlignment="center">
-          <Text fontWeight="bold" textAlign="center">
-            Max APY
-          </Text>
-          <Text mt="2">20%</Text>
-        </Column> */}
         </Row>
         <Link
           as={RouterLink}
@@ -171,7 +174,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           alignItems="center"
           borderBottomRadius="20px"
         >
-          View details <ArrowForwardIcon ml="4" />
+          View Details <ArrowForwardIcon ml="4" />
         </Link>
       </Flex>
     </motion.div>

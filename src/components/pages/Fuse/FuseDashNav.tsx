@@ -15,7 +15,6 @@ import {
   useColorModeValue,
   Flex,
 } from "@chakra-ui/react";
-import { Row } from "utils/chakraUtils";
 
 import { useTranslation } from "react-i18next";
 import { SearchIcon } from "@chakra-ui/icons";

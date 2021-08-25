@@ -55,7 +55,7 @@ const FuseNavbar = () => {
           </Button> */}
           <Button onClick={toggleColorMode} m={2}>
             {colorMode === "light" ? (
-              <MoonIcon color="gray.300" w={5} h={5} />
+              <MoonIcon color="gray.700" w={5} h={5} />
             ) : (
               <SunIcon color="yellow.300" w={5} h={5} />
             )}

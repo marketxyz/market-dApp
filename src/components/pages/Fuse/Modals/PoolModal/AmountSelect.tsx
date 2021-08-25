@@ -575,7 +575,7 @@ const AmountSelect = ({
               />
             </Box>
 
-            <Heading fontSize="27px" fontWeight="normal" ml={3}>
+            <Heading fontSize="27px" fontWeight="semibold" ml={3}>
               {!isMobile && asset.underlyingName.length < 25
                 ? asset.underlyingName
                 : asset.underlyingSymbol}
@@ -1013,9 +1013,9 @@ const StatsColumn = ({
             width="100%"
             color={color}
           >
-            <Text fontWeight="normal" flexShrink={0}>
+            <Heading fontWeight="semibold" flexShrink={0} fontSize="xl">
               {t("Supply Balance")}:
-            </Text>
+            </Heading>
             <Text
               fontWeight="bold"
               flexShrink={0}

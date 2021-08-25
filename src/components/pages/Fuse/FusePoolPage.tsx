@@ -67,6 +67,7 @@ import PageTransitionLayout from "components/shared/PageTransitionLayout";
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
     fontWeight="medium"
+    fontFamily="Manrope"
     isTruncated
     color={useColorModeValue("gray.500", "gray.400")}
     {...props}
@@ -77,6 +78,7 @@ const StatNumber = (props: StatNumberProps) => (
   <ChakraStatNumber
     fontSize={["3xl", "3xl", "2xl", "3xl"]}
     fontWeight="medium"
+    fontFamily="Manrope"
     color={useColorModeValue("gray.900", "gray.200")}
     {...props}
   />
@@ -87,6 +89,7 @@ const Stat = (props: StatProps) => (
     px={{ base: 4, sm: 6 }}
     py="5"
     bg={useColorModeValue("white", "gray.700")}
+    fontFamily="Manrope"
     shadow="base"
     rounded="lg"
     {...props}
@@ -124,14 +127,14 @@ const FusePoolPage = memo(() => {
           </Link>
 
           {data ? (
-            <Text
+            <Heading
               lineHeight={1}
               textAlign="center"
-              fontSize="xl"
+              fontSize="2xl"
               fontWeight="bold"
             >
               {data.name}
-            </Text>
+            </Heading>
           ) : (
             <Skeleton>hello</Skeleton>
           )}
@@ -165,9 +168,9 @@ const FusePoolPage = memo(() => {
           display={{ sm: "none", md: "block" }}
         >
           <Box maxW="7xl" mx="auto" px={{ base: "6", md: "8" }}>
-            <Text marginBottom={"2"} fontWeight="semibold" fontSize={"2xl"}>
+            <Heading marginBottom={"2"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
-            </Text>
+            </Heading>
             <SimpleGrid columns={{ base: 1, md: 4 }} spacing="3">
               <Stat>
                 <StatLabel>{"Total Supply"}</StatLabel>

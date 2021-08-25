@@ -7,6 +7,7 @@ import App from "./components/App";
 
 import "./index.css";
 import "@fontsource/inter";
+import "@fontsource/manrope";
 
 // Remove this ignore when TypeScript PR gets merged.
 // @ts-ignore
@@ -71,7 +72,7 @@ const extendedTheme = extendTheme({
   fonts: {
     ...theme.fonts,
     body: `Inter, ${theme.fonts.body}`,
-    heading: `Inter, ${theme.fonts.heading}`,
+    heading: `Manrope, Inter, ${theme.fonts.heading}`,
   },
 });
 
