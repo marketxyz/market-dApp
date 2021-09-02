@@ -23,7 +23,6 @@ import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { networkData } from "../../../constants/networkData";
 import { useRari } from "context/RariContext";
-import { useEffect } from "react";
 
 const selectedNetworkBorder = "1px solid #DF2EAC";
 const ethereumColor = "#0993ec";
@@ -73,8 +72,6 @@ const NetworkSwitcher = () => {
   const { userWallet } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
   const btnBgActive = useColorModeValue("", "gray.800");
-
-  useEffect(() => console.log(userWallet), [userWallet]);
 
   return (
     <>
@@ -201,7 +198,7 @@ const FuseNavbar = () => {
             {t("Buy Crypto")}
           </Button> */}
           <NetworkSwitcher />
-          <Button onClick={toggleColorMode} m={2}>
+          <Button onClick={toggleColorMode} m={2} ml={isMobile ? 0 : 2}>
             {colorMode === "light" ? (
               <MoonIcon color="gray.700" w={5} h={5} />
             ) : (

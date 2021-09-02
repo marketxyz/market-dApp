@@ -39,12 +39,12 @@ const FuseStatsBar = () => {
         marginRight={{ base: "0px", lg: "84.5px" }}
       >
         <Heading
-          fontSize="40px"
+          fontSize="37px"
           lineHeight="40px"
           fontWeight="bold"
           zIndex="100"
         >
-          {t("Fuse")}
+          {t("Leverage assets you believe in")}
         </Heading>
         <Text
           fontSize="18px"
@@ -54,10 +54,9 @@ const FuseStatsBar = () => {
           fontWeight="medium"
           zIndex="100"
         >
-          {t(
-            "There's {{tvl}} supplied to Fuse, the first truly open interest rate protocol. Lend, borrow, and create isolated lending markets with unlimited flexibility.",
-            { tvl: fuseTVL ? smallUsdFormatter(fuseTVL) : "?" }
-          )}
+          With Market, you can maximize your yield, contribute to risk
+          management and create unparalleled opportunities to make the most of
+          DeFi.
         </Text>
       </Flex>
       <MotionFlex
