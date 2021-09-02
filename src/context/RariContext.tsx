@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import Rari from "../rari-sdk/index";
 
 import LogRocket from "logrocket";
-import { useToast } from "@chakra-ui/react";
+import { AlertDialog, useToast } from "@chakra-ui/react";
 import Fuse from "../fuse-sdk/src";
 import {
   chooseBestWeb3Provider,
@@ -121,6 +121,7 @@ export interface RariContextData {
   logout: () => any;
   address: string;
   isAttemptingLogin: boolean;
+  userWallet: Record<string, any> | null;
 }
 
 export const EmptyAddress = "0x0000000000000000000000000000000000000000";
@@ -138,6 +139,9 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
     () => new Rari(chooseBestWeb3Provider())
   );
   const [fuse, setFuse] = useState<Fuse>(() => initFuseWithProviders());
+  const [userWallet, setUserWallet] = useState<Record<string, any> | null>(
+    null
+  );
 
   const [isAttemptingLogin, setIsAttemptingLogin] = useState<boolean>(false);
 
@@ -145,31 +149,27 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
 
   // Check the user's network:
   useEffect(() => {
-    Promise.all([rari.web3.eth.net.getId(), rari.web3.eth.getChainId()]).then(
-      ([netId, chainId]) => {
-        console.log("Network ID: " + netId, "Chain ID: " + chainId);
+    rari.web3.eth.getChainId().then((chainId) => {
+      const userWallet = {
+        appChainId: parseInt(process.env.CHAIN_ID ?? "1") || 1,
+        chainId,
+        isMetaMask:
+          typeof window !== "undefined" &&
+          window.ethereum &&
+          window.ethereum.isMetaMask,
+      };
 
-        // Don't show "wrong network" toasts if dev
-        // if (process.env.NODE_ENV === "development") {
-        //   return;
-        // }
-        const CHAIN_ID_ENV = parseInt(process.env.REACT_APP_CHAIN_ID || "1");
-        const CHAIN_NAME = process.env.REACT_APP_CHAIN_NAME || "Mainnet";
-
-        if (netId !== CHAIN_ID_ENV || chainId !== CHAIN_ID_ENV) {
-          setTimeout(() => {
-            toast({
-              title: "Wrong network!",
-              description: `You are on the wrong network! Switch to the ${CHAIN_NAME.toLowerCase()} and reload this page!`,
-              status: "warning",
-              position: "top-right",
-              duration: 300000,
-              isClosable: true,
-            });
-          }, 1500);
-        }
+      if (userWallet.isMetaMask) {
+        window.ethereum.on("chainChanged", (chainId: string) => {
+          setUserWallet({
+            ...userWallet,
+            chainId: Number(chainId),
+          });
+        });
       }
-    );
+
+      setUserWallet(userWallet);
+    });
   }, [rari, toast]);
 
   const [address, setAddress] = useState<string>(EmptyAddress);
@@ -278,6 +278,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       logout,
       address,
       isAttemptingLogin,
+      userWallet,
     }),
     [rari, web3ModalProvider, login, logout, address, fuse, isAttemptingLogin]
   );

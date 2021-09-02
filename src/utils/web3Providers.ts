@@ -1,7 +1,7 @@
 import Fuse from "../fuse-sdk/src";
 
-export const infuraURL = `https://mainnet.infura.io/v3/5740d6972b5641bbad68560dbb166ae7`;
-export const turboGethURL = `https://eth-mainnet.alchemyapi.io/v2/ipwJjMI1ECT-Lxxi8B80zCIAaFMdQK4K`;
+export const infuraURL = process.env.REACT_APP_INFURA_RPC!;
+export const turboGethURL = process.env.REACT_APP_ALCHEMY_RPC!;
 
 declare let window: any;
 

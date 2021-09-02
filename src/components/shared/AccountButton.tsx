@@ -10,6 +10,7 @@ import {
   Text,
   Spinner,
   useColorModeValue,
+  Image,
 } from "@chakra-ui/react";
 
 import { Row, Column } from "utils/chakraUtils";
@@ -30,6 +31,7 @@ import { version } from "../..";
 import MoonpayModal from "../pages/MoonpayModal";
 import { useIsSmallScreen } from "../../hooks/useIsSmallScreen";
 import { useAuthedCallback } from "../../hooks/useAuthedCallback";
+import { networkData } from "constants/networkData";
 
 export const AccountButton = memo(() => {
   const {
@@ -78,6 +80,29 @@ export const AccountButton = memo(() => {
   );
 });
 
+const chainIdToName: Record<number, string> = {
+  1: "Ethereum",
+  137: "Polygon",
+};
+const chainIdToChainName: Record<number, string> = {
+  1: "mainnet",
+  137: "polygon",
+};
+
+const switchChainId = async (chainId: number) => {
+  if (chainId === 1) {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x1" }],
+    });
+  } else {
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [networkData[chainIdToChainName[chainId]].addData],
+    });
+  }
+};
+
 const Buttons = ({
   openModal,
   openClaimRGTModal,
@@ -101,47 +126,64 @@ const Buttons = ({
     } else login();
   }, [isAuthed, login, openModal]);
 
+  const rari = useRari();
+  const isNetworkChangeable =
+    rari.userWallet?.isMetaMask &&
+    rari.isAuthed &&
+    rari.userWallet?.appChainId !== rari.userWallet?.chainId;
+
   return (
     <Row mainAxisAlignment="center" crossAxisAlignment="center">
-      <DashboardBox
-        ml={isMobile ? 0 : 4}
-        as="button"
-        height="40px"
-        flexShrink={0}
-        flexGrow={0}
-        width="133px"
-        onClick={handleAccountButtonClick}
-        bgColor={bgColor}
-        boxShadow={"base"}
-        borderColor="#DF2EAC"
-        borderWidth="2px"
-        _hover={{ boxShadow: "md" }}
-        _focus={{ boxShadow: "md" }}
-      >
-        <Row
-          expand
-          mainAxisAlignment="space-around"
-          crossAxisAlignment="center"
-          px={3}
-          py={1}
+      {isNetworkChangeable ? (
+        <Button
+          ml={isMobile ? 0 : 2}
+          justifyContent="left"
+          onClick={() => switchChainId(rari.userWallet?.appChainId)}
         >
-          {/* Conditionally display Connect button or Account button */}
-          {!isAuthed ? (
-            isAttemptingLogin ? (
-              <Spinner />
+          <Image src="/static/metamask.svg" h={"7"} mr={"2"} />
+          Switch to {chainIdToName[rari.userWallet?.appChainId]}
+        </Button>
+      ) : (
+        <DashboardBox
+          ml={isMobile ? 0 : 4}
+          as="button"
+          height="40px"
+          flexShrink={0}
+          flexGrow={0}
+          width="133px"
+          onClick={handleAccountButtonClick}
+          bgColor={bgColor}
+          boxShadow={"base"}
+          borderColor="#DF2EAC"
+          borderWidth="2px"
+          _hover={{ boxShadow: "md" }}
+          _focus={{ boxShadow: "md" }}
+        >
+          <Row
+            expand
+            mainAxisAlignment="space-around"
+            crossAxisAlignment="center"
+            px={3}
+            py={1}
+          >
+            {/* Conditionally display Connect button or Account button */}
+            {!isAuthed ? (
+              isAttemptingLogin ? (
+                <Spinner />
+              ) : (
+                <Text fontWeight="semibold">{t("Connect")}</Text>
+              )
             ) : (
-              <Text fontWeight="semibold">{t("Connect")}</Text>
-            )
-          ) : (
-            <>
-              <Jazzicon diameter={23} seed={jsNumberForAddress(address)} />
-              <Text ml={2} fontWeight="semibold">
-                {shortAddress(address)}
-              </Text>
-            </>
-          )}
-        </Row>
-      </DashboardBox>
+              <>
+                <Jazzicon diameter={23} seed={jsNumberForAddress(address)} />
+                <Text ml={2} fontWeight="semibold">
+                  {shortAddress(address)}
+                </Text>
+              </>
+            )}
+          </Row>
+        </DashboardBox>
+      )}
     </Row>
   );
 };
