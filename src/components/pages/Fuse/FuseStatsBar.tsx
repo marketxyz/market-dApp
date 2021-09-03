@@ -44,7 +44,7 @@ const FuseStatsBar = () => {
           fontWeight="bold"
           zIndex="100"
         >
-          {t("Leverage assets you believe in")}
+          {t("Leverage assets you believe in.")}
         </Heading>
         <Text
           fontSize="18px"
