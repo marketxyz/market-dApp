@@ -7,7 +7,7 @@ declare let window: any;
 
 export function chooseBestWeb3Provider() {
   if (typeof window === "undefined") {
-    return turboGethURL;
+    return infuraURL;
   }
 
   if (window.ethereum) {
@@ -15,7 +15,7 @@ export function chooseBestWeb3Provider() {
   } else if (window.web3) {
     return window.web3.currentProvider;
   } else {
-    return turboGethURL;
+    return infuraURL;
   }
 }
 

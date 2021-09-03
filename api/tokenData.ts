@@ -5,9 +5,9 @@ import Web3 from "web3";
 import ERC20ABI from "../src/rari-sdk/abi/ERC20.json";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { turboGethURL } from "../src/utils/web3Providers";
+import { infuraURL } from "../src/utils/web3Providers";
 
-const web3 = new Web3(turboGethURL);
+const web3 = new Web3(infuraURL);
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,6 +16,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   const address = web3.utils.toChecksumAddress(request.query.address as string);
 
   const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
+  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
+  const coingeckoNetwork = chainId === 1 ? "ethereum" : "polygon-pos";
 
   const [decimals, rawData] = await Promise.all([
     tokenContract.methods
@@ -24,7 +26,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       .then((res) => parseFloat(res)),
 
     fetch(
-      "https://api.coingecko.com/api/v3/coins/ethereum/contract/" + address
+      `https://api.coingecko.com/api/v3/coins/${coingeckoNetwork}/contract/` +
+        address
     ).then((res) => res.json()),
   ]);
 
@@ -39,41 +42,49 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     //////////////////
     // Edge cases: //
     /////////////////
-    if (
-      web3.utils.toChecksumAddress(address) ===
-      web3.utils.toChecksumAddress("0xFD4D8a17df4C27c1dD245d153ccf4499e806C87D")
-    ) {
-      name = "linkCRV Gauge Deposit";
-      symbol = "[G]linkCRV";
-      logoURL =
-        "https://raw.githubusercontent.com/Rari-Capital/rari-dApp/master/src/static/crvLINKGauge.png";
-    }
+    if (chainId === 1) {
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0xFD4D8a17df4C27c1dD245d153ccf4499e806C87D"
+        )
+      ) {
+        name = "linkCRV Gauge Deposit";
+        symbol = "[G]linkCRV";
+        logoURL =
+          "https://raw.githubusercontent.com/Rari-Capital/rari-dApp/master/src/static/crvLINKGauge.png";
+      }
 
-    if (
-      web3.utils.toChecksumAddress(address) ===
-      web3.utils.toChecksumAddress("0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0")
-    ) {
-      name = "Wrapped Staked Ether";
-      logoURL =
-        "https://raw.githubusercontent.com/Rari-Capital/rari-dApp/master/src/static/wstETH.png";
-    }
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+        )
+      ) {
+        name = "Wrapped Staked Ether";
+        logoURL =
+          "https://raw.githubusercontent.com/Rari-Capital/rari-dApp/master/src/static/wstETH.png";
+      }
 
-    if (
-      web3.utils.toChecksumAddress(address) ===
-      web3.utils.toChecksumAddress("0x04f2694c8fcee23e8fd0dfea1d4f5bb8c352111f")
-    ) {
-      logoURL =
-        "https://raw.githubusercontent.com/Rari-Capital/rari-dApp/master/src/static/token_sOHM_2.png";
-    }
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0x04f2694c8fcee23e8fd0dfea1d4f5bb8c352111f"
+        )
+      ) {
+        logoURL =
+          "https://raw.githubusercontent.com/Rari-Capital/rari-dApp/master/src/static/token_sOHM_2.png";
+      }
 
-    // Fetch the logo from yearn if possible:
-    const yearnLogoURL = `https://raw.githubusercontent.com/yearn/yearn-assets/master/icons/tokens/${address}/logo-128.png`;
-    const yearnLogoResponse = await fetch(yearnLogoURL);
-    if (yearnLogoResponse.ok) {
-      // A lot of the yearn tokens are curve tokens with long names,
-      // so we flatten them here and just remove the Curve part
-      symbol = symbol.replace("Curve-", "");
-      logoURL = yearnLogoURL;
+      // Fetch the logo from yearn if possible:
+      const yearnLogoURL = `https://raw.githubusercontent.com/yearn/yearn-assets/master/icons/tokens/${address}/logo-128.png`;
+      const yearnLogoResponse = await fetch(yearnLogoURL);
+      if (yearnLogoResponse.ok) {
+        // A lot of the yearn tokens are curve tokens with long names,
+        // so we flatten them here and just remove the Curve part
+        symbol = symbol.replace("Curve-", "");
+        logoURL = yearnLogoURL;
+      }
     }
   } else {
     let {
@@ -86,40 +97,57 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     name = _name;
 
     // Prefer the logo from trustwallet if possible!
-    const trustWalletURL = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`;
-    const trustWalletLogoResponse = await fetch(trustWalletURL);
-    if (trustWalletLogoResponse.ok) {
-      logoURL = trustWalletURL;
-    } else {
-      logoURL = small;
+    if (chainId === 1) {
+      const trustWalletURL = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`;
+      const trustWalletLogoResponse = await fetch(trustWalletURL);
+      if (trustWalletLogoResponse.ok) {
+        logoURL = trustWalletURL;
+      } else {
+        logoURL = small;
+      }
+    } else if (chainId === 137) {
+      const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;
+      const sushiResponse = await fetch(sushiURL);
+
+      if (sushiResponse.ok) {
+        const sushiArr: Record<any, any>[] = await sushiResponse.json();
+        const sushiItem = sushiArr.find(
+          (x) => web3.utils.toChecksumAddress(x.address) === address
+        );
+
+        if (sushiItem) logoURL = sushiItem.logoURI;
+      }
+      if (!logoURL) logoURL = small;
     }
   }
 
-  if (
-    address ===
-    web3.utils.toChecksumAddress("0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9")
-  ) {
-    // FTX swapped the name and symbol so we will correct for that.
-    symbol = "FTT";
-    name = "FTX Token";
-  }
+  if (chainId === 1) {
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9")
+    ) {
+      // FTX swapped the name and symbol so we will correct for that.
+      symbol = "FTT";
+      name = "FTX Token";
+    }
 
-  if (
-    address ===
-    web3.utils.toChecksumAddress("0x8fcb1783bf4b71a51f702af0c266729c4592204a")
-  ) {
-    // OT token names are too long.
-    symbol = "OT-aUSDC22";
-    name = "OT-aUSDC DEC22-20";
-  }
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0x8fcb1783bf4b71a51f702af0c266729c4592204a")
+    ) {
+      // OT token names are too long.
+      symbol = "OT-aUSDC22";
+      name = "OT-aUSDC DEC22-20";
+    }
 
-  if (
-    address ===
-    web3.utils.toChecksumAddress("0x3d4e7f52efafb9e0c70179b688fc3965a75bcfea")
-  ) {
-    // OT token names are too long.
-    symbol = "OT-cDAI22";
-    name = "OT-cDAI DEC22-20";
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0x3d4e7f52efafb9e0c70179b688fc3965a75bcfea")
+    ) {
+      // OT token names are too long.
+      symbol = "OT-cDAI22";
+      name = "OT-cDAI DEC22-20";
+    }
   }
 
   const basicTokenInfo = {
