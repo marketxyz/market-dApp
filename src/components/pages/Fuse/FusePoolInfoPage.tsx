@@ -243,7 +243,7 @@ const OracleAndInterestRates = ({
             /* @ts-ignore */
             as={RouterLink}
             className="no-underline"
-            to="../edit"
+            to={`/pool/${poolId}/edit`}
             ml={2}
           >
             <PoolDashboardBox height="35px">

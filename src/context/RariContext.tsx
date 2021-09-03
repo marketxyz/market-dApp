@@ -42,7 +42,7 @@ async function launchModalLazy(
     walletconnect: {
       package: WalletConnectProvider.default,
       options: {
-        infuraId: infuraURL,
+        rpcUrl: infuraURL,
       },
       display: {
         description: t("Scan with a wallet to connect"),

@@ -42,7 +42,7 @@ export default FusePoolCreatePage;
 export const CreatePoolConfiguration = () => {
   const { t } = useTranslation();
   const toast = useToast();
-  const { fuse, address } = useRari();
+  const { fuse, address, userWallet } = useRari();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -176,15 +176,29 @@ export const CreatePoolConfiguration = () => {
               onChange={(event) => setOracle(event.target.value)}
               placeholder="Select Oracle"
             >
-              <option
-                className="white-bg-option"
-                value={
-                  Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
-                    .ChainlinkPriceOracle
-                }
-              >
-                ChainlinkPriceOracle
-              </option>
+              {userWallet?.appChainId === 1 ? (
+                <option
+                  className="white-bg-option"
+                  value={
+                    Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                      .ChainlinkPriceOracle
+                  }
+                >
+                  ChainlinkPriceOracle
+                </option>
+              ) : (
+                <>
+                  <option
+                    className="white-bg-option"
+                    value={
+                      Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                        .PreferredPriceOracle
+                    }
+                  >
+                    Preferred Price Oracle
+                  </option>
+                </>
+              )}
             </Select>
           </OptionRow>
 

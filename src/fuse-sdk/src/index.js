@@ -17,10 +17,7 @@ var fuseSafeLiquidatorAbi = require(__dirname + "/abi/FuseSafeLiquidator.json");
 var fuseFeeDistributorAbi = require(__dirname + "/abi/FuseFeeDistributor.json");
 var contracts = require(__dirname +
   `/contracts/${network}/compound-protocol.min.json`).contracts;
-var openOracleContracts =
-  chainId === 1
-    ? require(__dirname + `/contracts/mainnet/open-oracle.min.json`).contracts
-    : {};
+var openOracleContracts = {};
 var oracleContracts = require(__dirname +
   `/contracts/${network}/oracles.min.json`).contracts;
 

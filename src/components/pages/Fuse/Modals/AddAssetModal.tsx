@@ -17,7 +17,6 @@ import { Column, Center } from "utils/chakraUtils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import DashboardBox from "../../../shared/DashboardBox";
 import { ModalDivider, MODAL_PROPS } from "../../../shared/Modal";
 
 import {
@@ -665,24 +664,12 @@ const AddAssetModal = ({
               _hover={{}}
             />
 
-            {!existingAssets.some(
-              // If ETH hasn't been added:
-              (asset) => asset.underlyingToken === ETH_TOKEN_DATA.address
-            ) ? (
-              <DashboardBox
-                flexShrink={0}
-                as="button"
-                ml={2}
-                height="40px"
-                borderRadius="10px"
-                px={2}
-                fontSize="sm"
-                fontWeight="bold"
-                onClick={() => _setTokenAddress(ETH_TOKEN_DATA.address)}
-              >
-                <Center expand>ETH</Center>
-              </DashboardBox>
-            ) : null}
+            {
+              !existingAssets.some(
+                // If ETH hasn't been added:
+                (asset) => asset.underlyingToken === ETH_TOKEN_DATA.address
+              )
+            }
           </Center>
 
           {tokenData?.symbol ? (
