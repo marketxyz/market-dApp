@@ -151,7 +151,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     rari.web3.eth.getChainId().then((chainId) => {
       const userWallet = {
-        appChainId: parseInt(process.env.CHAIN_ID ?? "1") || 1,
+        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "1") || 1,
         chainId,
         isMetaMask:
           typeof window !== "undefined" &&

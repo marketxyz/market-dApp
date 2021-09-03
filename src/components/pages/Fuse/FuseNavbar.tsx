@@ -30,15 +30,19 @@ const polygonColor = "#a557fe";
 
 const changeNetworkWithUrl = async (
   userWallet: Record<string, any> | null,
+  isAuthed: boolean,
   networkName: string
 ) => {
-  if (!userWallet) {
-    return;
-  }
+  console.log(userWallet, isAuthed, networkName);
 
   const _network = networkData[networkName];
 
   if (!_network.enabled) {
+    return;
+  }
+
+  if (!isAuthed || !userWallet) {
+    window.location.href = _network.url;
     return;
   }
 
@@ -69,7 +73,7 @@ const NetworkSwitcher = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) ?? 1;
   const chainName = chainId === 1 ? "mainnet" : "polygon";
-  const { userWallet } = useRari();
+  const { userWallet, isAuthed } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
   const btnBgActive = useColorModeValue("", "gray.800");
 
@@ -121,13 +125,16 @@ const NetworkSwitcher = () => {
             <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={6}>
               {Object.entries(networkData).map(([networkName, d]) => (
                 <Button
+                  key={d.chainId}
                   h={"12"}
                   justifyContent={"flex-start"}
                   fontSize={"md"}
                   border={chainId === d.chainId ? selectedNetworkBorder : ""}
                   disabled={!d.enabled}
                   bg={chainId === d.chainId ? btnBgActive : btnBg}
-                  onClick={() => changeNetworkWithUrl(userWallet, networkName)}
+                  onClick={() =>
+                    changeNetworkWithUrl(userWallet, isAuthed, networkName)
+                  }
                 >
                   <Image
                     h={"8"}
