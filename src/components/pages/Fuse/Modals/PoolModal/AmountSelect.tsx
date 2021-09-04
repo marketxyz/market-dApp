@@ -99,7 +99,7 @@ export async function testForCTokenErrorAndSend(
 
       if (msg === "BORROW_BELOW_MIN") {
         msg =
-          "As part of our guarded launch, you cannot borrow less than 1 ETH worth of tokens at the moment.";
+          "As part of our guarded launch, you cannot borrow less than 0.05 ETH worth of tokens at the moment.";
       }
 
       // This is a comptroller error:

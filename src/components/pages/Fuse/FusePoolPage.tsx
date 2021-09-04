@@ -329,7 +329,14 @@ const CollateralRatioBar = ({
   }, [ratio]);
 
   return (
-    <PoolDashboardBox width="100%" height="65px" mt={4} p={4}>
+    <PoolDashboardBox
+      width={{ base: "90%", md: "95%", lg: "100%" }}
+      maxW={{ lg: "1200px" }}
+      height="65px"
+      mt={4}
+      p={4}
+      mx="auto"
+    >
       <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
         <Tooltip
           label={t("Keep this bar from filling up to avoid being liquidated!")}

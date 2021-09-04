@@ -85,9 +85,11 @@ const NetworkSwitcher = () => {
           h={"6"}
           borderRadius={"50%"}
           justifyContent="flex-start"
-          mr={"2"}
+          mr={{ base: "none", md: "2" }}
         ></Image>
-        {networkData[chainName].name}
+        <Text display={{ base: "none", md: "block" }}>
+          {networkData[chainName].name}
+        </Text>
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
