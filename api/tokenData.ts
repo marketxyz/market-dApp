@@ -95,58 +95,62 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
     symbol = _symbol == _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
     name = _name;
+    logoURL = small;
 
-    // Prefer the logo from trustwallet if possible!
     if (chainId === 1) {
-      const trustWalletURL = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`;
-      const trustWalletLogoResponse = await fetch(trustWalletURL);
-      if (trustWalletLogoResponse.ok) {
-        logoURL = trustWalletURL;
-      } else {
-        logoURL = small;
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9"
+        )
+      ) {
+        // FTX swapped the name and symbol so we will correct for that.
+        symbol = "FTT";
+        name = "FTX Token";
       }
-    } else if (chainId === 137) {
-      const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;
-      const sushiResponse = await fetch(sushiURL);
 
-      if (sushiResponse.ok) {
-        const sushiArr: Record<any, any>[] = await sushiResponse.json();
-        const sushiItem = sushiArr.find(
-          (x) => web3.utils.toChecksumAddress(x.address) === address
-        );
-
-        if (sushiItem) logoURL = sushiItem.logoURI;
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0x8fcb1783bf4b71a51f702af0c266729c4592204a"
+        )
+      ) {
+        // OT token names are too long.
+        symbol = "OT-aUSDC22";
+        name = "OT-aUSDC DEC22-20";
       }
-      if (!logoURL) logoURL = small;
+
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0x3d4e7f52efafb9e0c70179b688fc3965a75bcfea"
+        )
+      ) {
+        // OT token names are too long.
+        symbol = "OT-cDAI22";
+        name = "OT-cDAI DEC22-20";
+      }
     }
   }
 
+  // Prefer the logo from trustwallet if possible!
   if (chainId === 1) {
-    if (
-      address ===
-      web3.utils.toChecksumAddress("0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9")
-    ) {
-      // FTX swapped the name and symbol so we will correct for that.
-      symbol = "FTT";
-      name = "FTX Token";
+    const trustWalletURL = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`;
+    const trustWalletLogoResponse = await fetch(trustWalletURL);
+    if (trustWalletLogoResponse.ok) {
+      logoURL = trustWalletURL;
     }
+  } else if (chainId === 137) {
+    const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;
+    const sushiResponse = await fetch(sushiURL);
 
-    if (
-      address ===
-      web3.utils.toChecksumAddress("0x8fcb1783bf4b71a51f702af0c266729c4592204a")
-    ) {
-      // OT token names are too long.
-      symbol = "OT-aUSDC22";
-      name = "OT-aUSDC DEC22-20";
-    }
+    if (sushiResponse.ok) {
+      const sushiArr: Record<any, any>[] = await sushiResponse.json();
+      const sushiItem = sushiArr.find(
+        (x) => web3.utils.toChecksumAddress(x.address) === address
+      );
 
-    if (
-      address ===
-      web3.utils.toChecksumAddress("0x3d4e7f52efafb9e0c70179b688fc3965a75bcfea")
-    ) {
-      // OT token names are too long.
-      symbol = "OT-cDAI22";
-      name = "OT-cDAI DEC22-20";
+      if (sushiItem) logoURL = sushiItem.logoURI;
     }
   }
 

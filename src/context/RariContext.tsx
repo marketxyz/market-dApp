@@ -73,6 +73,7 @@ export interface RariContextData {
   address: string;
   isAttemptingLogin: boolean;
   userWallet: Record<string, any> | null;
+  appChainId: number;
 }
 
 export const EmptyAddress = "0x0000000000000000000000000000000000000000";
@@ -230,6 +231,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       address,
       isAttemptingLogin,
       userWallet,
+      appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "1") || 1,
     }),
     [rari, web3ModalProvider, login, logout, address, fuse, isAttemptingLogin]
   );

@@ -120,7 +120,7 @@ export const AssetSettings = ({
   closeModal: () => any;
 }) => {
   const { t } = useTranslation();
-  const { fuse, address } = useRari();
+  const { fuse, address, appChainId } = useRari();
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -143,7 +143,11 @@ export const AssetSettings = ({
   };
 
   const [interestRateModel, setInterestRateModel] = useState(
-    Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES.JumpRateModel_DAI
+    (appChainId === 1 &&
+      Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES.JumpRateModel_DAI) ||
+      (appChainId === 137 &&
+        Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+          .JumpRateModel_Cream_Stables_Majors)
   );
 
   const { data: curves } = useQuery(
@@ -229,7 +233,8 @@ export const AssetSettings = ({
         bigCollateralFacotr,
         bigReserveFactor,
         bigAdminFee,
-        { from: address }
+        { from: address },
+        true
       );
 
       LogRocket.track("Fuse-DeployAsset");
@@ -473,25 +478,42 @@ export const AssetSettings = ({
           value={interestRateModel}
           onChange={(event) => setInterestRateModel(event.target.value)}
         >
-          <option
-            className="white-bg-option"
-            value={
-              Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
-                .JumpRateModel_DAI
-            }
-          >
-            DAI JumpRateModel
-          </option>
+          {appChainId === 1 && (
+            <>
+              <option
+                className="white-bg-option"
+                value={
+                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+                    .JumpRateModel_DAI
+                }
+              >
+                DAI JumpRateModel
+              </option>
 
-          <option
-            className="white-bg-option"
-            value={
-              Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
-                .WhitePaperInterestRateModel_ETH
-            }
-          >
-            ETH WhitePaperRateModel
-          </option>
+              <option
+                className="white-bg-option"
+                value={
+                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+                    .WhitePaperInterestRateModel_ETH
+                }
+              >
+                ETH WhitePaperRateModel
+              </option>
+            </>
+          )}{" "}
+          {appChainId === 137 && (
+            <>
+              <option
+                className="white-bg-option"
+                value={
+                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+                    .JumpRateModel_Cream_Stables_Majors
+                }
+              >
+                Cream Stables Majors JumpRateModel
+              </option>
+            </>
+          )}
         </Select>
 
         {cTokenData &&

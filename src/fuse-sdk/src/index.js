@@ -559,6 +559,7 @@ export default class Fuse {
           bypassPriceFeedCheck
         );
       } catch (error) {
+        console.log(error);
         throw (
           "Deployment of asset to Fuse pool failed: " +
           (error.message ? error.message : error)
@@ -868,25 +869,25 @@ export default class Fuse {
         reserveFactor ? reserveFactor : 0,
         adminFee ? adminFee : 0,
       ];
-      cErc20Delegator = await cErc20Delegator
-        .deploy({
-          data:
-            "0x" +
-            contracts["contracts/CErc20Delegator.sol:CErc20Delegator"].bin,
-          arguments: deployArgs,
-        })
-        .send(options);
+      // cErc20Delegator = await cErc20Delegator
+      //   .deploy({
+      //     data:
+      //       "0x" +
+      //       contracts["contracts/CErc20Delegator.sol:CErc20Delegator"].bin,
+      //     arguments: deployArgs,
+      //   })
+      //   .send(options);
 
-      // Register new asset with Comptroller
-      cErc20Delegator.options.jsonInterface = JSON.parse(
-        contracts["contracts/CErc20Delegate.sol:CErc20Delegate"].abi
-      );
+      // // Register new asset with Comptroller
+      // cErc20Delegator.options.jsonInterface = JSON.parse(
+      //   contracts["contracts/CErc20Delegate.sol:CErc20Delegate"].abi
+      // );
 
       if (supportMarket) {
         if (collateralFactor)
           await comptroller.methods
             ._supportMarketAndSetCollateralFactor(
-              cErc20Delegator.options.address,
+              "0x1f16f39e92762833aff356474a0f97df550b8663",
               collateralFactor
             )
             .send(options);

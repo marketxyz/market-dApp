@@ -407,6 +407,24 @@ const PoolConfiguration = ({
     }
   };
 
+  /// @dev this is only dev code, disabled since 4 sep 2021
+  // const changeOracle = async () => {
+  //   const comptroller = new fuse.web3.eth.Contract(
+  //     JSON.parse(
+  //       fuse.compoundContracts["contracts/Comptroller.sol:Comptroller"].abi
+  //     ),
+  //     comptrollerAddress
+  //   );
+
+  //   await testForComptrollerErrorAndSend(
+  //     comptroller.methods._setPriceOracle(
+  //       "0x9367D0697748B81e643c3FCD3b90c25278B143f8"
+  //     ),
+  //     address,
+  //     ""
+  //   );
+  // };
+
   const renounceOwnership = async () => {
     const unitroller = new fuse.web3.eth.Contract(
       JSON.parse(
@@ -605,6 +623,17 @@ const PoolConfiguration = ({
                 </Text>
               )}
             </ConfigRow>
+
+            {/* <DashboardBox
+              height="35px"
+              ml="auto"
+              as="button"
+              bg="#000"
+              color="#FFF"
+              onClick={changeOracle}
+            >
+              Change Oracle
+            </DashboardBox> */}
 
             <Divider borderColor="#BBB" bg="#BBB" />
 
