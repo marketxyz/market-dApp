@@ -5,7 +5,10 @@ import fetch from "node-fetch";
 import Web3 from "web3";
 
 import { fetchFusePoolData } from "../src/utils/fetchFusePoolData";
-import { initFuseWithProviders, infuraURL } from "../src/utils/web3Providers";
+import {
+  initFuseWithProviders,
+  turboGethURL,
+} from "../src/utils/web3Providers";
 
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
@@ -20,7 +23,7 @@ const weightedCalculation = async (
   return clamp((await calculation()) ?? 0, 0, 1) * weight;
 };
 
-const fuse = initFuseWithProviders(infuraURL);
+const fuse = initFuseWithProviders(turboGethURL);
 const appChainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
 
 async function computeAssetRSS_1(address: string) {
