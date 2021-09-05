@@ -24,22 +24,9 @@ const weightedCalculation = async (
 };
 
 const fuse = initFuseWithProviders(turboGethURL);
+const appChainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
 
-async function computeAssetRSS(address: string): Promise<{
-  liquidityUSD: number;
-
-  mcap: number;
-  volatility: number;
-  liquidity: number;
-  swapCount: number;
-  coingeckoMetadata: number;
-  exchanges: number;
-  transfers: number;
-
-  totalScore: number;
-}> {
-  address = address.toLowerCase();
-
+async function computeAssetRSS_1(address: string) {
   // swap sOHM to OHM with a penalty.
   if (address === "0x04f2694c8fcee23e8fd0dfea1d4f5bb8c352111f") {
     let OHM_RSS = await computeAssetRSS(
@@ -68,188 +55,405 @@ async function computeAssetRSS(address: string): Promise<{
       totalScore: 100,
     };
   }
-
-  try {
-    // Fetch all the data in parallel
-    const [
-      {
-        market_data: {
-          market_cap: { usd: asset_market_cap },
-          current_price: { usd: price_usd },
-        },
-        tickers,
-        community_data: { twitter_followers },
+  // Fetch all the data in parallel
+  const [
+    {
+      market_data: {
+        market_cap: { usd: asset_market_cap },
+        current_price: { usd: price_usd },
       },
+      tickers,
+      community_data: { twitter_followers },
+    },
 
-      uniData,
+    uniData,
 
-      sushiData,
+    sushiData,
 
-      defiCoins,
+    defiCoins,
 
-      assetVariation,
+    assetVariation,
 
-      ethVariation,
-    ] = await Promise.all([
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}`
-      ).then((res) => res.json()),
+    ethVariation,
+  ] = await Promise.all([
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}`
+    ).then((res) => res.json()),
 
-      fetch("https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2", {
-        method: "post",
+    fetch("https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2", {
+      method: "post",
 
-        body: JSON.stringify({
-          query: `{
+      body: JSON.stringify({
+        query: `{
   token(id: "${address}") {
     totalLiquidity
     txCount
   }
 }`,
-        }),
+      }),
 
-        headers: { "Content-Type": "application/json" },
-      }).then((res) => res.json()),
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => res.json()),
 
-      fetch(
-        "https://api.thegraph.com/subgraphs/name/zippoxer/sushiswap-subgraph-fork",
-        {
-          method: "post",
+    fetch(
+      "https://api.thegraph.com/subgraphs/name/zippoxer/sushiswap-subgraph-fork",
+      {
+        method: "post",
 
-          body: JSON.stringify({
-            query: `{
+        body: JSON.stringify({
+          query: `{
             token(id: "${address}") {
               totalLiquidity
               txCount
             }
           }`,
-          }),
+        }),
 
-          headers: { "Content-Type": "application/json" },
-        }
-      ).then((res) => res.json()),
-
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=decentralized_finance_defi&order=market_cap_desc&per_page=10&page=1&sparkline=false`
-      )
-        .then((res) => res.json())
-        .then((array) => array.slice(0, 30)),
-
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=30`
-      )
-        .then((res) => res.json())
-        .then((data) => data.prices.map(([, price]) => price))
-        .then((prices) => variance(prices)),
-
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/ethereum/market_chart/?vs_currency=usd&days=30`
-      )
-        .then((res) => res.json())
-        .then((data) => data.prices.map(([, price]) => price))
-        .then((prices) => variance(prices)),
-    ]);
-
-    const mcap = await weightedCalculation(async () => {
-      const medianDefiCoinMcap = median(
-        defiCoins.map((coin) => coin.market_cap)
-      );
-
-      // Make exception for WETH
-      if (address === "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2") {
-        return 1;
+        headers: { "Content-Type": "application/json" },
       }
+    ).then((res) => res.json()),
 
-      if (asset_market_cap < 1_000_000) {
-        return 0;
-      } else {
-        return asset_market_cap / medianDefiCoinMcap;
-      }
-    }, 33);
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=decentralized_finance_defi&order=market_cap_desc&per_page=10&page=1&sparkline=false`
+    )
+      .then((res) => res.json())
+      .then((array) => array.slice(0, 30)),
 
-    let liquidityUSD = 0;
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=30`
+    )
+      .then((res) => res.json())
+      .then((data) => data.prices.map(([, price]) => price))
+      .then((prices) => variance(prices)),
 
-    const liquidity = await weightedCalculation(async () => {
-      const uniLiquidity = parseFloat(
-        uniData.data.token?.totalLiquidity ?? "0"
-      );
-      const sushiLiquidity = parseFloat(
-        sushiData.data.token?.totalLiquidity ?? "0"
-      );
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/ethereum/market_chart/?vs_currency=usd&days=30`
+    )
+      .then((res) => res.json())
+      .then((data) => data.prices.map(([, price]) => price))
+      .then((prices) => variance(prices)),
+  ]);
 
-      const totalLiquidity = uniLiquidity + sushiLiquidity * price_usd;
+  const mcap = await weightedCalculation(async () => {
+    const medianDefiCoinMcap = median(defiCoins.map((coin) => coin.market_cap));
 
-      liquidityUSD = totalLiquidity;
-
-      return totalLiquidity / 220_000_000;
-    }, 32);
-
-    const volatility = await weightedCalculation(async () => {
-      const peak = ethVariation * 3;
-
-      return 1 - assetVariation / peak;
-    }, 20);
-
-    const swapCount = await weightedCalculation(async () => {
-      const uniTxCount = parseFloat(uniData.data.token?.txCount ?? "0");
-
-      const sushiTxCount = parseFloat(sushiData.data.token?.txCount ?? "0");
-
-      const totalTxCount = uniTxCount + sushiTxCount;
-
-      return totalTxCount >= 10_000 ? 1 : 0;
-    }, 7);
-
-    const exchanges = await weightedCalculation(async () => {
-      let reputableExchanges: any[] = [];
-
-      for (const exchange of tickers) {
-        const name = exchange.market.identifier;
-
-        if (
-          !reputableExchanges.includes(name) &&
-          name !== "uniswap" &&
-          exchange.trust_score === "green"
-        ) {
-          reputableExchanges.push(name);
-        }
-      }
-
-      return reputableExchanges.length >= 3 ? 1 : 0;
-    }, 3);
-
-    const transfers = await weightedCalculation(async () => {
+    // Make exception for WETH
+    if (address === "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2") {
       return 1;
-    }, 3);
+    }
 
-    const coingeckoMetadata = await weightedCalculation(async () => {
-      // USDC needs an exception because Circle twitter is not listed on Coingecko.
-      if (address === "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48") {
-        return 1;
+    if (asset_market_cap < 1_000_000) {
+      return 0;
+    } else {
+      return asset_market_cap / medianDefiCoinMcap;
+    }
+  }, 33);
+
+  let liquidityUSD = 0;
+
+  const liquidity = await weightedCalculation(async () => {
+    const uniLiquidity = parseFloat(uniData.data.token?.totalLiquidity ?? "0");
+    const sushiLiquidity = parseFloat(
+      sushiData.data.token?.totalLiquidity ?? "0"
+    );
+
+    const totalLiquidity = uniLiquidity + sushiLiquidity * price_usd;
+
+    liquidityUSD = totalLiquidity;
+
+    return totalLiquidity / 220_000_000;
+  }, 32);
+
+  const volatility = await weightedCalculation(async () => {
+    const peak = ethVariation * 3;
+
+    return 1 - assetVariation / peak;
+  }, 20);
+
+  const swapCount = await weightedCalculation(async () => {
+    const uniTxCount = parseFloat(uniData.data.token?.txCount ?? "0");
+
+    const sushiTxCount = parseFloat(sushiData.data.token?.txCount ?? "0");
+
+    const totalTxCount = uniTxCount + sushiTxCount;
+
+    return totalTxCount >= 10_000 ? 1 : 0;
+  }, 7);
+
+  const exchanges = await weightedCalculation(async () => {
+    let reputableExchanges: any[] = [];
+
+    for (const exchange of tickers) {
+      const name = exchange.market.identifier;
+
+      if (
+        !reputableExchanges.includes(name) &&
+        name !== "uniswap" &&
+        exchange.trust_score === "green"
+      ) {
+        reputableExchanges.push(name);
       }
+    }
 
-      return twitter_followers >= 1000 ? 1 : 0;
-    }, 2);
+    return reputableExchanges.length >= 3 ? 1 : 0;
+  }, 3);
 
+  const transfers = await weightedCalculation(async () => {
+    return 1;
+  }, 3);
+
+  const coingeckoMetadata = await weightedCalculation(async () => {
+    // USDC needs an exception because Circle twitter is not listed on Coingecko.
+    if (address === "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48") {
+      return 1;
+    }
+
+    return twitter_followers >= 1000 ? 1 : 0;
+  }, 2);
+
+  return {
+    liquidityUSD,
+
+    mcap,
+    volatility,
+    liquidity,
+    swapCount,
+    coingeckoMetadata,
+    exchanges,
+    transfers,
+
+    totalScore:
+      mcap +
+        volatility +
+        liquidity +
+        swapCount +
+        coingeckoMetadata +
+        exchanges +
+        transfers || 0,
+  };
+}
+
+async function computeAssetRSS_137(address: string) {
+  // max score for WETH.
+  const WETH = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619".toLowerCase();
+  const USDC = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174".toLowerCase();
+  const WMATIC = "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase();
+
+  if (address === WETH) {
     return {
-      liquidityUSD,
+      liquidityUSD: 4_000_000_000,
 
-      mcap,
-      volatility,
-      liquidity,
-      swapCount,
-      coingeckoMetadata,
-      exchanges,
-      transfers,
+      mcap: 33,
+      volatility: 20,
+      liquidity: 32,
+      swapCount: 7,
+      coingeckoMetadata: 2,
+      exchanges: 3,
+      transfers: 3,
 
-      totalScore:
-        mcap +
-          volatility +
-          liquidity +
-          swapCount +
-          coingeckoMetadata +
-          exchanges +
-          transfers || 0,
+      totalScore: 100,
     };
+  }
+  // Fetch all the data in parallel
+  const [
+    {
+      market_data: {
+        market_cap: { usd: asset_market_cap },
+        current_price: { usd: price_usd },
+      },
+      tickers,
+      community_data: { twitter_followers },
+    },
+
+    sushiData,
+
+    quickData,
+
+    defiCoins,
+
+    assetVariation,
+
+    ethVariation,
+  ] = await Promise.all([
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/polygon-pos/contract/${address}`
+    ).then((res) => res.json()),
+
+    fetch("https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange", {
+      method: "post",
+
+      body: JSON.stringify({
+        query: `{
+          token(id: "${address}") {
+          liquidity
+          txCount
+        }
+      }`,
+      }),
+
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => res.json()),
+
+    fetch("https://api.thegraph.com/subgraphs/name/sameepsi/quickswap03", {
+      method: "post",
+
+      body: JSON.stringify({
+        query: `{
+            token(id: "${address}") {
+              totalLiquidity
+              txCount
+            }
+          }`,
+      }),
+
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => res.json()),
+
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=decentralized_finance_defi&order=market_cap_desc&per_page=10&page=1&sparkline=false`
+    )
+      .then((res) => res.json())
+      .then((array) => array.slice(0, 50)),
+
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/polygon-pos/contract/${address}/market_chart/?vs_currency=usd&days=30`
+    )
+      .then((res) => res.json())
+      .then((data) => data.prices.map(([, price]) => price))
+      .then((prices) => variance(prices)),
+
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/ethereum/market_chart/?vs_currency=usd&days=30`
+    )
+      .then((res) => res.json())
+      .then((data) => data.prices.map(([, price]) => price))
+      .then((prices) => variance(prices)),
+  ]);
+
+  const mcap = await weightedCalculation(async () => {
+    const medianDefiCoinMcap = median(defiCoins.map((coin) => coin.market_cap));
+
+    // Make exception for WETH
+    if ([WETH, WMATIC].includes(address)) {
+      return 1;
+    }
+
+    if (asset_market_cap < 1_000_000) {
+      return 0;
+    } else {
+      return asset_market_cap / medianDefiCoinMcap;
+    }
+  }, 33);
+
+  let liquidityUSD = 0;
+
+  const liquidity = await weightedCalculation(async () => {
+    const sushiLiquidity = parseFloat(sushiData.data.token?.liquidity ?? "0");
+    const quickLiquidity = parseFloat(
+      quickData.data.token?.totalLiquidity ?? "0"
+    );
+
+    const totalLiquidity = (sushiLiquidity + quickLiquidity) * price_usd;
+
+    liquidityUSD = totalLiquidity;
+
+    return totalLiquidity / 220_000_000;
+  }, 32);
+
+  const volatility = await weightedCalculation(async () => {
+    const peak = ethVariation * 3;
+
+    return 1 - assetVariation / peak;
+  }, 20);
+
+  const swapCount = await weightedCalculation(async () => {
+    const sushiTxCount = parseFloat(sushiData.data.token?.txCount ?? "0");
+
+    // const sushiTxCount = parseFloat(quickData.data.token?.txCount ?? "0");
+    const quickTxCount = parseFloat(quickData.data.token?.txCount ?? "0");
+
+    const totalTxCount = sushiTxCount + quickTxCount;
+
+    return totalTxCount >= 10_000 ? 1 : 0;
+  }, 7);
+
+  const exchanges = await weightedCalculation(async () => {
+    let reputableExchanges: any[] = [];
+
+    for (const exchange of tickers) {
+      const name = exchange.market.identifier;
+
+      if (
+        !reputableExchanges.includes(name) &&
+        name !== "uniswap" &&
+        exchange.trust_score === "green"
+      ) {
+        reputableExchanges.push(name);
+      }
+    }
+
+    return reputableExchanges.length >= 3 ? 1 : 0;
+  }, 3);
+
+  const transfers = await weightedCalculation(async () => {
+    return 1;
+  }, 3);
+
+  const coingeckoMetadata = await weightedCalculation(async () => {
+    // USDC needs an exception because Circle twitter is not listed on Coingecko.
+    if (address === USDC) {
+      return 1;
+    }
+    if (address === WMATIC) {
+      return 1;
+    }
+
+    return twitter_followers >= 1000 ? 1 : 0;
+  }, 2);
+
+  return {
+    liquidityUSD,
+
+    mcap,
+    volatility,
+    liquidity,
+    swapCount,
+    coingeckoMetadata,
+    exchanges,
+    transfers,
+
+    totalScore:
+      mcap +
+        volatility +
+        liquidity +
+        swapCount +
+        coingeckoMetadata +
+        exchanges +
+        transfers || 0,
+  };
+}
+
+async function computeAssetRSS(address: string): Promise<{
+  liquidityUSD: number;
+  mcap: number;
+  volatility: number;
+  liquidity: number;
+  swapCount: number;
+  coingeckoMetadata: number;
+  exchanges: number;
+  transfers: number;
+  totalScore: number;
+}> {
+  address = address.toLowerCase();
+
+  try {
+    if (appChainId === 1) {
+      return computeAssetRSS_1(address);
+    } else if (appChainId === 137) {
+      return computeAssetRSS_137(address);
+    } else {
+      throw "Unknown ChainId";
+    }
   } catch (e) {
     console.log(e);
 
@@ -270,7 +474,7 @@ async function computeAssetRSS(address: string): Promise<{
 }
 
 export default async (request: NowRequest, response: NowResponse) => {
-  const { address, poolID } = request.query as { [key: string]: string };
+  const { address, poolID } = <Record<string, string>>request.query;
 
   response.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -346,8 +550,9 @@ export default async (request: NowRequest, response: NowResponse) => {
       console.time(asset.underlyingSymbol);
       promises.push(
         fetch(
-          `http://${process.env.VERCEL_URL}/api/rss?address=` +
-            asset.underlyingToken
+          `http://${
+            process.env.VERCEL_URL ?? "localhost:3000"
+          }/api/rss?address=` + asset.underlyingToken
         )
           .then((res) => res.json())
           .then((rss) => {
