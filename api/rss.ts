@@ -5,10 +5,7 @@ import fetch from "node-fetch";
 import Web3 from "web3";
 
 import { fetchFusePoolData } from "../src/utils/fetchFusePoolData";
-import {
-  initFuseWithProviders,
-  turboGethURL,
-} from "../src/utils/web3Providers";
+import { initFuseWithProviders, infuraURL } from "../src/utils/web3Providers";
 
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
@@ -23,7 +20,7 @@ const weightedCalculation = async (
   return clamp((await calculation()) ?? 0, 0, 1) * weight;
 };
 
-const fuse = initFuseWithProviders(turboGethURL);
+const fuse = initFuseWithProviders(infuraURL);
 const appChainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
 
 async function computeAssetRSS_1(address: string) {
@@ -452,14 +449,12 @@ async function computeAssetRSS(address: string): Promise<RSSOutput> {
   try {
     let promise: Promise<RSSOutput>;
     if (appChainId === 1) {
-      promise = computeAssetRSS_1(address);
+      return await computeAssetRSS_1(address);
     } else if (appChainId === 137) {
-      promise = computeAssetRSS_137(address);
+      return await computeAssetRSS_137(address);
     } else {
-      promise = Promise.reject("get to catch");
+      throw "get to catch!";
     }
-
-    return await promise;
   } catch (e) {
     console.log(e);
 
