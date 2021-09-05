@@ -1,6 +1,9 @@
 import {
+  Alert,
+  AlertIcon,
   SimpleGrid as Grid,
   Spinner,
+  Link,
   Center,
   Text,
   Box,
@@ -20,6 +23,16 @@ const FusePoolsPage = memo(() => {
   return (
     <PageTransitionLayout>
       <FusePageLayout>
+        <Alert status="warning">
+          <AlertIcon />
+          <Text mr={1}>
+            Market is currently in beta mode. Please be mindful of the
+            SmartContract risks, Learn more at:
+          </Text>
+          <Link href="https://docs.rari.capital" as={"a"} textDecor="underline">
+            docs.rari.capital
+          </Link>
+        </Alert>
         <FuseStatsBar />
         <FuseDashNav isFuse />
         <PoolList />

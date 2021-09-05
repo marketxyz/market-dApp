@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import Rari from "../rari-sdk/index";
 
 import LogRocket from "logrocket";
-import { AlertDialog, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import Fuse from "../fuse-sdk/src";
 import {
   chooseBestWeb3Provider,
@@ -233,7 +233,16 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       userWallet,
       appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "1") || 1,
     }),
-    [rari, web3ModalProvider, login, logout, address, fuse, isAttemptingLogin]
+    [
+      rari,
+      web3ModalProvider,
+      login,
+      logout,
+      address,
+      fuse,
+      isAttemptingLogin,
+      userWallet,
+    ]
   );
 
   return <RariContext.Provider value={value}>{children}</RariContext.Provider>;
