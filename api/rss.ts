@@ -117,12 +117,14 @@ async function computeAssetRSS_1(address: string) {
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=decentralized_finance_defi&order=market_cap_desc&per_page=10&page=1&sparkline=false`
     )
       .then((res) => res.json())
+      .catch((_) => [])
       .then((array) => array.slice(0, 30)),
 
     fetch(
       `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=30`
     )
       .then((res) => res.json())
+      .catch((_) => [])
       .then((data) => data.prices.map(([, price]) => price))
       .then((prices) => variance(prices)),
 
@@ -130,6 +132,7 @@ async function computeAssetRSS_1(address: string) {
       `https://api.coingecko.com/api/v3/coins/ethereum/market_chart/?vs_currency=usd&days=30`
     )
       .then((res) => res.json())
+      .catch((_) => [])
       .then((data) => data.prices.map(([, price]) => price))
       .then((prices) => variance(prices)),
   ]);
@@ -447,6 +450,7 @@ async function computeAssetRSS(address: string): Promise<{
   address = address.toLowerCase();
 
   try {
+    console.log(appChainId);
     if (appChainId === 1) {
       return computeAssetRSS_1(address);
     } else if (appChainId === 137) {

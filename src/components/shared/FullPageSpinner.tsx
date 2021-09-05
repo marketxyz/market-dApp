@@ -1,19 +1,16 @@
 /* istanbul ignore file */
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Spinner, useColorModeValue } from "@chakra-ui/react";
 
 const FullPageSpinner = () => {
   return (
     <Box
-      background="white"
+      background={useColorModeValue("white", "black")}
       height="100vh"
       display="flex"
       justifyContent="center"
       alignItems="center"
     >
       <Box>
-        {/* <Text fontSize="4xl" fontWeight="bold" p="0" m="0">
-          Loading
-        </Text> */}
         <Spinner
           thickness="4.5px"
           speed="0.65s"
