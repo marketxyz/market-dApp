@@ -80,9 +80,13 @@ export const fetchPools = async ({
           .getPoolsByAccountWithData(address)
           .call({ gas: 1e18 })
       : // : fuse.contracts.FusePoolLens.methods
-        //     .getPublicPoolsWithData()
-        //     .call({ gas: 1e18 }),
-        fetchPoolsAPI(),
+      //     .getPublicPoolsWithData()
+      //     .call({ gas: 1e18 }),
+      parseInt(process.env.REACT_APP_CHAIN_ID!) === 137
+      ? fetchPoolsAPI()
+      : fuse.contracts.FusePoolLens.methods
+          .getPublicPoolsWithData()
+          .call({ gas: 1e18 }),
 
     rari.web3.utils.fromWei(await rari.getEthUsdPriceBN()),
   ]);
