@@ -1,13 +1,13 @@
 import Rari from "../rari-sdk/index";
 import Fuse from "../fuse-sdk";
 import BigNumber from "bignumber.js";
+import { fetchPoolsAPI } from "hooks/fuse/useFusePools";
 
 export const fetchFuseTVL = async (fuse: Fuse) => {
-  const {
-    2: totalSuppliedETH,
-  } = await fuse.contracts.FusePoolLens.methods
-    .getPublicPoolsWithData()
-    .call({ gas: 1e18 });
+  // const { 2: totalSuppliedETH } = await fuse.contracts.FusePoolLens.methods
+  //   .getPublicPoolsWithData()
+  //   .call({ gas: 1e18 });
+  const { 2: totalSuppliedETH } = await fetchPoolsAPI();
 
   return fuse.web3.utils.toBN(
     new BigNumber(

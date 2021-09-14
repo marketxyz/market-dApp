@@ -39,6 +39,13 @@ const poolSort = (pools: MergedPool[]) => {
   });
 };
 
+export const fetchPoolsAPI = async () => {
+  const res = await fetch("/api/getAllPools");
+  const data = await res.json();
+
+  return data;
+};
+
 export const fetchPools = async ({
   rari,
   fuse,
@@ -72,9 +79,10 @@ export const fetchPools = async ({
       ? fuse.contracts.FusePoolLens.methods
           .getPoolsByAccountWithData(address)
           .call({ gas: 1e18 })
-      : fuse.contracts.FusePoolLens.methods
-          .getPublicPoolsWithData()
-          .call({ gas: 1e18 }),
+      : // : fuse.contracts.FusePoolLens.methods
+        //     .getPublicPoolsWithData()
+        //     .call({ gas: 1e18 }),
+        fetchPoolsAPI(),
 
     rari.web3.utils.fromWei(await rari.getEthUsdPriceBN()),
   ]);
@@ -92,6 +100,7 @@ export const fetchPools = async ({
     });
   }
 
+  console.log(merged);
   return merged;
 };
 

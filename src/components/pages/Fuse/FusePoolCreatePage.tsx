@@ -8,6 +8,7 @@ import {
   IconButton,
   useToast,
   Divider,
+  Box,
 } from "@chakra-ui/react";
 import { Column, Center, Row } from "utils/chakraUtils";
 import { memo, ReactNode, useState } from "react";
@@ -145,166 +146,180 @@ export const CreatePoolConfiguration = () => {
 
   return (
     <>
-      <DashboardBox borderColor="#BBB" bg="#fff" width="100%" mt={4}>
-        <Heading fontWeight="bold" size="md" px={4} py={4}>
-          {t("Create Pool")}
-        </Heading>
+      <Box px={8} mt={8}>
+        <DashboardBox borderColor="#BBB" bg="#fff" width="100%" mt={4}>
+          <Heading fontWeight="bold" size="md" px={4} py={4}>
+            {t("Create Pool")}
+          </Heading>
 
-        <Column mainAxisAlignment="flex-start" crossAxisAlignment="flex-start">
-          <Divider bg="#BBB" />
+          <Column
+            mainAxisAlignment="flex-start"
+            crossAxisAlignment="flex-start"
+          >
+            <Divider bg="#BBB" />
 
-          <OptionRow>
-            <Text fontWeight="normal" mr={4}>
-              {t("Name")}
-            </Text>
-            <Input
-              width="20%"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
-          </OptionRow>
+            <OptionRow>
+              <Text fontWeight="normal" mr={4}>
+                {t("Name")}
+              </Text>
+              <Input
+                width="20%"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </OptionRow>
 
-          <Divider bg="#BBB" />
+            <Divider bg="#BBB" />
 
-          <OptionRow>
-            <Text fontWeight="normal" mr={4}>
-              {t("Oracle")}
-            </Text>
-            <Select
-              width="20%"
-              value={oracle}
-              onChange={(event) => setOracle(event.target.value)}
-              placeholder="Select Oracle"
-            >
-              {userWallet?.appChainId === 1 ? (
-                <option
-                  className="white-bg-option"
-                  value={
-                    Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
-                      .ChainlinkPriceOracle
-                  }
-                >
-                  ChainlinkPriceOracle
-                </option>
-              ) : (
-                <>
+            <OptionRow>
+              <Text fontWeight="normal" mr={4}>
+                {t("Oracle")}
+              </Text>
+              <Select
+                width="20%"
+                value={oracle}
+                onChange={(event) => setOracle(event.target.value)}
+                placeholder="Select Oracle"
+              >
+                {userWallet?.appChainId === 1 ? (
                   <option
                     className="white-bg-option"
                     value={
                       Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
-                        .PreferredPriceOracle
+                        .ChainlinkPriceOracle
                     }
                   >
-                    Preferred Price Oracle
+                    ChainlinkPriceOracle
                   </option>
-                </>
-              )}
-            </Select>
-          </OptionRow>
+                ) : (
+                  <>
+                    <option
+                      className="white-bg-option"
+                      value={
+                        Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                          .PreferredPriceOracle_V1_Sushi
+                      }
+                    >
+                      Preferred Price Oracle V1 Sushi
+                    </option>
+                    <option
+                      className="white-bg-option"
+                      value={
+                        Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                          .PreferredPriceOracle_V2_Quick_USDC
+                      }
+                    >
+                      Preferred Price Oracle V2 Quick USDC
+                    </option>
+                  </>
+                )}
+              </Select>
+            </OptionRow>
 
-          <Divider bg="#BBB" />
+            <Divider bg="#BBB" />
 
-          <OptionRow>
-            <SimpleTooltip
-              label={t(
-                "If enabled you will be able to limit the ability to supply to the pool to a select group of addresses. The pool will not show up on the 'all pools' list."
-              )}
-            >
-              <Text fontWeight="normal">
-                {t("Whitelisted")} <QuestionIcon ml={1} mb="4px" />
-              </Text>
-            </SimpleTooltip>
+            <OptionRow>
+              <SimpleTooltip
+                label={t(
+                  "If enabled you will be able to limit the ability to supply to the pool to a select group of addresses. The pool will not show up on the 'all pools' list."
+                )}
+              >
+                <Text fontWeight="normal">
+                  {t("Whitelisted")} <QuestionIcon ml={1} mb="4px" />
+                </Text>
+              </SimpleTooltip>
 
-            <Switch
-              h="20px"
-              isChecked={isWhitelisted}
-              onChange={() => {
-                setIsWhitelisted((past) => !past);
-                // Add the user to the whitelist by default
-                if (whitelist.length === 0) {
-                  setWhitelist([address]);
-                }
-              }}
-              className="black-switch"
-              colorScheme="#121212"
-            />
-          </OptionRow>
+              <Switch
+                h="20px"
+                isChecked={isWhitelisted}
+                onChange={() => {
+                  setIsWhitelisted((past) => !past);
+                  // Add the user to the whitelist by default
+                  if (whitelist.length === 0) {
+                    setWhitelist([address]);
+                  }
+                }}
+                className="black-switch"
+                colorScheme="#121212"
+              />
+            </OptionRow>
 
-          {isWhitelisted ? (
-            <WhitelistInfo
-              whitelist={whitelist}
-              addToWhitelist={(user) => {
-                setWhitelist((past) => [...past, user]);
-              }}
-              removeFromWhitelist={(user) => {
-                setWhitelist((past) =>
-                  past.filter(function (item) {
-                    return item !== user;
-                  })
-                );
-              }}
-            />
-          ) : null}
+            {isWhitelisted ? (
+              <WhitelistInfo
+                whitelist={whitelist}
+                addToWhitelist={(user) => {
+                  setWhitelist((past) => [...past, user]);
+                }}
+                removeFromWhitelist={(user) => {
+                  setWhitelist((past) =>
+                    past.filter(function (item) {
+                      return item !== user;
+                    })
+                  );
+                }}
+              />
+            ) : null}
 
-          <Divider bg="#BBB" />
+            <Divider bg="#BBB" />
 
-          <OptionRow>
-            <SimpleTooltip
-              label={t(
-                "The percent, ranging from 0% to 100%, of a liquidatable account's borrow that can be repaid in a single liquidate transaction. If a user has multiple borrowed assets, the closeFactor applies to any single borrowed asset, not the aggregated value of a user’s outstanding borrowing. Compound's close factor is 50%."
-              )}
-            >
-              <Text fontWeight="normal">
-                {t("Close Factor")} <QuestionIcon ml={1} mb="4px" />
-              </Text>
-            </SimpleTooltip>
+            <OptionRow>
+              <SimpleTooltip
+                label={t(
+                  "The percent, ranging from 0% to 100%, of a liquidatable account's borrow that can be repaid in a single liquidate transaction. If a user has multiple borrowed assets, the closeFactor applies to any single borrowed asset, not the aggregated value of a user’s outstanding borrowing. Compound's close factor is 50%."
+                )}
+              >
+                <Text fontWeight="normal">
+                  {t("Close Factor")} <QuestionIcon ml={1} mb="4px" />
+                </Text>
+              </SimpleTooltip>
 
-            <SliderWithLabel
-              value={closeFactor}
-              setValue={setCloseFactor}
-              formatValue={formatPercentage}
-              min={5}
-              max={90}
-            />
-          </OptionRow>
+              <SliderWithLabel
+                value={closeFactor}
+                setValue={setCloseFactor}
+                formatValue={formatPercentage}
+                min={5}
+                max={90}
+              />
+            </OptionRow>
 
-          <Divider bg="#BBB" />
+            <Divider bg="#BBB" />
 
-          <OptionRow>
-            <SimpleTooltip
-              label={t(
-                "The additional collateral given to liquidators as an incentive to perform liquidation of underwater accounts. For example, if the liquidation incentive is 10%, liquidators receive an extra 10% of the borrowers collateral for every unit they close. Compound's liquidation incentive is 8%."
-              )}
-            >
-              <Text fontWeight="normal">
-                {t("Liquidation Incentive")} <QuestionIcon ml={1} mb="4px" />
-              </Text>
-            </SimpleTooltip>
+            <OptionRow>
+              <SimpleTooltip
+                label={t(
+                  "The additional collateral given to liquidators as an incentive to perform liquidation of underwater accounts. For example, if the liquidation incentive is 10%, liquidators receive an extra 10% of the borrowers collateral for every unit they close. Compound's liquidation incentive is 8%."
+                )}
+              >
+                <Text fontWeight="normal">
+                  {t("Liquidation Incentive")} <QuestionIcon ml={1} mb="4px" />
+                </Text>
+              </SimpleTooltip>
 
-            <SliderWithLabel
-              value={liquidationIncentive}
-              setValue={setLiquidationIncentive}
-              formatValue={formatPercentage}
-              min={0}
-              max={50}
-            />
-          </OptionRow>
-        </Column>
-      </DashboardBox>
+              <SliderWithLabel
+                value={liquidationIncentive}
+                setValue={setLiquidationIncentive}
+                formatValue={formatPercentage}
+                min={0}
+                max={50}
+              />
+            </OptionRow>
+          </Column>
+        </DashboardBox>
 
-      <DashboardBox
-        width="100%"
-        height="60px"
-        mt={4}
-        py={3}
-        fontSize="xl"
-        as="button"
-        onClick={onDeploy}
-      >
-        <Center expand color="#FFF" fontWeight="normal">
-          {isCreating ? <Spinner /> : t("Create")}
-        </Center>
-      </DashboardBox>
+        <DashboardBox
+          width="100%"
+          height="60px"
+          mt={4}
+          py={3}
+          fontSize="xl"
+          as="button"
+          onClick={onDeploy}
+        >
+          <Center expand color="#000" fontWeight="normal">
+            {isCreating ? <Spinner /> : t("Create")}
+          </Center>
+        </DashboardBox>
+      </Box>
     </>
   );
 };

@@ -292,7 +292,11 @@ const OracleAndInterestRates = ({
 
         <StatRow
           statATitle={t("Platform Fee")}
-          statA={assets.length > 0 ? assets[0].fuseFee / 1e16 + "%" : "10%"}
+          statA={
+            assets.length > 0
+              ? (assets[0].fuseFee / 1e16).toPrecision(2) + "%"
+              : "10%"
+          }
           statBTitle={t("Average Admin Fee")}
           statB={
             assets
@@ -395,6 +399,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 
   const isMobile = useIsMobile();
   const borrowLineColor = useColorModeValue("#2D3748", "#fff");
+  // console.log(assets);
 
   return (
     <Column
