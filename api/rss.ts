@@ -239,6 +239,7 @@ async function computeAssetRSS_137(address: string) {
   const WETH = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619".toLowerCase();
   const USDC = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174".toLowerCase();
   const WMATIC = "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase();
+  const miMATIC = "0xa3fa99a148fa48d14ed51d610c367c61876997f1".toLowerCase();
 
   if (address === WETH) {
     return {
@@ -337,6 +338,10 @@ async function computeAssetRSS_137(address: string) {
     // Make exception for WETH
     if ([WETH, WMATIC].includes(address)) {
       return 1;
+    }
+
+    if (address === miMATIC) {
+      return 0.7;
     }
 
     if (asset_market_cap < 1_000_000) {
@@ -599,6 +604,7 @@ export default async (request: NowRequest, response: NowResponse) => {
           ownedAccounts = [
             "0xd6f81D154D0532906140ef37268BC8eD2A17e008",
             "0x1359a50627EDB02a092352671566206dF12Aa095",
+            "0x34abBf25fA4b792716f7C2A8880d65270d895B44",
           ];
         }
 
