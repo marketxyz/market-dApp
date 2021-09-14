@@ -79,10 +79,7 @@ export const fetchPools = async ({
       ? fuse.contracts.FusePoolLens.methods
           .getPoolsByAccountWithData(address)
           .call({ gas: 1e18 })
-      : // : fuse.contracts.FusePoolLens.methods
-      //     .getPublicPoolsWithData()
-      //     .call({ gas: 1e18 }),
-      parseInt(process.env.REACT_APP_CHAIN_ID!) === 137
+      : parseInt(process.env.REACT_APP_CHAIN_ID!) === 137
       ? fetchPoolsAPI()
       : fuse.contracts.FusePoolLens.methods
           .getPublicPoolsWithData()

@@ -103,8 +103,8 @@ const Index = () => {
       <PWAPrompt
         timesToShow={2}
         permanentlyHideOnDismiss={false}
-        copyTitle="Add Rari to your homescreen!"
-        copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
+        copyTitle="Add Market to your homescreen!"
+        copyBody="The Market Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
         copyClosePrompt="Close"
       />
       <ChakraProvider theme={extendedTheme}>
