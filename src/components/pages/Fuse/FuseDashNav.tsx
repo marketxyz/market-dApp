@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 
 import {
   Box,
-  Link,
-  Tab,
-  TabList,
-  Tabs,
+  Button,
+  ButtonGroup,
   InputGroup,
   InputLeftAddon,
   Input,
@@ -26,16 +24,7 @@ import { CreatePoolConfiguration } from "./FusePoolCreatePage";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { useEffect } from "react";
 
-const selectedTabStyles = {
-  borderBottomWidth: "1px",
-  borderColor: "#DF2EAC",
-  fontSize: "18px",
-  fontWeight: "800",
-};
-const tabStyles = { paddingBottom: "6px", fontSize: "18px", marginTop: "5px" };
-
 export const FuseDashNav = (props: any) => {
-  const { t } = useTranslation();
   let navigate = useNavigate();
 
   const [createPoolModal, setCreatePoolModal] = useState(false);
@@ -77,7 +66,8 @@ export const FuseDashNav = (props: any) => {
         overflowX="visible"
         overflowY="visible"
         w="100%"
-        borderBottom={`1px solid`}
+        pt={4}
+        // borderBottom={`1px solid`}
         borderTop={`1px solid`}
         borderColor={borderColor}
         backgroundColor={bgColor}
@@ -117,7 +107,7 @@ export const FuseDashNav = (props: any) => {
                   type="text"
                   value={searchText ?? ""}
                   onChange={(event) => setSearchText(event.target.value)}
-                  placeholder="Try searching for USDC"
+                  placeholder="ETH, DAI, FRAX, etc."
                 />
               </InputGroup>
             </span>
@@ -131,25 +121,10 @@ export const FuseDashNav = (props: any) => {
             </span> */}
           </Box>
 
-          <Tabs index={searchText === "my-pools" ? 1 : 0}>
-            <TabList>
-              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabBtn
-                  onClick={() => setSearchText("")}
-                  text={t("All Pools")}
-                />
-              </Tab>
-              <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabBtn
-                  onClick={() => setSearchText("my-pools")}
-                  text={t("My Pools")}
-                />
-              </Tab>
-              {/* <Tab _active={{ bg: "none" }} _selected={selectedTabStyles}>
-                <TabLink route="/fuse" text={t("Token")} />
-              </Tab> */}
-            </TabList>
-          </Tabs>
+          <PoolSwitchTabs
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
         </Flex>
         {/* </Row> */}
       </Box>
@@ -157,27 +132,84 @@ export const FuseDashNav = (props: any) => {
   );
 };
 
-// copied code
-
-const TabBtn = ({ onClick, text }: { onClick: any; text: string }) => {
-  const isMobile = useIsSmallScreen();
-
+const PoolSwitchTabs = ({
+  searchText,
+  setSearchText,
+}: {
+  searchText: string;
+  setSearchText: Dispatch<string>;
+}) => {
+  const { t } = useTranslation();
+  const gradient = useColorModeValue(
+    "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)",
+    "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)"
+  );
+  const whiteAlpha = useColorModeValue("gray.200", "rgba(255, 255, 255, 0.08)");
+  const selectedTextColor = "white";
+  const unselectedTextColor = useColorModeValue("black", "white");
+  const isAllPoolSelected = searchText === "";
+  const isMyPoolSelected = searchText === "my-pools";
   return (
-    <Link
-      /* @ts-ignore */
-      style={tabStyles}
-      onClick={onClick}
-      fontWeight={"400"}
-      background={"transparent"}
-      _hover={{ background: "transparent" }}
-      className="no-underline"
-      ml={isMobile ? 0 : 4}
-      mt={isMobile ? 4 : 0}
-    >
-      {text}
-    </Link>
+    <ButtonGroup spacing={3} mt={{ base: 4, lg: 0 }}>
+      <Button
+        borderRadius={"xl"}
+        background={isAllPoolSelected ? gradient : whiteAlpha}
+        opacity={isAllPoolSelected ? "1" : "0.8"}
+        fontFamily={"heading"}
+        _hover={{
+          opacity: isAllPoolSelected ? "0.8" : "1",
+        }}
+        _active={{
+          background: gradient,
+          opacity: "1",
+          color: selectedTextColor,
+        }}
+        color={isAllPoolSelected ? selectedTextColor : unselectedTextColor}
+        onClick={() => setSearchText("")}
+      >
+        {t("All Pools")}
+      </Button>
+      <Button
+        onClick={() => setSearchText("my-pools")}
+        background={isMyPoolSelected ? gradient : whiteAlpha}
+        opacity={isMyPoolSelected ? "1" : "0.8"}
+        fontFamily={"heading"}
+        color={isMyPoolSelected ? selectedTextColor : unselectedTextColor}
+        _hover={{
+          opacity: isMyPoolSelected ? "0.8" : "1",
+        }}
+        borderRadius={"xl"}
+        _active={{
+          background: gradient,
+          opacity: "1",
+          color: selectedTextColor,
+        }}
+      >
+        {t("My Pools")}
+      </Button>
+    </ButtonGroup>
   );
 };
+
+// copied code
+
+// const TabBtn = ({ onClick, text }: { onClick: any; text: string }) => {
+//   const isMobile = useIsSmallScreen();
+
+//   return (
+//     <Link
+//       /* @ts-ignore */
+//       style={tabStyles}
+//       onClick={onClick}
+//       fontWeight={"400"}
+//       className="no-underline"
+//       ml={isMobile ? 0 : 4}
+//       mt={isMobile ? 4 : 0}
+//     >
+//       {text}
+//     </Link>
+//   );
+// };
 
 // const TabLink = ({ route, text }: { route: string; text: string }) => {
 //   const isMobile = useIsSmallScreen();
