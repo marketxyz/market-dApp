@@ -1,14 +1,4 @@
 export const networkData: Record<string, any> = {
-  mainnet: {
-    chainId: 1,
-    chainIdHex: "0x1",
-    name: "Ethereum",
-    shortName: "Ethereum",
-    img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg",
-    url: "https://eth.market.xyz",
-    addData: null,
-    enabled: true,
-  },
   polygon: {
     chainId: 137,
     chainIdHex: "0x89",
@@ -28,6 +18,16 @@ export const networkData: Record<string, any> = {
       rpcUrls: ["https://rpc-mainnet.matic.network"],
       blockExplorerUrls: ["https://polygonscan.com/"],
     },
+  },
+  mainnet: {
+    chainId: 1,
+    chainIdHex: "0x1",
+    name: "Ethereum",
+    shortName: "Ethereum",
+    img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg",
+    url: "https://eth.market.xyz",
+    addData: null,
+    enabled: true,
   },
   optimism: {
     chainId: 10,

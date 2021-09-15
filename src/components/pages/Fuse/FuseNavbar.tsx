@@ -124,7 +124,11 @@ const NetworkSwitcher = () => {
               </Text>{" "}
               network.
             </Heading>
-            <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={6}>
+            <Grid
+              templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)" }}
+              gap={{ base: 4, sm: 6 }}
+              mt={6}
+            >
               {Object.entries(networkData).map(([networkName, d]) => (
                 <Button
                   key={d.chainId}
