@@ -67,19 +67,10 @@ export const FuseDashNav = (props: any) => {
         overflowY="visible"
         w="100%"
         pt={4}
-        // borderBottom={`1px solid`}
         borderTop={`1px solid`}
         borderColor={borderColor}
         backgroundColor={bgColor}
       >
-        {/*<Row
-          mainAxisAlignment="space-between"
-          crossAxisAlignment="center"
-          maxWidth="1200px"
-          marginRight="auto"
-          marginLeft="auto"
-          width="100%"
-        >*/}
         <Flex
           alignItems="center"
           direction={isMobile ? "column" : "row-reverse"}
@@ -87,7 +78,7 @@ export const FuseDashNav = (props: any) => {
           px={isMobile ? 0 : "8"}
         >
           <Box display="inline-block" mt={isMobile ? 3 : 0} ml={2}>
-            <span style={{ display: "inline-block", marginRight: "15px" }}>
+            <span style={{ display: "inline-block" }}>
               <InputGroup>
                 <InputLeftAddon
                   pointerEvents="none"
@@ -111,28 +102,16 @@ export const FuseDashNav = (props: any) => {
                 />
               </InputGroup>
             </span>
-
-            {/* <span style={{ display: "inline-block" }}>
-              <AddPoolButton
-                switchModalVisibility={() =>
-                  setCreatePoolModal(!createPoolModal)
-                }
-              />
-            </span> */}
           </Box>
 
-          <PoolSwitchTabs
-            searchText={searchText}
-            setSearchText={setSearchText}
-          />
+          <PoolButtons searchText={searchText} setSearchText={setSearchText} />
         </Flex>
-        {/* </Row> */}
       </Box>
     </>
   );
 };
 
-const PoolSwitchTabs = ({
+const PoolButtons = ({
   searchText,
   setSearchText,
 }: {
