@@ -102,7 +102,6 @@ export const fetchPools = async ({
     });
   }
 
-  console.log(merged);
   return merged;
 };
 

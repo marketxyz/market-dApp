@@ -440,7 +440,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         >
           {assets.map((asset) => (
             <option
-              className="black-bg-option"
+              style={{ background: "black", color: "white" }}
               value={asset.cToken}
               key={asset.cToken}
             >
