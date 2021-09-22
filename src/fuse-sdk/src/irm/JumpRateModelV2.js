@@ -5,7 +5,9 @@ var contracts = require(__dirname +
 
 export default class JumpRateModelV2 {
   static RUNTIME_BYTECODE_HASH =
-    "0xc6df64d77d18236fa0e3a1bb939e979d14453af5c8287891decfb67710972c3c";
+    process.env.REACT_APP_CHAIN_ID === "1"
+      ? "0xc6df64d77d18236fa0e3a1bb939e979d14453af5c8287891decfb67710972c3c"
+      : "0xaa796b4e95fc4a251be212a81f0d67e43755807201603524833361f538f204b5";
 
   initialized;
 

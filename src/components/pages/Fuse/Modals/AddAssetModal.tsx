@@ -512,6 +512,26 @@ export const AssetSettings = ({
               >
                 Cream Stables Majors JumpRateModel
               </option>
+
+              <option
+                className="white-bg-option"
+                value={
+                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+                    .JumpRateModel_Cream_Gov
+                }
+              >
+                Cream Gov JumpRateModel
+              </option>
+
+              <option
+                className="white-bg-option"
+                value={
+                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
+                    .JumpRateModel_Cream_Major
+                }
+              >
+                Cream Majors JumpRateModel
+              </option>
             </>
           )}
         </Select>

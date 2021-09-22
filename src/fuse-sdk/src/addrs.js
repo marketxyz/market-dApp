@@ -145,6 +145,10 @@ module.exports = {
     PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES: {
       JumpRateModel_Cream_Stables_Majors:
         "0xa80F8CC22b4Ff9442B7F188D96E9B75d6cFd80F6",
+
+      JumpRateModel_Cream_Major: "0x8dbf1250c805fc2ed29fc0d3aed31ec69a928ffe",
+
+      JumpRateModel_Cream_Gov: "0x46c54c7D214117c79f2f6F368549776F00c0a6c4",
     },
   },
 };
