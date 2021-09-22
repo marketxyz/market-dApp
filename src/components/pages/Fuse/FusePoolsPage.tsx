@@ -9,12 +9,12 @@ import {
 } from "@chakra-ui/react";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { useFusePools } from "hooks/fuse/useFusePools";
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { FuseDashNav } from "./FuseDashNav";
 import FusePageLayout from "./FusePageLayout";
 import PoolCard from "./FusePoolCard";
 import FuseStatsBar from "./FuseStatsBar";
-import { useFilter } from "./FuseTabBar";
+import { useFilter, useSort } from "./FuseTabBar";
 
 const FusePoolsPage = memo(() => {
   return (
@@ -30,9 +30,41 @@ const FusePoolsPage = memo(() => {
 
 export default FusePoolsPage;
 
+const usePoolSorting = (pools: any, sortBy: string | null): any => {
+  const [sortedPools, setSortedPools] = useState(pools);
+  useMemo(() => {
+    setSortedPools(
+      pools?.sort((a: any, b: any) => {
+        if (!sortBy || sortBy.toLowerCase() === "supply") {
+          if (b.suppliedUSD > a.suppliedUSD) {
+            return 1;
+          }
+
+          if (b.suppliedUSD < a.suppliedUSD) {
+            return -1;
+          }
+        } else {
+          if (b.borrowedUSD > a.borrowedUSD) {
+            return 1;
+          }
+
+          if (b.borrowedUSD < a.borrowedUSD) {
+            return -1;
+          }
+        }
+        return b.id > a.id ? 1 : -1;
+      })
+    );
+  }, [pools, sortBy]);
+
+  return sortedPools;
+};
+
 const PoolList = () => {
   const filter = useFilter();
-  const { filteredPools }: any = useFusePools(filter);
+  const sortBy = useSort();
+  const { filteredPools: filteredPoolsList }: any = useFusePools(filter);
+  const filteredPools = usePoolSorting(filteredPoolsList, sortBy);
 
   const [currentPage, setCurrentPage] = useState(1);
   const poolsPerPage = 6;

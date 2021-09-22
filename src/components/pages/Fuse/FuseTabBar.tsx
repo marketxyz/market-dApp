@@ -15,6 +15,10 @@ export function useFilter() {
   return new URLSearchParams(useLocation().search).get("filter");
 }
 
+export function useSort() {
+  return new URLSearchParams(useLocation().search).get("sort");
+}
+
 function useIsMediumScreen() {
   const { width } = useWindowSize();
   return width < 1150;

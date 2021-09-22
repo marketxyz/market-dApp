@@ -621,6 +621,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 export const convertIRMtoCurve = (interestRateModel: any, fuse: Fuse) => {
   let borrowerRates = [];
   let supplierRates = [];
+  const blocksPerMin = process.env.REACT_APP_CHAIN_ID === "1" ? 4 : 30;
   for (var i = 0; i <= 100; i++) {
     const supplyLevel =
       (Math.pow(
@@ -628,7 +629,7 @@ export const convertIRMtoCurve = (interestRateModel: any, fuse: Fuse) => {
           fuse.web3.utils.toBN((i * 1e16).toString())
         ) /
           1e18) *
-          (4 * 60 * 24) +
+          (blocksPerMin * 60 * 24) +
           1,
         365
       ) -
@@ -641,7 +642,7 @@ export const convertIRMtoCurve = (interestRateModel: any, fuse: Fuse) => {
           fuse.web3.utils.toBN((i * 1e16).toString())
         ) /
           1e18) *
-          (4 * 60 * 24) +
+          (blocksPerMin * 60 * 24) +
           1,
         365
       ) -

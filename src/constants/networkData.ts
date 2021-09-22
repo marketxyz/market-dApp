@@ -15,7 +15,7 @@ export const networkData: Record<string, any> = {
         symbol: "MATIC",
         decimals: 18,
       },
-      rpcUrls: ["https://rpc-mainnet.matic.network"],
+      rpcUrls: ["https://polygon-rpc.com"],
       blockExplorerUrls: ["https://polygonscan.com/"],
     },
   },

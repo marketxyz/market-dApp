@@ -1,7 +1,9 @@
 import { Dispatch, useState } from "react";
 
 import {
+  Text,
   Box,
+  InputLeftElement,
   Button,
   ButtonGroup,
   InputGroup,
@@ -12,6 +14,7 @@ import {
   ModalContent,
   useColorModeValue,
   Flex,
+  Select,
 } from "@chakra-ui/react";
 
 import { useTranslation } from "react-i18next";
@@ -33,16 +36,31 @@ export const FuseDashNav = (props: any) => {
     return query.get("filter") ?? "";
   });
   const debouncedSearchTerm = useDebounce(searchText, 400);
+  const [sortBy, setSortBy] = useState(() => {
+    const query = new URLSearchParams(window.location.search);
+    return query.get("sort") ?? "";
+  });
 
   useEffect(() => {
     const value = encodeURIComponent(debouncedSearchTerm);
 
     if (value) {
-      navigate("?filter=" + value);
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      urlSearchParams.set("filter", value);
+
+      navigate("?" + urlSearchParams.toString());
     } else {
       navigate("");
     }
   }, [debouncedSearchTerm, navigate]);
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    if (sortBy) {
+      urlSearchParams.set("sort", sortBy);
+      navigate("?" + urlSearchParams.toString());
+    }
+  }, [sortBy, navigate]);
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("black", "white");
@@ -77,9 +95,26 @@ export const FuseDashNav = (props: any) => {
           justifyContent={isMobile ? "center" : "space-between"}
           px={isMobile ? 0 : "8"}
         >
-          <Box display="inline-block" mt={isMobile ? 3 : 0} ml={2}>
+          <Box display="flex" mt={isMobile ? 3 : 0} ml={2}>
+            <InputGroup mr={3} display={{ base: "none", lg: "flex" }}>
+              <InputLeftElement
+                children={<Text>Sort By</Text>}
+                pointerEvents="none"
+                width={"4.5rem"}
+              />
+              <Select
+                pl={"4.5rem"}
+                _focus={{}}
+                onChange={(e) => setSortBy(e.target.value)}
+                value={sortBy}
+              >
+                <option value="supply">Highest Supply</option>
+                <option value="borrow">Highest Borrow</option>
+              </Select>
+            </InputGroup>
+
             <span style={{ display: "inline-block" }}>
-              <InputGroup>
+              <InputGroup width={"250px"}>
                 <InputLeftAddon
                   pointerEvents="none"
                   children={<SearchIcon color="#d9d8da" opacity={"0.7"} />}
@@ -93,7 +128,6 @@ export const FuseDashNav = (props: any) => {
                   border="2.5px solid #d9d8da"
                   fontSize="18px"
                   borderLeft="none"
-                  borderRadius="11px"
                   paddingLeft="0px"
                   type="text"
                   value={searchText ?? ""}
