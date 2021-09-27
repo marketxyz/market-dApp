@@ -112,13 +112,8 @@ module.exports = {
     OPEN_ORACLE_PRICE_DATA_CONTRACT_ADDRESS: "",
     COINBASE_PRO_REPORTER_ADDRESS: "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC",
     PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES: {
-      PreferredPriceOracle_V1_Sushi:
-        "0xdf59fb8b39dAEbBA4538bF1a79B82F75548671E1",
       PreferredPriceOracle_V2_Quick_USDC:
-        "0x1bf9136681A1E8A29087eb976AC8201B3C6099AA",
-      ChainlinkPriceOracleV2: "0xE783A0626d9412f5FaC29f3a63C5d33D20DaA520",
-      UniswapTwapPriceOracle_SushiSwap:
-        "0x5fEb6A6ab72c5199bB4DeABcc2316436681b3E48",
+        "0xCc5F01efd5647C77861Ce15C923731f9e27E3132",
     },
     DAI_POT: "",
     DAI_JUG: "",
@@ -129,13 +124,7 @@ module.exports = {
     WETH_ADDRESS: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
     PRICE_ORACLE_RUNTIME_BYTECODE_HASHES: {
       "PreferredPriceOracleV2 Quickswap USDC":
-        "0x3660589aa8a1c799c6c89f159edc2ad3f7ddada9e11f04ce7effd4dc579c33b4",
-      PreferredPriceOracle:
-        "0x312ad79774cef171e251c806409c9e874a53a4aa85dcfd7171041d124885ab75",
-      ChainlinkPriceOracleV2:
-        "0x7ad958cf03489f10b69b6b35032914f409fac28002c2ea65a881d74fa3b36a11",
-      UniswapTwapPriceOracle_SushiSwap:
-        "0x025797e75f0aecffee6da888ed3aed0eefe6db2a8be187a410fc5fe355e9e181",
+        "0xe6a7eb0795fc9c5e05048d191246ac01efaff82eac6c8c981ed0b475e89e77a9",
     },
     ORACLES: [
       "PreferredPriceOracle",
