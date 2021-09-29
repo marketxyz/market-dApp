@@ -42,7 +42,10 @@ async function launchModalLazy(
     walletconnect: {
       package: WalletConnectProvider.default,
       options: {
-        rpcUrl: infuraURL,
+        rpc: {
+          1: infuraURL,
+          137: infuraURL,
+        },
       },
       display: {
         description: t("Scan with a wallet to connect"),
@@ -56,8 +59,10 @@ async function launchModalLazy(
   }
 
   const web3Modal = new Web3Modal.default({
+    network: process.env.REACT_APP_CHAIN_ID === "1" ? "mainnet" : "matic",
     cacheProvider,
     providerOptions,
+    theme: "dark",
   });
 
   return web3Modal.connect();
