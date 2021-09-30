@@ -229,7 +229,7 @@ const OracleAndInterestRates = ({
           className="no-underline"
           isExternal
           ml="auto"
-          href={`https://rari.grafana.net/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
+          href={`https://metrics.market.xyz/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
         >
           <PoolDashboardBox height="35px">
             <Center expand px={2} fontWeight="bold">
