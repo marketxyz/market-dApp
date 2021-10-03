@@ -1,13 +1,39 @@
-# Rari dApp &middot; ![Tests](https://github.com/Rari-Capital/rari-dApp/workflows/Tests/badge.svg) &middot; [![Coverage Status](https://coveralls.io/repos/github/Rari-Capital/rari-dApp/badge.svg?branch=master)](https://coveralls.io/github/Rari-Capital/rari-dApp?branch=master)
+# Market dApp 
 
-Rari Capital's Web3 Portal.
+The frontend dApp to access the Market protocol by Market DAO. dApp Developed by Marbase Inc, BVI
 
 ## Requirements
 
 - node: `v14.17.0`
 - npm: `v6.14.13`
 
-## Notes:
+## Notes
+
+<details>
+  <summary>How to run the dApp?</summary>
+
+  Add the following values in .env
+
+  ```bash
+  REACT_APP_CHAIN_ID=137
+  REACT_APP_DEV_API_HOST=YOUR_HOST
+  REACT_APP_ALCHEMY_RPC=YOUR_ALCHEMY_RPC_URL
+  REACT_APP_INFURA_RPC=YOUR_INFURA_RPC_URL
+  VERCEL_URL=YOUR_HOST
+  ```
+
+  Install the required packages
+
+  ```bash
+  npm install
+  ```
+
+  Run the dApp
+
+  ```bash
+  npm run start
+  ```
+</details>
 
 <details>
   <summary>What are the "compiled" folders in src/static?</summary>
@@ -16,3 +42,7 @@ Rari Capital's Web3 Portal.
 - You can generate these files using `npm install`.
 - These files are gitignored so do not worry about trying to commit them!
  </details>
+
+# LICENSE
+
+Check [./LICENSE](LICENSE)
