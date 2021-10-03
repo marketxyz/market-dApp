@@ -1,9 +1,10 @@
-import { Text } from "@chakra-ui/react";
+import { Text, useColorModeValue } from "@chakra-ui/react";
 
 const CopyrightSpacer = ({ forceShow = false }: { forceShow?: boolean }) => {
+  const textColor = useColorModeValue("black", "white");
   return (
     <Text
-      color="#FFFFFF"
+      color={textColor}
       fontSize="xs"
       display={forceShow ? "block" : { md: "none", base: "block" }}
       textAlign="center"
@@ -12,7 +13,7 @@ const CopyrightSpacer = ({ forceShow = false }: { forceShow?: boolean }) => {
       py={2}
       mt="auto"
     >
-      © {new Date().getFullYear()} Rari Capital. All rights reserved.
+      Fronted by Marsbase Inc, BVI. Protocol by Market DAO.
     </Text>
   );
 };
