@@ -53,7 +53,6 @@ export default function InterestRates() {
         </Alert>
       ) : null}
       <InterestRatesView />
-      <Footer />
     </Column>
   );
 }

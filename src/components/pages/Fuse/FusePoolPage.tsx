@@ -277,7 +277,7 @@ const FusePoolPage = memo(() => {
           </PoolDashboardBox>
         </RowOrColumn>
         <PoolInfoBox data={data} />
-        <Footer />
+        <Box h={"20"}></Box>
       </Flex>
     </PageTransitionLayout>
   );

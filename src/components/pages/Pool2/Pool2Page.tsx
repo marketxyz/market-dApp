@@ -166,7 +166,6 @@ const Pool2Page = () => {
             </Column>
           </RowOrColumn>
         </Column>
-        <Footer />
       </Column>
     </>
   );

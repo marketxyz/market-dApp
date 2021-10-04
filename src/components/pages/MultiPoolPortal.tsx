@@ -115,7 +115,6 @@ const MultiPoolPortal = memo(() => {
         </DashboardBox>
 
         <PoolCards />
-        <Footer />
       </Column>
     </>
   );

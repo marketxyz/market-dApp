@@ -119,7 +119,6 @@ const StatsPage = () => {
             {subNav === StatsSubNav.TRANCHES && <StatsTranchesSection />}
           </Box>
         </Column>
-        <Footer />
       </Column>
     </SaffronProvider>
   );

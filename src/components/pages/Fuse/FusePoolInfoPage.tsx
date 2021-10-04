@@ -118,7 +118,6 @@ const FusePoolInfoPage = memo(() => {
         <FuseStatsBar />
         <FuseTabBar />
         <PoolInfoBox data={data} />
-        <Footer />
       </Column>
     </>
   );

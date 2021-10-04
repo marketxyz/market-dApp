@@ -351,7 +351,6 @@ const PoolPortalContent = () => {
             </DashboardBox>
           </Column>
         </RowOnDesktopColumnOnMobile>
-        <Footer />
       </Column>
     </>
   );

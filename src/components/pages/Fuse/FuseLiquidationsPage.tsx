@@ -331,8 +331,6 @@ const FuseLiquidationsPage = memo(() => {
             totalPositions={positions?.length ?? 0}
           />
         </DashboardBox>
-
-        <Footer />
       </Column>
     </>
   );

@@ -1,5 +1,6 @@
 //@ts-nocheck
 
+import { Box } from "@chakra-ui/react";
 import { Column } from "utils/chakraUtils";
 import Footer from "./Footer";
 

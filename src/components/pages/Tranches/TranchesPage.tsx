@@ -162,7 +162,6 @@ const TranchePage = () => {
             </DashboardBox>
           </Column>
         </RowOrColumn>
-        <Footer />
       </Column>
     </>
   );
