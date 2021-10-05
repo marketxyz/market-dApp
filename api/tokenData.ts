@@ -130,6 +130,15 @@ export default async (request: VercelRequest, response: VercelResponse) => {
         symbol = "OT-cDAI22";
         name = "OT-cDAI DEC22-20";
       }
+    } else if (chainId === 137) {
+      if (
+        address ===
+        web3.utils.toChecksumAddress(
+          "0xa3fa99a148fa48d14ed51d610c367c61876997f1"
+        )
+      ) {
+        symbol = "MAI (MiMatic)";
+      }
     }
   }
 
