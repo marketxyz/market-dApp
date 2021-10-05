@@ -1,12 +1,8 @@
-import { AllTokens } from "rari-tokens-generator";
 import {
   USDPricedFuseAsset,
   USDPricedFuseAssetWithTokenData,
 } from "utils/fetchFusePoolData";
 import { TokenData } from "hooks/useTokenData";
-
-import Tokens from "../static/compiled/tokens.json";
-export const tokens = Tokens as AllTokens;
 
 export interface AssetHash {
   [address: string]: USDPricedFuseAsset;
