@@ -137,7 +137,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
           "0xa3fa99a148fa48d14ed51d610c367c61876997f1"
         )
       ) {
-        symbol = "MAI (MiMatic)";
+        symbol = "MAI";
       }
     }
   }

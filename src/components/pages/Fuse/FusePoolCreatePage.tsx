@@ -126,7 +126,7 @@ export const CreatePoolConfiguration = () => {
 
       const event = (
         await fuse.contracts.FusePoolDirectory.getPastEvents("PoolRegistered", {
-          fromBlock: (await fuse.web3.eth.getBlockNumber()) - 10,
+          fromBlock: (await fuse.web3.eth.getBlockNumber()) - 60,
           toBlock: "latest",
         })
       ).filter(
