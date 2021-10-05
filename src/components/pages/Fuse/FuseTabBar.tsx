@@ -204,6 +204,7 @@ const TabExternalLink = ({ route, text }: { route: string; text: string }) => {
   );
 };
 
+// eslint-disable-next-line
 const NewPoolButton = () => {
   const isMobile = useIsSmallScreen();
   const { t } = useTranslation();

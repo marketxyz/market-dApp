@@ -7,7 +7,6 @@ import {
   Switch,
   Text,
 } from "@chakra-ui/react";
-import Footer from "components/shared/Footer";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { useRari } from "context/RariContext";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";

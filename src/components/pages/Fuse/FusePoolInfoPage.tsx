@@ -9,7 +9,6 @@ import {
   Skeleton,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Footer from "components/shared/Footer";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
 import { useTranslation } from "react-i18next";

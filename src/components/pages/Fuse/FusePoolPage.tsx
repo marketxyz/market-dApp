@@ -24,7 +24,6 @@ import {
   useColorModeValue,
   Tooltip,
 } from "@chakra-ui/react";
-import Footer from "components/shared/Footer";
 import { ModalDivider } from "components/shared/Modal";
 import { SwitchCSS } from "components/shared/SwitchCSS";
 import { useRari } from "context/RariContext";
