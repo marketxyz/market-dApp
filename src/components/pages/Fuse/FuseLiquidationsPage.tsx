@@ -6,6 +6,7 @@ import {
   Spinner,
   Switch,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { useRari } from "context/RariContext";
@@ -249,6 +250,8 @@ const FuseLiquidationsPage = memo(() => {
     });
   });
 
+  
+
   const [liquidationsToShow, setLiquidationsToShow] = useState(1);
   const limitedLiquidations = liquidations?.slice(0, liquidationsToShow);
 
@@ -257,6 +260,8 @@ const FuseLiquidationsPage = memo(() => {
     0,
     positionsToShow === -1 ? positions.length : positionsToShow
   );
+
+  const bgColor = useColorModeValue("white", "gray.900");
 
   return (
     <>
@@ -280,7 +285,7 @@ const FuseLiquidationsPage = memo(() => {
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
           width="100%"
-          height={isMobile ? "400px" : "200px"}
+          height={isMobile ? "400px" : "300px"}
         >
           <DashboardBox
             height={isMobile ? "70%" : "100%"}
@@ -291,7 +296,7 @@ const FuseLiquidationsPage = memo(() => {
             <iframe
               height="100%"
               width="100%"
-              src="https://rari.grafana.net/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&panelId=16"
+              src="https://metrics.market.xyz/d/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1632985384993&to=1633590184993&viewPanel=16"
               title="Leverage"
             />
           </DashboardBox>
@@ -305,7 +310,7 @@ const FuseLiquidationsPage = memo(() => {
             bg="#141619"
           >
             <iframe
-              src="https://rari.grafana.net/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&panelId=19"
+              src="https://metrics.market.xyz/d/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1632985399081&to=1633590199081&viewPanel=19"
               height="100%"
               width="100%"
               title="Liquidation Count"
@@ -313,7 +318,7 @@ const FuseLiquidationsPage = memo(() => {
           </DashboardBox>
         </RowOrColumn>
 
-        <DashboardBox width="100%" mt={4}>
+        <DashboardBox bgColor={bgColor} width="100%" mt={4}>
           <LiquidationEventsList
             liquidations={limitedLiquidations}
             totalLiquidations={liquidations?.length ?? 0}
@@ -321,7 +326,7 @@ const FuseLiquidationsPage = memo(() => {
           />
         </DashboardBox>
 
-        <DashboardBox width="100%" mt={4}>
+        <DashboardBox bgColor={bgColor} width="100%" mt={4}>
           <LiquidatablePositionsList
             setShowAtRiskPositions={setShowAtRiskPositions}
             showAtRiskPositions={showAtRiskPositions}
@@ -784,7 +789,7 @@ const RowsControl = ({
   setAmountToShow: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { t } = useTranslation();
-
+  const bgColor = useColorModeValue("white", "#28292D")
   return (
     <Row
       mainAxisAlignment="center"
@@ -794,6 +799,7 @@ const RowsControl = ({
       px={4}
     >
       <DashboardBox
+        bgColor={bgColor}
         fontWeight="bold"
         as="button"
         px={2}
@@ -811,6 +817,7 @@ const RowsControl = ({
       </DashboardBox>
 
       <DashboardBox
+        bgColor={bgColor}
         fontWeight="bold"
         as="button"
         ml={4}
@@ -822,6 +829,7 @@ const RowsControl = ({
       </DashboardBox>
 
       <DashboardBox
+        bgColor={bgColor}
         as="button"
         ml={4}
         px={2}
@@ -832,6 +840,7 @@ const RowsControl = ({
       </DashboardBox>
 
       <DashboardBox
+        bgColor={bgColor}
         as="button"
         ml={4}
         px={2}

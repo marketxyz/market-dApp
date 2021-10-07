@@ -74,7 +74,7 @@ const FuseStatsBar = () => {
           "radial-gradient(circle, rgb(242 21 135 / 90%) 35%, rgba(180,118,234,0.10) 150%)",
           "radial-gradient(circle, rgb(242 21 225 / 60%) -239%, rgba(180,118,234,0.059) 71%)"
         )}
-        backdropFilter={useColorModeValue("brightness(0.8)", "brightness(0.5)")}
+        filter={useColorModeValue("brightness(0.8)", "brightness(0.5)")}
         whileHover={{ scale: 1.06 }}
       >
         {fuseTVL ? (
