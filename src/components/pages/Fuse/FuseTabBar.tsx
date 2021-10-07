@@ -1,5 +1,5 @@
 import { DeleteIcon, SmallAddIcon } from "@chakra-ui/icons";
-import { border, ButtonGroup, Input, Link, Text, useColorModeValue } from "@chakra-ui/react";
+import { ButtonGroup, Input, Link, Text, useColorModeValue } from "@chakra-ui/react";
 import { RowOrColumn, Row, Center, useWindowSize } from "utils/chakraUtils";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -37,8 +37,6 @@ const FuseTabBar = () => {
   const location = useLocation();
 
   const bgColor = useColorModeValue("white", "gray.900");
-  const textColor = useColorModeValue("black", "white");
-  const borderColor = useColorModeValue("#e6e4e7", "gray.700");
 
   return (
     <DashboardBox width="100%" mt={4} height={isMobile ? "auto" : "65px"}>
@@ -168,7 +166,6 @@ const TabLink = ({ route, text }: { route: string; text: string }) => {
 
   const bgColor = useColorModeValue("white", "#28292D");
   const textColor = useColorModeValue("black", "white");
-  const borderColor = useColorModeValue("#e6e4e7", "gray.700");
 
   return (
     <Link
