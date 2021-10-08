@@ -15,6 +15,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     .call({ gas: 1e18 });
 
   let owner = req.query.owner;
+  if (!owner) {
+    return res.send("Query parameter not provided");
+  }
   let matchedPool: Record<any, any>[] = [];
   for (let [idx, p] of Object.entries(poolData[1]) as any) {
     const contract = new fuse.web3.eth.Contract(
@@ -36,7 +39,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           supply: poolData[2][idx],
           borrow: poolData[3][idx],
           underlyingTokens: poolData[4][idx],
-          underlyingSymbols: poolData[5][idx]
+          underlyingSymbols: poolData[5][idx],
         });
       }
     } catch (e) {
