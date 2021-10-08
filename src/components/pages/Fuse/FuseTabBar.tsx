@@ -7,7 +7,7 @@ import { useIsSmallScreen } from "../../../hooks/useIsSmallScreen";
 import DashboardBox from "../../shared/DashboardBox";
 import { Link as RouterLink } from "react-router-dom";
 
-const activeStyle = { bg: "#2f2f2f", color: "#white" };
+const activeStyle = { bg: "#2f2f2f", color: "white" };
 
 const noop = {};
 
