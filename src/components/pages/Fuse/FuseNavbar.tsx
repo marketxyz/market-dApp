@@ -177,7 +177,7 @@ const FuseNavbar = () => {
 
   return (
     <>
-      <Alert status="warning">
+      <Alert width="100vw" status="warning">
         <AlertIcon />
         <Text mr={1}>
           Market is currently in beta mode. Please be mindful of the

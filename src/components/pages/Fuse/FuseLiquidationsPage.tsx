@@ -30,6 +30,7 @@ import DashboardBox from "../../shared/DashboardBox";
 import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
 import CTokenIcon from "./CTokenIcon";
+import FuseNavbar from "./FuseNavbar";
 import FuseStatsBar from "./FuseStatsBar";
 import FuseTabBar from "./FuseTabBar";
 
@@ -250,8 +251,6 @@ const FuseLiquidationsPage = memo(() => {
     });
   });
 
-  
-
   const [liquidationsToShow, setLiquidationsToShow] = useState(1);
   const limitedLiquidations = liquidations?.slice(0, liquidationsToShow);
 
@@ -262,63 +261,82 @@ const FuseLiquidationsPage = memo(() => {
   );
 
   const bgColor = useColorModeValue("white", "gray.900");
-
+  const boxBg = useColorModeValue("white", "#21262e");
+  const textColor = useColorModeValue("black", "white");
+  const boxShadow = useColorModeValue(
+    "0px 21px 44px rgba(71, 29, 97, 0.105141)",
+    "0px 2px 44px rgb(71 29 97 / 29%)"
+  );
+  const frame1 = useColorModeValue(
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235290884&to=1633840090885&theme=light&panelId=16",
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235275204&to=1633840075204&theme=dark&panelId=16"
+  );
+  const frame2 = useColorModeValue(
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235241778&to=1633840041778&theme=light&panelId=19",
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235223126&to=1633840023126&theme=dark&panelId=19"
+  );
   return (
     <>
       <Column
+        color={textColor}
         mainAxisAlignment="flex-start"
         crossAxisAlignment="center"
-        color="#FFFFFF"
+        bgColor={bgColor}
         mx="auto"
-        width={isMobile ? "100%" : "1000px"}
+        width="100%"
         height="100%"
         px={isMobile ? 4 : 0}
       >
-        <Header isAuthed={isAuthed} isFuse />
+        {/* <Header isAuthed={isAuthed} isFuse /> */}
+        <FuseNavbar />
         <FuseStatsBar />
 
-        <FuseTabBar />
+        {/* <FuseTabBar /> */}
 
         <RowOrColumn
           isRow={!isMobile}
           mt={4}
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
-          width="100%"
+          width={isMobile ? "100%" : "90%"}
           height={isMobile ? "400px" : "300px"}
         >
           <DashboardBox
             height={isMobile ? "70%" : "100%"}
             width={isMobile ? "100%" : "70%"}
+            bgColor={boxBg}
+            shadow={boxShadow}
             overflow="hidden"
             bg="#141619"
           >
-            <iframe
-              height="100%"
-              width="100%"
-              src="https://metrics.market.xyz/d/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1632985384993&to=1633590184993&viewPanel=16"
-              title="Leverage"
-            />
+            <iframe height="100%" width="100%" src={frame1} title="Leverage" />
           </DashboardBox>
 
           <DashboardBox
             height={isMobile ? "30%" : "100%"}
             width={isMobile ? "100%" : "30%"}
+            bgColor={boxBg}
+            shadow={boxShadow}
             mt={isMobile ? 4 : 0}
             ml={isMobile ? 0 : 4}
             overflow="hidden"
             bg="#141619"
           >
             <iframe
-              src="https://metrics.market.xyz/d/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1632985399081&to=1633590199081&viewPanel=19"
               height="100%"
               width="100%"
+              src={frame2}
               title="Liquidation Count"
             />
           </DashboardBox>
         </RowOrColumn>
 
-        <DashboardBox bgColor={bgColor} width="100%" mt={4}>
+        <DashboardBox
+          bgColor={boxBg}
+          shadow={boxShadow}
+          width={isMobile ? "100%" : "90%"}
+          mt={8}
+        >
           <LiquidationEventsList
             liquidations={limitedLiquidations}
             totalLiquidations={liquidations?.length ?? 0}
@@ -326,7 +344,13 @@ const FuseLiquidationsPage = memo(() => {
           />
         </DashboardBox>
 
-        <DashboardBox bgColor={bgColor} width="100%" mt={4}>
+        <DashboardBox
+          bgColor={boxBg}
+          shadow={boxShadow}
+          mb="2rem"
+          width={isMobile ? "100%" : "90%"}
+          mt={8}
+        >
           <LiquidatablePositionsList
             setShowAtRiskPositions={setShowAtRiskPositions}
             showAtRiskPositions={showAtRiskPositions}
@@ -789,7 +813,7 @@ const RowsControl = ({
   setAmountToShow: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { t } = useTranslation();
-  const bgColor = useColorModeValue("white", "#28292D")
+  const bgColor = useColorModeValue("white", "#28292D");
   return (
     <Row
       mainAxisAlignment="center"

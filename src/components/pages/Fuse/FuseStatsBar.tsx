@@ -28,7 +28,7 @@ const FuseStatsBar = () => {
       py="72px"
       px={{ base: "5vw", lg: 0 }}
       w="100%"
-      maxWidth={{ lg: "1200px" }}
+      maxWidth={{ lg: "90%"}}
       gridGap="1.5rem"
     >
       <Flex
