@@ -16,9 +16,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   let owner = req.query.owner;
   if (!owner) {
-    return res.send("Query parameter not provided");
+    return res.status(404).json({ msg: "query parameter not provided" });
   }
-  let matchedPool: Record<any, any>[] = [];
+  let matchedPools: Record<any, any>[] = [];
   for (let [idx, p] of Object.entries(poolData[1]) as any) {
     const contract = new fuse.web3.eth.Contract(
       JSON.parse(
@@ -30,7 +30,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     try {
       let admin = await contract.methods.admin().call({ gas: 1e18 });
       if (admin === owner) {
-        matchedPool.push({
+        matchedPools.push({
           name: p.name,
           creator: p.creator,
           comptroller: p.comptroller,
@@ -49,5 +49,5 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   res.setHeader("Cache-Control", "maxage=600, s-maxage=600");
 
-  return res.json(matchedPool);
+  return res.json(matchedPools);
 };
