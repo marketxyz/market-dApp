@@ -696,7 +696,7 @@ const AssetConfiguration = ({
   assets: USDPricedFuseAsset[];
   comptrollerAddress: string;
   poolName: string;
-  poolID: string;
+  poolID: any;
 }) => {
   const isMobile = useIsSemiSmallScreen();
 

@@ -177,15 +177,20 @@ const FuseNavbar = () => {
 
   return (
     <>
-      <Alert status="warning">
+      <Alert width="100vw" status="warning">
         <AlertIcon />
-        <Text mr={1}>
+        <Text>
           Market is currently in beta mode. Please be mindful of the
           SmartContract risks, Learn more at:
+          <Link
+            ml={"1.5"}
+            href="https://docs.rari.capital"
+            as={"a"}
+            textDecor="underline"
+          >
+            docs.rari.capital
+          </Link>
         </Text>
-        <Link href="https://docs.rari.capital" as={"a"} textDecor="underline">
-          docs.rari.capital
-        </Link>
       </Alert>
       <Box bgColor={bgColor} overflowX="hidden" w="100%" px={["0px", "25px"]}>
         <Flex

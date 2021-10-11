@@ -1,5 +1,5 @@
 import { DeleteIcon, SmallAddIcon } from "@chakra-ui/icons";
-import { ButtonGroup, Input, Link, Text } from "@chakra-ui/react";
+import { ButtonGroup, Input, Link, Text, useColorModeValue } from "@chakra-ui/react";
 import { RowOrColumn, Row, Center, useWindowSize } from "utils/chakraUtils";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useIsSmallScreen } from "../../../hooks/useIsSmallScreen";
 import DashboardBox from "../../shared/DashboardBox";
 import { Link as RouterLink } from "react-router-dom";
 
-const activeStyle = { bg: "#FFF", color: "#000" };
+const activeStyle = { bg: "#2f2f2f", color: "white" };
 
 const noop = {};
 
@@ -36,6 +36,8 @@ const FuseTabBar = () => {
   const filter = useFilter();
   const location = useLocation();
 
+  const bgColor = useColorModeValue("white", "gray.900");
+
   return (
     <DashboardBox width="100%" mt={4} height={isMobile ? "auto" : "65px"}>
       <RowOrColumn
@@ -43,10 +45,12 @@ const FuseTabBar = () => {
         expand
         mainAxisAlignment="flex-start"
         crossAxisAlignment="center"
+        bgColor={bgColor}
+        borderRadius="9px"
         p={4}
       >
         <ButtonGroup size="sm" isAttached variant="outline" height="35px">
-          <DashboardBox height="35px">
+          <DashboardBox bgColor="#df2eac" height="35px">
             <Row
               pl={2}
               expand
@@ -100,7 +104,7 @@ const FuseTabBar = () => {
         <TabLink route="/" text={t("All Pools")} />
         <TabLink route="/fuse?filter=created-pools" text={t("Created Pools")} />
         <TabExternalLink
-          route="https://rari.grafana.net/goto/61kctV_Gk"
+          route="https://metrics.market.xyz/goto/61kctV_Gk"
           text={t("Metrics")}
         />
 
@@ -160,17 +164,25 @@ const TabLink = ({ route, text }: { route: string; text: string }) => {
 
   const location = useLocation();
 
+  const bgColor = useColorModeValue("white", "#28292D");
+  const textColor = useColorModeValue("black", "white");
+
   return (
     <Link
       /* @ts-ignore */
       as={RouterLink}
       className="no-underline"
+      color={textColor}
+      borderRadius="10px"
       to={route}
       ml={isMobile ? 0 : 4}
       mt={isMobile ? 4 : 0}
     >
       <DashboardBox
         height="35px"
+        bgColor={bgColor}
+        borderRadius="10px"
+        padding="2px"
         {...(route ===
         location.pathname.replace(/\/+$/, "") + window.location.search
           ? activeStyle
@@ -186,16 +198,20 @@ const TabLink = ({ route, text }: { route: string; text: string }) => {
 
 const TabExternalLink = ({ route, text }: { route: string; text: string }) => {
   const isMobile = useIsSmallScreen();
+  const bgColor = useColorModeValue("white", "#28292D");
+  const textColor = useColorModeValue("black", "white");
 
   return (
     <Link
       className="no-underline"
       href={route}
+      color={textColor}
+      borderRadius="10px"
       isExternal
       ml={isMobile ? 0 : 4}
       mt={isMobile ? 4 : 0}
     >
-      <DashboardBox height="35px">
+      <DashboardBox bgColor={bgColor} height="35px">
         <Center expand px={2} fontWeight="bold">
           {text}
         </Center>

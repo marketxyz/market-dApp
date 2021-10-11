@@ -625,7 +625,7 @@ const AddAssetModal = ({
 }: {
   comptrollerAddress: string;
   poolName: string;
-  poolID: string;
+  poolID: any;
   isOpen: boolean;
   onClose: () => any;
   existingAssets: USDPricedFuseAsset[];
