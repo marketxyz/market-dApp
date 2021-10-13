@@ -50,7 +50,7 @@ export const fetchTokenData = async (address: string) => {
           (process.env.NODE_ENV === "development"
             ? process.env.REACT_APP_DEV_API_HOST
             : "") +
-            "/api/tokenData?address=" +
+            "api/tokenData?address=" +
             address
         ).then((res) => res.json())),
         address: address,

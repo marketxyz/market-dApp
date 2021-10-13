@@ -9,6 +9,7 @@ import { infuraURL } from "../src/utils/web3Providers";
 
 const web3 = new Web3(infuraURL);
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Cache-Control", "max-age=3600, s-maxage=3600");

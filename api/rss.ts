@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { NowRequest, NowResponse, VercelRequest, VercelResponse } from "@vercel/node";
 
 import { variance, median } from "mathjs";
 import fetch from "node-fetch";
@@ -482,7 +482,8 @@ async function computeAssetRSS(address: string): Promise<RSSOutput> {
   }
 }
 
-export default async (request: NowRequest, response: NowResponse) => {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default async (request: VercelRequest, response: VercelResponse) => {
   const { address, poolID } = <Record<string, string>>request.query;
 
   response.setHeader("Access-Control-Allow-Origin", "*");
