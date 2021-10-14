@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
 import { motion } from "framer-motion";
+import { ModalDivider } from "components/shared/Modal";
 
 const MotionFlex = motion<FlexProps>(Flex);
 
@@ -30,6 +31,7 @@ const FuseStatsBar = () => {
       w="100%"
       maxWidth={{ lg: "90%"}}
       gridGap="1.5rem"
+      
     >
       <Flex
         flexDir="column"

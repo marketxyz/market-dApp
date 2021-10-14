@@ -232,6 +232,7 @@ const FuseNavbar = () => {
             {t("Buy Crypto")}
           </Button> */}
             <NetworkSwitcher />
+            <AccountButton />
             <Button onClick={toggleColorMode} m={2} ml={isMobile ? 0 : 2}>
               {colorMode === "light" ? (
                 <MoonIcon color="gray.700" w={5} h={5} />
@@ -239,7 +240,6 @@ const FuseNavbar = () => {
                 <SunIcon color="yellow.300" w={5} h={5} />
               )}
             </Button>
-            <AccountButton />
           </Box>
         </Flex>
       </Box>

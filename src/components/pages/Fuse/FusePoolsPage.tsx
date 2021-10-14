@@ -6,6 +6,7 @@ import {
   Box,
   TextProps,
   useColorModeValue,
+  Divider,
 } from "@chakra-ui/react";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { useFusePools } from "hooks/fuse/useFusePools";
@@ -21,6 +22,7 @@ const FusePoolsPage = memo(() => {
     <PageTransitionLayout>
       <FusePageLayout>
         <FuseStatsBar />
+        <Divider />
         <FuseDashNav isFuse />
         <PoolList />
       </FusePageLayout>
@@ -85,7 +87,7 @@ const PoolList = () => {
           autoFlow="row"
           columns={{ base: 1, md: 2, lg: 2, xl: 3 }}
           my="2rem"
-          w={"95%"}
+          w={"90%"}
           mx="auto"
           gridGap="8"
           gridRowGap="12"
@@ -97,7 +99,7 @@ const PoolList = () => {
       ) : (
         <Box
           textAlign="center"
-          width="100%"
+          width="90%"
           py="20"
           fontSize="3xl"
           fontWeight="semibold"
