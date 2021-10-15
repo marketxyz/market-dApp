@@ -82,7 +82,7 @@ const NetworkSwitcher = () => {
 
   return (
     <>
-      <Button m={2} onClick={onOpen}>
+      <Button borderRadius="12px" m={2} onClick={onOpen}>
         <Image
           src={networkData[chainName].img}
           h={"6"}
@@ -232,7 +232,7 @@ const FuseNavbar = () => {
           </Button> */}
             <NetworkSwitcher />
             <AccountButton />
-            <Button onClick={toggleColorMode} m={2} ml={isMobile ? 0 : 2}>
+            <Button borderRadius="12px" onClick={toggleColorMode} m={2}>
               {colorMode === "light" ? (
                 <MoonIcon color="gray.700" w={5} h={5} />
               ) : (
