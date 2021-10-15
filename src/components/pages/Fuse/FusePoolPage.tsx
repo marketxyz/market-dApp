@@ -119,7 +119,7 @@ const FusePoolPage = memo(() => {
           mx="auto"
           maxW={{ lg: "1200px" }}
           spacing={6}
-          px={{ base: 6, lg: 0 }}
+          px={{ base: 6, lg: 12, xl: 0 }}
         >
           <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
@@ -127,9 +127,8 @@ const FusePoolPage = memo(() => {
 
           {data ? (
             <Heading
-              lineHeight={1}
               textAlign="center"
-              fontSize="2xl"
+              fontSize="xl"
               fontWeight="bold"
             >
               {data.name}
@@ -160,14 +159,13 @@ const FusePoolPage = memo(() => {
         <Box
           as="section"
           bg={useColorModeValue("gray.50", "gray.900")}
-          px="10"
           py="4"
-          pb="8"
-          width={"100%"}
+          width={{ lg: "90%", xl: "100%" }}
           display={{ sm: "none", md: "block" }}
+          alignSelf={"center"}
         >
-          <Box maxW="7xl" mx="auto" px={{ base: "6", md: "8" }}>
-            <Heading marginBottom={"2"} fontWeight="semibold" fontSize={"2xl"}>
+          <Box maxW="1200px" mx="auto">
+            <Heading marginBottom={"4"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
             </Heading>
             <SimpleGrid columns={{ base: 1, md: 4 }} spacing="3">
@@ -237,7 +235,7 @@ const FusePoolPage = memo(() => {
           ) : null
         }
         <RowOrColumn
-          width="100%"
+          width="90%"
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-start"
           maxW={{ lg: "1200px" }}

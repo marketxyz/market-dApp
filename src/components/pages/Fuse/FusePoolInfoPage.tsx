@@ -133,7 +133,7 @@ export const PoolInfoBox = ({
 
   return (
     <RowOrColumn
-      width="100%"
+      width="90%"
       maxW={{ lg: "1200px" }}
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
