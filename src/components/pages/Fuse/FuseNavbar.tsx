@@ -102,9 +102,9 @@ const NetworkSwitcher = () => {
           border={"medium"}
           borderColor="#DF2EAC"
           borderStyle="solid"
-          borderRadius={"lg"}
+          borderRadius="20px"
         >
-          <ModalHeader>Select a Network</ModalHeader>
+          <ModalHeader fontSize="1.5rem">Select a Network</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Heading fontSize={"lg"} fontWeight={"medium"} lineHeight={"tall"}>
@@ -139,6 +139,7 @@ const NetworkSwitcher = () => {
                   justifyContent={"flex-start"}
                   fontSize={"md"}
                   border={chainId === d.chainId ? selectedNetworkBorder : ""}
+                  borderRadius="12px"
                   disabled={!d.enabled}
                   bg={chainId === d.chainId ? btnBgActive : btnBg}
                   onClick={() =>

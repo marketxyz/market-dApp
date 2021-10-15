@@ -64,7 +64,6 @@ export const FuseDashNav = (props: any) => {
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("black", "white");
-  const borderColor = useColorModeValue("#e6e4e7", "gray.700");
   const isMobile = useIsSmallScreen();
 
   return (
