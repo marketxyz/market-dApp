@@ -586,6 +586,8 @@ const AssetSupplyRow = ({
 
   const { t } = useTranslation();
 
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+
   return (
     <>
       <PoolModal
@@ -637,7 +639,7 @@ const AssetSupplyRow = ({
             onClick={authedOpenModal}
           >
             <Text
-              color={tokenData?.color ?? "#FF"}
+              color={tokenData?.color ?? textColor}
               fontWeight="bold"
               fontSize="17px"
             >
@@ -667,7 +669,7 @@ const AssetSupplyRow = ({
           onClick={authedOpenModal}
         >
           <Text
-            color={tokenData?.color ?? "#FFF"}
+            color={tokenData?.color ?? textColor}
             fontWeight="bold"
             fontSize="17px"
           >
@@ -848,6 +850,8 @@ const AssetBorrowRow = ({
 
   const isMobile = useIsMobile();
 
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+
   return (
     <>
       <PoolModal
@@ -922,7 +926,7 @@ const AssetBorrowRow = ({
           width={isMobile ? "40%" : "27%"}
         >
           <Text
-            color={tokenData?.color ?? "#FFF"}
+            color={tokenData?.color ?? textColor}
             fontWeight="bold"
             fontSize="17px"
           >
@@ -949,7 +953,7 @@ const AssetBorrowRow = ({
               crossAxisAlignment="flex-end"
             >
               <Text
-                color={tokenData?.color ?? "#FFF"}
+                color={tokenData?.color ?? textColor}
                 fontWeight="bold"
                 fontSize="17px"
               >
