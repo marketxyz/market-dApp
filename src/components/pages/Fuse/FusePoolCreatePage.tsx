@@ -183,6 +183,7 @@ export const CreatePoolConfiguration = () => {
               </Text>
               <Input
                 width="40%"
+                placeholder="Type Pool name"
                 value={name}
                 borderColor={borderColor}
                 onChange={(event) => setName(event.target.value)}
@@ -246,7 +247,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Whitelisted")} <QuestionIcon ml={1} mb="4px" />
+                  {t("Whitelisted")} <QuestionIcon mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -290,7 +291,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Close Factor")} <QuestionIcon ml={1} mb="4px" />
+                  {t("Close Factor")} <QuestionIcon mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -312,7 +313,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Liquidation Incentive")} <QuestionIcon ml={1} mb="4px" />
+                  {t("Liquidation Incentive")} <QuestionIcon mb="4px" />
                 </Text>
               </SimpleTooltip>
 
