@@ -149,7 +149,7 @@ export const CreatePoolConfiguration = () => {
 
   const bgColor = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.300", "gray.700");
-  const btnColor = useColorModeValue("#DF2EAC", "#77135B");
+  const btnColor = useColorModeValue("#DF2EAC", "#962277");
   const btnTextColor = useColorModeValue("white", "gray.200");
   const dividerColor = useColorModeValue("gray.300", "black")
   const isMobile = useIsSmallScreen();
