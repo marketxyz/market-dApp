@@ -158,7 +158,7 @@ const FusePoolPage = memo(() => {
         </HStack>
         <Box
           as="section"
-          bg={useColorModeValue("gray.50", "gray.900")}
+          bg={bgColor}
           py="4"
           width={{ lg: "90%", xl: "100%" }}
           display={{ sm: "none", md: "block" }}
