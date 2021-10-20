@@ -152,7 +152,6 @@ const FuseLiquidationsPage = memo(() => {
     const pools = await fuse.contracts.FusePoolDirectory.methods
       .getAllPools()
       .call();
-
     let liquidationEvents: LiquidationEvent[] = [];
 
     let poolFetches: Promise<any>[] = [];

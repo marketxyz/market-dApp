@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   initFuseWithProviders,
   turboGethURL,
@@ -6,7 +6,7 @@ import {
 
 const fuse = initFuseWithProviders(turboGethURL);
 
-export default async (req: NowRequest, res: NowResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   let pools = await fuse.contracts.FusePoolLens.methods
