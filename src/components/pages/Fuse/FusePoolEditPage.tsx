@@ -712,10 +712,6 @@ const AssetConfiguration = ({
   const { t } = useTranslation();
 
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
-
-  const bgColor = useColorModeValue("white", "gray.900")
-  const cardColor = useColorModeValue("gray.50", "gray.800")
-  const textColor = useColorModeValue("#2f2f2f", "white")
   const borderColor = useColorModeValue("gray.50", "gray.800")
 
   return (

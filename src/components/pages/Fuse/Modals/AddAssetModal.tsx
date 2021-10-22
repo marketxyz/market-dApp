@@ -367,8 +367,6 @@ export const AssetSettings = ({
   };
 
   const bgColor = useColorModeValue("white", "gray.900")
-  const cardColor = useColorModeValue("gray.50", "gray.800")
-  const textColor = useColorModeValue("#2f2f2f", "white")
   const borderColor = useColorModeValue("gray.200", "gray.700")
 
   return (
