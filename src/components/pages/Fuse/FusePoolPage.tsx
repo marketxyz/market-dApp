@@ -17,13 +17,17 @@ import {
   Text,
   useDisclosure,
   useToast,
+  Icon,
   Skeleton,
   StatLabelProps,
   StatNumberProps,
   StatProps,
   useColorModeValue,
   Tooltip,
+  Link as ChakraLink,
+  Button,
 } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
 import { SwitchCSS } from "components/shared/SwitchCSS";
 import { useRari } from "context/RariContext";
@@ -604,7 +608,7 @@ const AssetSupplyRow = ({
         crossAxisAlignment="center"
         width="100%"
         px={4}
-        py={1.5}
+        py={tokenData?.extraData.hasAPY ? "2" : "1.5"}
         _hover={{
           bgColor: useColorModeValue("gray.200", "gray.700"),
         }}
@@ -627,6 +631,18 @@ const AssetSupplyRow = ({
           />
           <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
+            {tokenData?.extraData.partnerURL ? (
+              <Button
+                variant={"link"}
+                as={ChakraLink}
+                href={tokenData?.extraData.partnerURL}
+                isExternal
+              >
+                <ExternalLinkIcon h={4} />
+              </Button>
+            ) : (
+              <></>
+            )}
           </Text>
         </Row>
 
@@ -638,18 +654,58 @@ const AssetSupplyRow = ({
             as="button"
             onClick={authedOpenModal}
           >
-            <Text
-              color={tokenData?.color ?? "#FF"}
-              fontWeight="bold"
-              fontSize="17px"
+            <Tooltip
+              label={
+                "The Supply APY is the forecasted APY you earn by supplying this asset based on the current utilisation ratios of this pool!"
+              }
             >
-              {isStakedOHM
-                ? stakedOHMApyData
-                  ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
-                  : "?"
-                : supplyAPY.toFixed(3)}
-              %
-            </Text>
+              <Text
+                color={tokenData?.color ?? "#FF"}
+                fontWeight="bold"
+                fontSize="17px"
+              >
+                {isStakedOHM
+                  ? stakedOHMApyData
+                    ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
+                    : "?"
+                  : supplyAPY.toFixed(2)}
+                %
+              </Text>
+            </Tooltip>
+            {tokenData?.extraData.hasAPY && (
+              <Row
+                // ml={1}
+                // mb={.5}
+                crossAxisAlignment="center"
+                mainAxisAlignment="flex-end"
+                py={1}
+                pt={"0.5"}
+              >
+                <Text fontWeight="bold" fontSize="lg" mr={1}>
+                  +
+                </Text>
+                <AvatarGroup size="xs" max={30} ml={2} mr={1} spacing={1}>
+                  {/* <SimpleTooltip label={displayedSupplyAPRLabel}> */}
+                  <CTokenIcon
+                    address={asset.underlyingToken}
+                    boxSize="20px"
+                    _hover={{
+                      zIndex: 9,
+                      border: ".5px solid white",
+                      transform: "scale(1.3);",
+                    }}
+                  />
+                  {/* </SimpleTooltip> */}
+                </AvatarGroup>
+                <Tooltip
+                  label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
+                >
+                  <Text fontWeight="bold" pl={1} fontSize="sm">
+                    {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
+                  </Text>
+                </Tooltip>
+              </Row>
+            )}
 
             <Tooltip
               label={t(
