@@ -13,6 +13,7 @@ import {
   VStack,
   Divider,
   HStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import BigNumber from "bignumber.js";
 import LogRocket from "logrocket";
@@ -39,8 +40,8 @@ import FuseStatsBar from "./FuseStatsBar";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
 import { Link } from "react-router-dom";
 
-const activeStyle = { bg: "#FFF", color: "#000", borderColor: "#BBB" };
-const noop = { bg: "#000", color: "#FFF" };
+const activeStyle = { bg: "gray.300", color: "#2f2f2f", borderColor: "#BBB" };
+const noop = { bg: "gray.700", color: "#F2F2F2" };
 
 const formatPercentage = (value: number) => value.toFixed(0) + "%";
 
@@ -121,6 +122,11 @@ const FusePoolEditPage = memo(() => {
 
   const data = useFusePoolData(poolId);
 
+  const bgColor = useColorModeValue("white", "gray.900")
+  const cardColor = useColorModeValue("gray.50", "gray.800")
+  const textColor = useColorModeValue("#2f2f2f", "white")
+  const borderColor = useColorModeValue("gray.50", "gray.800")
+
   return (
     <>
       {data ? (
@@ -136,10 +142,9 @@ const FusePoolEditPage = memo(() => {
 
       <Flex
         w="100vw"
-        minH="100vh"
         flexDir="column"
         alignItems="flex-start"
-        bgColor="white"
+        bgColor={bgColor}
         justifyContent="flex-start"
       >
         <VStack overflowY="hidden" position="relative" w="100%">
@@ -186,8 +191,8 @@ const FusePoolEditPage = memo(() => {
           <chakra.img
             src="/static/fuse/header-eth.svg"
             position="absolute"
-            top={{ base: "15%" }}
-            right={{ base: "0", lg: "10%" }}
+            top={{ base: "25%" }}
+            right={{ base: "0", lg: "26%" }}
           />
           <chakra.img
             src="/static/fuse/Icon2.svg"
@@ -210,11 +215,11 @@ const FusePoolEditPage = memo(() => {
         <HStack
           mainAxisAlignment="center"
           crossAxisAlignment="center"
-          width="100%"
+          width={isMobile ? "95%" : "90%"}
           my={8}
           mx="auto"
           maxW={{ lg: "1200px" }}
-          spacing={6}
+          spacing={4}
         >
           <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
@@ -222,7 +227,7 @@ const FusePoolEditPage = memo(() => {
           <Text
             lineHeight={1}
             textAlign="center"
-            fontSize="xl"
+            fontSize="lg"
             fontWeight="bold"
           >
             {data?.name}
@@ -249,12 +254,12 @@ const FusePoolEditPage = memo(() => {
         </HStack>
 
         <RowOrColumn
-          width="100%"
+          width={isMobile ? "100%" : "90%"}
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-start"
-          maxW={{ lg: "1200px" }}
-          bgColor="white"
-          textColor="black"
+          maxW={{sm: "1000px", md: "800px", lg: "1000px", xl: "1200px"}}
+          bgColor={bgColor}
+          textColor={textColor}
           px={{ base: 6, lg: 0 }}
           mx="auto"
           mt={4}
@@ -262,8 +267,8 @@ const FusePoolEditPage = memo(() => {
           mb="8"
         >
           <DashboardBox
-            bg="#fff"
-            borderColor="#BBB"
+            bg={cardColor}
+            borderColor={borderColor}
             width={isMobile ? "100%" : "50%"}
             height={isMobile ? "auto" : "440px"}
             mt={4}
@@ -282,8 +287,8 @@ const FusePoolEditPage = memo(() => {
 
           <Box pl={isMobile ? 0 : 4} width={isMobile ? "100%" : "50%"}>
             <DashboardBox
-              bg="#FFF"
-              borderColor="#BBB"
+              bg={cardColor}
+              borderColor={borderColor}
               width="100%"
               mt={4}
               height={isMobile ? "auto" : "440px"}
@@ -519,17 +524,21 @@ const PoolConfiguration = ({
     }
   };
 
+  const bgColor = useColorModeValue("white", "gray.900")
+  const borderColor = useColorModeValue("gray.50", "gray.800")
+  const textColor = useColorModeValue("#2f2f2f", "white")
+
   return (
     <Column
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
       height="100%"
     >
-      <Heading size="sm" px={4} py={4}>
+      <Heading size="md" px={4} py={5}>
         {t("Pool {{num}} Configuration", { num: poolId })}
       </Heading>
 
-      <Divider borderColor="#BBB" bg="#BBB" />
+      <Divider bg={borderColor}/>
 
       {data ? (
         <Column
@@ -568,7 +577,7 @@ const PoolConfiguration = ({
             )}
           </ConfigRow>
 
-          <Divider borderColor="#BBB" bg="#BBB" />
+          <Divider bg={borderColor}/>
 
           <Column
             mainAxisAlignment="flex-start"
@@ -587,7 +596,7 @@ const PoolConfiguration = ({
                   changeWhitelistStatus(!data.enforceWhitelist);
                 }}
                 className="black-switch"
-                colorScheme="#121212"
+                colorScheme={textColor}
               />
             </ConfigRow>
 
@@ -599,7 +608,7 @@ const PoolConfiguration = ({
               />
             ) : null}
 
-            <Divider borderColor="#BBB" bg="#BBB" />
+            <Divider bg={borderColor}/>
 
             <ConfigRow>
               <Text fontWeight="bold">{t("Upgradeable")}:</Text>
@@ -610,8 +619,8 @@ const PoolConfiguration = ({
                   ml="auto"
                   as="button"
                   onClick={renounceOwnership}
-                  bg="#000"
-                  color="#FFF"
+                  bg={bgColor}
+                  color={textColor}
                 >
                   <Center expand px={2} fontWeight="normal">
                     {t("Renounce Ownership")}
@@ -628,14 +637,14 @@ const PoolConfiguration = ({
               height="35px"
               ml="auto"
               as="button"
-              bg="#000"
+              bg={bgColor}
               color="#FFF"
               onClick={changeOracle}
             >
               Change Oracle
             </DashboardBox> */}
 
-            <Divider borderColor="#BBB" bg="#BBB" />
+            <Divider bg={borderColor}/>
 
             <ConfigRow height="35px">
               <Text fontWeight="bold">{t("Close Factor")}:</Text>
@@ -654,7 +663,7 @@ const PoolConfiguration = ({
               />
             </ConfigRow>
 
-            <Divider borderColor="#BBB" bg="#BBB" />
+            <Divider bg={borderColor}/>
 
             <ConfigRow height="35px">
               <Text fontWeight="bold">{t("Liquidation Incentive")}:</Text>
@@ -704,6 +713,11 @@ const AssetConfiguration = ({
 
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
+  const bgColor = useColorModeValue("white", "gray.900")
+  const cardColor = useColorModeValue("gray.50", "gray.800")
+  const textColor = useColorModeValue("#2f2f2f", "white")
+  const borderColor = useColorModeValue("gray.50", "gray.800")
+
   return (
     <Column
       mainAxisAlignment="flex-start"
@@ -713,7 +727,7 @@ const AssetConfiguration = ({
       flexShrink={0}
     >
       <ConfigRow mainAxisAlignment="space-between">
-        <Heading size="sm">{t("Assets Configuration")}</Heading>
+        <Heading size="md">{t("Assets Configuration")}</Heading>
 
         <AddAssetButton
           comptrollerAddress={comptrollerAddress}
@@ -721,7 +735,7 @@ const AssetConfiguration = ({
         />
       </ConfigRow>
 
-      <Divider borderColor="#BBB" bg="#BBB" />
+      <Divider bgColor={borderColor} />
 
       <ConfigRow>
         <Text fontWeight="bold" mr={2}>
@@ -742,7 +756,7 @@ const AssetConfiguration = ({
                   ? noop
                   : activeStyle)}
               >
-                <Center expand px={4} py={1} fontWeight="bold">
+                <Center expand px={4} fontWeight="bold">
                   {asset.underlyingSymbol}
                 </Center>
               </DashboardBox>
@@ -751,7 +765,7 @@ const AssetConfiguration = ({
         })}
       </ConfigRow>
 
-      <Divider borderColor="#BBB" bg="#BBB" />
+      <Divider bg={borderColor} />
 
       <ColoredAssetSettings
         comptrollerAddress={comptrollerAddress}
@@ -803,6 +817,8 @@ export const SaveButton = ({
   [key: string]: any;
 }) => {
   const { t } = useTranslation();
+  const bgColor = useColorModeValue("white", "gray.900")
+  const textColor = useColorModeValue("#2f2f2f", "white")
 
   return (
     <DashboardBox
@@ -812,8 +828,8 @@ export const SaveButton = ({
       height="35px"
       as="button"
       fontWeight="normal"
-      bg="#000"
-      color="#FFF"
+      bg={bgColor}
+      color={textColor}
       onClick={onClick}
       {...others}
     >
@@ -832,6 +848,9 @@ const AddAssetButton = ({
   const { t } = useTranslation();
 
   const isUpgradeable = useIsUpgradeable(comptrollerAddress);
+  const btnColor = useColorModeValue("gray.100", "gray.700")
+  const textColor = useColorModeValue("#2f2f2f", "white")
+  const btnBorder = useColorModeValue("gray.400", "gray.600")
 
   return isUpgradeable ? (
     <DashboardBox
@@ -839,11 +858,14 @@ const AddAssetButton = ({
       as="button"
       py={1}
       px={2}
+      border={"1px"}
+      borderColor={btnBorder}
+      borderRadius={"10px"}
       fontWeight="normal"
-      bg="#000"
-      color="#FFF"
+      bg={btnColor}
+      color={textColor}
     >
-      {t("Add Asset")}
+      {t("+ Add Asset")}
     </DashboardBox>
   ) : null;
 };
