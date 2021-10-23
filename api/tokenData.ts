@@ -172,6 +172,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       web3.utils.toChecksumAddress("0xAA7C2879DaF8034722A0977f13c343aF0883E92e")
     ) {
       symbol = "mCrvAM3";
+      name = "Moo Crv DAI/USDC/USDT";
       logoURL = `${
         isLocal ? "http" : "https"
       }://${vercelURL}/static/am3CRV.png`;
