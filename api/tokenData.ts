@@ -24,8 +24,13 @@ const cacheFetch = (fetcher: () => any) => {
   };
 };
 
+const vercelURL = process.env.VERCEL_URL!.toLowerCase();
+const isLocal =
+  vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
+const uriProtocol = isLocal ? "http" : "https";
+
 const requestBeefy = cacheFetch(async () => {
-  const data = await fetch("https://api.beefy.finance/apy");
+  const data = await fetch(`${uriProtocol}://${vercelURL}/api/beefyAPY`);
   const json = await data.json();
 
   return json;
@@ -34,10 +39,6 @@ const requestBeefy = cacheFetch(async () => {
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Cache-Control", "max-age=3600, s-maxage=3600");
-
-  const vercelURL = process.env.VERCEL_URL!.toLowerCase();
-  const isLocal =
-    vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
 
   const address = web3.utils.toChecksumAddress(request.query.address as string);
 
@@ -155,9 +156,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       web3.utils.toChecksumAddress("0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f")
     ) {
       symbol = "mCrvATC3";
-      logoURL = `${
-        isLocal ? "http" : "https"
-      }://${vercelURL}/static/aTriCrypto3.png`;
+      logoURL = `${uriProtocol}://${vercelURL}/static/aTriCrypto3.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["curve-poly-atricrypto3"]) {
         extraData.hasAPY = true;
@@ -173,9 +172,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     ) {
       symbol = "mCrvAM3";
       name = "Moo Crv DAI/USDC/USDT";
-      logoURL = `${
-        isLocal ? "http" : "https"
-      }://${vercelURL}/static/am3CRV.png`;
+      logoURL = `${uriProtocol}://${vercelURL}/static/am3CRV.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["curve-am3crv"]) {
         extraData.hasAPY = true;
@@ -190,9 +187,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       web3.utils.toChecksumAddress("0x8c9d3bc4425773bd2f00c4a2ac105c5ad73c8141")
     ) {
       symbol = "mCrvRen";
-      logoURL = `${
-        isLocal ? "http" : "https"
-      }://${vercelURL}/static/renBTC.png`;
+      logoURL = `${uriProtocol}://${vercelURL}/static/renBTC.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["curve-poly-ren"]) {
         extraData.hasAPY = true;
@@ -200,6 +195,21 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       }
       extraData.partnerURL =
         "https://app.beefy.finance/#/polygon/vault/curve-poly-ren";
+    }
+
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0xC1A2e8274D390b67A7136708203D71BF3877f158")
+    ) {
+      symbol = "mQLP-MU";
+      logoURL = `${uriProtocol}://${vercelURL}/static/MATIC-USDC-QLP.png`;
+      const apyData = await requestBeefy();
+      if (apyData && apyData["quick-matic-usdc"]) {
+        extraData.hasAPY = true;
+        extraData.apy = apyData["quick-matic-usdc"];
+      }
+      extraData.partnerURL =
+        "https://app.beefy.finance/#/polygon/vault/quick-matic-usdc";
     }
 
     if (
