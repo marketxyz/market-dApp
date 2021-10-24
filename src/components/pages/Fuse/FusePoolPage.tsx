@@ -17,7 +17,6 @@ import {
   Text,
   useDisclosure,
   useToast,
-  Icon,
   Skeleton,
   StatLabelProps,
   StatNumberProps,
@@ -27,7 +26,7 @@ import {
   Link as ChakraLink,
   Button,
 } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
 import { SwitchCSS } from "components/shared/SwitchCSS";
 import { useRari } from "context/RariContext";
@@ -98,6 +97,12 @@ const Stat = (props: StatProps) => (
     {...props}
   />
 );
+
+const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
+const scanner =
+  chainId === 1
+    ? "https://etherscan.io/token"
+    : "https://polygonscan.com/token";
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
@@ -432,18 +437,18 @@ const SupplyList = ({
           px={4}
           mt={4}
         >
-          <Text width="27%" fontWeight="bold" pl={1}>
+          <Text width={isMobile ? "38%" : "30%"} fontWeight="bold" pl={1}>
             {t("Asset")}
           </Text>
 
           {isMobile ? null : (
-            <Text width="27%" fontWeight="bold" textAlign="right">
+            <Text width="35%" fontWeight="bold" textAlign="right">
               {t("APY/LTV")}
             </Text>
           )}
 
           <Text
-            width={isMobile ? "40%" : "27%"}
+            width={isMobile ? "46%" : "27%"}
             fontWeight="bold"
             textAlign="right"
           >
@@ -616,9 +621,7 @@ const AssetSupplyRow = ({
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
-          width="27%"
-          as="button"
-          onClick={authedOpenModal}
+          width={isMobile ? "8%" : "6%"}
         >
           <Avatar
             bg="#FFF"
@@ -629,21 +632,35 @@ const AssetSupplyRow = ({
               "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
             }
           />
+        </Row>
+
+        <Row
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          width={isMobile ? "30%" : "24%"}
+          as="button"
+          onClick={authedOpenModal}
+        >
           <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
-            {tokenData?.extraData.partnerURL ? (
-              <Button
-                variant={"link"}
-                as={ChakraLink}
-                href={tokenData?.extraData.partnerURL}
-                isExternal
-              >
-                <ExternalLinkIcon h={4} />
-              </Button>
-            ) : (
-              <></>
-            )}
           </Text>
+        </Row>
+        <Row
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          width="5%"
+        >
+          <Button
+            variant={"link"}
+            as={ChakraLink}
+            href={
+              tokenData?.extraData.partnerURL ??
+              `${scanner}/${asset.underlyingToken}`
+            }
+            isExternal
+          >
+            <LinkIcon h={6} />
+          </Button>
         </Row>
 
         {isMobile ? null : (
@@ -804,7 +821,7 @@ const BorrowList = ({
           </Text>
 
           {isMobile ? null : (
-            <Text width="27%" fontWeight="bold" textAlign="right">
+            <Text width="34%" fontWeight="bold" textAlign="right">
               {t("APR/TVL")}
             </Text>
           )}
@@ -812,7 +829,7 @@ const BorrowList = ({
           <Text
             fontWeight="bold"
             textAlign="right"
-            width={isMobile ? "40%" : "27%"}
+            width={isMobile ? "49%" : "27%"}
           >
             {t("Balance")}
           </Text>
@@ -932,7 +949,7 @@ const AssetBorrowRow = ({
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
-          width="27%"
+          width={isMobile ? "8%" : "6%"}
         >
           <Avatar
             bg="#FFF"
@@ -943,6 +960,12 @@ const AssetBorrowRow = ({
               "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
             }
           />
+        </Row>
+        <Row
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          width="27%"
+        >
           <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>

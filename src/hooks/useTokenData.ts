@@ -45,7 +45,7 @@ export const fetchTokenData = async (address: string) => {
   if (address !== ETH_TOKEN_DATA.address) {
     try {
       if (address === "") {
-        throw "address is empty";
+        throw new Error("address is empty");
       }
       data = {
         ...(await fetch(

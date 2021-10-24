@@ -40,7 +40,7 @@ import { useExtraPoolInfo } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
 import { Link } from "react-router-dom";
-import { mediumAddress, shortAddress } from "utils/shortAddress";
+import { mediumAddress } from "utils/shortAddress";
 
 const activeStyle = { bg: "#FFF", color: "#000", borderColor: "#BBB" };
 const noop = { bg: "#000", color: "#FFF" };
