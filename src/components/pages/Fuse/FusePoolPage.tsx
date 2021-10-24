@@ -406,7 +406,7 @@ const SupplyList = ({
 
   const suppliedAssets = assets.filter((asset) => asset.supplyBalanceUSD > 1);
   const nonSuppliedAssets = assets.filter(
-    (asset) => asset.supplyBalanceUSD < 1
+    (asset) => asset.supplyBalanceUSD < 1 && !asset.isSupplyPaused
   );
 
   const isMobile = useIsMobile();

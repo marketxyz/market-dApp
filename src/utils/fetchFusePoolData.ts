@@ -53,6 +53,7 @@ export interface USDPricedFuseAsset extends FuseAsset {
   liquidityUSD: number;
 
   isPaused: boolean;
+  isSupplyPaused: boolean;
 }
 
 export interface USDPricedFuseAssetWithTokenData extends USDPricedFuseAsset {
@@ -146,12 +147,18 @@ export const fetchFusePoolData = async (
   for (let i = 0; i < assets.length; i++) {
     let asset = assets[i];
 
+    // @todo aggregate the borrow/supply guardian paused into 1
     promises.push(
       comptrollerContract.methods
         .borrowGuardianPaused(asset.cToken)
         .call()
-        // TODO: THIS WILL BE BUILT INTO THE LENS
         .then((isPaused: boolean) => (asset.isPaused = isPaused))
+    );
+    promises.push(
+      comptrollerContract.methods
+        .mintGuardianPaused(asset.cToken)
+        .call()
+        .then((isPaused: boolean) => (asset.isSupplyPaused = isPaused))
     );
 
     asset.supplyBalanceUSD =
