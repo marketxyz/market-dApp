@@ -144,7 +144,7 @@ const Buttons = ({
         </Button>
       ) : (
         <DashboardBox
-          ml={isMobile ? 0 : 2}
+          mx={isMobile ? 0 : 2}
           as="button"
           height="40px"
           flexShrink={0}

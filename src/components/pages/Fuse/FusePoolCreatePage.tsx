@@ -149,7 +149,7 @@ export const CreatePoolConfiguration = () => {
 
   const bgColor = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.300", "gray.700");
-  const btnColor = useColorModeValue("#DF2EAC", "#962277");
+  // const btnColor = useColorModeValue("#DF2EAC", "#962277");
   const btnTextColor = useColorModeValue("white", "gray.200");
   const dividerColor = useColorModeValue("gray.300", "black")
   const isMobile = useIsSmallScreen();
@@ -157,7 +157,7 @@ export const CreatePoolConfiguration = () => {
   return (
     <>
       <FuseNavbar />
-      <Box alignSelf={"center"} width={isMobile ? "96%" : "90%"} mt={8}>
+      <Box alignSelf={"center"} width={isMobile ? "96%" : "90%"} mt={8} mb={8}>
         <DashboardBox
           border={"2px"}
           borderColor={borderColor}
@@ -335,11 +335,11 @@ export const CreatePoolConfiguration = () => {
             py={3}
             fontSize="xl"
             as="button"
-            bg={btnColor}
+            bg="#DF2EAC"
             onClick={onDeploy}
             maxWidth={"500px"}
           >
-            <Center expand color={btnTextColor} fontWeight="normal">
+            <Center expand color={btnTextColor} fontWeight="bold">
               {isCreating ? <Spinner /> : t("Create")}
             </Center>
           </DashboardBox>
