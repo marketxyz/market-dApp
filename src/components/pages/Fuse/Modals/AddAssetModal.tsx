@@ -79,11 +79,13 @@ export const useCTokenData = (
         reserveFactorMantissa,
         interestRateModelAddress,
         { collateralFactorMantissa },
+        isBorrowPaused,
       ] = await Promise.all([
         cToken.methods.adminFeeMantissa().call(),
         cToken.methods.reserveFactorMantissa().call(),
         cToken.methods.interestRateModel().call(),
         comptroller.methods.markets(cTokenAddress).call(),
+        comptroller.methods.borrowGuardianPaused(cTokenAddress).call(),
       ]);
 
       return {
@@ -91,6 +93,7 @@ export const useCTokenData = (
         adminFeeMantissa,
         collateralFactorMantissa,
         interestRateModelAddress,
+        isBorrowPaused,
       };
     } else {
       return null;
@@ -130,6 +133,7 @@ export const AssetSettings = ({
 
   const [collateralFactor, setCollateralFactor] = useState(50);
   const [reserveFactor, setReserveFactor] = useState(10);
+  const [isBorrowPaused, setIsBorrowPaused] = useState(false);
   const [adminFee, setAdminFee] = useState(5);
 
   const scaleCollateralFactor = (_collateralFactor: number) => {
@@ -266,6 +270,7 @@ export const AssetSettings = ({
   // Update values on refetch!
   useEffect(() => {
     if (cTokenData) {
+      setIsBorrowPaused(cTokenData.isBorrowPaused);
       setCollateralFactor(cTokenData.collateralFactorMantissa / 1e16);
       setReserveFactor(cTokenData.reserveFactorMantissa / 1e16);
       setAdminFee(cTokenData.adminFeeMantissa / 1e16);
@@ -366,8 +371,23 @@ export const AssetSettings = ({
     }
   };
 
-  const bgColor = useColorModeValue("white", "gray.900")
-  const borderColor = useColorModeValue("gray.200", "gray.700")
+  const toggleBorrowPause = async () => {
+    const comptroller = createComptroller(comptrollerAddress, fuse);
+    try {
+      await comptroller.methods
+        ._setBorrowPaused(cTokenAddress, !isBorrowPaused)
+        .send({ from: address });
+
+      LogRocket.track("Fuse-PauseToggle");
+
+      queryClient.refetchQueries();
+    } catch (e) {
+      handleGenericError(e, toast);
+    }
+  };
+
+  const borderColor = useColorModeValue("" , "")
+  const bgColor = useColorModeValue("" , "")
 
   return (
     <Column
@@ -403,7 +423,28 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <Divider bg={borderColor} />
+      <Divider bg="#BBB" borderColor="#BBB" />
+      {cTokenAddress ? (
+        <ConfigRow>
+          <SimpleTooltip
+            label={t("If enabled borrowing this asset will be disabled.")}
+          >
+            <Text fontWeight="bold">
+              {t("Pause Borrowing")} <QuestionIcon ml={1} mb="4px" />
+            </Text>
+          </SimpleTooltip>
+
+          <SaveButton
+            ml="auto"
+            onClick={toggleBorrowPause}
+            fontSize="xs"
+            altText={
+              isBorrowPaused ? t("Enable Borrowing") : t("Pause Borrowing")
+            }
+          />
+        </ConfigRow>
+      ) : null}
+      <Divider bg="#BBB" borderColor="#BBB" />
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -555,7 +596,7 @@ export const AssetSettings = ({
       <Box
         height="170px"
         width="100%"
-        color="#000000"
+        color="black"
         overflow="hidden"
         pl={2}
         pr={3}
@@ -567,7 +608,7 @@ export const AssetSettings = ({
             options={
               {
                 ...FuseIRMDemoChartOptions,
-                colors: ["#FFFFFF", tokenData.color! ?? "#282727"],
+                colors: ["#ac5fff", "#db3737"],
               } as any
             }
             type="line"
@@ -585,11 +626,11 @@ export const AssetSettings = ({
             ]}
           />
         ) : curves === undefined ? (
-          <Center expand color="#FFF">
+          <Center expand color="black">
             <Spinner />
           </Center>
         ) : (
-          <Center expand color="#FFFFFF">
+          <Center expand color="black">
             <Text>
               {t("No graph is available for this asset's interest curves.")}
             </Text>
@@ -680,11 +721,7 @@ const AddAssetModal = ({
                   backgroundSize="100% auto"
                 />
               ) : null}
-              <Heading
-                my={tokenData?.symbol ? 3 : 6}
-                fontSize="22px"
-                color={tokenData?.color ?? textColor}
-              >
+              <Heading my={tokenData?.symbol ? 3 : 6} fontSize="22px">
                 {tokenData
                   ? tokenData.name ?? "Invalid Address!"
                   : "Loading..."}

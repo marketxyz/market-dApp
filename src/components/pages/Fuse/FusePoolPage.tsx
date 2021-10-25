@@ -23,7 +23,10 @@ import {
   StatProps,
   useColorModeValue,
   Tooltip,
+  Link as ChakraLink,
+  Button,
 } from "@chakra-ui/react";
+import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
 import { SwitchCSS } from "components/shared/SwitchCSS";
 import { useRari } from "context/RariContext";
@@ -94,6 +97,12 @@ const Stat = (props: StatProps) => (
     {...props}
   />
 );
+
+const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
+const scanner =
+  chainId === 1
+    ? "https://etherscan.io/token"
+    : "https://polygonscan.com/token";
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
@@ -400,7 +409,7 @@ const SupplyList = ({
 
   const suppliedAssets = assets.filter((asset) => asset.supplyBalanceUSD > 1);
   const nonSuppliedAssets = assets.filter(
-    (asset) => asset.supplyBalanceUSD < 1
+    (asset) => asset.supplyBalanceUSD < 1 && !asset.isSupplyPaused
   );
 
   const isMobile = useIsMobile();
@@ -426,18 +435,18 @@ const SupplyList = ({
           px={4}
           mt={4}
         >
-          <Text width="27%" fontWeight="bold" pl={1}>
+          <Text width={isMobile ? "38%" : "30%"} fontWeight="bold" pl={1}>
             {t("Asset")}
           </Text>
 
           {isMobile ? null : (
-            <Text width="27%" fontWeight="bold" textAlign="right">
+            <Text width="35%" fontWeight="bold" textAlign="right">
               {t("APY/LTV")}
             </Text>
           )}
 
           <Text
-            width={isMobile ? "40%" : "27%"}
+            width={isMobile ? "46%" : "27%"}
             fontWeight="bold"
             textAlign="right"
           >
@@ -604,7 +613,7 @@ const AssetSupplyRow = ({
         crossAxisAlignment="center"
         width="100%"
         px={4}
-        py={1.5}
+        py={tokenData?.extraData.hasAPY ? "2" : "1.5"}
         _hover={{
           bgColor: useColorModeValue("gray.200", "gray.700"),
         }}
@@ -612,9 +621,7 @@ const AssetSupplyRow = ({
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
-          width="27%"
-          as="button"
-          onClick={authedOpenModal}
+          width={isMobile ? "8%" : "6%"}
         >
           <Avatar
             bg="#FFF"
@@ -625,9 +632,35 @@ const AssetSupplyRow = ({
               "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
             }
           />
+        </Row>
+
+        <Row
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          width={isMobile ? "30%" : "24%"}
+          as="button"
+          onClick={authedOpenModal}
+        >
           <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
+        </Row>
+        <Row
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          width="5%"
+        >
+          <Button
+            variant={"link"}
+            as={ChakraLink}
+            href={
+              tokenData?.extraData.partnerURL ??
+              `${scanner}/${asset.underlyingToken}`
+            }
+            isExternal
+          >
+            <LinkIcon h={6} />
+          </Button>
         </Row>
 
         {isMobile ? null : (
@@ -638,18 +671,58 @@ const AssetSupplyRow = ({
             as="button"
             onClick={authedOpenModal}
           >
-            <Text
-              color={tokenData?.color ?? textColor}
-              fontWeight="bold"
-              fontSize="17px"
+            <Tooltip
+              label={
+                "The Supply APY is the forecasted APY you earn by supplying this asset based on the current utilisation ratios of this pool!"
+              }
             >
-              {isStakedOHM
-                ? stakedOHMApyData
-                  ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
-                  : "?"
-                : supplyAPY.toFixed(3)}
-              %
-            </Text>
+              <Text
+                color={tokenData?.color ?? "#FF"}
+                fontWeight="bold"
+                fontSize="17px"
+              >
+                {isStakedOHM
+                  ? stakedOHMApyData
+                    ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
+                    : "?"
+                  : supplyAPY.toFixed(2)}
+                %
+              </Text>
+            </Tooltip>
+            {tokenData?.extraData.hasAPY && (
+              <Row
+                // ml={1}
+                // mb={.5}
+                crossAxisAlignment="center"
+                mainAxisAlignment="flex-end"
+                py={1}
+                pt={"0.5"}
+              >
+                <Text fontWeight="bold" fontSize="lg" mr={1}>
+                  +
+                </Text>
+                <AvatarGroup size="xs" max={30} ml={2} mr={1} spacing={1}>
+                  {/* <SimpleTooltip label={displayedSupplyAPRLabel}> */}
+                  <CTokenIcon
+                    address={asset.underlyingToken}
+                    boxSize="20px"
+                    _hover={{
+                      zIndex: 9,
+                      border: ".5px solid white",
+                      transform: "scale(1.3);",
+                    }}
+                  />
+                  {/* </SimpleTooltip> */}
+                </AvatarGroup>
+                <Tooltip
+                  label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
+                >
+                  <Text fontWeight="bold" pl={1} fontSize="sm">
+                    {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
+                  </Text>
+                </Tooltip>
+              </Row>
+            )}
 
             <Tooltip
               label={t(
@@ -748,7 +821,7 @@ const BorrowList = ({
           </Text>
 
           {isMobile ? null : (
-            <Text width="27%" fontWeight="bold" textAlign="right">
+            <Text width="34%" fontWeight="bold" textAlign="right">
               {t("APR/TVL")}
             </Text>
           )}
@@ -756,7 +829,7 @@ const BorrowList = ({
           <Text
             fontWeight="bold"
             textAlign="right"
-            width={isMobile ? "40%" : "27%"}
+            width={isMobile ? "49%" : "27%"}
           >
             {t("Balance")}
           </Text>
@@ -878,7 +951,7 @@ const AssetBorrowRow = ({
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
-          width="27%"
+          width={isMobile ? "8%" : "6%"}
         >
           <Avatar
             bg="#FFF"
@@ -889,6 +962,12 @@ const AssetBorrowRow = ({
               "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
             }
           />
+        </Row>
+        <Row
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          width="27%"
+        >
           <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>

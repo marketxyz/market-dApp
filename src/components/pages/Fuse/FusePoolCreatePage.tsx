@@ -233,6 +233,15 @@ export const CreatePoolConfiguration = () => {
                     >
                       Preferred Price Oracle V2 Quick USDC
                     </option>
+                    <option
+                      className="white-bg-option"
+                      value={
+                        Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                          .MasterPriceOracle_V2_BEEFY_LP
+                      }
+                    >
+                      MasterPriceOracle Beefy LP
+                    </option>
                   </>
                 )}
               </Select>
@@ -404,7 +413,7 @@ export const WhitelistInfo = ({
           bg="#282727"
           color="#FFF"
           borderWidth="1px"
-          backgroundColor="transparent"
+          backgroundColor="black"
           onClick={() => {
             if (
               fuse.web3.utils.isAddress(_whitelistInput) &&

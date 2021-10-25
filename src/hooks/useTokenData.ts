@@ -23,6 +23,7 @@ export interface TokenData {
   color: string | null;
   overlayTextColor: string | null;
   logoURL: string | null;
+  extraData: Record<any, any>;
 }
 
 export const useTokenDataWithContract = (address: string) => {
@@ -43,15 +44,15 @@ export const fetchTokenData = async (address: string) => {
 
   if (address !== ETH_TOKEN_DATA.address) {
     try {
+      if (address === "") {
+        throw new Error("address is empty");
+      }
       data = {
         ...(await fetch(
           // Since running the vercel functions requires a Vercel account and is super slow,
           // just fetch this data from the live site in development:
-          (process.env.NODE_ENV === "development"
-            ? process.env.REACT_APP_DEV_API_HOST
-            : "") +
-            "/api/tokenData?address=" +
-            address
+
+          "/api/tokenData?address=" + address
         ).then((res) => res.json())),
         address: address,
       };
@@ -64,6 +65,7 @@ export const fetchTokenData = async (address: string) => {
         color: null,
         overlayTextColor: null,
         logoURL: null,
+        extraData: {},
       };
     }
   } else {

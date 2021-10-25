@@ -557,9 +557,14 @@ export default async (request: NowRequest, response: NowResponse) => {
       const asset = assets[i];
 
       console.time(asset.underlyingSymbol);
+
+      const vercelURL = process.env.VERCEL_URL!.toLowerCase();
+      const isLocal =
+        vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
+
       promises.push(
         fetch(
-          `http://${process.env.VERCEL_URL}/api/rss?address=` +
+          `${isLocal ? "http" : "https"}://${vercelURL}/api/rss?address=` +
             asset.underlyingToken
         )
           .then((res) => res.json())

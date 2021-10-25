@@ -9,11 +9,13 @@ import {
   useDisclosure,
   useToast,
   chakra,
+  Input,
   Flex,
   VStack,
   Divider,
   HStack,
   useColorModeValue,
+  useClipboard,
 } from "@chakra-ui/react";
 import BigNumber from "bignumber.js";
 import LogRocket from "logrocket";
@@ -39,6 +41,7 @@ import { useExtraPoolInfo } from "./FusePoolInfoPage";
 import FuseStatsBar from "./FuseStatsBar";
 import AddAssetModal, { AssetSettings } from "./Modals/AddAssetModal";
 import { Link } from "react-router-dom";
+import { mediumAddress } from "utils/shortAddress";
 
 const activeStyle = { bg: "gray.300", color: "#2f2f2f", borderColor: "#BBB" };
 const noop = { bg: "gray.700", color: "#F2F2F2" };
@@ -454,8 +457,56 @@ const PoolConfiguration = ({
     }
   };
 
+  const updatePendingAdmin = async () => {
+    const unitroller = new fuse.web3.eth.Contract(
+      JSON.parse(
+        fuse.compoundContracts["contracts/Unitroller.sol:Unitroller"].abi
+      ),
+      comptrollerAddress
+    );
+
+    try {
+      await testForComptrollerErrorAndSend(
+        unitroller.methods._setPendingAdmin(_pendingAdminValue),
+        address,
+        ""
+      );
+
+      LogRocket.track("Fuse-RenounceOwnership");
+
+      queryClient.refetchQueries();
+    } catch (e) {
+      handleGenericError(e, toast);
+    }
+  };
+
+  const acceptAdmin = async () => {
+    const unitroller = new fuse.web3.eth.Contract(
+      JSON.parse(
+        fuse.compoundContracts["contracts/Unitroller.sol:Unitroller"].abi
+      ),
+      comptrollerAddress
+    );
+
+    try {
+      await testForComptrollerErrorAndSend(
+        unitroller.methods._acceptAdmin(),
+        address,
+        ""
+      );
+
+      LogRocket.track("Fuse-RenounceOwnership");
+
+      queryClient.refetchQueries();
+    } catch (e) {
+      handleGenericError(e, toast);
+    }
+  };
+
   const [closeFactor, setCloseFactor] = useState(50);
   const [liquidationIncentive, setLiquidationIncentive] = useState(8);
+  const [_pendingAdminValue, _setPendingAdminValue] = useState("");
+  const { onCopy: onPendingAdminCopy } = useClipboard(data?.pendingAdmin ?? "");
 
   const scaleCloseFactor = (_closeFactor: number) => {
     return _closeFactor / 1e16;
@@ -609,6 +660,65 @@ const PoolConfiguration = ({
             ) : null}
 
             <Divider bg={borderColor}/>
+
+            <ConfigRow>
+              <Text fontWeight="bold">{t("Pending Admin")}:</Text>
+              <Center
+                px={2}
+                fontWeight="normal"
+                onClick={onPendingAdminCopy}
+                cursor={"pointer"}
+              >
+                {mediumAddress(data.pendingAdmin)} (click to copy)
+              </Center>
+              {data.pendingAdmin === address ? (
+                <DashboardBox
+                  mt={0}
+                  height="35px"
+                  ml="auto"
+                  as="button"
+                  onClick={acceptAdmin}
+                  bg="#000"
+                  color="#FFF"
+                >
+                  <Center expand px={2} fontWeight="normal">
+                    Accept Admin
+                  </Center>
+                </DashboardBox>
+              ) : (
+                <></>
+              )}
+            </ConfigRow>
+            {data.admin === address ? (
+              <ConfigRow>
+                <Input
+                  width="85%"
+                  value={_pendingAdminValue}
+                  onChange={(event) =>
+                    _setPendingAdminValue(event.target.value)
+                  }
+                  placeholder="Enter address, ex: 0x0000000000000000000000000000000000000000"
+                  _placeholder={{ color: "#000" }}
+                />
+                <DashboardBox
+                  mt={0}
+                  height="35px"
+                  ml="auto"
+                  as="button"
+                  onClick={updatePendingAdmin}
+                  bg="#000"
+                  color="#FFF"
+                >
+                  <Center expand px={2} fontWeight="normal">
+                    Update
+                  </Center>
+                </DashboardBox>
+              </ConfigRow>
+            ) : (
+              <></>
+            )}
+
+            <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow>
               <Text fontWeight="bold">{t("Upgradeable")}:</Text>
@@ -807,29 +917,31 @@ const ColoredAssetSettings = ({
 
 export const SaveButton = ({
   onClick,
+  altText,
   ...others
 }: {
   onClick: () => any;
+  altText?: string;
   [key: string]: any;
 }) => {
   const { t } = useTranslation();
-  const bgColor = useColorModeValue("white", "gray.900")
-  const textColor = useColorModeValue("#2f2f2f", "white")
+  // const bgColor = useColorModeValue("white", "gray.900")
+  // const textColor = useColorModeValue("#2f2f2f", "white")
 
   return (
     <DashboardBox
       flexShrink={0}
+      bg={"black"}
+      textColor={"white"}
       ml={2}
-      width="60px"
+      px={2}
       height="35px"
       as="button"
-      fontWeight="normal"
-      bg={bgColor}
-      color={textColor}
+      fontWeight="bold"
       onClick={onClick}
       {...others}
     >
-      {t("Save")}
+      {altText ?? t("Save")}
     </DashboardBox>
   );
 };

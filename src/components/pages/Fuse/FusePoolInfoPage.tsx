@@ -52,6 +52,7 @@ export const useExtraPoolInfo = (comptrollerAddress: string) => {
       liquidationIncentive,
       enforceWhitelist,
       whitelist,
+      pendingAdmin,
     ] = await Promise.all([
       fuse.contracts.FusePoolLens.methods
         .getPoolOwnership(comptrollerAddress)
@@ -64,20 +65,22 @@ export const useExtraPoolInfo = (comptrollerAddress: string) => {
       comptroller.methods.liquidationIncentiveMantissa().call(),
 
       (() => {
-        try {
-          comptroller.methods.enforceWhitelist().call();
-        } catch (_) {
-          return false;
-        }
+        return comptroller.methods
+          .enforceWhitelist()
+          .call()
+          .then((x: boolean) => x)
+          .catch((_: any) => false);
       })(),
 
       (() => {
-        try {
-          comptroller.methods.getWhitelist().call();
-        } catch (_) {
-          return [];
-        }
+        return comptroller.methods
+          .getWhitelist()
+          .call()
+          .then((x: string[]) => x)
+          .catch((_: any) => []);
       })(),
+
+      comptroller.methods.pendingAdmin().call(),
     ]);
 
     return {
@@ -90,6 +93,7 @@ export const useExtraPoolInfo = (comptrollerAddress: string) => {
       oracle,
       closeFactor,
       liquidationIncentive,
+      pendingAdmin,
     };
   });
 
@@ -360,6 +364,19 @@ const StatRow = ({
   );
 };
 
+const AssetOption = ({ asset }: { asset: USDPricedFuseAsset }) => {
+  const tokenData = useTokenData(asset.underlyingToken);
+  return (
+    <option
+      style={{ background: "black", color: "white" }}
+      value={asset.cToken}
+      key={asset.cToken}
+    >
+      {tokenData?.symbol ?? asset.underlyingSymbol}
+    </option>
+  );
+};
+
 const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
   let { poolId } = useParams();
 
@@ -397,7 +414,6 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 
   const isMobile = useIsMobile();
   const borrowLineColor = useColorModeValue("#2D3748", "#fff");
-  // console.log(assets);
 
   return (
     <Column
@@ -417,7 +433,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         <Heading size="sm" py={3}>
           {t("Pool {{num}}'s {{token}} Stats", {
             num: poolId,
-            token: selectedAsset.underlyingSymbol,
+            token: selectedTokenData?.symbol ?? selectedAsset.underlyingSymbol,
           })}
         </Heading>
 
@@ -437,13 +453,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
           value={selectedAsset.cToken}
         >
           {assets.map((asset) => (
-            <option
-              style={{ background: "black", color: "white" }}
-              value={asset.cToken}
-              key={asset.cToken}
-            >
-              {asset.underlyingSymbol}
-            </option>
+            <AssetOption asset={asset} key={asset.cToken} />
           ))}
         </Select>
       </Row>
