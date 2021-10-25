@@ -386,8 +386,8 @@ export const AssetSettings = ({
     }
   };
 
-  const borderColor = useColorModeValue("" , "")
-  const bgColor = useColorModeValue("" , "")
+  const borderColor = useColorModeValue("gray.200", "gray.700")
+  const bgColor = useColorModeValue("white", "gray.900")
 
   return (
     <Column
@@ -423,7 +423,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <Divider bg="#BBB" borderColor="#BBB" />
+      <Divider bg={borderColor} />
       {cTokenAddress ? (
         <ConfigRow>
           <SimpleTooltip
@@ -444,7 +444,7 @@ export const AssetSettings = ({
           />
         </ConfigRow>
       ) : null}
-      <Divider bg="#BBB" borderColor="#BBB" />
+      <Divider bg={borderColor} />
 
       <ConfigRow height="35px">
         <SimpleTooltip

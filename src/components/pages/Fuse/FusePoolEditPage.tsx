@@ -265,7 +265,7 @@ const FusePoolEditPage = memo(() => {
           textColor={textColor}
           px={{ base: 6, lg: 0 }}
           mx="auto"
-          mt={4}
+          mt={2}
           isRow={!isMobile}
           mb="8"
         >
@@ -274,7 +274,6 @@ const FusePoolEditPage = memo(() => {
             borderColor={borderColor}
             width={isMobile ? "100%" : "50%"}
             height={isMobile ? "auto" : "440px"}
-            mt={4}
           >
             {data ? (
               <PoolConfiguration
@@ -293,7 +292,6 @@ const FusePoolEditPage = memo(() => {
               bg={cardColor}
               borderColor={borderColor}
               width="100%"
-              mt={4}
               height={isMobile ? "auto" : "440px"}
             >
               {data ? (
@@ -718,7 +716,7 @@ const PoolConfiguration = ({
               <></>
             )}
 
-            <Divider borderColor="#BBB" bg="#BBB" />
+            <Divider bg={borderColor}/>
 
             <ConfigRow>
               <Text fontWeight="bold">{t("Upgradeable")}:</Text>
