@@ -170,7 +170,7 @@ const FusePoolPage = memo(() => {
           bg={bgColor}
           py="4"
           width={{ lg: "90%", xl: "100%" }}
-          display={{ sm: "none", md: "block" }}
+          display={{ base: "none", md: "block" }}
           alignSelf={"center"}
         >
           <Box maxW="1200px" mx="auto">
@@ -244,9 +244,9 @@ const FusePoolPage = memo(() => {
           ) : null
         }
         <RowOrColumn
-          width="90%"
+          width={isMobile ? "100%" : "90%"}
           mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
+          crossAxisAlignment={isMobile ? "center" : "flex-start"}
           maxW={{ lg: "1200px" }}
           bgColor={bgColor}
           px={{ base: 6, lg: 0 }}
@@ -254,7 +254,7 @@ const FusePoolPage = memo(() => {
           mt={4}
           isRow={!isMobile}
         >
-          <PoolDashboardBox width={isMobile ? "100%" : "50%"}>
+          <PoolDashboardBox width={isMobile ? "90%" : "50%"}>
             {data ? (
               <SupplyList
                 assets={data.assets}
@@ -269,7 +269,7 @@ const FusePoolPage = memo(() => {
           <PoolDashboardBox
             ml={isMobile ? 0 : 4}
             mt={isMobile ? 4 : 0}
-            width={isMobile ? "100%" : "50%"}
+            width={isMobile ? "90%" : "50%"}
           >
             {data ? (
               <BorrowList
@@ -749,7 +749,7 @@ const AssetSupplyRow = ({
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
 
-          <Text fontSize="sm">
+          <Text textAlign={"right"} fontSize="sm">
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
