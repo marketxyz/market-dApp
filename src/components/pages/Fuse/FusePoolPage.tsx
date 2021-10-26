@@ -123,12 +123,11 @@ const FusePoolPage = memo(() => {
         <FuseNavbar />
         <Divider />
         <HStack
-          width="100%"
+          width={"90%"}
           my={8}
           mx="auto"
           maxW={{ lg: "1200px" }}
           spacing={6}
-          px={{ base: 6, lg: 12, xl: 0 }}
         >
           <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
