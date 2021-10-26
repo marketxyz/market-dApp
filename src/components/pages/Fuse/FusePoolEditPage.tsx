@@ -307,7 +307,7 @@ const FusePoolEditPage = memo(() => {
                     crossAxisAlignment="center"
                     py={4}
                   >
-                    <Text mb={4}>{t("There are no assets in this pool.")}</Text>
+                    <Text mb={4}>There are no assets in this pool.</Text>
 
                     <AddAssetButton
                       comptrollerAddress={data.comptroller}
@@ -577,7 +577,7 @@ const PoolConfiguration = ({
       height="100%"
     >
       <Heading size="sm" px={4} py={4}>
-        {t("Pool {{num}} Configuration", { num: poolId })}
+        {`Pool ${poolId} Configuration`}
       </Heading>
 
       <Divider borderColor="#BBB" bg="#BBB" />
@@ -592,7 +592,7 @@ const PoolConfiguration = ({
         >
           <ConfigRow>
             <Text fontWeight="bold" mr={2}>
-              {t("Assets:")}
+              Assets:
             </Text>
 
             {assets.length > 0 ? (
@@ -615,7 +615,7 @@ const PoolConfiguration = ({
                 </Text>
               </>
             ) : (
-              <Text>{t("None")}</Text>
+              <Text>None</Text>
             )}
           </ConfigRow>
 
@@ -627,7 +627,7 @@ const PoolConfiguration = ({
             width="100%"
           >
             <ConfigRow>
-              <Text fontWeight="bold">{t("Whitelist")}:</Text>
+              <Text fontWeight="bold">Whitelist:</Text>
 
               <Switch
                 ml="auto"
@@ -653,7 +653,7 @@ const PoolConfiguration = ({
             <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow>
-              <Text fontWeight="bold">{t("Pending Admin")}:</Text>
+              <Text fontWeight="bold">Pending Admin:</Text>
               <Center
                 px={2}
                 fontWeight="normal"
@@ -712,7 +712,7 @@ const PoolConfiguration = ({
             <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow>
-              <Text fontWeight="bold">{t("Upgradeable")}:</Text>
+              <Text fontWeight="bold">Upgradeable:</Text>
 
               {data.upgradeable ? (
                 <DashboardBox
@@ -724,12 +724,12 @@ const PoolConfiguration = ({
                   color="#FFF"
                 >
                   <Center expand px={2} fontWeight="normal">
-                    {t("Renounce Ownership")}
+                    Renounce Ownership
                   </Center>
                 </DashboardBox>
               ) : (
                 <Text ml="auto" fontWeight="bold">
-                  {t("Admin Rights Disabled")}
+                  Admin Rights Disabled
                 </Text>
               )}
             </ConfigRow>
@@ -748,7 +748,7 @@ const PoolConfiguration = ({
             <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow height="35px">
-              <Text fontWeight="bold">{t("Close Factor")}:</Text>
+              <Text fontWeight="bold">Close Factor:</Text>
 
               {data && scaleCloseFactor(data.closeFactor) !== closeFactor ? (
                 <SaveButton onClick={updateCloseFactor} />
@@ -767,7 +767,7 @@ const PoolConfiguration = ({
             <Divider borderColor="#BBB" bg="#BBB" />
 
             <ConfigRow height="35px">
-              <Text fontWeight="bold">{t("Liquidation Incentive")}:</Text>
+              <Text fontWeight="bold">Liquidation Incentive:</Text>
 
               {data &&
               scaleLiquidationIncentive(data.liquidationIncentive) !==
@@ -823,7 +823,7 @@ const AssetConfiguration = ({
       flexShrink={0}
     >
       <ConfigRow mainAxisAlignment="space-between">
-        <Heading size="sm">{t("Assets Configuration")}</Heading>
+        <Heading size="sm">Assets Configuration</Heading>
 
         <AddAssetButton
           comptrollerAddress={comptrollerAddress}
@@ -835,7 +835,7 @@ const AssetConfiguration = ({
 
       <ConfigRow>
         <Text fontWeight="bold" mr={2}>
-          {t("Assets:")}
+          Assets:
         </Text>
 
         {assets.map((asset, index, array) => {
@@ -929,7 +929,7 @@ export const SaveButton = ({
       onClick={onClick}
       {...others}
     >
-      {altText ?? t("Save")}
+      {altText ?? "Save"}
     </DashboardBox>
   );
 };
@@ -955,7 +955,7 @@ const AddAssetButton = ({
       bg="#000"
       color="#FFF"
     >
-      {t("Add Asset")}
+      {"Add Asset"}
     </DashboardBox>
   ) : null;
 };

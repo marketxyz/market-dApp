@@ -180,7 +180,7 @@ const PoolButtons = ({
         color={isAllPoolSelected ? selectedTextColor : unselectedTextColor}
         onClick={() => setSearchText("")}
       >
-        {t("All Pools")}
+        All Pools
       </Button>
       <Button
         onClick={() => setSearchText("my-pools")}
@@ -198,7 +198,7 @@ const PoolButtons = ({
           color: selectedTextColor,
         }}
       >
-        {t("My Pools")}
+        My Pools
       </Button>
     </ButtonGroup>
   );

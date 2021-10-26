@@ -1,5 +1,11 @@
 import { DeleteIcon, SmallAddIcon } from "@chakra-ui/icons";
-import { ButtonGroup, Input, Link, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  ButtonGroup,
+  Input,
+  Link,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { RowOrColumn, Row, Center, useWindowSize } from "utils/chakraUtils";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -58,7 +64,7 @@ const FuseTabBar = () => {
               mainAxisAlignment="flex-start"
               fontWeight="bold"
             >
-              <Text flexShrink={0}>{t("Search:")}</Text>
+              <Text flexShrink={0}>Search:</Text>
 
               <Input
                 value={filter ?? ""}
@@ -74,7 +80,7 @@ const FuseTabBar = () => {
                 width="185px"
                 height="100%"
                 ml={2}
-                placeholder={t("Try searching for USDC")}
+                placeholder={"Try searching for USDC"}
                 variant="filled"
                 size="sm"
                 _placeholder={{ color: "#e0e0e0" }}
@@ -100,17 +106,17 @@ const FuseTabBar = () => {
           ) : null}
         </ButtonGroup>
 
-        <TabLink route="/fuse?filter=my-pools" text={t("My Pools")} />
-        <TabLink route="/" text={t("All Pools")} />
-        <TabLink route="/fuse?filter=created-pools" text={t("Created Pools")} />
+        <TabLink route="/fuse?filter=my-pools" text={"My Pools"} />
+        <TabLink route="/" text={"All Pools"} />
+        <TabLink route="/fuse?filter=created-pools" text={"Created Pools"} />
         <TabExternalLink
           route="https://metrics.market.xyz/goto/61kctV_Gk"
-          text={t("Metrics")}
+          text={"Metrics"}
         />
 
         {/* Show the liquidations link if is on mobile, large screen or not on a pool page. We do this to prevent the buttons from overflowing the tab bar on medium screens. */}
         {isMobile || !isMediumScreen || !poolId ? (
-          <TabLink route="/fuse/liquidations" text={t("Liquidations")} />
+          <TabLink route="/fuse/liquidations" text={"Liquidations"} />
         ) : null}
 
         {poolId ? (
@@ -128,7 +134,7 @@ const FuseTabBar = () => {
                 className="no-underline"
               >
                 <Center expand px={2} fontWeight="bold">
-                  {t("Pool #{{poolId}}", { poolId })}
+                  {`Pool #${poolId}`}
                 </Center>
               </Link>
             </DashboardBox>
@@ -146,7 +152,7 @@ const FuseTabBar = () => {
                 className="no-underline"
               >
                 <Center expand px={2} fontWeight="bold">
-                  {t("Pool #{{poolId}} Info", { poolId })}
+                  {`Pool #${poolId} Info`}
                 </Center>
               </Link>
             </DashboardBox>

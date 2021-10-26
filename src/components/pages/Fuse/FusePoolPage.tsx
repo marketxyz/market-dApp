@@ -347,14 +347,14 @@ const CollateralRatioBar = ({
     >
       <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
         <Tooltip
-          label={t("Keep this bar from filling up to avoid being liquidated!")}
+          label={"Keep this bar from filling up to avoid being liquidated!"}
         >
           <Text flexShrink={0} mr={4}>
-            {t("Borrow Limit")}
+            Borrow Limit
           </Text>
         </Tooltip>
 
-        <Tooltip label={t("This is how much you have borrowed.")}>
+        <Tooltip label={"This is how much you have borrowed."}>
           <Text flexShrink={0} mt="2px" mr={3} fontSize="10px">
             {smallUsdFormatter(borrowUSD)}
           </Text>
@@ -424,7 +424,7 @@ const SupplyList = ({
       pb={1}
     >
       <Heading size="md" px={4} py={3}>
-        {t("Supply Balance:")} {smallUsdFormatter(supplyBalanceUSD)}
+        Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
 
       <Divider color="#F4F6F9" />
@@ -438,12 +438,12 @@ const SupplyList = ({
           mt={4}
         >
           <Text width={isMobile ? "38%" : "30%"} fontWeight="bold" pl={1}>
-            {t("Asset")}
+            Asset
           </Text>
 
           {isMobile ? null : (
             <Text width="35%" fontWeight="bold" textAlign="right">
-              {t("APY/LTV")}
+              APY/LTV
             </Text>
           )}
 
@@ -452,7 +452,7 @@ const SupplyList = ({
             fontWeight="bold"
             textAlign="right"
           >
-            {t("Balance")}
+            Balance
           </Text>
 
           <Text
@@ -460,7 +460,7 @@ const SupplyList = ({
             fontWeight="bold"
             textAlign="right"
           >
-            {t("Collateral")}
+            Collateral
           </Text>
         </Row>
       ) : null}
@@ -499,7 +499,7 @@ const SupplyList = ({
           </>
         ) : (
           <Center expand my={8}>
-            {t("There are no assets in this pool.")}
+            There are no assets in this pool.
           </Center>
         )}
       </Column>
@@ -803,7 +803,7 @@ const BorrowList = ({
       pb={1}
     >
       <Heading size="md" px={4} py={3}>
-        {t("Borrow Balance:")} {smallUsdFormatter(borrowBalanceUSD)}
+        Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </Heading>
 
       <Divider color="#F4F6F9" />
@@ -817,12 +817,12 @@ const BorrowList = ({
           mt={4}
         >
           <Text width="27%" fontWeight="bold" pl={1}>
-            {t("Asset")}
+            Asset
           </Text>
 
           {isMobile ? null : (
             <Text width="34%" fontWeight="bold" textAlign="right">
-              {t("APR/TVL")}
+              APR/TVL
             </Text>
           )}
 
@@ -831,7 +831,7 @@ const BorrowList = ({
             textAlign="right"
             width={isMobile ? "49%" : "27%"}
           >
-            {t("Balance")}
+            Balance
           </Text>
 
           <Text
@@ -839,7 +839,7 @@ const BorrowList = ({
             textAlign="right"
             width={isMobile ? "34%" : "20%"}
           >
-            {t("Liquidity")}
+            Liquidity
           </Text>
         </Row>
       ) : null}
@@ -888,7 +888,7 @@ const BorrowList = ({
           </>
         ) : (
           <Center expand my={8}>
-            {t("There are no assets in this pool.")}
+            There are no assets in this pool.
           </Center>
         )}
       </Column>

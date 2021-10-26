@@ -149,7 +149,7 @@ export const CreatePoolConfiguration = () => {
       <Box px={8} mt={8}>
         <DashboardBox borderColor="#BBB" bg="#fff" width="100%" mt={4}>
           <Heading fontWeight="bold" size="md" px={4} py={4}>
-            {t("Create Pool")}
+            Create Pool
           </Heading>
 
           <Column
@@ -160,7 +160,7 @@ export const CreatePoolConfiguration = () => {
 
             <OptionRow>
               <Text fontWeight="normal" mr={4}>
-                {t("Name")}
+                Name
               </Text>
               <Input
                 width="20%"
@@ -173,7 +173,7 @@ export const CreatePoolConfiguration = () => {
 
             <OptionRow>
               <Text fontWeight="normal" mr={4}>
-                {t("Oracle")}
+                Oracle
               </Text>
               <Select
                 width="20%"
@@ -234,7 +234,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Whitelisted")} <QuestionIcon ml={1} mb="4px" />
+                  Whitelisted <QuestionIcon ml={1} mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -278,7 +278,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Close Factor")} <QuestionIcon ml={1} mb="4px" />
+                  Close Factor <QuestionIcon ml={1} mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -300,7 +300,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Liquidation Incentive")} <QuestionIcon ml={1} mb="4px" />
+                  Liquidation Incentive <QuestionIcon ml={1} mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -325,7 +325,7 @@ export const CreatePoolConfiguration = () => {
           onClick={onDeploy}
         >
           <Center expand color="#000" fontWeight="normal">
-            {isCreating ? <Spinner /> : t("Create")}
+            {isCreating ? <Spinner /> : "Create"}
           </Center>
         </DashboardBox>
       </Box>
@@ -414,7 +414,7 @@ export const WhitelistInfo = ({
       </OptionRow>
       {whitelist.length > 0 ? (
         <Text mb={4} ml={4} width="100%">
-          <b>{t("Already added:")} </b>
+          <b>Already added: </b>
           {whitelist.map((user, index, array) => (
             <Text
               key={user}

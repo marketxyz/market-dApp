@@ -1,6 +1,6 @@
 import { NowRequest, NowResponse } from "@vercel/node";
 
-import { variance, median } from "mathjs";
+import { variance, median, add } from "mathjs";
 import fetch from "node-fetch";
 import Web3 from "web3";
 
@@ -240,6 +240,31 @@ async function computeAssetRSS_137(address: string) {
   const USDC = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174".toLowerCase();
   const WMATIC = "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase();
   const miMATIC = "0xa3fa99a148fa48d14ed51d610c367c61876997f1".toLowerCase();
+  const mooCrvAm3 = "0xaa7c2879daf8034722a0977f13c343af0883e92e".toLowerCase();
+  const mooCrvRen = "0x8c9d3bc4425773bd2f00c4a2ac105c5ad73c8141".toLowerCase();
+  const mooQLPMU = "0xC1A2e8274D390b67A7136708203D71BF3877f158".toLowerCase();
+  const aTriCrypto3 =
+    "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f".toLowerCase();
+  const WBTC = "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6".toLowerCase();
+
+  switch (address) {
+    case aTriCrypto3: {
+      address = WBTC;
+      break;
+    }
+    case mooCrvAm3: {
+      address = USDC; // DAI-USDC-USDT, taking USDC as score
+      break;
+    }
+    case mooCrvRen: {
+      address = WBTC; // WBTC
+      break;
+    }
+    case mooQLPMU: {
+      address = WMATIC;
+      break;
+    }
+  }
 
   if (address === WETH) {
     return {

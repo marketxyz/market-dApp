@@ -395,21 +395,21 @@ const LiquidationEventsList = ({
         pr={1}
       >
         <Text fontWeight="bold" width={isMobile ? "100%" : "30%"}>
-          {t("Recent Liquidations")}
+          Recent Liquidations
         </Text>
 
         {isMobile ? null : (
           <>
             <Text fontWeight="bold" textAlign="center" width="23%">
-              {t("Collateral Seized")}
+              Collateral Seized
             </Text>
 
             <Text fontWeight="bold" textAlign="center" width="23%">
-              {t("Borrow Repaid")}
+              Borrow Repaid
             </Text>
 
             <Text fontWeight="bold" textAlign="center" width="25%">
-              {t("Timestamp")}
+              Timestamp
             </Text>
           </>
         )}
@@ -494,7 +494,7 @@ const LiquidationRow = ({
                 <Text as="span" color="#EE1E45">
                   {" → "}
                 </Text>
-                {t("Liquidated")}
+                Liquidated
                 <Text as="span" color="#73BF69">
                   {" → "}
                 </Text>
@@ -614,25 +614,21 @@ const LiquidatablePositionsList = ({
           <SimpleTooltip
             label={
               showAtRiskPositions
-                ? t(
-                    "At risk positions are positions that are less than 110% collateralized."
-                  )
-                : t(
-                    "Liquidatable positions are positions less than 100% collateralized."
-                  )
+                ? "At risk positions are positions that are less than 110% collateralized."
+                : "Liquidatable positions are positions less than 100% collateralized."
             }
           >
             <Text fontWeight="bold">
               {showAtRiskPositions
-                ? t("At Risk Positions")
-                : t("Liquidatable Positions")}
+                ? "At Risk Positions"
+                : "Liquidatable Positions"}
             </Text>
           </SimpleTooltip>
           <SimpleTooltip
             label={
               showAtRiskPositions
-                ? t("Disable the switch to just view liquidatable positions.")
-                : t("Enable the switch to view 'at risk' positions.")
+                ? "Disable the switch to just view liquidatable positions."
+                : "Enable the switch to view 'at risk' positions."
             }
           >
             <Box ml={3}>
@@ -649,23 +645,23 @@ const LiquidatablePositionsList = ({
         {isMobile ? null : (
           <>
             <Text fontWeight="bold" textAlign="center" width="14%">
-              {t("Supplied")}
+              Supplied
             </Text>
 
             <Text fontWeight="bold" textAlign="center" width="14%">
-              {t("Borrowed")}
+              Borrowed
             </Text>
 
             <Text textAlign="center" width="14%">
-              {t("Borrow Ratio")}
+              Borrow Ratio
             </Text>
 
             <Text fontWeight="bold" textAlign="center" width="14%">
-              {t("Borrow Limit")}
+              Borrow Limit
             </Text>
 
             <Text textAlign="center" width="14%">
-              {t("Limit Used")}
+              Limit Used
             </Text>
           </>
         )}
@@ -837,7 +833,7 @@ const RowsControl = ({
           )
         }
       >
-        {t("View More")}
+        View More
       </DashboardBox>
 
       <DashboardBox
@@ -849,7 +845,7 @@ const RowsControl = ({
         py={1}
         onClick={() => setAmountToShow((past) => Math.max(past - 5, 0))}
       >
-        {t("View Less")}
+        View Less
       </DashboardBox>
 
       <DashboardBox
@@ -860,7 +856,7 @@ const RowsControl = ({
         py={1}
         onClick={() => setAmountToShow(totalAmount)}
       >
-        {t("View All")}
+        View All
       </DashboardBox>
 
       <DashboardBox
@@ -871,7 +867,7 @@ const RowsControl = ({
         py={1}
         onClick={() => setAmountToShow(0)}
       >
-        {t("Collapse All")}
+        Collapse All
       </DashboardBox>
     </Row>
   );
