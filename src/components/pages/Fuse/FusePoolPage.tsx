@@ -169,15 +169,14 @@ const FusePoolPage = memo(() => {
           as="section"
           bg={bgColor}
           py="4"
-          width={{ lg: "90%", xl: "100%" }}
-          display={{ base: "none", md: "block" }}
+          width={{ base: "90%", xl: "100%" }}
           alignSelf={"center"}
         >
           <Box maxW="1200px" mx="auto">
             <Heading marginBottom={"4"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
             </Heading>
-            <SimpleGrid columns={{ base: 1, md: 4 }} spacing="3">
+            <SimpleGrid columns={{ base: 2, md: 4 }} spacing="3">
               <Stat>
                 <StatLabel>{"Total Supply"}</StatLabel>
                 <StatNumber>
