@@ -249,7 +249,6 @@ const FusePoolPage = memo(() => {
           crossAxisAlignment={isMobile ? "center" : "flex-start"}
           maxW={{ lg: "1200px" }}
           bgColor={bgColor}
-          px={{ base: 6, lg: 0 }}
           mx="auto"
           mt={4}
           isRow={!isMobile}
