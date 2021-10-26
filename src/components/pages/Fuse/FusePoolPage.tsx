@@ -90,7 +90,7 @@ const Stat = (props: StatProps) => (
   <ChakraStat
     px={{ base: 4, sm: 6 }}
     py="5"
-    bg={useColorModeValue("white", "gray.700")}
+    bg={useColorModeValue("white", "#21262e")}
     fontFamily="Manrope"
     shadow="base"
     rounded="lg"

@@ -144,7 +144,6 @@ export const PoolInfoBox = ({
       mx="auto"
       isRow={!isMobile}
       bgColor={bgColor}
-      px={{ base: 6, lg: 0 }}
     >
       <PoolDashboardBox
         width={isMobile ? "100%" : "50%"}
