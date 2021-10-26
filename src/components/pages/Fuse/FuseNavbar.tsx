@@ -193,12 +193,12 @@ const FuseNavbar = () => {
           </Link>
         </Text>
       </Alert>
-      <Box bgColor={bgColor} overflowX="hidden" mx="auto" w={"90%"}>
+      <Box bgColor={bgColor} overflowX="hidden" mx="auto" w={"100%"}>
         <Flex
           mx="auto"
           alignItems="center"
           justifyContent="space-between"
-          w={"100%"}
+          w={"90%"}
           py={{ base: 2, lg: 4 }}
         >
           <Link href="/">
