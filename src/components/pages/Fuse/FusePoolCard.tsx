@@ -141,7 +141,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
               textAlign="center"
               color={useColorModeValue("", "gray.300")}
             >
-              {t("Total Supply")}
+              Total Supply
             </Text>
             <Text mt="1.5" fontWeight="bold" fontFamily="Manrope">
               {smallUsdFormatter(pool.suppliedUSD)}
@@ -154,7 +154,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
               textAlign="center"
               color={useColorModeValue("", "gray.300")}
             >
-              {t("Total borrowed")}
+              Total borrowed
             </Text>
             <Text mt="1.5" fontWeight="bold" fontFamily="Manrope">
               {smallUsdFormatter(pool.borrowedUSD)}

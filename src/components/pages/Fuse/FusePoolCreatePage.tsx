@@ -179,7 +179,7 @@ export const CreatePoolConfiguration = () => {
 
             <OptionRow>
               <Text fontWeight="normal" mr={4}>
-                {t("Name")}
+                Name
               </Text>
               <Input
                 width="40%"
@@ -194,7 +194,7 @@ export const CreatePoolConfiguration = () => {
 
             <OptionRow>
               <Text fontWeight="normal" mr={4}>
-                {t("Oracle")}
+                Oracle
               </Text>
               <Select
                 width="40%"
@@ -256,7 +256,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Whitelisted")} <QuestionIcon mb="4px" />
+                  Whitelisted <QuestionIcon ml={1} mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -300,7 +300,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Close Factor")} <QuestionIcon mb="4px" />
+                  Close Factor <QuestionIcon ml={1} mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -322,7 +322,7 @@ export const CreatePoolConfiguration = () => {
                 )}
               >
                 <Text fontWeight="normal">
-                  {t("Liquidation Incentive")} <QuestionIcon mb="4px" />
+                  Liquidation Incentive <QuestionIcon ml={1} mb="4px" />
                 </Text>
               </SimpleTooltip>
 
@@ -439,7 +439,7 @@ export const WhitelistInfo = ({
       </OptionRow>
       {whitelist.length > 0 ? (
         <Text mb={4} ml={4} width="100%">
-          <b>{t("Already added:")} </b>
+          <b>Already added: </b>
           {whitelist.map((user, index, array) => (
             <Text
               key={user}

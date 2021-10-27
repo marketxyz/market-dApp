@@ -173,7 +173,7 @@ export const PoolInfoBox = ({
           data.assets.length > 0 ? (
             <AssetAndOtherInfo assets={data.assets} />
           ) : (
-            <Center expand>{t("There are no assets in this pool.")}</Center>
+            <Center expand>{"There are no assets in this pool."}</Center>
           )
         ) : (
           <Skeleton w="100%" h="100%" />
@@ -222,9 +222,7 @@ const OracleAndInterestRates = ({
         height="60px"
         flexShrink={0}
       >
-        <Heading size="sm">
-          {t("Pool {{num}} Info", { num: poolId, name })}
-        </Heading>
+        <Heading size="sm">{`Pool ${poolId} Info`}</Heading>
 
         <Link
           className="no-underline"
@@ -234,7 +232,7 @@ const OracleAndInterestRates = ({
         >
           <PoolDashboardBox height="35px">
             <Center expand px={2} fontWeight="bold">
-              {t("Metrics")}
+              Metrics
             </Center>
           </PoolDashboardBox>
         </Link>
@@ -249,7 +247,7 @@ const OracleAndInterestRates = ({
           >
             <PoolDashboardBox height="35px">
               <Center expand px={2} fontWeight="bold">
-                {t("Edit")}
+                Edit
               </Center>
             </PoolDashboardBox>
           </Link>
@@ -264,16 +262,16 @@ const OracleAndInterestRates = ({
         width="100%"
       >
         <StatRow
-          statATitle={t("Total Supplied")}
+          statATitle={"Total Supplied"}
           statA={shortUsdFormatter(totalSuppliedUSD)}
-          statBTitle={t("Total Borrowed")}
+          statBTitle={"Total Borrowed"}
           statB={shortUsdFormatter(totalBorrowedUSD)}
         />
 
         <StatRow
-          statATitle={t("Available Liquidity")}
+          statATitle={"Available Liquidity"}
           statA={shortUsdFormatter(totalLiquidityUSD)}
-          statBTitle={t("Pool Utilization")}
+          statBTitle={"Pool Utilization"}
           statB={
             totalSuppliedUSD.toString() === "0"
               ? "0%"
@@ -282,23 +280,21 @@ const OracleAndInterestRates = ({
         />
 
         <StatRow
-          statATitle={t("Upgradeable")}
+          statATitle={"Upgradeable"}
           statA={data ? (data.upgradeable ? "Yes" : "No") : "?"}
-          statBTitle={
-            hasCopied ? t("Admin (copied!)") : t("Admin (click to copy)")
-          }
+          statBTitle={hasCopied ? "Admin (copied!)" : "Admin (click to copy)"}
           statB={data?.admin ? shortAddress(data.admin) : "?"}
           onClick={onCopy}
         />
 
         <StatRow
-          statATitle={t("Platform Fee")}
+          statATitle={"Platform Fee"}
           statA={
             assets.length > 0
               ? (assets[0].fuseFee / 1e16).toPrecision(2) + "%"
               : "10%"
           }
-          statBTitle={t("Average Admin Fee")}
+          statBTitle={"Average Admin Fee"}
           statB={
             assets
               .reduce(
@@ -310,9 +306,9 @@ const OracleAndInterestRates = ({
         />
 
         <StatRow
-          statATitle={t("Close Factor")}
+          statATitle={"Close Factor"}
           statA={data?.closeFactor ? data.closeFactor / 1e16 + "%" : "?%"}
-          statBTitle={t("Liquidation Incentive")}
+          statBTitle={"Liquidation Incentive"}
           statB={
             data?.liquidationIncentive
               ? data.liquidationIncentive / 1e16 - 100 + "%"
@@ -321,9 +317,9 @@ const OracleAndInterestRates = ({
         />
 
         <StatRow
-          statATitle={t("Oracle")}
-          statA={data ? data.oracle ?? t("Unrecognized Oracle") : "?"}
-          statBTitle={t("Whitelist")}
+          statATitle={"Oracle"}
+          statA={data ? data.oracle ?? "Unrecognized Oracle" : "?"}
+          statBTitle={"Whitelist"}
           statB={data ? (data.enforceWhitelist ? "Yes" : "No") : "?"}
         />
       </Column>
@@ -430,10 +426,9 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         flexShrink={0}
       >
         <Heading size="sm" py={3}>
-          {t("Pool {{num}}'s {{token}} Stats", {
-            num: poolId,
-            token: selectedTokenData?.symbol ?? selectedAsset.underlyingSymbol,
-          })}
+          {`Pool ${poolId}'s ${
+            selectedTokenData?.symbol ?? selectedAsset.underlyingSymbol
+          } Stats`}
         </Heading>
 
         <Select
@@ -472,7 +467,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
           data.supplierRates === null ? (
             <Center expand color="#FFFFFF">
               <Text>
-                {t("No graph is available for this asset's interest curves.")}
+                No graph is available for this asset's interest curves.
               </Text>
             </Center>
           ) : (
@@ -505,7 +500,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
                       {
                         x: selectedAssetUtilization,
                         label: {
-                          text: t("Current Utilization"),
+                          text: "Current Utilization",
                           orientation: "horizontal",
                           style: {
                             background: "#121212",
@@ -559,7 +554,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
           stat={(selectedAsset.collateralFactor / 1e16).toFixed(0) + "%"}
           statSize="lg"
           captionSize="xs"
-          caption={t("Collateral Factor")}
+          caption={"Collateral Factor"}
           crossAxisAlignment="center"
           captionFirst={true}
         />
@@ -568,7 +563,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
           stat={(selectedAsset.reserveFactor / 1e16).toFixed(0) + "%"}
           statSize="lg"
           captionSize="xs"
-          caption={t("Reserve Factor")}
+          caption={"Reserve Factor"}
           crossAxisAlignment="center"
           captionFirst={true}
         />
@@ -588,7 +583,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
           stat={shortUsdFormatter(selectedAsset.totalSupplyUSD)}
           statSize="lg"
           captionSize="xs"
-          caption={t("Total Supplied")}
+          caption={"Total Supplied"}
           crossAxisAlignment="center"
           captionFirst={true}
         />
@@ -606,7 +601,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
             }
             statSize="lg"
             captionSize="xs"
-            caption={t("Utilization")}
+            caption={"Utilization"}
             crossAxisAlignment="center"
             captionFirst={true}
           />
@@ -616,7 +611,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
           stat={shortUsdFormatter(selectedAsset.totalBorrowUSD)}
           statSize="lg"
           captionSize="xs"
-          caption={t("Total Borrowed")}
+          caption={"Total Borrowed"}
           crossAxisAlignment="center"
           captionFirst={true}
         />

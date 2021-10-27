@@ -28,7 +28,7 @@ const FuseStatsBar = () => {
       py="72px"
       px={{ base: "5vw", lg: 0 }}
       w="100%"
-      maxWidth={{ lg: "90%"}}
+      maxWidth={{ lg: "90%" }}
       gridGap="1.5rem"
       
     >
@@ -45,7 +45,7 @@ const FuseStatsBar = () => {
           fontWeight="bold"
           zIndex="100"
         >
-          {t("Leverage assets you believe in.")}
+          Leverage assets you believe in.
         </Heading>
         <Text
           fontSize="18px"
@@ -91,7 +91,7 @@ const FuseStatsBar = () => {
           <Spinner color="#FFF" />
         )}
         <Text textColor="white" whiteSpace="nowrap">
-          {t("Total value supplied across fuse")}
+          Total value supplied across fuse
         </Text>
       </MotionFlex>
     </Flex>

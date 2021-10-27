@@ -404,7 +404,7 @@ export const AssetSettings = ({
           )}
         >
           <Text fontWeight="bold">
-            {t("Collateral Factor")} <QuestionIcon ml={1} mb="4px" />
+            {"Collateral Factor"} <QuestionIcon ml={1} mb="4px" />
           </Text>
         </SimpleTooltip>
 
@@ -427,10 +427,10 @@ export const AssetSettings = ({
       {cTokenAddress ? (
         <ConfigRow>
           <SimpleTooltip
-            label={t("If enabled borrowing this asset will be disabled.")}
+            label={"If enabled borrowing this asset will be disabled."}
           >
             <Text fontWeight="bold">
-              {t("Pause Borrowing")} <QuestionIcon ml={1} mb="4px" />
+              {"Pause Borrowing"} <QuestionIcon ml={1} mb="4px" />
             </Text>
           </SimpleTooltip>
 
@@ -438,9 +438,7 @@ export const AssetSettings = ({
             ml="auto"
             onClick={toggleBorrowPause}
             fontSize="xs"
-            altText={
-              isBorrowPaused ? t("Enable Borrowing") : t("Pause Borrowing")
-            }
+            altText={isBorrowPaused ? "Enable Borrowing" : "Pause Borrowing"}
           />
         </ConfigRow>
       ) : null}
@@ -453,7 +451,7 @@ export const AssetSettings = ({
           )}
         >
           <Text fontWeight="bold">
-            {t("Reserve Factor")} <QuestionIcon ml={1} mb="4px" />
+            {"Reserve Factor"} <QuestionIcon ml={1} mb="4px" />
           </Text>
         </SimpleTooltip>
 
@@ -481,7 +479,7 @@ export const AssetSettings = ({
           )}
         >
           <Text fontWeight="bold">
-            {t("Admin Fee")} <QuestionIcon ml={1} mb="4px" />
+            Admin Fee <QuestionIcon ml={1} mb="4px" />
           </Text>
         </SimpleTooltip>
 
@@ -503,12 +501,12 @@ export const AssetSettings = ({
 
       <ConfigRow>
         <SimpleTooltip
-          label={t(
+          label={
             "The interest rate model chosen for an asset defines the rates of interest for borrowers and suppliers at different utilization levels."
-          )}
+          }
         >
           <Text fontWeight="bold">
-            {t("Interest Model")} <QuestionIcon ml={1} mb="4px" />
+            {"Interest Model"} <QuestionIcon ml={1} mb="4px" />
           </Text>
         </SimpleTooltip>
 
@@ -631,9 +629,7 @@ export const AssetSettings = ({
           </Center>
         ) : (
           <Center expand color="black">
-            <Text>
-              {t("No graph is available for this asset's interest curves.")}
-            </Text>
+            <Text>No graph is available for this asset's interest curves.</Text>
           </Center>
         )}
       </Box>
@@ -653,7 +649,7 @@ export const AssetSettings = ({
             isLoading={isDeploying}
             onClick={deploy}
           >
-            {t("Confirm")}
+            Confirm
           </Button>
         </Box>
       )}
@@ -699,7 +695,7 @@ const AddAssetModal = ({
       <ModalContent {...MODAL_PROPS}>
         <DashboardBox color={textColor} bgColor={modalBg}>
         <Heading fontSize="27px" fontWeight="normal" my={4} textAlign="center">
-          {t("Add Asset")}
+          Add Asset
         </Heading>
 
         <ModalDivider />
@@ -733,9 +729,9 @@ const AddAssetModal = ({
             <Input
               width="100%"
               textAlign="center"
-              placeholder={t(
+              placeholder={
                 "Token Address: 0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-              )}
+              }
               height="40px"
               variant="filled"
               size="sm"

@@ -304,10 +304,7 @@ export const SettingsModal = ({
                 {t("Learn")}
               </Text>
             </Link>
-            <Link
-              isExternal
-              href="https://info.rari.capital/security/#smart-contract-audits"
-            >
+            <Link isExternal href="https://docs.market.xyz/audit-reports">
               <Text mx={2} text="sm" textDecoration="underline">
                 {t("Audits")}
               </Text>
