@@ -1,4 +1,4 @@
-import { Tooltip } from "@chakra-ui/react";
+import { Tooltip, useColorModeValue } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 export const SimpleTooltip = ({
@@ -25,12 +25,18 @@ export const SimpleTooltip = ({
     | "left-end";
   children: ReactNode;
 }) => {
+
+  const bgColor = useColorModeValue("#faf7fa", "#2f2f2f")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+
   return (
     <Tooltip
-      p={1}
+      p={2}
+      borderRadius={"12px"}
       hasArrow
-      bg="#000"
+      bg={bgColor}
       textAlign="center"
+      textColor={textColor}
       zIndex={999999999}
       placement={placement ?? "top"}
       aria-label={label}

@@ -64,7 +64,6 @@ export const FuseDashNav = (props: any) => {
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("black", "white");
-  const borderColor = useColorModeValue("#e6e4e7", "gray.700");
   const isMobile = useIsSmallScreen();
 
   return (
@@ -83,17 +82,15 @@ export const FuseDashNav = (props: any) => {
         color={textColor}
         overflowX="visible"
         overflowY="visible"
-        w="100%"
+        w="90%"
+        alignSelf="center"
         pt={4}
-        borderTop={`1px solid`}
-        borderColor={borderColor}
         backgroundColor={bgColor}
       >
         <Flex
-          alignItems="center"
           direction={isMobile ? "column" : "row-reverse"}
           justifyContent={isMobile ? "center" : "space-between"}
-          px={isMobile ? 0 : "8"}
+          alignItems={isMobile ? "center" : "space-between"}
         >
           <Box display="flex" mt={isMobile ? 3 : 0} ml={2}>
             <InputGroup mr={3} display={{ base: "none", lg: "flex" }}>
@@ -104,6 +101,7 @@ export const FuseDashNav = (props: any) => {
               />
               <Select
                 pl={"4.5rem"}
+                borderRadius="12px"
                 _focus={{}}
                 onChange={(e) => setSortBy(e.target.value)}
                 value={sortBy}
@@ -121,8 +119,10 @@ export const FuseDashNav = (props: any) => {
                   backgroundColor={bgColor}
                   border="2.5px solid"
                   borderColor="inherit"
+                  borderRadius="12px"
                 />
                 <Input
+                borderRadius="12px"
                   _focus={{}}
                   _hover={{}}
                   border="2.5px solid #d9d8da"
@@ -137,7 +137,6 @@ export const FuseDashNav = (props: any) => {
               </InputGroup>
             </span>
           </Box>
-
           <PoolButtons searchText={searchText} setSearchText={setSearchText} />
         </Flex>
       </Box>

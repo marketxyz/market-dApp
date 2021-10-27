@@ -30,6 +30,7 @@ const FuseStatsBar = () => {
       w="100%"
       maxWidth={{ lg: "90%" }}
       gridGap="1.5rem"
+      
     >
       <Flex
         flexDir="column"

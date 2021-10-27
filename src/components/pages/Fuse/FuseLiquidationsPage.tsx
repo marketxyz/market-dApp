@@ -2,6 +2,7 @@
 import {
   AvatarGroup,
   Box,
+  Divider,
   Link,
   Spinner,
   Switch,
@@ -289,13 +290,14 @@ const FuseLiquidationsPage = memo(() => {
       >
         {/* <Header isAuthed={isAuthed} isFuse /> */}
         <FuseNavbar />
+        <Divider />
         <FuseStatsBar />
-
+        <Divider />
         {/* <FuseTabBar /> */}
 
         <RowOrColumn
           isRow={!isMobile}
-          mt={4}
+          mt={10}
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
           width={isMobile ? "100%" : "90%"}

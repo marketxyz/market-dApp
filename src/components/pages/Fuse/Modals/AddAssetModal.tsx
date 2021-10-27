@@ -12,6 +12,7 @@ import {
   Spinner,
   useToast,
   Divider,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Column, Center } from "utils/chakraUtils";
 import { useEffect, useState } from "react";
@@ -47,6 +48,7 @@ import { testForCTokenErrorAndSend } from "./PoolModal/AmountSelect";
 import { handleGenericError } from "../../../../utils/errorHandling";
 import { USDPricedFuseAsset } from "../../../../utils/fetchFusePoolData";
 import LogRocket from "logrocket";
+import DashboardBox from "components/shared/DashboardBox";
 
 const formatPercentage = (value: number) => value.toFixed(0) + "%";
 
@@ -384,6 +386,9 @@ export const AssetSettings = ({
     }
   };
 
+  const borderColor = useColorModeValue("gray.200", "gray.700")
+  const bgColor = useColorModeValue("white", "gray.900")
+
   return (
     <Column
       mainAxisAlignment="flex-start"
@@ -418,7 +423,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <Divider bg="#BBB" borderColor="#BBB" />
+      <Divider bg={borderColor} />
       {cTokenAddress ? (
         <ConfigRow>
           <SimpleTooltip
@@ -437,7 +442,7 @@ export const AssetSettings = ({
           />
         </ConfigRow>
       ) : null}
-      <Divider bg="#BBB" borderColor="#BBB" />
+      <Divider bg={borderColor} />
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -465,7 +470,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <Divider bg="#BBB" borderColor="#BBB" />
+      <Divider bg={borderColor} />
 
       <ConfigRow height="35px">
         <SimpleTooltip
@@ -492,7 +497,7 @@ export const AssetSettings = ({
         />
       </ConfigRow>
 
-      <Divider bg="#BBB" borderColor="#BBB" />
+      <Divider bg={borderColor} />
 
       <ConfigRow>
         <SimpleTooltip
@@ -506,11 +511,11 @@ export const AssetSettings = ({
         </SimpleTooltip>
 
         <Select
-          backgroundColor="#FFF"
+          backgroundColor={bgColor}
           border="1px"
-          borderColor="#BBB"
+          borderColor={borderColor}
           ml="auto"
-          borderRadius="7px"
+          borderRadius="12px"
           fontWeight="bold"
           _focus={{ outline: "none" }}
           width="230px"
@@ -675,6 +680,10 @@ const AddAssetModal = ({
 
   const isEmpty = tokenAddress.trim() === "";
 
+  const inputBg = useColorModeValue("white", "gray.700")
+  const modalBg = useColorModeValue("gray.50", "gray.800")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+
   return (
     <Modal
       motionPreset="slideInBottom"
@@ -684,6 +693,7 @@ const AddAssetModal = ({
     >
       <ModalOverlay />
       <ModalContent {...MODAL_PROPS}>
+        <DashboardBox color={textColor} bgColor={modalBg}>
         <Heading fontSize="27px" fontWeight="normal" my={4} textAlign="center">
           Add Asset
         </Heading>
@@ -730,11 +740,12 @@ const AddAssetModal = ({
                 const address = event.target.value;
                 _setTokenAddress(address);
               }}
-              backgroundColor="#FFF"
-              borderRadius="10px"
+              color={textColor}
+              backgroundColor={inputBg}
+              borderRadius="12px"
               border="1px"
-              borderColor="#BBB"
-              _placeholder={{ color: "#000" }}
+              borderColor={inputBg}
+              _placeholder={{ color: textColor }}
               _focus={{}}
               _hover={{}}
             />
@@ -761,6 +772,7 @@ const AddAssetModal = ({
             </>
           ) : null}
         </Column>
+        </DashboardBox>
       </ModalContent>
     </Modal>
   );

@@ -90,7 +90,7 @@ const Stat = (props: StatProps) => (
   <ChakraStat
     px={{ base: 4, sm: 6 }}
     py="5"
-    bg={useColorModeValue("white", "gray.700")}
+    bg={useColorModeValue("white", "#21262e")}
     fontFamily="Manrope"
     shadow="base"
     rounded="lg"
@@ -123,12 +123,11 @@ const FusePoolPage = memo(() => {
         <FuseNavbar />
         <Divider />
         <HStack
-          width="100%"
+          width={"90%"}
           my={8}
           mx="auto"
           maxW={{ lg: "1200px" }}
           spacing={6}
-          px={{ base: 6, lg: 0 }}
         >
           <Link to="/">
             <ArrowBackIcon fontSize="2xl" fontWeight="extrabold" />
@@ -136,9 +135,8 @@ const FusePoolPage = memo(() => {
 
           {data ? (
             <Heading
-              lineHeight={1}
               textAlign="center"
-              fontSize="2xl"
+              fontSize="xl"
               fontWeight="bold"
             >
               {data.name}
@@ -168,18 +166,16 @@ const FusePoolPage = memo(() => {
         </HStack>
         <Box
           as="section"
-          bg={useColorModeValue("gray.50", "gray.900")}
-          px="10"
+          bg={bgColor}
           py="4"
-          pb="8"
-          width={"100%"}
-          display={{ sm: "none", md: "block" }}
+          width={{ base: "90%", xl: "100%" }}
+          alignSelf={"center"}
         >
-          <Box maxW="7xl" mx="auto" px={{ base: "6", md: "8" }}>
-            <Heading marginBottom={"2"} fontWeight="semibold" fontSize={"2xl"}>
+          <Box maxW="1200px" mx="auto">
+            <Heading marginBottom={"4"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
             </Heading>
-            <SimpleGrid columns={{ base: 1, md: 4 }} spacing="3">
+            <SimpleGrid columns={{ base: 2, md: 4 }} spacing="3">
               <Stat>
                 <StatLabel>{"Total Supply"}</StatLabel>
                 <StatNumber>
@@ -246,17 +242,16 @@ const FusePoolPage = memo(() => {
           ) : null
         }
         <RowOrColumn
-          width="100%"
+          width={isMobile ? "100%" : "90%"}
           mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
+          crossAxisAlignment={isMobile ? "center" : "flex-start"}
           maxW={{ lg: "1200px" }}
           bgColor={bgColor}
-          px={{ base: 6, lg: 0 }}
           mx="auto"
           mt={4}
           isRow={!isMobile}
         >
-          <PoolDashboardBox width={isMobile ? "100%" : "50%"}>
+          <PoolDashboardBox width={isMobile ? "90%" : "50%"}>
             {data ? (
               <SupplyList
                 assets={data.assets}
@@ -271,7 +266,7 @@ const FusePoolPage = memo(() => {
           <PoolDashboardBox
             ml={isMobile ? 0 : 4}
             mt={isMobile ? 4 : 0}
-            width={isMobile ? "100%" : "50%"}
+            width={isMobile ? "90%" : "50%"}
           >
             {data ? (
               <BorrowList
@@ -597,6 +592,8 @@ const AssetSupplyRow = ({
 
   const { t } = useTranslation();
 
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+
   return (
     <>
       <PoolModal
@@ -742,14 +739,14 @@ const AssetSupplyRow = ({
           onClick={authedOpenModal}
         >
           <Text
-            color={tokenData?.color ?? "#FFF"}
+            color={tokenData?.color ?? textColor}
             fontWeight="bold"
             fontSize="17px"
           >
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
 
-          <Text fontSize="sm">
+          <Text textAlign={"right"} fontSize="sm">
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -923,6 +920,8 @@ const AssetBorrowRow = ({
 
   const isMobile = useIsMobile();
 
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+
   return (
     <>
       <PoolModal
@@ -1003,7 +1002,7 @@ const AssetBorrowRow = ({
           width={isMobile ? "40%" : "27%"}
         >
           <Text
-            color={tokenData?.color ?? "#FFF"}
+            color={tokenData?.color ?? textColor}
             fontWeight="bold"
             fontSize="17px"
           >
@@ -1030,7 +1029,7 @@ const AssetBorrowRow = ({
               crossAxisAlignment="flex-end"
             >
               <Text
-                color={tokenData?.color ?? "#FFF"}
+                color={tokenData?.color ?? textColor}
                 fontWeight="bold"
                 fontSize="17px"
               >

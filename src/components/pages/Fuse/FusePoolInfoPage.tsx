@@ -137,14 +137,13 @@ export const PoolInfoBox = ({
 
   return (
     <RowOrColumn
-      width="100%"
+      width="90%"
       maxW={{ lg: "1200px" }}
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
       mx="auto"
       isRow={!isMobile}
       bgColor={bgColor}
-      px={{ base: 6, lg: 0 }}
     >
       <PoolDashboardBox
         width={isMobile ? "100%" : "50%"}

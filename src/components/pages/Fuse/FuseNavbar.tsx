@@ -82,7 +82,7 @@ const NetworkSwitcher = () => {
 
   return (
     <>
-      <Button m={2} onClick={onOpen}>
+      <Button borderRadius="12px" m={2} onClick={onOpen}>
         <Image
           src={networkData[chainName].img}
           h={"6"}
@@ -102,9 +102,9 @@ const NetworkSwitcher = () => {
           border={"medium"}
           borderColor="#DF2EAC"
           borderStyle="solid"
-          borderRadius={"lg"}
+          borderRadius="20px"
         >
-          <ModalHeader>Select a Network</ModalHeader>
+          <ModalHeader fontSize="1.5rem">Select a Network</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Heading fontSize={"lg"} fontWeight={"medium"} lineHeight={"tall"}>
@@ -139,6 +139,7 @@ const NetworkSwitcher = () => {
                   justifyContent={"flex-start"}
                   fontSize={"md"}
                   border={chainId === d.chainId ? selectedNetworkBorder : ""}
+                  borderRadius="12px"
                   disabled={!d.enabled}
                   bg={chainId === d.chainId ? btnBgActive : btnBg}
                   onClick={() =>
@@ -192,14 +193,12 @@ const FuseNavbar = () => {
           </Link>
         </Text>
       </Alert>
-      <Box bgColor={bgColor} overflowX="hidden" w="100%" px={["0px", "25px"]}>
+      <Box bgColor={bgColor} overflowX="hidden" mx="auto" w={"100%"}>
         <Flex
           mx="auto"
-          maxWidth="1200px"
           alignItems="center"
           justifyContent="space-between"
-          w="100%"
-          px={{ base: 4, lg: 0 }}
+          w={"90%"}
           py={{ base: 2, lg: 4 }}
         >
           <Link href="/">
@@ -232,14 +231,14 @@ const FuseNavbar = () => {
             {t("Buy Crypto")}
           </Button> */}
             <NetworkSwitcher />
-            <Button onClick={toggleColorMode} m={2} ml={isMobile ? 0 : 2}>
+            <AccountButton />
+            <Button bgColor={"transparent"} borderRadius="12px" onClick={toggleColorMode} m={2}>
               {colorMode === "light" ? (
                 <MoonIcon color="gray.700" w={5} h={5} />
               ) : (
-                <SunIcon color="yellow.300" w={5} h={5} />
+                <SunIcon color="gray.200" w={5} h={5} />
               )}
             </Button>
-            <AccountButton />
           </Box>
         </Flex>
       </Box>

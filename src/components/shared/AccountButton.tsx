@@ -136,7 +136,6 @@ const Buttons = ({
     <Row mainAxisAlignment="center" crossAxisAlignment="center">
       {isNetworkChangeable ? (
         <Button
-          ml={isMobile ? 0 : 2}
           justifyContent="left"
           onClick={() => switchChainId(rari.userWallet?.appChainId)}
         >
@@ -145,7 +144,7 @@ const Buttons = ({
         </Button>
       ) : (
         <DashboardBox
-          ml={isMobile ? 0 : 2}
+          mx={isMobile ? 0 : 2}
           as="button"
           height="40px"
           flexShrink={0}
@@ -156,6 +155,7 @@ const Buttons = ({
           boxShadow={"base"}
           borderColor="#DF2EAC"
           borderWidth="2px"
+          borderRadius="12px"
           _hover={{ boxShadow: "md" }}
           _focus={{ boxShadow: "md" }}
         >

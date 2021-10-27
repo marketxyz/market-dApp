@@ -9,6 +9,7 @@ import {
   useToast,
   Divider,
   Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Column, Center, Row } from "utils/chakraUtils";
 import { memo, ReactNode, useState } from "react";
@@ -27,6 +28,8 @@ import { SimpleTooltip } from "../../shared/SimpleTooltip";
 
 import { handleGenericError } from "../../../utils/errorHandling";
 import LogRocket from "logrocket";
+import FuseNavbar from "./FuseNavbar";
+import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 
 const formatPercentage = (value: number) => value.toFixed(0) + "%";
 
@@ -144,41 +147,60 @@ export const CreatePoolConfiguration = () => {
     }
   };
 
+  const bgColor = useColorModeValue("white", "gray.900");
+  const borderColor = useColorModeValue("gray.300", "gray.700");
+  // const btnColor = useColorModeValue("#DF2EAC", "#962277");
+  const btnTextColor = useColorModeValue("white", "gray.200");
+  const dividerColor = useColorModeValue("gray.300", "black")
+  const isMobile = useIsSmallScreen();
+
   return (
     <>
-      <Box px={8} mt={8}>
-        <DashboardBox borderColor="#BBB" bg="#fff" width="100%" mt={4}>
-          <Heading fontWeight="bold" size="md" px={4} py={4}>
-            Create Pool
+      <FuseNavbar />
+      <Box alignSelf={"center"} width={isMobile ? "96%" : "90%"} mt={8} mb={8}>
+        <DashboardBox
+          border={"2px"}
+          borderColor={borderColor}
+          bg={bgColor}
+          width={isMobile ? "100%" : "45%"}
+          maxWidth="500px"
+          mx={"auto"}
+          mt={4}
+        >
+          <Heading fontWeight="extrabold" size="md" px={4} py={4}>
+            {t("Create Pool")}
           </Heading>
 
           <Column
             mainAxisAlignment="flex-start"
             crossAxisAlignment="flex-start"
           >
-            <Divider bg="#BBB" />
+            <Divider bg={dividerColor} />
 
             <OptionRow>
               <Text fontWeight="normal" mr={4}>
                 Name
               </Text>
               <Input
-                width="20%"
+                width="40%"
+                placeholder="Type Pool name"
                 value={name}
+                borderColor={borderColor}
                 onChange={(event) => setName(event.target.value)}
               />
             </OptionRow>
 
-            <Divider bg="#BBB" />
+            <Divider bg={dividerColor} />
 
             <OptionRow>
               <Text fontWeight="normal" mr={4}>
                 Oracle
               </Text>
               <Select
-                width="20%"
+                width="40%"
                 value={oracle}
                 onChange={(event) => setOracle(event.target.value)}
+                borderColor={borderColor}
                 placeholder="Select Oracle"
               >
                 {userWallet?.appChainId === 1 ? (
@@ -225,7 +247,7 @@ export const CreatePoolConfiguration = () => {
               </Select>
             </OptionRow>
 
-            <Divider bg="#BBB" />
+            <Divider bg={dividerColor} />
 
             <OptionRow>
               <SimpleTooltip
@@ -269,7 +291,7 @@ export const CreatePoolConfiguration = () => {
               />
             ) : null}
 
-            <Divider bg="#BBB" />
+            <Divider bg={dividerColor} />
 
             <OptionRow>
               <SimpleTooltip
@@ -291,7 +313,7 @@ export const CreatePoolConfiguration = () => {
               />
             </OptionRow>
 
-            <Divider bg="#BBB" />
+            <Divider bg={dividerColor} />
 
             <OptionRow>
               <SimpleTooltip
@@ -314,20 +336,23 @@ export const CreatePoolConfiguration = () => {
             </OptionRow>
           </Column>
         </DashboardBox>
-
-        <DashboardBox
-          width="100%"
-          height="60px"
-          mt={4}
-          py={3}
-          fontSize="xl"
-          as="button"
-          onClick={onDeploy}
-        >
-          <Center expand color="#000" fontWeight="normal">
-            {isCreating ? <Spinner /> : "Create"}
-          </Center>
-        </DashboardBox>
+        <Center>
+          <DashboardBox
+            width={isMobile ? "100%" : "45%"}
+            height="60px"
+            mt={4}
+            py={3}
+            fontSize="xl"
+            as="button"
+            bg="#DF2EAC"
+            onClick={onDeploy}
+            maxWidth={"500px"}
+          >
+            <Center expand color={btnTextColor} fontWeight="bold">
+              {isCreating ? <Spinner /> : t("Create")}
+            </Center>
+          </DashboardBox>
+        </Center>
       </Box>
     </>
   );
