@@ -91,7 +91,7 @@ const FuseStatsBar = () => {
           <Spinner color="#FFF" />
         )}
         <Text textColor="white" whiteSpace="nowrap">
-          Total value supplied across fuse
+          Total value supplied across Market
         </Text>
       </MotionFlex>
     </Flex>
