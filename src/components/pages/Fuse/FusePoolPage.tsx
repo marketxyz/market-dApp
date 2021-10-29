@@ -259,7 +259,7 @@ const FusePoolPage = memo(() => {
                 supplyBalanceUSD={data.totalSupplyBalanceUSD}
               />
             ) : (
-              <TableSkeleton tableHeading="Supply Balance" />
+              <TableSkeleton tableHeading="Your Supply Balance" />
             )}
           </PoolDashboardBox>
 
@@ -275,7 +275,7 @@ const FusePoolPage = memo(() => {
                 borrowBalanceUSD={data.totalBorrowBalanceUSD}
               />
             ) : (
-              <TableSkeleton tableHeading="Borrow Balance" />
+              <TableSkeleton tableHeading="Your Borrow Balance" />
             )}
           </PoolDashboardBox>
         </RowOrColumn>
@@ -419,7 +419,7 @@ const SupplyList = ({
       pb={1}
     >
       <Heading size="md" px={4} py={3}>
-        Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
+        Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
 
       <Divider color="#F4F6F9" />
@@ -800,7 +800,7 @@ const BorrowList = ({
       pb={1}
     >
       <Heading size="md" px={4} py={3}>
-        Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
+        Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </Heading>
 
       <Divider color="#F4F6F9" />

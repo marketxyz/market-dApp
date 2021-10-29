@@ -259,20 +259,20 @@ const FusePoolEditPage = memo(() => {
         <RowOrColumn
           width={isMobile ? "100%" : "90%"}
           mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
-          maxW={{sm: "1000px", md: "800px", lg: "1000px", xl: "1200px"}}
+          crossAxisAlignment={isMobile ? "center" : "flex-start"}
+          maxW={{base: "600px", md:"80%", lg: "80%"}}
           bgColor={bgColor}
           textColor={textColor}
-          px={{ base: 6, lg: 0 }}
           mx="auto"
           mt={2}
           isRow={!isMobile}
           mb="8"
         >
           <DashboardBox
+            m={2}
             bg={cardColor}
             borderColor={borderColor}
-            width={isMobile ? "100%" : "50%"}
+            width={isMobile ? "95%" : "90%"}
             height={isMobile ? "auto" : "440px"}
           >
             {data ? (
@@ -287,7 +287,7 @@ const FusePoolEditPage = memo(() => {
             )}
           </DashboardBox>
 
-          <Box pl={isMobile ? 0 : 4} width={isMobile ? "100%" : "50%"}>
+          <Box m={2} width={isMobile ? "95%" : "90%"}>
             <DashboardBox
               bg={cardColor}
               borderColor={borderColor}
