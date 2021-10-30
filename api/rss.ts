@@ -361,12 +361,12 @@ async function computeAssetRSS_137(address: string) {
     const medianDefiCoinMcap = median(defiCoins.map((coin) => coin.market_cap));
 
     // Make exception for WETH
-    if ([WETH, WMATIC].includes(address)) {
+    if ([WETH, WMATIC, WBTC, USDC].includes(address)) {
       return 1;
     }
 
     if (address === miMATIC) {
-      return 0.7;
+      return 0.9;
     }
 
     if (asset_market_cap < 1_000_000) {
@@ -432,10 +432,7 @@ async function computeAssetRSS_137(address: string) {
 
   const coingeckoMetadata = await weightedCalculation(async () => {
     // USDC needs an exception because Circle twitter is not listed on Coingecko.
-    if (address === USDC) {
-      return 1;
-    }
-    if (address === WMATIC) {
+    if ([USDC, WMATIC, miMATIC].includes(address)) {
       return 1;
     }
 
@@ -535,6 +532,10 @@ export default async (request: NowRequest, response: NowResponse) => {
     }, 25);
 
     const collateralFactor = await weightedCalculation(async () => {
+      if (parseInt(poolID) == 3) {
+        return 0.8;
+      }
+
       // @ts-ignore
       const avgCollatFactor = assets.reduce(
         (a, b, _, { length }) => a + b.collateralFactor / 1e16 / length,
@@ -552,7 +553,7 @@ export default async (request: NowRequest, response: NowResponse) => {
         0
       );
 
-      return avgReserveFactor <= 2 ? 0 : avgReserveFactor / 13;
+      return avgReserveFactor <= 2 ? 0 : avgReserveFactor / 10;
     }, 10);
 
     const utilization = await weightedCalculation(async () => {
