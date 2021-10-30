@@ -125,11 +125,16 @@ const FusePoolEditPage = memo(() => {
 
   const data = useFusePoolData(poolId);
 
-  const bgColor = useColorModeValue("white", "gray.900")
-  const cardColor = useColorModeValue("gray.50", "gray.800")
-  const textColor = useColorModeValue("#2f2f2f", "white")
-  const borderColor = useColorModeValue("gray.50", "gray.800")
+  const bgColor = useColorModeValue("white", "gray.900");
+  const cardColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("#2f2f2f", "white");
+  const borderColor = useColorModeValue("gray.50", "gray.800");
+  const boxShadow = useColorModeValue(
+    "0px 0px 56px rgba(71, 29, 97, 0.15)",
+    "0px 2px 44px rgb(71 29 97 / 19%)"
+  );
 
+  // 0.105141
   return (
     <>
       {data ? (
@@ -259,8 +264,8 @@ const FusePoolEditPage = memo(() => {
         <RowOrColumn
           width={isMobile ? "100%" : "90%"}
           mainAxisAlignment="flex-start"
-          crossAxisAlignment={isMobile ? "center" : "flex-start"}
-          maxW={{base: "600px", md:"80%", lg: "80%"}}
+          crossAxisAlignment="center"
+          maxW={{ base: "1220px" }}
           bgColor={bgColor}
           textColor={textColor}
           mx="auto"
@@ -270,10 +275,11 @@ const FusePoolEditPage = memo(() => {
         >
           <DashboardBox
             m={2}
+            boxShadow={boxShadow}
             bg={cardColor}
             borderColor={borderColor}
-            width={isMobile ? "95%" : "90%"}
-            height={isMobile ? "auto" : "440px"}
+            width={isMobile ? "95%" : "50%"}
+            height={isMobile ? "auto" : "480px"}
           >
             {data ? (
               <PoolConfiguration
@@ -287,12 +293,13 @@ const FusePoolEditPage = memo(() => {
             )}
           </DashboardBox>
 
-          <Box m={2} width={isMobile ? "95%" : "90%"}>
+          <Box m={2} mt={isMobile ? 4 : 2} width={isMobile ? "95%" : "50%"}>
             <DashboardBox
+              boxShadow={boxShadow}
               bg={cardColor}
               borderColor={borderColor}
               width="100%"
-              height={isMobile ? "auto" : "440px"}
+              height={isMobile ? "auto" : "480px"}
             >
               {data ? (
                 data.assets.length > 0 ? (
@@ -573,9 +580,9 @@ const PoolConfiguration = ({
     }
   };
 
-  const bgColor = useColorModeValue("white", "gray.900")
-  const borderColor = useColorModeValue("gray.50", "gray.800")
-  const textColor = useColorModeValue("#2f2f2f", "white")
+  const bgColor = useColorModeValue("white", "gray.900");
+  const borderColor = useColorModeValue("gray.50", "gray.800");
+  const textColor = useColorModeValue("#2f2f2f", "white");
 
   return (
     <Column
@@ -587,7 +594,7 @@ const PoolConfiguration = ({
         {`Pool ${poolId} Configuration`}
       </Heading>
 
-      <Divider bg={borderColor}/>
+      <Divider bg={borderColor} />
 
       {data ? (
         <Column
@@ -626,7 +633,7 @@ const PoolConfiguration = ({
             )}
           </ConfigRow>
 
-          <Divider bg={borderColor}/>
+          <Divider bg={borderColor} />
 
           <Column
             mainAxisAlignment="flex-start"
@@ -657,7 +664,7 @@ const PoolConfiguration = ({
               />
             ) : null}
 
-            <Divider bg={borderColor}/>
+            <Divider bg={borderColor} />
 
             <ConfigRow>
               <Text fontWeight="bold">Pending Admin:</Text>
@@ -690,13 +697,14 @@ const PoolConfiguration = ({
             {data.admin === address ? (
               <ConfigRow>
                 <Input
+                  color={textColor}
                   width="85%"
                   value={_pendingAdminValue}
                   onChange={(event) =>
                     _setPendingAdminValue(event.target.value)
                   }
                   placeholder="Enter address, ex: 0x0000000000000000000000000000000000000000"
-                  _placeholder={{ color: "#000" }}
+                  _placeholder={{ color: textColor }}
                 />
                 <DashboardBox
                   mt={0}
@@ -716,7 +724,7 @@ const PoolConfiguration = ({
               <></>
             )}
 
-            <Divider bg={borderColor}/>
+            <Divider bg={borderColor} />
 
             <ConfigRow>
               <Text fontWeight="bold">Upgradeable:</Text>
@@ -752,7 +760,7 @@ const PoolConfiguration = ({
               Change Oracle
             </DashboardBox> */}
 
-            <Divider bg={borderColor}/>
+            <Divider bg={borderColor} />
 
             <ConfigRow height="35px">
               <Text fontWeight="bold">Close Factor:</Text>
@@ -771,7 +779,7 @@ const PoolConfiguration = ({
               />
             </ConfigRow>
 
-            <Divider bg={borderColor}/>
+            <Divider bg={borderColor} />
 
             <ConfigRow height="35px">
               <Text fontWeight="bold">Liquidation Incentive:</Text>
@@ -820,7 +828,7 @@ const AssetConfiguration = ({
   const { t } = useTranslation();
 
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
-  const borderColor = useColorModeValue("gray.50", "gray.800")
+  const borderColor = useColorModeValue("gray.50", "gray.800");
 
   return (
     <Column
@@ -953,9 +961,9 @@ const AddAssetButton = ({
   const { t } = useTranslation();
 
   const isUpgradeable = useIsUpgradeable(comptrollerAddress);
-  const btnColor = useColorModeValue("gray.100", "gray.700")
-  const textColor = useColorModeValue("#2f2f2f", "white")
-  const btnBorder = useColorModeValue("gray.400", "gray.600")
+  const btnColor = useColorModeValue("gray.100", "gray.700");
+  const textColor = useColorModeValue("#2f2f2f", "white");
+  const btnBorder = useColorModeValue("gray.400", "gray.600");
 
   return isUpgradeable ? (
     <DashboardBox
