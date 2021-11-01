@@ -3,7 +3,6 @@ import Web3 from "web3";
 import axios from "axios";
 import Big from "big.js";
 import Cache from "./cache.js";
-var erc20Abi = require("." + "/abi/ERC20.json");
 
 export default class Rari {
   constructor(web3Provider) {
