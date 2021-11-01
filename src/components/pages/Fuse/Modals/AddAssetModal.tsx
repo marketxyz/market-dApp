@@ -79,12 +79,14 @@ export const useCTokenData = (
         interestRateModelAddress,
         { collateralFactorMantissa },
         isBorrowPaused,
+        isSupplyPaused,
       ] = await Promise.all([
         cToken.methods.adminFeeMantissa().call(),
         cToken.methods.reserveFactorMantissa().call(),
         cToken.methods.interestRateModel().call(),
         comptroller.methods.markets(cTokenAddress).call(),
         comptroller.methods.borrowGuardianPaused(cTokenAddress).call(),
+        comptroller.methods.mintGuardianPaused(cTokenAddress).call(),
       ]);
 
       return {
@@ -93,6 +95,7 @@ export const useCTokenData = (
         collateralFactorMantissa,
         interestRateModelAddress,
         isBorrowPaused,
+        isSupplyPaused,
       };
     } else {
       return null;
@@ -133,6 +136,7 @@ export const AssetSettings = ({
   const [collateralFactor, setCollateralFactor] = useState(50);
   const [reserveFactor, setReserveFactor] = useState(10);
   const [isBorrowPaused, setIsBorrowPaused] = useState(false);
+  const [isSupplyPaused, setIsSupplyPaused] = useState(false);
   const [adminFee, setAdminFee] = useState(5);
 
   const scaleCollateralFactor = (_collateralFactor: number) => {
@@ -269,6 +273,7 @@ export const AssetSettings = ({
   // Update values on refetch!
   useEffect(() => {
     if (cTokenData) {
+      setIsSupplyPaused(cTokenData.isSupplyPaused);
       setIsBorrowPaused(cTokenData.isBorrowPaused);
       setCollateralFactor(cTokenData.collateralFactorMantissa / 1e16);
       setReserveFactor(cTokenData.reserveFactorMantissa / 1e16);
@@ -385,6 +390,21 @@ export const AssetSettings = ({
     }
   };
 
+  const toggleSupplyPause = async () => {
+    const comptroller = createComptroller(comptrollerAddress, fuse);
+    try {
+      await comptroller.methods
+        ._setMintPaused(cTokenAddress, !isSupplyPaused)
+        .send({ from: address });
+
+      LogRocket.track("Fuse-PauseToggle");
+
+      queryClient.refetchQueries();
+    } catch (e) {
+      handleGenericError(e, toast);
+    }
+  };
+
   const borderColor = useColorModeValue("gray.200", "gray.700");
   const bgColor = useColorModeValue("white", "gray.900");
 
@@ -438,6 +458,26 @@ export const AssetSettings = ({
             onClick={toggleBorrowPause}
             fontSize="xs"
             altText={isBorrowPaused ? "Enable Borrowing" : "Pause Borrowing"}
+          />
+        </ConfigRow>
+      ) : null}
+
+      <Divider bg={borderColor} />
+      {cTokenAddress ? (
+        <ConfigRow>
+          <SimpleTooltip
+            label={"If enabled minting this asset will be disabled."}
+          >
+            <Text fontWeight="bold">
+              {"Pause Minting"} <QuestionIcon ml={1} mb="4px" />
+            </Text>
+          </SimpleTooltip>
+
+          <SaveButton
+            ml="auto"
+            onClick={toggleSupplyPause}
+            fontSize="xs"
+            altText={isSupplyPaused ? "Enable Minting" : "Pause Minting"}
           />
         </ConfigRow>
       ) : null}
