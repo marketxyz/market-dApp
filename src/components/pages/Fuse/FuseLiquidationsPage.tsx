@@ -150,7 +150,7 @@ const FuseLiquidationsPage = memo(() => {
     const pools = await fuse.contracts.FusePoolDirectory.methods
       .getAllPools()
       .call();
-
+    const latestBlock = await fuse.web3.eth.getBlockNumber();
     let liquidationEvents: LiquidationEvent[] = [];
 
     let poolFetches: Promise<any>[] = [];
@@ -176,7 +176,7 @@ const FuseLiquidationsPage = memo(() => {
               const cToken = new fuse.web3.eth.Contract(
                 JSON.parse(
                   fuse.compoundContracts[
-                    "contracts/CEtherDelegate.sol:CEtherDelegate"
+                    "contracts/CErc20Delegate.sol:CErc20Delegate"
                   ].abi
                 ),
                 asset.cToken
@@ -185,7 +185,7 @@ const FuseLiquidationsPage = memo(() => {
               eventFetches.push(
                 cToken
                   .getPastEvents("LiquidateBorrow", {
-                    fromBlock: 12060000,
+                    fromBlock: latestBlock - 50_000,
                     toBlock: "latest",
                   })
                   .then(async (events) => {
@@ -266,12 +266,12 @@ const FuseLiquidationsPage = memo(() => {
     "0px 2px 44px rgb(71 29 97 / 29%)"
   );
   const frame1 = useColorModeValue(
-    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235290884&to=1633840090885&theme=light&panelId=16",
-    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235275204&to=1633840075204&theme=dark&panelId=16"
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=now-30m&to=now&theme=light&panelId=16",
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=now-30m&to=now&theme=dark&panelId=16"
   );
   const frame2 = useColorModeValue(
-    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235241778&to=1633840041778&theme=light&panelId=19",
-    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=1633235223126&to=1633840023126&theme=dark&panelId=19"
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=now-30m&to=now&theme=light&panelId=19",
+    "https://metrics.market.xyz/d-solo/NlUs6DwGk/fuse-overview?orgId=1&refresh=5m&from=now-30m&to=now&theme=dark&panelId=19"
   );
   return (
     <>
@@ -459,7 +459,7 @@ const LiquidationRow = ({
         isExternal
         width="100%"
         className="no-underline"
-        href={"https://etherscan.io/tx/" + liquidation.transactionHash}
+        href={"https://polygonscan.com/tx/" + liquidation.transactionHash}
       >
         <Row
           mainAxisAlignment="flex-start"
@@ -626,7 +626,7 @@ const LiquidatablePositionsList = ({
             <Box ml={3}>
               <Switch
                 size="sm"
-                colorScheme="yellow"
+                colorScheme="purple"
                 checked={showAtRiskPositions}
                 onChange={() => setShowAtRiskPositions((past) => !past)}
               />
