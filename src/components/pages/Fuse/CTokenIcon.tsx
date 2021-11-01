@@ -1,5 +1,6 @@
-import { Avatar, useColorModeValue } from "@chakra-ui/react";
+import { Avatar } from "@chakra-ui/react";
 import { useTokenData } from "hooks/useTokenData";
+import { motion } from "framer-motion";
 
 const CTokenIcon = ({
   address,
@@ -9,20 +10,22 @@ const CTokenIcon = ({
   [key: string]: any;
 }) => {
   const tokenData = useTokenData(address);
-  const tokenBg = useColorModeValue("gray.50", "gray.700")
 
   return (
-    <Avatar
-      {...avatarProps}
-      key={address}
-      bg={tokenBg}
-      borderWidth="1px"
-      name={tokenData?.symbol ?? "Loading..."}
-      src={
-        tokenData?.logoURL ??
-        "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
-      }
-    />
+    <motion.div whileHover={{ scale: 1.2 }}>
+      <Avatar
+        {...avatarProps}
+        key={address}
+        bg={"transparent"}
+        borderWidth="1px"
+        name={tokenData?.symbol ?? "Loading..."}
+        borderColor={"transparent"}
+        src={
+          tokenData?.logoURL ??
+          "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
+        }
+      />
+    </motion.div>
   );
 };
 
