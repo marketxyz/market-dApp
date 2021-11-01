@@ -13,6 +13,6 @@ export default async (req: NowRequest, res: NowResponse) => {
     .getPublicPoolsWithData()
     .call({ gas: 1e18 });
 
-  res.setHeader("Cache-Control", "maxage=600, s-maxage=600");
+  res.setHeader("Cache-Control", "maxage=300, s-maxage=300");
   return res.json(pools);
 };
