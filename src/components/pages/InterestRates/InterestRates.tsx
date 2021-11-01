@@ -2,8 +2,6 @@
 import { Alert, Link, AlertIcon } from "@chakra-ui/react";
 import { Column } from "utils/chakraUtils";
 import InterestRatesView from "./InterestRatesView";
-import { Header } from "components/shared/Header";
-import Footer from "components/shared/Footer";
 // Hooks
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { useRari } from "context/RariContext";
@@ -26,7 +24,6 @@ export default function InterestRates() {
       height="100%"
       px={4}
     >
-      <Header isAuthed={isAuthed} />
       <Alert colorScheme="green" borderRadius={5} mt="5">
         <AlertIcon />
         <span style={{ color: "#2F855A" }}>

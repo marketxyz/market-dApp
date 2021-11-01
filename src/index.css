@@ -37,29 +37,6 @@ html {
   background-color: #282727;
 }
 
-/* 
-These fonts only have ASCII glyphs. 
-If you want to add some more glyphs but still remove useless ones go to: https://transfonter.org/ 
-Here's the symbols we currently support: " !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
-*/
-/* @font-face {
-  font-family: "Avenir Next";
-  src: url(AvenirNext-Bold.woff2) format("woff2"),
-    url(AvenirNext-Bold.woff) format("woff");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Avenir Next";
-  src: url(AvenirNext-Regular.woff2) format("woff2"),
-    url(AvenirNext-Regular.woff) format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-} */
-
 @-webkit-keyframes GradientBackgroundAnimation {
   0% {
     background-position: 0% 50%;

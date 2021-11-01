@@ -587,8 +587,8 @@ const AssetSupplyRow = ({
 
   const { t } = useTranslation();
 
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
-  const bgColor = useColorModeValue("gray.50", "gray.700")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
+  const bgColor = useColorModeValue("gray.50", "gray.700");
 
   return (
     <>
@@ -637,14 +637,18 @@ const AssetSupplyRow = ({
           <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {tokenData?.symbol != undefined ? 
-          asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
-            <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
-              <QuestionIcon />
-            </SimpleTooltip>
+          {tokenData?.symbol !== undefined ? (
+            asset.underlyingSymbol.toLowerCase() !==
+            tokenData?.symbol?.toLowerCase() ? (
+              <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
+                <QuestionIcon />
+              </SimpleTooltip>
+            ) : (
+              ""
+            )
           ) : (
             ""
-          ): ""}
+          )}
         </Row>
         <Row
           mainAxisAlignment="flex-start"
@@ -979,14 +983,21 @@ const AssetBorrowRow = ({
           <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {tokenData?.symbol != undefined ? 
-          asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
-            <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
-              <QuestionIcon />
-            </SimpleTooltip>
+          {tokenData?.symbol !== undefined ? (
+            asset.underlyingSymbol.toLowerCase() !==
+            tokenData?.symbol?.toLowerCase() ? (
+              <SimpleTooltip
+                placement="auto"
+                label={asset?.underlyingSymbol ?? ""}
+              >
+                <QuestionIcon />
+              </SimpleTooltip>
+            ) : (
+              ""
+            )
           ) : (
             ""
-          ): ""}
+          )}
         </Row>
 
         {isMobile ? null : (

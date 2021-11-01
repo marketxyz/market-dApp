@@ -25,7 +25,6 @@ import { useTranslation } from "react-i18next";
 import { MODAL_PROPS, ModalDivider, ModalTitleWithCloseButton } from "./Modal";
 import { LanguageSelect } from "./TranslateButton";
 
-import { ClaimRGTModal } from "./ClaimRGTModal";
 import { version } from "../..";
 
 import MoonpayModal from "../pages/MoonpayModal";
@@ -43,14 +42,6 @@ export const AccountButton = memo(() => {
   const authedOpenSettingsModal = useAuthedCallback(openSettingsModal);
 
   const {
-    isOpen: isClaimRGTModalOpen,
-    onOpen: openClaimRGTModal,
-    onClose: closeClaimRGTModal,
-  } = useDisclosure();
-
-  const authedOpenClaimRGTModal = useAuthedCallback(openClaimRGTModal);
-
-  const {
     isOpen: isMoonpayModalOpen,
     onOpen: openMoonpayModal,
     onClose: closeMoonpayModal,
@@ -63,17 +54,11 @@ export const AccountButton = memo(() => {
       <SettingsModal
         isOpen={isSettingsModalOpen}
         onClose={closeSettingsModal}
-        openClaimRGTModal={openClaimRGTModal}
         openMoonpayModal={openMoonpayModal}
-      />
-      <ClaimRGTModal
-        isOpen={isClaimRGTModalOpen}
-        onClose={closeClaimRGTModal}
       />
       <MoonpayModal isOpen={isMoonpayModalOpen} onClose={closeMoonpayModal} />
       <Buttons
         openModal={authedOpenSettingsModal}
-        openClaimRGTModal={authedOpenClaimRGTModal}
         openMoonpayModal={authedOpenMoonpayModal}
       />
     </>
@@ -105,11 +90,9 @@ const switchChainId = async (chainId: number) => {
 
 const Buttons = ({
   openModal,
-  openClaimRGTModal,
   openMoonpayModal,
 }: {
   openModal: () => any;
-  openClaimRGTModal: () => any;
   openMoonpayModal: () => any;
 }) => {
   const { address, isAuthed, login, isAttemptingLogin } = useRari();
@@ -191,12 +174,10 @@ const Buttons = ({
 export const SettingsModal = ({
   isOpen,
   onClose,
-  openClaimRGTModal,
   openMoonpayModal,
 }: {
   isOpen: boolean;
   onClose: () => any;
-  openClaimRGTModal: () => any;
   openMoonpayModal: () => any;
 }) => {
   const { t } = useTranslation();
