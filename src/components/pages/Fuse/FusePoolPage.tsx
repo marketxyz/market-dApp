@@ -587,7 +587,8 @@ const AssetSupplyRow = ({
 
   const { t } = useTranslation();
 
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+  const bgColor = useColorModeValue("gray.50", "gray.700")
 
   return (
     <>
@@ -616,7 +617,7 @@ const AssetSupplyRow = ({
           width={isMobile ? "8%" : "6%"}
         >
           <Avatar
-            bg="#FFF"
+            bg={bgColor}
             boxSize="37px"
             name={asset.underlyingSymbol}
             src={
