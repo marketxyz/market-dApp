@@ -32,7 +32,6 @@ import { createComptroller } from "../../../utils/createComptroller";
 import { USDPricedFuseAsset } from "../../../utils/fetchFusePoolData";
 import { shortAddress } from "../../../utils/shortAddress";
 import CaptionedStat from "../../shared/CaptionedStat";
-import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
 import { PoolDashboardBox } from "./FusePoolPage";
 import FuseStatsBar from "./FuseStatsBar";
@@ -100,7 +99,6 @@ export const useExtraPoolInfo = (comptrollerAddress: string) => {
 };
 
 const FusePoolInfoPage = memo(() => {
-  const { isAuthed } = useRari();
   const isMobile = useIsSemiSmallScreen();
   const { poolId } = useParams();
   const data = useFusePoolData(poolId);
@@ -116,7 +114,6 @@ const FusePoolInfoPage = memo(() => {
         height="100%"
         px={isMobile ? 4 : 0}
       >
-        <Header isAuthed={isAuthed} isFuse />
         <FuseStatsBar />
         <FuseTabBar />
         <PoolInfoBox data={data} />

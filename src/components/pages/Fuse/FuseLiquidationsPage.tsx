@@ -27,7 +27,6 @@ import {
 } from "utils/chakraUtils";
 import { filterOnlyObjectProperties, FuseAsset } from "utils/fetchFusePoolData";
 import DashboardBox from "../../shared/DashboardBox";
-// import { Header } from "../../shared/Header";
 import { ModalDivider } from "../../shared/Modal";
 import CTokenIcon from "./CTokenIcon";
 import FuseNavbar from "./FuseNavbar";
@@ -286,7 +285,6 @@ const FuseLiquidationsPage = memo(() => {
         height="100%"
         px={isMobile ? 4 : 0}
       >
-        {/* <Header isAuthed={isAuthed} isFuse /> */}
         <FuseNavbar />
         <Divider />
         <FuseStatsBar />
