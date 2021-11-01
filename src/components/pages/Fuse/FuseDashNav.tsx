@@ -17,7 +17,6 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { useTranslation } from "react-i18next";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { useNavigate } from "react-router-dom";
@@ -122,7 +121,7 @@ export const FuseDashNav = (props: any) => {
                   borderRadius="12px"
                 />
                 <Input
-                borderRadius="12px"
+                  borderRadius="12px"
                   _focus={{}}
                   _hover={{}}
                   border="2.5px solid #d9d8da"
@@ -151,7 +150,6 @@ const PoolButtons = ({
   searchText: string;
   setSearchText: Dispatch<string>;
 }) => {
-  const { t } = useTranslation();
   const gradient = useColorModeValue(
     "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)",
     "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)"

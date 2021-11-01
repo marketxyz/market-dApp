@@ -20,7 +20,6 @@ import {
 import BigNumber from "bignumber.js";
 import LogRocket from "logrocket";
 import { memo, ReactNode, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { Center, Column, Row, RowOrColumn } from "utils/chakraUtils";
@@ -118,8 +117,6 @@ const FusePoolEditPage = memo(() => {
   } = useDisclosure();
 
   const authedOpenModal = useAuthedCallback(openAddAssetModal);
-
-  const { t } = useTranslation();
 
   const { poolId } = useParams();
 
@@ -347,7 +344,6 @@ const PoolConfiguration = ({
   assets: USDPricedFuseAsset[];
   comptrollerAddress: string;
 }) => {
-  const { t } = useTranslation();
   const { poolId } = useParams();
 
   const { fuse, address } = useRari();
@@ -825,8 +821,6 @@ const AssetConfiguration = ({
 }) => {
   const isMobile = useIsSemiSmallScreen();
 
-  const { t } = useTranslation();
-
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
   const borderColor = useColorModeValue("gray.50", "gray.800");
 
@@ -929,7 +923,6 @@ export const SaveButton = ({
   altText?: string;
   [key: string]: any;
 }) => {
-  const { t } = useTranslation();
   // const bgColor = useColorModeValue("white", "gray.900")
   // const textColor = useColorModeValue("#2f2f2f", "white")
 
@@ -958,8 +951,6 @@ const AddAssetButton = ({
   openAddAssetModal: () => any;
   comptrollerAddress: string;
 }) => {
-  const { t } = useTranslation();
-
   const isUpgradeable = useIsUpgradeable(comptrollerAddress);
   const btnColor = useColorModeValue("gray.100", "gray.700");
   const textColor = useColorModeValue("#2f2f2f", "white");

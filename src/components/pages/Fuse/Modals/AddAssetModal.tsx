@@ -386,8 +386,8 @@ export const AssetSettings = ({
     }
   };
 
-  const borderColor = useColorModeValue("gray.200", "gray.700")
-  const bgColor = useColorModeValue("white", "gray.900")
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const bgColor = useColorModeValue("white", "gray.900");
 
   return (
     <Column
@@ -672,17 +672,15 @@ const AddAssetModal = ({
   onClose: () => any;
   existingAssets: USDPricedFuseAsset[];
 }) => {
-  const { t } = useTranslation();
-
   const [tokenAddress, _setTokenAddress] = useState<string>("");
 
   const tokenData = useTokenData(tokenAddress);
 
   const isEmpty = tokenAddress.trim() === "";
 
-  const inputBg = useColorModeValue("white", "gray.700")
-  const modalBg = useColorModeValue("gray.50", "gray.800")
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+  const inputBg = useColorModeValue("white", "gray.700");
+  const modalBg = useColorModeValue("gray.50", "gray.800");
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
 
   return (
     <Modal
@@ -694,84 +692,89 @@ const AddAssetModal = ({
       <ModalOverlay />
       <ModalContent {...MODAL_PROPS}>
         <DashboardBox color={textColor} bgColor={modalBg}>
-        <Heading fontSize="27px" fontWeight="normal" my={4} textAlign="center">
-          Add Asset
-        </Heading>
+          <Heading
+            fontSize="27px"
+            fontWeight="normal"
+            my={4}
+            textAlign="center"
+          >
+            Add Asset
+          </Heading>
 
-        <ModalDivider />
+          <ModalDivider />
 
-        <Column
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          pb={4}
-        >
-          {!isEmpty ? (
-            <>
-              {tokenData?.logoURL ? (
-                <Image
-                  mt={4}
-                  src={tokenData.logoURL}
-                  boxSize="50px"
-                  borderRadius="50%"
-                  backgroundImage={`url(${SmallWhiteCircle})`}
-                  backgroundSize="100% auto"
-                />
-              ) : null}
-              <Heading my={tokenData?.symbol ? 3 : 6} fontSize="22px">
-                {tokenData
-                  ? tokenData.name ?? "Invalid Address!"
-                  : "Loading..."}
-              </Heading>
-            </>
-          ) : null}
+          <Column
+            mainAxisAlignment="flex-start"
+            crossAxisAlignment="center"
+            pb={4}
+          >
+            {!isEmpty ? (
+              <>
+                {tokenData?.logoURL ? (
+                  <Image
+                    mt={4}
+                    src={tokenData.logoURL}
+                    boxSize="50px"
+                    borderRadius="50%"
+                    backgroundImage={`url(${SmallWhiteCircle})`}
+                    backgroundSize="100% auto"
+                  />
+                ) : null}
+                <Heading my={tokenData?.symbol ? 3 : 6} fontSize="22px">
+                  {tokenData
+                    ? tokenData.name ?? "Invalid Address!"
+                    : "Loading..."}
+                </Heading>
+              </>
+            ) : null}
 
-          <Center px={4} mt={isEmpty ? 4 : 0} width="100%">
-            <Input
-              width="100%"
-              textAlign="center"
-              placeholder={
-                "Token Address: 0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-              }
-              height="40px"
-              variant="filled"
-              size="sm"
-              value={tokenAddress}
-              onChange={(event) => {
-                const address = event.target.value;
-                _setTokenAddress(address);
-              }}
-              color={textColor}
-              backgroundColor={inputBg}
-              borderRadius="12px"
-              border="1px"
-              borderColor={inputBg}
-              _placeholder={{ color: textColor }}
-              _focus={{}}
-              _hover={{}}
-            />
-
-            {
-              !existingAssets.some(
-                // If ETH hasn't been added:
-                (asset) => asset.underlyingToken === ETH_TOKEN_DATA.address
-              )
-            }
-          </Center>
-
-          {tokenData?.symbol ? (
-            <>
-              <ModalDivider mt={4} />
-              <AssetSettings
-                comptrollerAddress={comptrollerAddress}
-                tokenData={tokenData}
-                closeModal={onClose}
-                poolName={poolName}
-                poolID={poolID}
-                existingAssets={existingAssets}
+            <Center px={4} mt={isEmpty ? 4 : 0} width="100%">
+              <Input
+                width="100%"
+                textAlign="center"
+                placeholder={
+                  "Token Address: 0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                }
+                height="40px"
+                variant="filled"
+                size="sm"
+                value={tokenAddress}
+                onChange={(event) => {
+                  const address = event.target.value;
+                  _setTokenAddress(address);
+                }}
+                color={textColor}
+                backgroundColor={inputBg}
+                borderRadius="12px"
+                border="1px"
+                borderColor={inputBg}
+                _placeholder={{ color: textColor }}
+                _focus={{}}
+                _hover={{}}
               />
-            </>
-          ) : null}
-        </Column>
+
+              {
+                !existingAssets.some(
+                  // If ETH hasn't been added:
+                  (asset) => asset.underlyingToken === ETH_TOKEN_DATA.address
+                )
+              }
+            </Center>
+
+            {tokenData?.symbol ? (
+              <>
+                <ModalDivider mt={4} />
+                <AssetSettings
+                  comptrollerAddress={comptrollerAddress}
+                  tokenData={tokenData}
+                  closeModal={onClose}
+                  poolName={poolName}
+                  poolID={poolID}
+                  existingAssets={existingAssets}
+                />
+              </>
+            ) : null}
+          </Column>
         </DashboardBox>
       </ModalContent>
     </Modal>

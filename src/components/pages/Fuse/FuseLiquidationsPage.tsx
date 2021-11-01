@@ -13,7 +13,6 @@ import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { useRari } from "context/RariContext";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { memo, useState } from "react";
-import { useTranslation } from "react-i18next";
 // @ts-ignore
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useQuery } from "react-query";
@@ -66,7 +65,6 @@ export type LiquidationEvent = {
 };
 
 const FuseLiquidationsPage = memo(() => {
-  const { isAuthed } = useRari();
   const isMobile = useIsSmallScreen();
 
   const { fuse, rari } = useRari();
@@ -377,8 +375,6 @@ const LiquidationEventsList = ({
   totalLiquidations: number;
   setLiquidationsToShow: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const { t } = useTranslation();
-
   const isMobile = useIsMobile();
 
   return (
@@ -457,8 +453,6 @@ const LiquidationRow = ({
   liquidation: LiquidationEvent;
 }) => {
   const isMobile = useIsMobile();
-
-  const { t } = useTranslation();
 
   const date = new Date(liquidation.timestamp * 1000);
   return (
@@ -589,8 +583,6 @@ const LiquidatablePositionsList = ({
   showAtRiskPositions: boolean;
   setShowAtRiskPositions: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { t } = useTranslation();
-
   const isMobile = useIsMobile();
 
   return (
@@ -810,7 +802,6 @@ const RowsControl = ({
   totalAmount: number;
   setAmountToShow: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const { t } = useTranslation();
   const bgColor = useColorModeValue("white", "#28292D");
   return (
     <Row

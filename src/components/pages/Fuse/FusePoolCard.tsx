@@ -13,7 +13,6 @@ import { Link as RouterLink } from "react-router-dom";
 import { MergedPool } from "hooks/fuse/useFusePools";
 import { usePoolRSS, letterScore } from "hooks/useRSS";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { Row, Column } from "utils/chakraUtils";
 import CTokenIcon from "./CTokenIcon";
@@ -37,7 +36,6 @@ export const usePoolRiskScoreGradient = (
 };
 
 const PoolCard = ({ data: pool }: { data: MergedPool }) => {
-  const { t } = useTranslation();
   const rss = usePoolRSS(pool.id);
   const rssScore = rss ? letterScore(rss.totalScore) : "?";
   const tokens = useMemo(() => {

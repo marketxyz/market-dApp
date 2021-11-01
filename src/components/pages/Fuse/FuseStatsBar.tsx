@@ -6,7 +6,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import type { FlexProps } from "@chakra-ui/react";
-import { useTranslation } from "react-i18next";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { useFuseTVL } from "hooks/fuse/useFuseTVL";
 import { motion } from "framer-motion";
@@ -14,7 +13,6 @@ import { motion } from "framer-motion";
 const MotionFlex = motion<FlexProps>(Flex);
 
 const FuseStatsBar = () => {
-  const { t } = useTranslation();
   const { data: fuseTVL } = useFuseTVL();
 
   return (
@@ -30,7 +28,6 @@ const FuseStatsBar = () => {
       w="100%"
       maxWidth={{ lg: "90%" }}
       gridGap="1.5rem"
-      
     >
       <Flex
         flexDir="column"

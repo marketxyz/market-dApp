@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
-import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import {
@@ -132,7 +131,6 @@ export const PoolInfoBox = ({
   data: ReturnType<typeof useFusePoolData>;
 }) => {
   const isMobile = useIsMobile();
-  const { t } = useTranslation();
   const bgColor = useColorModeValue("white", "gray.900");
 
   return (
@@ -201,7 +199,6 @@ const OracleAndInterestRates = ({
   comptrollerAddress: string;
 }) => {
   let { poolId } = useParams();
-  const { t } = useTranslation();
 
   const data = useExtraPoolInfo(comptrollerAddress);
 
@@ -376,8 +373,6 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
   let { poolId } = useParams();
 
   const { fuse } = useRari();
-
-  const { t } = useTranslation();
 
   const [selectedAsset, setSelectedAsset] = useState(
     assets.length > 3 ? assets[2] : assets[0]
