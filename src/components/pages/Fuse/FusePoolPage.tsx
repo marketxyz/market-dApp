@@ -1,4 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, QuestionIcon } from "@chakra-ui/icons";
 import {
   Stat as ChakraStat,
   StatLabel as ChakraStatLabel,
@@ -65,6 +65,7 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
+import { SimpleTooltip } from "components/shared/SimpleTooltip";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -632,26 +633,42 @@ const AssetSupplyRow = ({
           as="button"
           onClick={authedOpenModal}
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
+          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
+          {tokenData?.symbol != undefined ? 
+          asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
+            <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
+              <QuestionIcon />
+            </SimpleTooltip>
+          ) : (
+            ""
+          ): ""}
         </Row>
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
           width="5%"
         >
-          <Button
-            variant={"link"}
-            as={ChakraLink}
-            href={
+          <SimpleTooltip
+            placement="top-start"
+            label={
               tokenData?.extraData.partnerURL ??
               `${scanner}/${asset.underlyingToken}`
             }
-            isExternal
           >
-            <LinkIcon h={6} />
-          </Button>
+            <Button
+              variant={"link"}
+              as={ChakraLink}
+              href={
+                tokenData?.extraData.partnerURL ??
+                `${scanner}/${asset.underlyingToken}`
+              }
+              isExternal
+            >
+              <LinkIcon h={6} />
+            </Button>
+          </SimpleTooltip>
         </Row>
 
         {isMobile ? null : (
@@ -958,9 +975,17 @@ const AssetBorrowRow = ({
           crossAxisAlignment="center"
           width="27%"
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
+          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
+          {tokenData?.symbol != undefined ? 
+          asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
+            <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
+              <QuestionIcon />
+            </SimpleTooltip>
+          ) : (
+            ""
+          ): ""}
         </Row>
 
         {isMobile ? null : (
