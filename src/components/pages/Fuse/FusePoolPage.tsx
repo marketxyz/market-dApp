@@ -638,17 +638,8 @@ const AssetSupplyRow = ({
           <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {tokenData?.address ===
-          "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f" ? (
-            <SimpleTooltip label="mooATriCrypto3">
-              <QuestionIcon />
-            </SimpleTooltip>
-          ) : (
-            ""
-          )}
-          {tokenData?.address ===
-          "0xAA7C2879DaF8034722A0977f13c343aF0883E92e" ? (
-            <SimpleTooltip label="mooCurveAm3CRV">
+          {asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
+            <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
               <QuestionIcon />
             </SimpleTooltip>
           ) : (
@@ -986,9 +977,16 @@ const AssetBorrowRow = ({
           crossAxisAlignment="center"
           width="27%"
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
+          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
+          {asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
+            <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
+              <QuestionIcon />
+            </SimpleTooltip>
+          ) : (
+            ""
+          )}
         </Row>
 
         {isMobile ? null : (
