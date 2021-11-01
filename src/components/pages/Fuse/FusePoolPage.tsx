@@ -1,4 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, QuestionIcon } from "@chakra-ui/icons";
 import {
   Stat as ChakraStat,
   StatLabel as ChakraStatLabel,
@@ -65,6 +65,7 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
+import { SimpleTooltip } from "components/shared/SimpleTooltip";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -134,11 +135,7 @@ const FusePoolPage = memo(() => {
           </Link>
 
           {data ? (
-            <Heading
-              textAlign="center"
-              fontSize="xl"
-              fontWeight="bold"
-            >
+            <Heading textAlign="center" fontSize="xl" fontWeight="bold">
               {data.name}
             </Heading>
           ) : (
@@ -592,7 +589,7 @@ const AssetSupplyRow = ({
 
   const { t } = useTranslation();
 
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
 
   return (
     <>
@@ -638,26 +635,50 @@ const AssetSupplyRow = ({
           as="button"
           onClick={authedOpenModal}
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} flexShrink={0}>
+          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
+          {tokenData?.address ===
+          "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f" ? (
+            <SimpleTooltip label="mooATriCrypto3">
+              <QuestionIcon />
+            </SimpleTooltip>
+          ) : (
+            ""
+          )}
+          {tokenData?.address ===
+          "0xAA7C2879DaF8034722A0977f13c343aF0883E92e" ? (
+            <SimpleTooltip label="mooCurveAm3CRV">
+              <QuestionIcon />
+            </SimpleTooltip>
+          ) : (
+            ""
+          )}
         </Row>
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
           width="5%"
         >
-          <Button
-            variant={"link"}
-            as={ChakraLink}
-            href={
+          <SimpleTooltip
+            placement="top-start"
+            label={
               tokenData?.extraData.partnerURL ??
               `${scanner}/${asset.underlyingToken}`
             }
-            isExternal
           >
-            <LinkIcon h={6} />
-          </Button>
+            <Button
+              variant={"link"}
+              as={ChakraLink}
+              href={
+                tokenData?.extraData.partnerURL ??
+                `${scanner}/${asset.underlyingToken}`
+              }
+              isExternal
+            >
+              <LinkIcon h={6} />
+            </Button>
+          </SimpleTooltip>
         </Row>
 
         {isMobile ? null : (
@@ -920,7 +941,7 @@ const AssetBorrowRow = ({
 
   const isMobile = useIsMobile();
 
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
 
   return (
     <>
