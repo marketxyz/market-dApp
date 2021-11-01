@@ -638,13 +638,14 @@ const AssetSupplyRow = ({
           <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
+          {tokenData?.symbol != undefined ? 
+          asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
             <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
               <QuestionIcon />
             </SimpleTooltip>
           ) : (
             ""
-          )}
+          ): ""}
         </Row>
         <Row
           mainAxisAlignment="flex-start"
@@ -980,13 +981,14 @@ const AssetBorrowRow = ({
           <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
+          {tokenData?.symbol != undefined ? 
+          asset.underlyingSymbol.toLowerCase() != tokenData?.symbol?.toLowerCase() ? (
             <SimpleTooltip placement="auto" label={asset?.underlyingSymbol ?? ""}>
               <QuestionIcon />
             </SimpleTooltip>
           ) : (
             ""
-          )}
+          ): ""}
         </Row>
 
         {isMobile ? null : (
