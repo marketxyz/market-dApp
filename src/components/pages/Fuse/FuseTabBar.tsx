@@ -33,8 +33,6 @@ const FuseTabBar = () => {
   const isMobile = useIsSmallScreen();
   const isMediumScreen = useIsMediumScreen();
 
-  const { t } = useTranslation();
-
   let { poolId } = useParams();
 
   let navigate = useNavigate();

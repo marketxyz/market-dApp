@@ -151,7 +151,7 @@ export const CreatePoolConfiguration = () => {
   const borderColor = useColorModeValue("gray.300", "gray.700");
   // const btnColor = useColorModeValue("#DF2EAC", "#962277");
   const btnTextColor = useColorModeValue("white", "gray.200");
-  const dividerColor = useColorModeValue("gray.300", "black")
+  const dividerColor = useColorModeValue("gray.300", "black");
   const isMobile = useIsSmallScreen();
 
   return (
@@ -390,7 +390,6 @@ export const WhitelistInfo = ({
   removeFromWhitelist: (user: string) => any;
 }) => {
   const [_whitelistInput, _setWhitelistInput] = useState("");
-  const { t } = useTranslation();
   const { fuse } = useRari();
   const toast = useToast();
 

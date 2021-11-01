@@ -134,11 +134,7 @@ const FusePoolPage = memo(() => {
           </Link>
 
           {data ? (
-            <Heading
-              textAlign="center"
-              fontSize="xl"
-              fontWeight="bold"
-            >
+            <Heading textAlign="center" fontSize="xl" fontWeight="bold">
               {data.name}
             </Heading>
           ) : (
@@ -402,8 +398,6 @@ const SupplyList = ({
   supplyBalanceUSD: number;
   comptrollerAddress: string;
 }) => {
-  const { t } = useTranslation();
-
   const suppliedAssets = assets.filter((asset) => asset.supplyBalanceUSD > 1);
   const nonSuppliedAssets = assets.filter(
     (asset) => asset.supplyBalanceUSD < 1 && !asset.isSupplyPaused
@@ -592,7 +586,7 @@ const AssetSupplyRow = ({
 
   const { t } = useTranslation();
 
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
 
   return (
     <>
@@ -784,7 +778,6 @@ const BorrowList = ({
   borrowBalanceUSD: number;
   comptrollerAddress: string;
 }) => {
-  const { t } = useTranslation();
   const borrowedAssets = assets.filter((asset) => asset.borrowBalanceUSD > 1);
   const nonBorrowedAssets = assets.filter(
     (asset) => asset.borrowBalanceUSD < 1
@@ -920,7 +913,7 @@ const AssetBorrowRow = ({
 
   const isMobile = useIsMobile();
 
-  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2")
+  const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
 
   return (
     <>
