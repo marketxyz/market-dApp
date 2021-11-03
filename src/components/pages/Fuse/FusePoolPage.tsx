@@ -438,7 +438,7 @@ const SupplyList = ({
           )}
 
           <Text
-            width={isMobile ? "46%" : "27%"}
+            width={isMobile ? "40%" : "27%"}
             fontWeight="bold"
             textAlign="right"
             fontSize={{base: "3.8vw", sm: "lg"}}
@@ -447,7 +447,7 @@ const SupplyList = ({
           </Text>
 
           <Text
-            width={isMobile ? "34%" : "20%"}
+            width={isMobile ? "25%" : "20%"}
             fontWeight="bold"
             textAlign="right"
             fontSize={{base: "3.8vw", sm: "lg"}}
@@ -644,7 +644,7 @@ const AssetSupplyRow = ({
           >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {isMobile ? null : tokenData?.symbol !== undefined ? (
+          {tokenData?.symbol !== undefined ? (
             asset.underlyingSymbol.toLowerCase() !==
             tokenData?.symbol?.toLowerCase() ? (
               <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
@@ -654,7 +654,7 @@ const AssetSupplyRow = ({
               ""
             )
           ) : (
-            ""
+            null
           )}
         </Row>
         <Row
@@ -754,7 +754,7 @@ const AssetSupplyRow = ({
         <Column
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-end"
-          width={isMobile ? "40%" : "27%"}
+          width={isMobile ? "35%" : "27%"}
           as="button"
           onClick={authedOpenModal}
         >
@@ -775,8 +775,8 @@ const AssetSupplyRow = ({
         </Column>
 
         <Row
-          width={isMobile ? "34%" : "20%"}
-          mainAxisAlignment="flex-end"
+          width={isMobile ? "25%" : "20%"}
+          mainAxisAlignment={"flex-end"}
           crossAxisAlignment="center"
         >
           <SwitchCSS symbol={asset.underlyingSymbol} color={tokenData?.color} />
@@ -786,7 +786,6 @@ const AssetSupplyRow = ({
             className={asset.underlyingSymbol + "-switch"}
             onChange={onToggleCollateral}
             size={isMobile ? "sm" : "md"}
-            mt={1}
             mr={5}
           />
         </Row>
