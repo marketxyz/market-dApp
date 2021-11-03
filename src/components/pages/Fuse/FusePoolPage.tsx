@@ -633,7 +633,7 @@ const AssetSupplyRow = ({
           as="button"
           onClick={authedOpenModal}
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
+          <Text fontWeight="bold" fontSize={{base: "3.8vw", sm: "lg"}} ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
           {tokenData?.symbol !== undefined ? (
@@ -674,7 +674,6 @@ const AssetSupplyRow = ({
             </Button>
           </SimpleTooltip>
         </Row>
-
         {isMobile ? null : (
           <Column
             mainAxisAlignment="flex-start"
@@ -759,7 +758,7 @@ const AssetSupplyRow = ({
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
 
-          <Text textAlign={"right"} fontSize="sm">
+          <Text textAlign={"right"} fontSize={{base: "2.5vw", md: "sm"}}>
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -977,7 +976,7 @@ const AssetBorrowRow = ({
           crossAxisAlignment="center"
           width="27%"
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
+          <Text fontWeight="bold" fontSize={{base: "3.8vw", sm: "lg"}} ml={2} mr={1} flexShrink={0}>
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
           {tokenData?.symbol !== undefined ? (
@@ -1036,7 +1035,7 @@ const AssetBorrowRow = ({
             {smallUsdFormatter(asset.borrowBalanceUSD)}
           </Text>
 
-          <Text fontSize="sm">
+          <Text fontSize={{base: "2.5vw", md: "sm"}}>
             {smallUsdFormatter(
               asset.borrowBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -1063,7 +1062,7 @@ const AssetBorrowRow = ({
                 {shortUsdFormatter(asset.liquidityUSD)}
               </Text>
 
-              <Text fontSize="sm">
+              <Text fontSize={{base: "2.5vw", md: "sm"}}>
                 {shortUsdFormatter(
                   asset.liquidity / 10 ** asset.underlyingDecimals
                 ).replace("$", "")}{" "}
