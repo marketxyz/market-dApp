@@ -413,7 +413,7 @@ const SupplyList = ({
       height="100%"
       pb={1}
     >
-      <Heading size="md" px={4} py={3}>
+      <Heading fontSize={{base: "3.8vw", sm: "lg"}} px={4} py={3}>
         Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
 
@@ -427,12 +427,12 @@ const SupplyList = ({
           px={4}
           mt={4}
         >
-          <Text width={isMobile ? "38%" : "30%"} fontWeight="bold" pl={1}>
+          <Text width={isMobile ? "38%" : "30%"} fontSize={{base: "3.8vw", sm: "lg"}} fontWeight="bold" pl={1}>
             Asset
           </Text>
 
           {isMobile ? null : (
-            <Text width="35%" fontWeight="bold" textAlign="right">
+            <Text fontSize={{base: "3.8vw", sm: "lg"}} width="35%" fontWeight="bold" textAlign="right">
               APY/LTV
             </Text>
           )}
@@ -441,6 +441,7 @@ const SupplyList = ({
             width={isMobile ? "46%" : "27%"}
             fontWeight="bold"
             textAlign="right"
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Balance
           </Text>
@@ -449,6 +450,7 @@ const SupplyList = ({
             width={isMobile ? "34%" : "20%"}
             fontWeight="bold"
             textAlign="right"
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Collateral
           </Text>
@@ -617,7 +619,7 @@ const AssetSupplyRow = ({
         >
           <Avatar
             bg={"transparent"}
-            boxSize={{base: "7vw", sm: "2.2rem"}}
+            boxSize={{ base: "7vw", sm: "2.2rem" }}
             name={asset.underlyingSymbol}
             src={
               tokenData?.logoURL ??
@@ -633,10 +635,16 @@ const AssetSupplyRow = ({
           as="button"
           onClick={authedOpenModal}
         >
-          <Text fontWeight="bold" fontSize={{base: "3.8vw", sm: "lg"}} ml={2} mr={1} flexShrink={0}>
+          <Text
+            fontWeight="bold"
+            fontSize={{ base: "3.8vw", sm: "lg" }}
+            ml={2}
+            mr={1}
+            flexShrink={0}
+          >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {tokenData?.symbol !== undefined ? (
+          {isMobile ? null : tokenData?.symbol !== undefined ? (
             asset.underlyingSymbol.toLowerCase() !==
             tokenData?.symbol?.toLowerCase() ? (
               <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
@@ -670,7 +678,7 @@ const AssetSupplyRow = ({
               }
               isExternal
             >
-              <LinkIcon h={6} />
+              <LinkIcon h={{base: 3, sm: 6}} />
             </Button>
           </SimpleTooltip>
         </Row>
@@ -758,7 +766,7 @@ const AssetSupplyRow = ({
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
 
-          <Text textAlign={"right"} fontSize={{base: "2.5vw", md: "sm"}}>
+          <Text textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -777,7 +785,7 @@ const AssetSupplyRow = ({
             isChecked={asset.membership}
             className={asset.underlyingSymbol + "-switch"}
             onChange={onToggleCollateral}
-            size="md"
+            size={isMobile ? "sm" : "md"}
             mt={1}
             mr={5}
           />
@@ -810,7 +818,7 @@ const BorrowList = ({
       height="100%"
       pb={1}
     >
-      <Heading size="md" px={4} py={3}>
+      <Heading fontSize={{base: "3.8vw", sm: "lg"}} size="md" px={4} py={3}>
         Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </Heading>
 
@@ -824,12 +832,12 @@ const BorrowList = ({
           px={4}
           mt={4}
         >
-          <Text width="27%" fontWeight="bold" pl={1}>
+          <Text fontSize={{base: "3.8vw", sm: "lg"}} width="27%" fontWeight="bold" pl={1}>
             Asset
           </Text>
 
           {isMobile ? null : (
-            <Text width="34%" fontWeight="bold" textAlign="right">
+            <Text fontSize={{base: "3.8vw", sm: "lg"}} width="34%" fontWeight="bold" textAlign="right">
               APR/TVL
             </Text>
           )}
@@ -838,6 +846,7 @@ const BorrowList = ({
             fontWeight="bold"
             textAlign="right"
             width={isMobile ? "49%" : "27%"}
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Balance
           </Text>
@@ -846,6 +855,7 @@ const BorrowList = ({
             fontWeight="bold"
             textAlign="right"
             width={isMobile ? "34%" : "20%"}
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Liquidity
           </Text>
@@ -963,7 +973,7 @@ const AssetBorrowRow = ({
         >
           <Avatar
             bg={"transparent"}
-            boxSize={{base: "7vw", sm: "2.2rem"}}
+            boxSize={{ base: "7vw", sm: "2.2rem" }}
             name={asset.underlyingSymbol}
             src={
               tokenData?.logoURL ??
@@ -976,7 +986,13 @@ const AssetBorrowRow = ({
           crossAxisAlignment="center"
           width="27%"
         >
-          <Text fontWeight="bold" fontSize={{base: "3.8vw", sm: "lg"}} ml={2} mr={1} flexShrink={0}>
+          <Text
+            fontWeight="bold"
+            fontSize={{ base: "3.8vw", sm: "lg" }}
+            ml={2}
+            mr={1}
+            flexShrink={0}
+          >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
           {tokenData?.symbol !== undefined ? (
@@ -1035,7 +1051,7 @@ const AssetBorrowRow = ({
             {smallUsdFormatter(asset.borrowBalanceUSD)}
           </Text>
 
-          <Text fontSize={{base: "2.5vw", md: "sm"}}>
+          <Text fontSize={{ base: "2.5vw", md: "sm" }}>
             {smallUsdFormatter(
               asset.borrowBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -1062,7 +1078,7 @@ const AssetBorrowRow = ({
                 {shortUsdFormatter(asset.liquidityUSD)}
               </Text>
 
-              <Text fontSize={{base: "2.5vw", md: "sm"}}>
+              <Text fontSize={{ base: "2.5vw", md: "sm" }}>
                 {shortUsdFormatter(
                   asset.liquidity / 10 ** asset.underlyingDecimals
                 ).replace("$", "")}{" "}
