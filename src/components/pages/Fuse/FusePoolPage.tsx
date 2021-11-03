@@ -617,7 +617,7 @@ const AssetSupplyRow = ({
         >
           <Avatar
             bg={"transparent"}
-            boxSize="37px"
+            boxSize={{base: "7vw", sm: "2.2rem"}}
             name={asset.underlyingSymbol}
             src={
               tokenData?.logoURL ??
@@ -964,7 +964,7 @@ const AssetBorrowRow = ({
         >
           <Avatar
             bg={"transparent"}
-            boxSize="37px"
+            boxSize={{base: "7vw", sm: "2.2rem"}}
             name={asset.underlyingSymbol}
             src={
               tokenData?.logoURL ??
