@@ -135,7 +135,7 @@ const FusePoolPage = memo(() => {
           </Link>
 
           {data ? (
-            <Heading textAlign="center" fontSize="xl" fontWeight="bold">
+            <Heading textAlign="left" fontSize="xl" fontWeight="bold">
               {data.name}
             </Heading>
           ) : (
