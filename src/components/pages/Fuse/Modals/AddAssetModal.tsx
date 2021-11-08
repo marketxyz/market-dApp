@@ -558,7 +558,7 @@ export const AssetSettings = ({
           fontWeight="bold"
           _focus={{ outline: "none" }}
           width="230px"
-          value={interestRateModel}
+          value={interestRateModel.toLowerCase()}
           onChange={(event) => setInterestRateModel(event.target.value)}
         >
           {appChainId === 1 && (
@@ -588,30 +588,21 @@ export const AssetSettings = ({
             <>
               <option
                 className="white-bg-option"
-                value={
-                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
-                    .JumpRateModel_Cream_Stables_Majors
-                }
+                value={Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES.JumpRateModel_Cream_Stables_Majors.toLowerCase()}
               >
                 Cream Stables Majors JumpRateModel
               </option>
 
               <option
                 className="white-bg-option"
-                value={
-                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
-                    .JumpRateModel_Cream_Gov
-                }
+                value={Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES.JumpRateModel_Cream_Gov.toLowerCase()}
               >
                 Cream Gov JumpRateModel
               </option>
 
               <option
                 className="white-bg-option"
-                value={
-                  Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES
-                    .JumpRateModel_Cream_Major
-                }
+                value={Fuse.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES.JumpRateModel_Cream_Major.toLowerCase()}
               >
                 Cream Majors JumpRateModel
               </option>
