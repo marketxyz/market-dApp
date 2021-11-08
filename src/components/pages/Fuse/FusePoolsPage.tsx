@@ -98,6 +98,7 @@ const PoolList = () => {
         </Grid>
       ) : (
         <Box
+          alignSelf={"center"}
           textAlign="center"
           width="90%"
           py="20"

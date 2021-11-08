@@ -135,7 +135,7 @@ const FusePoolPage = memo(() => {
           </Link>
 
           {data ? (
-            <Heading textAlign="center" fontSize="xl" fontWeight="bold">
+            <Heading textAlign="left" fontSize="xl" fontWeight="bold">
               {data.name}
             </Heading>
           ) : (
@@ -413,7 +413,7 @@ const SupplyList = ({
       height="100%"
       pb={1}
     >
-      <Heading size="md" px={4} py={3}>
+      <Heading fontSize={{base: "3.8vw", sm: "lg"}} px={4} py={3}>
         Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
 
@@ -427,28 +427,30 @@ const SupplyList = ({
           px={4}
           mt={4}
         >
-          <Text width={isMobile ? "38%" : "30%"} fontWeight="bold" pl={1}>
+          <Text width={isMobile ? "38%" : "30%"} fontSize={{base: "3.8vw", sm: "lg"}} fontWeight="bold" pl={1}>
             Asset
           </Text>
 
           {isMobile ? null : (
-            <Text width="35%" fontWeight="bold" textAlign="right">
+            <Text fontSize={{base: "3.8vw", sm: "lg"}} width="35%" fontWeight="bold" textAlign="right">
               APY/LTV
             </Text>
           )}
 
           <Text
-            width={isMobile ? "46%" : "27%"}
+            width={isMobile ? "40%" : "27%"}
             fontWeight="bold"
             textAlign="right"
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Balance
           </Text>
 
           <Text
-            width={isMobile ? "34%" : "20%"}
+            width={isMobile ? "25%" : "20%"}
             fontWeight="bold"
             textAlign="right"
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Collateral
           </Text>
@@ -617,7 +619,7 @@ const AssetSupplyRow = ({
         >
           <Avatar
             bg={"transparent"}
-            boxSize="37px"
+            boxSize={{ base: "7vw", sm: "2.2rem" }}
             name={asset.underlyingSymbol}
             src={
               tokenData?.logoURL ??
@@ -633,7 +635,13 @@ const AssetSupplyRow = ({
           as="button"
           onClick={authedOpenModal}
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
+          <Text
+            fontWeight="bold"
+            fontSize={{ base: "3.8vw", sm: "lg" }}
+            ml={2}
+            mr={1}
+            flexShrink={0}
+          >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
           {tokenData?.symbol !== undefined ? (
@@ -646,7 +654,7 @@ const AssetSupplyRow = ({
               ""
             )
           ) : (
-            ""
+            null
           )}
         </Row>
         <Row
@@ -670,11 +678,10 @@ const AssetSupplyRow = ({
               }
               isExternal
             >
-              <LinkIcon h={6} />
+              <LinkIcon h={{base: 3, sm: 6}} />
             </Button>
           </SimpleTooltip>
         </Row>
-
         {isMobile ? null : (
           <Column
             mainAxisAlignment="flex-start"
@@ -747,7 +754,7 @@ const AssetSupplyRow = ({
         <Column
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-end"
-          width={isMobile ? "40%" : "27%"}
+          width={isMobile ? "35%" : "27%"}
           as="button"
           onClick={authedOpenModal}
         >
@@ -759,7 +766,7 @@ const AssetSupplyRow = ({
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
 
-          <Text textAlign={"right"} fontSize="sm">
+          <Text textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -768,8 +775,8 @@ const AssetSupplyRow = ({
         </Column>
 
         <Row
-          width={isMobile ? "34%" : "20%"}
-          mainAxisAlignment="flex-end"
+          width={isMobile ? "25%" : "20%"}
+          mainAxisAlignment={"flex-end"}
           crossAxisAlignment="center"
         >
           <SwitchCSS symbol={asset.underlyingSymbol} color={tokenData?.color} />
@@ -778,8 +785,7 @@ const AssetSupplyRow = ({
             isChecked={asset.membership}
             className={asset.underlyingSymbol + "-switch"}
             onChange={onToggleCollateral}
-            size="md"
-            mt={1}
+            size={isMobile ? "sm" : "md"}
             mr={5}
           />
         </Row>
@@ -811,7 +817,7 @@ const BorrowList = ({
       height="100%"
       pb={1}
     >
-      <Heading size="md" px={4} py={3}>
+      <Heading fontSize={{base: "3.8vw", sm: "lg"}} size="md" px={4} py={3}>
         Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </Heading>
 
@@ -825,12 +831,12 @@ const BorrowList = ({
           px={4}
           mt={4}
         >
-          <Text width="27%" fontWeight="bold" pl={1}>
+          <Text fontSize={{base: "3.8vw", sm: "lg"}} width="27%" fontWeight="bold" pl={1}>
             Asset
           </Text>
 
           {isMobile ? null : (
-            <Text width="34%" fontWeight="bold" textAlign="right">
+            <Text fontSize={{base: "3.8vw", sm: "lg"}} width="34%" fontWeight="bold" textAlign="right">
               APR/TVL
             </Text>
           )}
@@ -839,6 +845,7 @@ const BorrowList = ({
             fontWeight="bold"
             textAlign="right"
             width={isMobile ? "49%" : "27%"}
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Balance
           </Text>
@@ -847,6 +854,7 @@ const BorrowList = ({
             fontWeight="bold"
             textAlign="right"
             width={isMobile ? "34%" : "20%"}
+            fontSize={{base: "3.8vw", sm: "lg"}}
           >
             Liquidity
           </Text>
@@ -964,7 +972,7 @@ const AssetBorrowRow = ({
         >
           <Avatar
             bg={"transparent"}
-            boxSize="37px"
+            boxSize={{ base: "7vw", sm: "2.2rem" }}
             name={asset.underlyingSymbol}
             src={
               tokenData?.logoURL ??
@@ -977,7 +985,13 @@ const AssetBorrowRow = ({
           crossAxisAlignment="center"
           width="27%"
         >
-          <Text fontWeight="bold" fontSize="lg" ml={2} mr={1} flexShrink={0}>
+          <Text
+            fontWeight="bold"
+            fontSize={{ base: "3.8vw", sm: "lg" }}
+            ml={2}
+            mr={1}
+            flexShrink={0}
+          >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
           {tokenData?.symbol !== undefined ? (
@@ -1036,7 +1050,7 @@ const AssetBorrowRow = ({
             {smallUsdFormatter(asset.borrowBalanceUSD)}
           </Text>
 
-          <Text fontSize="sm">
+          <Text fontSize={{ base: "2.5vw", md: "sm" }}>
             {smallUsdFormatter(
               asset.borrowBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
@@ -1063,7 +1077,7 @@ const AssetBorrowRow = ({
                 {shortUsdFormatter(asset.liquidityUSD)}
               </Text>
 
-              <Text fontSize="sm">
+              <Text fontSize={{ base: "2.5vw", md: "sm" }}>
                 {shortUsdFormatter(
                   asset.liquidity / 10 ** asset.underlyingDecimals
                 ).replace("$", "")}{" "}
