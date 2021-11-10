@@ -1071,7 +1071,7 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="normal">{t("Debt Balance")}:</Text>
+            <Text color={propertyText} fontWeight="normal">{t("Debt Balance")}:</Text>
             <Text
               fontWeight="bold"
             >
