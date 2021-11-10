@@ -37,7 +37,7 @@ const DepositModal = (props: Props) => {
       isCentered
     >
       <ModalOverlay />
-      <ModalContent bg="#FFF" {...MODAL_PROPS}>
+      <ModalContent {...MODAL_PROPS}>
         <AmountSelect
           comptrollerAddress={props.comptrollerAddress}
           onClose={props.onClose}

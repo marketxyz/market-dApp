@@ -525,16 +525,18 @@ const AmountSelect = ({
       setUserAction(UserAction.NO_ACTION);
     }
   };
-  const bgColor = useColorModeValue("white", "gray.800");
+  const bgColor = useColorModeValue("white", "mktgray.400");
+  const rowDivisionColor = useColorModeValue("gray.50", "mktgray.200")
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
     <Column
       mainAxisAlignment="flex-start"
       crossAxisAlignment="flex-start"
-      height={showEnableAsCollateral ? "575px" : "500px"}
+      height={"100%"}
       bgColor={bgColor}
       color={textColor}
+      borderRadius={12}
     >
       {userAction === UserAction.WAITING_FOR_TRANSACTIONS ? (
         <Column
@@ -574,7 +576,7 @@ const AmountSelect = ({
               />
             </Box>
 
-            <Heading fontSize="27px" fontWeight="semibold" ml={3}>
+            <Heading fontSize="18px" fontWeight="semibold" ml={3}>
               {!isMobile && asset.underlyingName.length < 25
                 ? asset.underlyingName
                 : asset.underlyingSymbol}
@@ -582,7 +584,7 @@ const AmountSelect = ({
           </Row>
 
           {/* <ModalDivider /> */}
-          <Divider bg="#BBB" height="1px" />
+          {/* <Divider bg="#BBB" height="1px" /> */}
 
           <Column
             mainAxisAlignment="flex-start"
@@ -597,7 +599,7 @@ const AmountSelect = ({
               crossAxisAlignment="flex-start"
               width="100%"
             >
-              <TabBar color={tokenData?.color} mode={mode} setMode={setMode} />
+              <TabBar color={bgColor} mode={mode} setMode={setMode} />
 
               <DashboardBox
                 borderColor="#BBB"
@@ -643,12 +645,13 @@ const AmountSelect = ({
 
             {showEnableAsCollateral ? (
               <DashboardBox
-                bg={bgColor}
+                bg={rowDivisionColor}
                 borderColor="#BBB"
-                p={4}
+                p={2}
+                px={4}
                 width="100%"
                 mt={4}
-              >
+                >
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
@@ -673,15 +676,13 @@ const AmountSelect = ({
 
             <Button
               mt={4}
-              fontWeight="normal"
-              fontSize={
-                depositOrWithdrawAlert ? depositOrWithdrawAlertFontSize : "2xl"
-              }
-              borderRadius="10px"
+              fontWeight="bold"
+              fontSize={16}
+              borderRadius={12}
               width="100%"
               height="70px"
-              bg={tokenData?.color ?? "#FFF"}
-              color={tokenData?.overlayTextColor ?? "#000"}
+              bgGradient="linear(to-br, #CA0066, #9031D9)"
+              color={"white"}
               // If the size is small, this means the text is large and we don't want the font size scale animation.
               className={
                 isMobile ||
@@ -742,24 +743,11 @@ const TabBar = ({
   // Does that make sense? Everything I described above is basically a way to get around the tab component's understanding that it only has 2 tabs under it to make it fit into our 4 value enum setup.
   // Still confused? DM me on Twitter (@transmissions11) for help.
 
+  const tabText = useColorModeValue("gray.500", "gray.100")
+  const tabColor = useColorModeValue("gray.100", "mktgray.700")
+
   return (
     <>
-      <style>
-        {`
-            
-            .chakra-tabs__tab {
-              color: ${color ?? "#FFFFFF"} !important;
-
-              border-bottom-width: 1px;
-            }
-
-            .chakra-tabs__tablist {
-              border-bottom: 1px solid;
-              border-color: #BBB;
-            }
-            
-        `}
-      </style>
       <Box px={3} width="100%" mt={1} mb="-1px" zIndex={99999}>
         <Tabs
           isFitted
@@ -777,19 +765,19 @@ const TabBar = ({
           <TabList>
             {isSupplySide ? (
               <>
-                <Tab fontWeight="bold" _active={{}} mb="-1px">
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
                   {t("Supply")}
                 </Tab>
-                <Tab fontWeight="bold" _active={{}} mb="-1px">
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
                   {t("Withdraw")}
                 </Tab>
               </>
             ) : (
               <>
-                <Tab fontWeight="bold" _active={{}} mb="-1px">
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
                   {t("Borrow")}
                 </Tab>
-                <Tab fontWeight="bold" _active={{}} mb="-1px">
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
                   {t("Repay")}
                 </Tab>
               </>
@@ -989,10 +977,12 @@ const StatsColumn = ({
     ? Math.abs(updatedSupplyAPY - supplyAPY) > 0.1
     : Math.abs(updatedBorrowAPR - borrowAPR) > 0.1;
 
+  const propertyText = useColorModeValue("black", "gray.300")
+
   return (
     <DashboardBox
       borderColor="#BBB"
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "mktgray.400")}
       width="100%"
       height="190px"
       mt={4}
@@ -1004,21 +994,19 @@ const StatsColumn = ({
           expand
           py={3}
           px={4}
-          fontSize="lg"
+          fontSize="md"
         >
           <Row
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
             width="100%"
-            color={color}
           >
-            <Heading fontWeight="semibold" flexShrink={0} fontSize="xl">
+            <Text color={propertyText} flexShrink={0}>
               {t("Supply Balance")}:
-            </Heading>
+            </Text>
             <Text
               fontWeight="bold"
               flexShrink={0}
-              fontSize={isSupplyingOrWithdrawing ? "sm" : "lg"}
             >
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
@@ -1041,12 +1029,11 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="normal" flexShrink={0}>
+            <Text fontWeight="normal" color={propertyText} flexShrink={0}>
               {isSupplyingOrWithdrawing ? t("Supply APY") : t("Borrow APR")}:
             </Text>
             <Text
               fontWeight="bold"
-              fontSize={updatedAPYDiffIsLarge ? "sm" : "lg"}
             >
               {isSupplyingOrWithdrawing
                 ? supplyAPY.toFixed(2)
@@ -1069,12 +1056,11 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
           >
-            <Text fontWeight="normal" flexShrink={0}>
+            <Text color={propertyText} fontWeight="normal" flexShrink={0}>
               {t("Borrow Limit")}:
             </Text>
             <Text
               fontWeight="bold"
-              fontSize={isSupplyingOrWithdrawing ? "sm" : "lg"}
             >
               {smallUsdFormatter(borrowLimit)}
               {isSupplyingOrWithdrawing ? (
@@ -1093,7 +1079,6 @@ const StatsColumn = ({
             <Text fontWeight="normal">{t("Debt Balance")}:</Text>
             <Text
               fontWeight="bold"
-              fontSize={!isSupplyingOrWithdrawing ? "sm" : "lg"}
             >
               {smallUsdFormatter(asset.borrowBalanceUSD)}
               {!isSupplyingOrWithdrawing ? (

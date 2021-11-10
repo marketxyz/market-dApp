@@ -74,6 +74,13 @@ const extendedTheme = extendTheme({
     body: `Inter, ${theme.fonts.body}`,
     heading: `Manrope, Inter, ${theme.fonts.heading}`,
   },
+  colors: {
+    mktgray: {
+      200: "#262C35",
+      400: "#21262E",
+      700: "#1D2229",
+    },
+  },
 });
 
 const queryClient = new QueryClient();
