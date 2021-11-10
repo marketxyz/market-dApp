@@ -15,7 +15,6 @@ import {
   TabList,
   Tabs,
   Spinner,
-  Divider,
   useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -536,7 +535,7 @@ const AmountSelect = ({
       height={"100%"}
       bgColor={bgColor}
       color={textColor}
-      borderRadius={12}
+      borderRadius={15}
     >
       {userAction === UserAction.WAITING_FOR_TRANSACTIONS ? (
         <Column
@@ -582,10 +581,7 @@ const AmountSelect = ({
                 : asset.underlyingSymbol}
             </Heading>
           </Row>
-
-          {/* <ModalDivider /> */}
-          {/* <Divider bg="#BBB" height="1px" /> */}
-
+          
           <Column
             mainAxisAlignment="flex-start"
             crossAxisAlignment="center"
@@ -602,7 +598,6 @@ const AmountSelect = ({
               <TabBar color={bgColor} mode={mode} setMode={setMode} />
 
               <DashboardBox
-                borderColor="#BBB"
                 bg={bgColor}
                 width="100%"
                 height="70px"
@@ -614,7 +609,7 @@ const AmountSelect = ({
                   expand
                 >
                   <AmountInput
-                    color={tokenData?.color ?? bgColor}
+                    color={textColor}
                     displayAmount={userEnteredAmount}
                     updateAmount={updateAmount}
                   />
@@ -646,7 +641,6 @@ const AmountSelect = ({
             {showEnableAsCollateral ? (
               <DashboardBox
                 bg={rowDivisionColor}
-                borderColor="#BBB"
                 p={2}
                 px={4}
                 width="100%"
@@ -762,22 +756,22 @@ const TabBar = ({
             }
           }}
         >
-          <TabList>
+          <TabList border={"0px"}>
             {isSupplySide ? (
               <>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
                   {t("Supply")}
                 </Tab>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
                   {t("Withdraw")}
                 </Tab>
               </>
             ) : (
               <>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
                   {t("Borrow")}
                 </Tab>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
                   {t("Repay")}
                 </Tab>
               </>
@@ -981,7 +975,6 @@ const StatsColumn = ({
 
   return (
     <DashboardBox
-      borderColor="#BBB"
       bg={useColorModeValue("white", "mktgray.400")}
       width="100%"
       height="190px"
