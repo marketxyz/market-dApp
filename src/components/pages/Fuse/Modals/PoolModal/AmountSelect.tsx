@@ -739,6 +739,8 @@ const TabBar = ({
 
   const tabText = useColorModeValue("gray.500", "gray.100")
   const tabColor = useColorModeValue("gray.100", "mktgray.700")
+  const selectedText = useColorModeValue("#2f2f2f", "white")
+  const selectedBg = "linear(to-br, rgba(202, 0, 102, 0.08), rgba(144, 49, 217, 0.08))"
 
   return (
     <>
@@ -759,19 +761,19 @@ const TabBar = ({
           <TabList border={"0px"}>
             {isSupplySide ? (
               <>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
                   {t("Supply")}
                 </Tab>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
                   {t("Withdraw")}
                 </Tab>
               </>
             ) : (
               <>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
                   {t("Borrow")}
                 </Tab>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: "white", bgGradient: "linear(to-br, #CA0066, #9031D9)", floodOpacity: "0.3"}}>
+                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
                   {t("Repay")}
                 </Tab>
               </>
@@ -1144,6 +1146,8 @@ const TokenNameAndMaxButton = ({
   };
 
   const { t } = useTranslation();
+  const maxBg = useColorModeValue("gray.50", "gray.900")
+  const maxBorder = useColorModeValue("gray.200", "gray.800")
 
   return (
     <Row
@@ -1171,10 +1175,10 @@ const TokenNameAndMaxButton = ({
         ml={1}
         height="28px"
         width="58px"
-        bg="transparent"
-        border="2px"
+        bg={maxBg}
+        border="1px"
         borderRadius="8px"
-        borderColor="#272727"
+        borderColor={maxBorder}
         fontSize="sm"
         fontWeight="extrabold"
         _hover={{}}
