@@ -16,6 +16,7 @@ import {
   Tabs,
   Spinner,
   useColorModeValue,
+  Divider,
 } from "@chakra-ui/react";
 
 import BigNumber from "bignumber.js";
@@ -586,9 +587,10 @@ const AmountSelect = ({
             mainAxisAlignment="flex-start"
             crossAxisAlignment="center"
             px={4}
-            pb={4}
+            pb={3}
             pt={1}
             height="100%"
+            width={"100%"}
           >
             <Column
               mainAxisAlignment="flex-start"
@@ -600,7 +602,7 @@ const AmountSelect = ({
               <DashboardBox
                 bg={bgColor}
                 width="100%"
-                height="70px"
+                mt={4}
               >
                 <Row
                   p={4}
@@ -612,6 +614,7 @@ const AmountSelect = ({
                     color={textColor}
                     displayAmount={userEnteredAmount}
                     updateAmount={updateAmount}
+                    symbol={tokenData?.symbol ?? asset.underlyingSymbol}
                   />
                   <TokenNameAndMaxButton
                     comptrollerAddress={comptrollerAddress}
@@ -671,10 +674,10 @@ const AmountSelect = ({
             <Button
               mt={4}
               fontWeight="extrabold"
-              fontSize={20}
+              fontSize={15}
               borderRadius={12}
               width="100%"
-              height="70px"
+              height="60px"
               bgGradient="linear(to-br, #CA0066, #9031D9)"
               color={"white"}
               // If the size is small, this means the text is large and we don't want the font size scale animation.
@@ -744,7 +747,7 @@ const TabBar = ({
 
   return (
     <>
-      <Box px={3} width="100%" mt={1} mb="-1px" zIndex={99999}>
+      <Box px={3} width="100%" zIndex={99999}>
         <Tabs
           isFitted
           width="100%"
@@ -979,15 +982,14 @@ const StatsColumn = ({
     <DashboardBox
       bg={useColorModeValue("white", "mktgray.400")}
       width="100%"
-      height="190px"
-      mt={4}
+      height="100%"
     >
       {updatedAsset ? (
         <Column
           mainAxisAlignment="space-between"
           crossAxisAlignment="flex-start"
           expand
-          py={3}
+          py={1}
           px={4}
           fontSize="md"
         >
@@ -995,6 +997,8 @@ const StatsColumn = ({
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
             width="100%"
+            flexWrap={"wrap"}
+            my={2}
           >
             <Text color={propertyText} flexShrink={0}>
               {t("Supply Balance")}:
@@ -1002,6 +1006,9 @@ const StatsColumn = ({
             <Text
               fontWeight="bold"
               flexShrink={0}
+              wordBreak={"break-word"}
+              textAlign={"right"}
+              width={"max-content"}
             >
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
@@ -1018,10 +1025,12 @@ const StatsColumn = ({
               {symbol}
             </Text>
           </Row>
+          <Divider />
 
           <Row
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
+            my={2}
             width="100%"
           >
             <Text fontWeight="normal" color={propertyText} flexShrink={0}>
@@ -1045,17 +1054,23 @@ const StatsColumn = ({
               ) : null}
             </Text>
           </Row>
+          <Divider />
 
           <Row
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
             width="100%"
+            my={2}
+            flexWrap={"wrap"}
           >
             <Text color={propertyText} fontWeight="normal" flexShrink={0}>
               {t("Borrow Limit")}:
             </Text>
             <Text
               fontWeight="bold"
+              wordBreak={"break-word"}
+              textAlign={"right"}
+              width={"max-content"}
             >
               {smallUsdFormatter(borrowLimit)}
               {isSupplyingOrWithdrawing ? (
@@ -1065,10 +1080,11 @@ const StatsColumn = ({
               ) : null}{" "}
             </Text>
           </Row>
-
+                <Divider />
           <Row
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
+            my={2}
             width="100%"
           >
             <Text color={propertyText} fontWeight="normal">{t("Debt Balance")}:</Text>
@@ -1156,7 +1172,7 @@ const TokenNameAndMaxButton = ({
       flexShrink={0}
     >
       <Row mainAxisAlignment="flex-start" crossAxisAlignment="center">
-        <Box height="25px" width="25px" mb="2px" mr={2}>
+        {/* <Box height="25px" width="25px" mb="2px" mr={2}>
           <Image
             width="100%"
             height="100%"
@@ -1165,10 +1181,7 @@ const TokenNameAndMaxButton = ({
             src={logoURL}
             alt=""
           />
-        </Box>
-        <Heading fontSize="24px" mr={2} flexShrink={0}>
-          {symbol}
-        </Heading>
+        </Box> */}
       </Row>
 
       <Button
@@ -1196,24 +1209,35 @@ const AmountInput = ({
   displayAmount,
   updateAmount,
   color,
+  symbol
 }: {
   displayAmount: string;
   updateAmount: (symbol: string) => any;
   color: string;
+  symbol: string;
 }) => {
   return (
+    <Box mt={1}>
+    <Row mainAxisAlignment={"flex-start"} crossAxisAlignment={"center"}>
     <Input
       type="number"
       inputMode="decimal"
       fontSize="3xl"
+      width={"max-content"}
+      maxWidth={"200px"}
       fontWeight="bold"
-      variant="unstyled"
+      variant="filled"
       _placeholder={{ color }}
       placeholder="0.0"
       value={displayAmount}
       color={color}
       onChange={(event) => updateAmount(event.target.value)}
-      mr={4}
+      mr={2}
     />
+    <Text fontSize="15px" mr={2} flexShrink={0} wordBreak={"break-all"}>
+    {symbol}
+  </Text>
+  </Row>
+  </Box>
   );
 };
