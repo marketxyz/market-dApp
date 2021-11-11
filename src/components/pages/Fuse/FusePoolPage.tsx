@@ -413,7 +413,7 @@ const SupplyList = ({
       height="100%"
       pb={1}
     >
-      <Heading fontSize={{base: "3.8vw", sm: "lg"}} px={4} py={3}>
+      <Heading fontSize={{ base: "3.8vw", sm: "lg" }} px={4} py={3}>
         Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </Heading>
 
@@ -427,12 +427,22 @@ const SupplyList = ({
           px={4}
           mt={4}
         >
-          <Text width={isMobile ? "38%" : "30%"} fontSize={{base: "3.8vw", sm: "lg"}} fontWeight="bold" pl={1}>
+          <Text
+            width={isMobile ? "38%" : "30%"}
+            fontSize={{ base: "3.8vw", sm: "lg" }}
+            fontWeight="bold"
+            pl={1}
+          >
             Asset
           </Text>
 
           {isMobile ? null : (
-            <Text fontSize={{base: "3.8vw", sm: "lg"}} width="35%" fontWeight="bold" textAlign="right">
+            <Text
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              width="35%"
+              fontWeight="bold"
+              textAlign="right"
+            >
               APY/LTV
             </Text>
           )}
@@ -441,7 +451,7 @@ const SupplyList = ({
             width={isMobile ? "40%" : "27%"}
             fontWeight="bold"
             textAlign="right"
-            fontSize={{base: "3.8vw", sm: "lg"}}
+            fontSize={{ base: "3.8vw", sm: "lg" }}
           >
             Balance
           </Text>
@@ -450,7 +460,7 @@ const SupplyList = ({
             width={isMobile ? "25%" : "20%"}
             fontWeight="bold"
             textAlign="right"
-            fontSize={{base: "3.8vw", sm: "lg"}}
+            fontSize={{ base: "3.8vw", sm: "lg" }}
           >
             Collateral
           </Text>
@@ -644,7 +654,7 @@ const AssetSupplyRow = ({
           >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {tokenData?.symbol !== undefined ? (
+          {isMobile ? null : tokenData?.symbol !== undefined ? (
             asset.underlyingSymbol.toLowerCase() !==
             tokenData?.symbol?.toLowerCase() ? (
               <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
@@ -653,9 +663,7 @@ const AssetSupplyRow = ({
             ) : (
               ""
             )
-          ) : (
-            null
-          )}
+          ) : null}
         </Row>
         <Row
           mainAxisAlignment="flex-start"
@@ -678,7 +686,7 @@ const AssetSupplyRow = ({
               }
               isExternal
             >
-              <LinkIcon h={{base: 3, sm: 6}} />
+              <LinkIcon h={{ base: 3, sm: 6 }} />
             </Button>
           </SimpleTooltip>
         </Row>
@@ -817,7 +825,7 @@ const BorrowList = ({
       height="100%"
       pb={1}
     >
-      <Heading fontSize={{base: "3.8vw", sm: "lg"}} size="md" px={4} py={3}>
+      <Heading fontSize={{ base: "3.8vw", sm: "lg" }} size="md" px={4} py={3}>
         Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </Heading>
 
@@ -831,12 +839,22 @@ const BorrowList = ({
           px={4}
           mt={4}
         >
-          <Text fontSize={{base: "3.8vw", sm: "lg"}} width="27%" fontWeight="bold" pl={1}>
+          <Text
+            fontSize={{ base: "3.8vw", sm: "lg" }}
+            width="27%"
+            fontWeight="bold"
+            pl={1}
+          >
             Asset
           </Text>
 
           {isMobile ? null : (
-            <Text fontSize={{base: "3.8vw", sm: "lg"}} width="34%" fontWeight="bold" textAlign="right">
+            <Text
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              width="34%"
+              fontWeight="bold"
+              textAlign="right"
+            >
               APR/TVL
             </Text>
           )}
@@ -845,7 +863,7 @@ const BorrowList = ({
             fontWeight="bold"
             textAlign="right"
             width={isMobile ? "49%" : "27%"}
-            fontSize={{base: "3.8vw", sm: "lg"}}
+            fontSize={{ base: "3.8vw", sm: "lg" }}
           >
             Balance
           </Text>
@@ -854,7 +872,7 @@ const BorrowList = ({
             fontWeight="bold"
             textAlign="right"
             width={isMobile ? "34%" : "20%"}
-            fontSize={{base: "3.8vw", sm: "lg"}}
+            fontSize={{ base: "3.8vw", sm: "lg" }}
           >
             Liquidity
           </Text>
