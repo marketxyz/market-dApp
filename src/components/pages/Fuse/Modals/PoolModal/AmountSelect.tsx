@@ -670,8 +670,8 @@ const AmountSelect = ({
 
             <Button
               mt={4}
-              fontWeight="bold"
-              fontSize={16}
+              fontWeight="extrabold"
+              fontSize={20}
               borderRadius={12}
               width="100%"
               height="70px"
