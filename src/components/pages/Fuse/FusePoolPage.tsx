@@ -773,12 +773,13 @@ const AssetSupplyRow = ({
           >
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
-
           <Text textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
-            {tokenData?.symbol ?? asset.underlyingSymbol}
+            {tokenData?.extraData?.shortName ??
+              tokenData?.symbol ??
+              asset.underlyingSymbol}
           </Text>
         </Column>
 
