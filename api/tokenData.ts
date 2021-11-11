@@ -61,7 +61,9 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   let name: string;
   let symbol: string;
   let logoURL: string | undefined;
-  let extraData: Record<any, any> = {};
+  let extraData: Record<any, any> = {
+    hasAPY: false,
+  };
 
   if (rawData.error) {
     name = await tokenContract.methods.name().call();
