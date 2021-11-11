@@ -439,7 +439,7 @@ const SupplyList = ({
           {isMobile ? null : (
             <Text
               fontSize={{ base: "3.8vw", sm: "lg" }}
-              width="35%"
+              width="42%"
               fontWeight="bold"
               textAlign="right"
             >
@@ -641,7 +641,7 @@ const AssetSupplyRow = ({
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
-          width={isMobile ? "30%" : "24%"}
+          width={isMobile ? "30%" : "32%"}
           as="button"
           onClick={authedOpenModal}
         >
@@ -650,7 +650,9 @@ const AssetSupplyRow = ({
             fontSize={{ base: "3.8vw", sm: "lg" }}
             ml={2}
             mr={1}
-            flexShrink={0}
+            flexWrap={"wrap"}
+            textAlign={"left"}
+            wordBreak={"break-word"}
           >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
