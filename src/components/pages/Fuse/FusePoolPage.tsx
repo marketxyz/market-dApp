@@ -439,7 +439,7 @@ const SupplyList = ({
           {isMobile ? null : (
             <Text
               fontSize={{ base: "3.8vw", sm: "lg" }}
-              width="42%"
+              width="50%"
               fontWeight="bold"
               textAlign="right"
             >
@@ -448,7 +448,7 @@ const SupplyList = ({
           )}
 
           <Text
-            width={isMobile ? "40%" : "27%"}
+            width={isMobile ? "40%" : "20%"}
             fontWeight="bold"
             textAlign="right"
             fontSize={{ base: "3.8vw", sm: "lg" }}
@@ -696,7 +696,7 @@ const AssetSupplyRow = ({
           <Column
             mainAxisAlignment="flex-start"
             crossAxisAlignment="flex-end"
-            width="27%"
+            width="35%"
             as="button"
             onClick={authedOpenModal}
           >
@@ -765,19 +765,21 @@ const AssetSupplyRow = ({
         <Column
           mainAxisAlignment="flex-start"
           crossAxisAlignment="flex-end"
-          width={isMobile ? "35%" : "27%"}
+          width={isMobile ? "35%" : "20%"}
           as="button"
           onClick={authedOpenModal}
+          flexWrap={"wrap"}
         >
           <Text
             color={tokenData?.color ?? textColor}
             fontWeight="bold"
             fontSize="17px"
             textAlign={"right"}
+            wordBreak={"break-word"}
           >
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
-          <Text textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
+          <Text wordBreak={"break-word"} textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
             {smallUsdFormatter(
               asset.supplyBalance / 10 ** asset.underlyingDecimals
             ).replace("$", "")}{" "}
