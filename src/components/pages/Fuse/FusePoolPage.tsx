@@ -473,8 +473,7 @@ const SupplyList = ({
 
             <Th
               // width={isMobile ? "25%" : "20%"}
-              // textAlign="right"
-              isNumeric
+              textAlign="center"
               fontSize={{ base: "3.8vw", sm: "lg" }}
             >
               Collateral
@@ -641,7 +640,7 @@ const AssetSupplyRow = ({
           bgColor: useColorModeValue("gray.200", "gray.700"),
         }}
       > */}
-        <Td maxW={"180px"}>
+        <Td maxW={isMobile ? "110px" : "180px"}>
           <Row
             mainAxisAlignment="flex-start"
             crossAxisAlignment="center"
@@ -649,31 +648,22 @@ const AssetSupplyRow = ({
           >
             <Avatar
               bg={"transparent"}
-              boxSize={{ base: "7vw", sm: "2.2rem" }}
+              boxSize={{ base: "5vw", sm: "2.2rem" }}
               name={asset.underlyingSymbol}
               src={
                 tokenData?.logoURL ??
                 "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
               }
             />
-            {/* </Row>
-        </Td>
-        <Td maxWidth={"40px"}>
-          <Row
-            mainAxisAlignment="flex-start"
-            crossAxisAlignment="center"
-            // width={isMobile ? "30%" : "32%"}
-            // as="button"
-            // onClick={authedOpenModal}
-          > */}
+
             <Text
               fontWeight="bold"
-              fontSize={{ base: "3.8vw", sm: "md" }}
+              fontSize={{ base: "3vw", sm: "md" }}
               mx={2}
             >
               {tokenData?.symbol ?? asset.underlyingSymbol}
             </Text>
-            {tokenData?.symbol !== undefined ? (
+            {isMobile ? null : tokenData?.symbol !== undefined ? (
               asset.underlyingSymbol.toLowerCase() !==
               tokenData?.symbol?.toLowerCase() ? (
                 <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
@@ -683,10 +673,7 @@ const AssetSupplyRow = ({
                 ""
               )
             ) : null}
-            {/* </Row>
-        </Td>
-        <Td>
-          <Row mainAxisAlignment={"center"} crossAxisAlignment={"center"}> */}
+
             <SimpleTooltip
               placement="top-start"
               label={
@@ -807,7 +794,7 @@ const AssetSupplyRow = ({
           </Column>
         </Td>
 
-        <Td isNumeric>
+        <Td>
           <Row mainAxisAlignment={"center"} crossAxisAlignment="center">
             <SwitchCSS
               symbol={asset.underlyingSymbol}
@@ -855,7 +842,12 @@ const BorrowList = ({
       <Thead>
         <Tr>
           <Td colSpan={4}>
-            <Text fontWeight={"bold"} fontSize={{ base: "3.8vw", sm: "lg" }} size="md" py={3}>
+            <Text
+              fontWeight={"bold"}
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              size="md"
+              py={3}
+            >
               Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
             </Text>
           </Td>
@@ -866,11 +858,11 @@ const BorrowList = ({
               <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Asset</Text>
             </Th>
 
-              {isMobile ? null : (
-            <Th isNumeric>
+            {isMobile ? null : (
+              <Th isNumeric>
                 <Text fontSize={{ base: "3.8vw", sm: "lg" }}>APR/TVL</Text>
-            </Th>
-              )}
+              </Th>
+            )}
 
             <Th isNumeric>
               <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Balance</Text>
@@ -972,18 +964,6 @@ const AssetBorrowRow = ({
         cursor={"pointer"}
         _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
       >
-        {/* <Row
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        width="100%"
-        px={4}
-        _hover={{
-          bgColor: useColorModeValue("gray.200", "gray.700"),
-        }}
-        py={1.5}
-        as="button"
-        onClick={authedOpenModal}
-      > */}
         <Td maxWidth={"180px"}>
           <Row
             mainAxisAlignment="flex-start"
@@ -992,22 +972,16 @@ const AssetBorrowRow = ({
           >
             <Avatar
               bg={"transparent"}
-              boxSize={{ base: "7vw", sm: "2.2rem" }}
+              boxSize={{ base: "5vw", sm: "2.2rem" }}
               name={asset.underlyingSymbol}
               src={
                 tokenData?.logoURL ??
                 "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
               }
             />
-            {/* </Row>
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          width="27%"
-        > */}
             <Text
               fontWeight="bold"
-              fontSize={{ base: "3.8vw", sm: "md" }}
+              fontSize={{ base: "3vw", sm: "md" }}
               mx={2}
               flexShrink={0}
             >
