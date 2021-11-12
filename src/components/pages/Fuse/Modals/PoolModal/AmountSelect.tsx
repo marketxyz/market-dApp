@@ -647,7 +647,6 @@ const AmountSelect = ({
                 p={2}
                 px={4}
                 width="100%"
-                mt={4}
                 >
                 <Row
                   mainAxisAlignment="space-between"
@@ -983,6 +982,7 @@ const StatsColumn = ({
       bg={useColorModeValue("white", "mktgray.400")}
       width="100%"
       height="100%"
+      minHeight={"220px"}
     >
       {updatedAsset ? (
         <Column
@@ -1217,14 +1217,13 @@ const AmountInput = ({
   symbol: string;
 }) => {
   return (
-    <Box mt={1}>
-    <Row mainAxisAlignment={"flex-start"} crossAxisAlignment={"center"}>
+    // <Box mt={1}>
+    // <Row mainAxisAlignment={"flex-start"} crossAxisAlignment={"center"}>
     <Input
       type="number"
       inputMode="decimal"
       fontSize="3xl"
       width={"max-content"}
-      maxWidth={"200px"}
       fontWeight="bold"
       variant="filled"
       _placeholder={{ color }}
@@ -1234,10 +1233,10 @@ const AmountInput = ({
       onChange={(event) => updateAmount(event.target.value)}
       mr={2}
     />
-    <Text fontSize="15px" mr={2} flexShrink={0} wordBreak={"break-all"}>
-    {symbol}
-  </Text>
-  </Row>
-  </Box>
+  //   <Text fontSize="15px" mr={2} flexShrink={0} wordBreak={"break-all"}>
+  //   {symbol}
+  // </Text>
+  // </Row>
+  // </Box>
   );
 };
