@@ -224,7 +224,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     ) {
       symbol = "mSLP-USDC/ETH";
       extraData.shortName = "mSLP";
-      // logoURL = `${uriProtocol}://${vercelURL}/static/MATIC-USDC-QLP.png`;
+      logoURL = `${uriProtocol}://${vercelURL}/static/mSLP-USDC-ETH.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["sushi-usdc-eth"]) {
         extraData.hasAPY = true;
@@ -241,7 +241,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       symbol = "mSLP-MATIC/ETH";
       extraData.shortName = "mSLP";
       const apyData = await requestBeefy();
-      // logoURL = `${uriProtocol}://${vercelURL}/static/MATIC-USDC-QLP.png`;
+      logoURL = `${uriProtocol}://${vercelURL}/static/mSLP-MATIC-ETH.png`;
       if (apyData && apyData["sushi-matic-eth"]) {
         extraData.hasAPY = true;
         extraData.apy = apyData["sushi-matic-eth"];
@@ -254,7 +254,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       address ===
       web3.utils.toChecksumAddress("0x45c32fA6DF82ead1e2EF74d17b76547EDdFaFF89")
     ) {
-      // logoURL = `${uriProtocol}://${vercelURL}/static/`;
+      logoURL = `${uriProtocol}://${vercelURL}/static/frax.png`;
     }
 
     if (
