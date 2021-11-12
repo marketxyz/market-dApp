@@ -709,6 +709,7 @@ const AssetSupplyRow = ({
                 color={tokenData?.color ?? "#FF"}
                 fontWeight="bold"
                 fontSize="17px"
+                textAlign={"right"}
               >
                 {isStakedOHM
                   ? stakedOHMApyData
@@ -744,7 +745,7 @@ const AssetSupplyRow = ({
                 <Tooltip
                   label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
                 >
-                  <Text fontWeight="bold" pl={1} fontSize="sm">
+                  <Text textAlign={"right"} fontWeight="bold" pl={1} fontSize="sm">
                     {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
                   </Text>
                 </Tooltip>
@@ -772,6 +773,7 @@ const AssetSupplyRow = ({
             color={tokenData?.color ?? textColor}
             fontWeight="bold"
             fontSize="17px"
+            textAlign={"right"}
           >
             {smallUsdFormatter(asset.supplyBalanceUSD)}
           </Text>
@@ -1042,6 +1044,7 @@ const AssetBorrowRow = ({
               color={tokenData?.color ?? "#FF"}
               fontWeight="bold"
               fontSize="17px"
+              textAlign={"right"}
             >
               {borrowAPR.toFixed(3)}%
             </Text>
@@ -1051,7 +1054,7 @@ const AssetBorrowRow = ({
                 "Total Value Lent (TVL) measures how much of this asset has been supplied in total. TVL does not account for how much of the lent assets have been borrowed, use 'liquidity' to determine the total unborrowed assets lent."
               )}
             >
-              <Text fontSize="sm">
+              <Text textAlign={"right"} fontSize="sm">
                 {shortUsdFormatter(asset.totalSupplyUSD)} TVL
               </Text>
             </Tooltip>
@@ -1094,11 +1097,12 @@ const AssetBorrowRow = ({
                 color={tokenData?.color ?? textColor}
                 fontWeight="bold"
                 fontSize="17px"
+                textAlign={"right"}
               >
                 {shortUsdFormatter(asset.liquidityUSD)}
               </Text>
 
-              <Text fontSize={{ base: "2.5vw", md: "sm" }}>
+              <Text textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
                 {shortUsdFormatter(
                   asset.liquidity / 10 ** asset.underlyingDecimals
                 ).replace("$", "")}{" "}
