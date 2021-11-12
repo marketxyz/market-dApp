@@ -866,11 +866,11 @@ const BorrowList = ({
               <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Asset</Text>
             </Th>
 
-            <Th isNumeric>
               {isMobile ? null : (
+            <Th isNumeric>
                 <Text fontSize={{ base: "3.8vw", sm: "lg" }}>APR/TVL</Text>
-              )}
             </Th>
+              )}
 
             <Th isNumeric>
               <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Balance</Text>
