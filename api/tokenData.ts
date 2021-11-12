@@ -259,6 +259,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
     if (
       address ===
+      web3.utils.toChecksumAddress("0x1a3acf6D19267E2d3e7f898f42803e90C9219062")
+    ) {
+      logoURL = `${uriProtocol}://${vercelURL}/static/fxs.png`;
+    }
+
+    if (
+      address ===
       web3.utils.toChecksumAddress("0xa3fa99a148fa48d14ed51d610c367c61876997f1")
     ) {
       symbol = "MAI";
