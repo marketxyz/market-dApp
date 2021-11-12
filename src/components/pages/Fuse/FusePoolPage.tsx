@@ -25,6 +25,13 @@ import {
   Tooltip,
   Link as ChakraLink,
   Button,
+  Table,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Thead,
+  TableCaption,
 } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
@@ -407,71 +414,79 @@ const SupplyList = ({
   const isMobile = useIsMobile();
 
   return (
-    <Column
-      mainAxisAlignment="flex-start"
-      crossAxisAlignment="flex-start"
-      height="100%"
-      pb={1}
+    <Table
+      // mainAxisAlignment="flex-start"
+      // crossAxisAlignment="flex-start"
+      // height="100%"
+      variant={"simple"}
+      size={"sm"}
     >
-      <Heading fontSize={{ base: "3.8vw", sm: "lg" }} px={4} py={3}>
-        Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
-      </Heading>
-
-      <Divider color="#F4F6F9" />
-
-      {assets.length > 0 ? (
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
-          width="100%"
-          px={4}
-          mt={4}
-        >
-          <Text
-            width={isMobile ? "38%" : "30%"}
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-            fontWeight="bold"
-            pl={1}
-          >
-            Asset
-          </Text>
-
-          {isMobile ? null : (
+      <Thead>
+        <Tr>
+          <Td colSpan={4}>
             <Text
+              textAlign={"left"}
               fontSize={{ base: "3.8vw", sm: "lg" }}
-              width="50%"
-              fontWeight="bold"
-              textAlign="right"
+              fontWeight={"bold"}
+              py={3}
             >
-              APY/LTV
+              Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
             </Text>
-          )}
-
-          <Text
-            width={isMobile ? "40%" : "20%"}
-            fontWeight="bold"
-            textAlign="right"
-            fontSize={{ base: "3.8vw", sm: "lg" }}
+          </Td>
+        </Tr>
+        {assets.length > 0 ? (
+          <Tr
+          // mainAxisAlignment="flex-start"
+          // crossAxisAlignment="flex-start"
+          // width="100%"
+          // px={4}
+          // mt={4}
           >
-            Balance
-          </Text>
+            <Th
+              // width={isMobile ? "38%" : "30%"}
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              // pl={1}
+            >
+              Asset
+            </Th>
 
-          <Text
-            width={isMobile ? "25%" : "20%"}
-            fontWeight="bold"
-            textAlign="right"
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-          >
-            Collateral
-          </Text>
-        </Row>
-      ) : null}
+            {isMobile ? null : (
+              <Th
+                fontSize={{ base: "3.8vw", sm: "lg" }}
+                // width="50%"
+                // fontWeight="bold"
+                // textAlign="right"
+                isNumeric
+              >
+                APY/LTV
+              </Th>
+            )}
 
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="flex-start"
-        expand
-        mt={1}
+            <Th
+              // width={isMobile ? "40%" : "20%"}
+              // textAlign="right"
+              isNumeric
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+            >
+              Balance
+            </Th>
+
+            <Th
+              // width={isMobile ? "25%" : "20%"}
+              // textAlign="right"
+              isNumeric
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+            >
+              Collateral
+            </Th>
+          </Tr>
+        ) : null}
+      </Thead>
+      <Tbody
+      // mainAxisAlignment="flex-start"
+      // crossAxisAlignment="flex-start"
+      // expand
+      // mt={1}
       >
         {assets.length > 0 ? (
           <>
@@ -504,8 +519,8 @@ const SupplyList = ({
             There are no assets in this pool.
           </Center>
         )}
-      </Column>
-    </Column>
+      </Tbody>
+    </Table>
   );
 };
 
@@ -611,8 +626,12 @@ const AssetSupplyRow = ({
         isOpen={isModalOpen}
         onClose={closeModal}
       />
-
-      <Row
+      <Tr
+        onClick={authedOpenModal}
+        cursor={"pointer"}
+        _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
+      >
+        {/* <Row
         mainAxisAlignment="flex-start"
         crossAxisAlignment="center"
         width="100%"
@@ -621,190 +640,189 @@ const AssetSupplyRow = ({
         _hover={{
           bgColor: useColorModeValue("gray.200", "gray.700"),
         }}
-      >
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          width={isMobile ? "8%" : "6%"}
-        >
-          <Avatar
-            bg={"transparent"}
-            boxSize={{ base: "7vw", sm: "2.2rem" }}
-            name={asset.underlyingSymbol}
-            src={
-              tokenData?.logoURL ??
-              "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
-            }
-          />
-        </Row>
-
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          width={isMobile ? "30%" : "32%"}
-          as="button"
-          onClick={authedOpenModal}
-        >
-          <Text
-            fontWeight="bold"
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-            ml={2}
-            mr={1}
-            flexWrap={"wrap"}
-            textAlign={"left"}
-            wordBreak={"break-word"}
+      > */}
+        <Td maxW={"180px"}>
+          <Row
+            mainAxisAlignment="flex-start"
+            crossAxisAlignment="center"
+            // width={isMobile ? "8%" : "6%"}
           >
-            {tokenData?.symbol ?? asset.underlyingSymbol}
-          </Text>
-          {tokenData?.symbol !== undefined ? (
-            asset.underlyingSymbol.toLowerCase() !==
-            tokenData?.symbol?.toLowerCase() ? (
-              <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
-                <QuestionIcon />
-              </SimpleTooltip>
-            ) : (
-              ""
-            )
-          ) : null}
-        </Row>
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          width="5%"
-        >
-          <SimpleTooltip
-            placement="top-start"
-            label={
-              tokenData?.extraData?.partnerURL ??
-              `${scanner}/${asset.underlyingToken}`
-            }
-          >
-            <Button
-              variant={"link"}
-              as={ChakraLink}
-              href={
+            <Avatar
+              bg={"transparent"}
+              boxSize={{ base: "7vw", sm: "2.2rem" }}
+              name={asset.underlyingSymbol}
+              src={
+                tokenData?.logoURL ??
+                "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
+              }
+            />
+            {/* </Row>
+        </Td>
+        <Td maxWidth={"40px"}>
+          <Row
+            mainAxisAlignment="flex-start"
+            crossAxisAlignment="center"
+            // width={isMobile ? "30%" : "32%"}
+            // as="button"
+            // onClick={authedOpenModal}
+          > */}
+            <Text
+              fontWeight="bold"
+              fontSize={{ base: "3.8vw", sm: "md" }}
+              mx={2}
+            >
+              {tokenData?.symbol ?? asset.underlyingSymbol}
+            </Text>
+            {tokenData?.symbol !== undefined ? (
+              asset.underlyingSymbol.toLowerCase() !==
+              tokenData?.symbol?.toLowerCase() ? (
+                <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
+                  <QuestionIcon />
+                </SimpleTooltip>
+              ) : (
+                ""
+              )
+            ) : null}
+            {/* </Row>
+        </Td>
+        <Td>
+          <Row mainAxisAlignment={"center"} crossAxisAlignment={"center"}> */}
+            <SimpleTooltip
+              placement="top-start"
+              label={
                 tokenData?.extraData?.partnerURL ??
                 `${scanner}/${asset.underlyingToken}`
               }
-              isExternal
             >
-              <LinkIcon h={{ base: 3, sm: 6 }} />
-            </Button>
-          </SimpleTooltip>
-        </Row>
-        {isMobile ? null : (
-          <Column
-            mainAxisAlignment="flex-start"
-            crossAxisAlignment="flex-end"
-            width="35%"
-            as="button"
-            onClick={authedOpenModal}
-          >
-            <Tooltip
-              label={
-                "The Supply APY is the forecasted APY you earn by supplying this asset based on the current utilisation ratios of this pool!"
-              }
-            >
-              <Text
-                color={tokenData?.color ?? "#FF"}
-                fontWeight="bold"
-                fontSize="17px"
-                textAlign={"right"}
+              <Button
+                variant={"link"}
+                as={ChakraLink}
+                href={
+                  tokenData?.extraData?.partnerURL ??
+                  `${scanner}/${asset.underlyingToken}`
+                }
+                isExternal
               >
-                {isStakedOHM
-                  ? stakedOHMApyData
-                    ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
-                    : "?"
-                  : supplyAPY.toFixed(2)}
-                %
-              </Text>
-            </Tooltip>
-            {tokenData?.extraData?.hasAPY && (
-              <Row
-                // ml={1}
-                // mb={.5}
-                crossAxisAlignment="center"
-                mainAxisAlignment="flex-end"
-                py={1}
-                pt={"0.5"}
-              >
-                <Text fontWeight="bold" fontSize="lg" mr={1}>
-                  +
-                </Text>
-                <AvatarGroup size="xs" max={30} ml={2} mr={1} spacing={1}>
-                  {/* <SimpleTooltip label={displayedSupplyAPRLabel}> */}
-                  <CTokenIcon
-                    address={asset.underlyingToken}
-                    boxSize="25px"
-                    _hover={{
-                      zIndex: 9,
-                    }}
-                  />
-                  {/* </SimpleTooltip> */}
-                </AvatarGroup>
-                <Tooltip
-                  label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
-                >
-                  <Text wordBreak={"keep-all"} textAlign={"right"} fontWeight="bold" pl={1} fontSize="sm">
-                    {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
-                  </Text>
-                </Tooltip>
-              </Row>
-            )}
+                <LinkIcon h={{ base: 3, sm: 6 }} />
+              </Button>
+            </SimpleTooltip>
+          </Row>
+        </Td>
 
-            <Tooltip
-              label={t(
-                "The Loan to Value (LTV) ratio defines the maximum amount of tokens in the pool that can be borrowed with a specific collateral. It’s expressed in percentage: if in a pool ETH has 75% LTV, for every 1 ETH worth of collateral, borrowers will be able to borrow 0.75 ETH worth of other tokens in the pool."
-              )}
+        {isMobile ? null : (
+          <Td isNumeric>
+            <Column
+              mainAxisAlignment="flex-start"
+              crossAxisAlignment="flex-end"
+              // width="35%"
+              // as="button"
+              // onClick={authedOpenModal}
             >
-              <Text fontSize="sm">{asset.collateralFactor / 1e16}% LTV</Text>
-            </Tooltip>
-          </Column>
+              <SimpleTooltip
+                label={
+                  "The Supply APY is the forecasted APY you earn by supplying this asset based on the current utilisation ratios of this pool!"
+                }
+              >
+                <Text
+                  color={tokenData?.color ?? "#FF"}
+                  fontWeight="bold"
+                  fontSize="17px"
+                >
+                  {isStakedOHM
+                    ? stakedOHMApyData
+                      ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
+                      : "?"
+                    : supplyAPY.toFixed(2)}
+                  %
+                </Text>
+              </SimpleTooltip>
+              {tokenData?.extraData?.hasAPY && (
+                <Row
+                  // ml={1}
+                  // mb={.5}
+                  crossAxisAlignment="center"
+                  mainAxisAlignment="flex-end"
+                  py={1}
+                  pt={"0.5"}
+                >
+                  <Text fontWeight="bold" fontSize="lg" mr={1}>
+                    +
+                  </Text>
+                  <AvatarGroup size="xs" max={30} ml={2} mr={1} spacing={1}>
+                    {/* <SimpleTooltip label={displayedSupplyAPRLabel}> */}
+                    <CTokenIcon
+                      address={asset.underlyingToken}
+                      boxSize="25px"
+                      _hover={{
+                        zIndex: 9,
+                      }}
+                    />
+                    {/* </SimpleTooltip> */}
+                  </AvatarGroup>
+                  <SimpleTooltip
+                    label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
+                  >
+                    <Text fontWeight="bold" pl={1} fontSize="sm">
+                      {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
+                    </Text>
+                  </SimpleTooltip>
+                </Row>
+              )}
+
+              <SimpleTooltip
+                label={t(
+                  "The Loan to Value (LTV) ratio defines the maximum amount of tokens in the pool that can be borrowed with a specific collateral. It’s expressed in percentage: if in a pool ETH has 75% LTV, for every 1 ETH worth of collateral, borrowers will be able to borrow 0.75 ETH worth of other tokens in the pool."
+                )}
+              >
+                <Text fontSize="sm">{asset.collateralFactor / 1e16}% LTV</Text>
+              </SimpleTooltip>
+            </Column>
+          </Td>
         )}
 
-        <Column
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-end"
-          width={isMobile ? "35%" : "20%"}
-          as="button"
-          onClick={authedOpenModal}
-          flexWrap={"wrap"}
-        >
-          <Text
-            color={tokenData?.color ?? textColor}
-            fontWeight="bold"
-            fontSize="17px"
-            textAlign={"right"}
-            wordBreak={"break-word"}
+        <Td isNumeric>
+          <Column
+            mainAxisAlignment="flex-end"
+            crossAxisAlignment="flex-end"
+            // width={isMobile ? "35%" : "20%"}
+            // as="button"
+            // onClick={authedOpenModal}
+            // flexWrap={"wrap"}
           >
-            {smallUsdFormatter(asset.supplyBalanceUSD)}
-          </Text>
-          <Text wordBreak={"break-word"} textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
-            {smallUsdFormatter(
-              asset.supplyBalance / 10 ** asset.underlyingDecimals
-            ).replace("$", "")}{" "}
-            {tokenData?.extraData?.shortName ??
-              tokenData?.symbol ??
-              asset.underlyingSymbol}
-          </Text>
-        </Column>
+            <Text
+              color={tokenData?.color ?? textColor}
+              fontWeight="bold"
+              fontSize="17px"
+            >
+              {smallUsdFormatter(asset.supplyBalanceUSD)}
+            </Text>
+            <Text fontSize={{ base: "2.5vw", md: "sm" }}>
+              {smallUsdFormatter(
+                asset.supplyBalance / 10 ** asset.underlyingDecimals
+              ).replace("$", "")}{" "}
+              {tokenData?.extraData?.shortName ??
+                tokenData?.symbol ??
+                asset.underlyingSymbol}
+            </Text>
+          </Column>
+        </Td>
 
-        <Row
-          width={isMobile ? "25%" : "20%"}
-          mainAxisAlignment={"flex-end"}
-          crossAxisAlignment="center"
-        >
-          <SwitchCSS symbol={asset.underlyingSymbol} color={tokenData?.color} />
-
-          <Switch
-            isChecked={asset.membership}
-            className={asset.underlyingSymbol + "-switch"}
-            onChange={onToggleCollateral}
-            size={isMobile ? "sm" : "md"}
-            mr={5}
-          />
-        </Row>
-      </Row>
+        <Td isNumeric>
+          <Row mainAxisAlignment={"center"} crossAxisAlignment="center">
+            <SwitchCSS
+              symbol={asset.underlyingSymbol}
+              color={tokenData?.color}
+            />
+            <Switch
+              isChecked={asset.membership}
+              className={asset.underlyingSymbol + "-switch"}
+              onChange={onToggleCollateral}
+              size={isMobile ? "sm" : "md"}
+            />
+          </Row>
+        </Td>
+        {/* </Row> */}
+      </Tr>
     </>
   );
 };
@@ -826,72 +844,45 @@ const BorrowList = ({
   const isMobile = useIsMobile();
 
   return (
-    <Column
-      mainAxisAlignment="flex-start"
-      crossAxisAlignment="flex-start"
-      height="100%"
-      pb={1}
+    <Table
+      // mainAxisAlignment="flex-start"
+      // crossAxisAlignment="flex-start"
+      // height="100%"
+      // pb={1}
+      variant={"simple"}
+      size={"sm"}
     >
-      <Heading fontSize={{ base: "3.8vw", sm: "lg" }} size="md" px={4} py={3}>
-        Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
-      </Heading>
-
-      <Divider color="#F4F6F9" />
-
-      {assets.length > 0 ? (
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-start"
-          width="100%"
-          px={4}
-          mt={4}
-        >
-          <Text
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-            width="27%"
-            fontWeight="bold"
-            pl={1}
-          >
-            Asset
-          </Text>
-
-          {isMobile ? null : (
-            <Text
-              fontSize={{ base: "3.8vw", sm: "lg" }}
-              width="34%"
-              fontWeight="bold"
-              textAlign="right"
-            >
-              APR/TVL
+      <Thead>
+        <Tr>
+          <Td colSpan={4}>
+            <Text fontWeight={"bold"} fontSize={{ base: "3.8vw", sm: "lg" }} size="md" py={3}>
+              Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
             </Text>
-          )}
+          </Td>
+        </Tr>
+        {assets.length > 0 ? (
+          <Tr>
+            <Th>
+              <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Asset</Text>
+            </Th>
 
-          <Text
-            fontWeight="bold"
-            textAlign="right"
-            width={isMobile ? "49%" : "27%"}
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-          >
-            Balance
-          </Text>
+            <Th isNumeric>
+              {isMobile ? null : (
+                <Text fontSize={{ base: "3.8vw", sm: "lg" }}>APR/TVL</Text>
+              )}
+            </Th>
 
-          <Text
-            fontWeight="bold"
-            textAlign="right"
-            width={isMobile ? "34%" : "20%"}
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-          >
-            Liquidity
-          </Text>
-        </Row>
-      ) : null}
+            <Th isNumeric>
+              <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Balance</Text>
+            </Th>
 
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="flex-start"
-        expand
-        mt={1}
-      >
+            <Th isNumeric>
+              <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Liquidity</Text>
+            </Th>
+          </Tr>
+        ) : null}
+      </Thead>
+      <Tbody>
         {assets.length > 0 ? (
           <>
             {borrowedAssets.map((asset, index) => {
@@ -911,13 +902,11 @@ const BorrowList = ({
             })}
 
             {borrowedAssets.length > 0 ? <ModalDivider my={2} /> : null}
-
             {nonBorrowedAssets.map((asset, index) => {
               // Don't show paused assets.
               if (asset.isPaused) {
                 return null;
               }
-
               return (
                 <AssetBorrowRow
                   comptrollerAddress={comptrollerAddress}
@@ -933,8 +922,8 @@ const BorrowList = ({
             There are no assets in this pool.
           </Center>
         )}
-      </Column>
-    </Column>
+      </Tbody>
+    </Table>
   );
 };
 
@@ -978,7 +967,12 @@ const AssetBorrowRow = ({
         onClose={closeModal}
       />
 
-      <Row
+      <Tr
+        onClick={authedOpenModal}
+        cursor={"pointer"}
+        _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
+      >
+        {/* <Row
         mainAxisAlignment="flex-start"
         crossAxisAlignment="center"
         width="100%"
@@ -989,131 +983,132 @@ const AssetBorrowRow = ({
         py={1.5}
         as="button"
         onClick={authedOpenModal}
-      >
-        <Row
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="center"
-          width={isMobile ? "8%" : "6%"}
-        >
-          <Avatar
-            bg={"transparent"}
-            boxSize={{ base: "7vw", sm: "2.2rem" }}
-            name={asset.underlyingSymbol}
-            src={
-              tokenData?.logoURL ??
-              "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
-            }
-          />
-        </Row>
+      > */}
+        <Td maxWidth={"180px"}>
+          <Row
+            mainAxisAlignment="flex-start"
+            crossAxisAlignment="center"
+            width={isMobile ? "8%" : "6%"}
+          >
+            <Avatar
+              bg={"transparent"}
+              boxSize={{ base: "7vw", sm: "2.2rem" }}
+              name={asset.underlyingSymbol}
+              src={
+                tokenData?.logoURL ??
+                "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg"
+              }
+            />
+            {/* </Row>
         <Row
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
           width="27%"
-        >
-          <Text
-            fontWeight="bold"
-            fontSize={{ base: "3.8vw", sm: "lg" }}
-            ml={2}
-            mr={1}
-            flexShrink={0}
-          >
-            {tokenData?.symbol ?? asset.underlyingSymbol}
-          </Text>
-          {tokenData?.symbol !== undefined ? (
-            asset.underlyingSymbol.toLowerCase() !==
-            tokenData?.symbol?.toLowerCase() ? (
-              <SimpleTooltip
-                placement="auto"
-                label={asset?.underlyingSymbol ?? ""}
-              >
-                <QuestionIcon />
-              </SimpleTooltip>
+        > */}
+            <Text
+              fontWeight="bold"
+              fontSize={{ base: "3.8vw", sm: "md" }}
+              mx={2}
+              flexShrink={0}
+            >
+              {tokenData?.symbol ?? asset.underlyingSymbol}
+            </Text>
+            {tokenData?.symbol !== undefined ? (
+              asset.underlyingSymbol.toLowerCase() !==
+              tokenData?.symbol?.toLowerCase() ? (
+                <SimpleTooltip
+                  placement="auto"
+                  label={asset?.underlyingSymbol ?? ""}
+                >
+                  <QuestionIcon />
+                </SimpleTooltip>
+              ) : (
+                ""
+              )
             ) : (
               ""
-            )
-          ) : (
-            ""
-          )}
-        </Row>
+            )}
+          </Row>
+        </Td>
 
         {isMobile ? null : (
-          <Column
-            mainAxisAlignment="flex-start"
-            crossAxisAlignment="flex-end"
-            width="27%"
-          >
-            <Text
-              color={tokenData?.color ?? "#FF"}
-              fontWeight="bold"
-              fontSize="17px"
-              textAlign={"right"}
-            >
-              {borrowAPR.toFixed(3)}%
-            </Text>
-
-            <Tooltip
-              label={t(
-                "Total Value Lent (TVL) measures how much of this asset has been supplied in total. TVL does not account for how much of the lent assets have been borrowed, use 'liquidity' to determine the total unborrowed assets lent."
-              )}
-            >
-              <Text wordBreak={"keep-all"} textAlign={"right"} fontSize="sm">
-                {shortUsdFormatter(asset.totalSupplyUSD)} TVL
-              </Text>
-            </Tooltip>
-          </Column>
-        )}
-
-        <Column
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment="flex-end"
-          width={isMobile ? "40%" : "27%"}
-        >
-          <Text
-            color={tokenData?.color ?? textColor}
-            fontWeight="bold"
-            fontSize="17px"
-          >
-            {smallUsdFormatter(asset.borrowBalanceUSD)}
-          </Text>
-
-          <Text fontSize={{ base: "2.5vw", md: "sm" }}>
-            {smallUsdFormatter(
-              asset.borrowBalance / 10 ** asset.underlyingDecimals
-            ).replace("$", "")}{" "}
-            {tokenData?.symbol ?? asset.underlyingSymbol}
-          </Text>
-        </Column>
-
-        <Tooltip
-          label={t(
-            "Liquidity is the amount of this asset that is available to borrow (unborrowed). To see how much has been supplied and borrowed in total, navigate to the Pool Info tab."
-          )}
-          placement="top-end"
-        >
-          <Box width={isMobile ? "34%" : "20%"}>
+          <Td isNumeric>
             <Column
               mainAxisAlignment="flex-start"
               crossAxisAlignment="flex-end"
             >
               <Text
-                color={tokenData?.color ?? textColor}
-                fontWeight="bold"
+                color={tokenData?.color ?? "#FF"}
                 fontSize="17px"
-                textAlign={"right"}
+                fontWeight={"bold"}
               >
-                {shortUsdFormatter(asset.liquidityUSD)}
+                {borrowAPR.toFixed(3)}%
               </Text>
 
-              <Text textAlign={"right"} fontSize={{ base: "2.5vw", md: "sm" }}>
-                {shortUsdFormatter(
-                  asset.liquidity / 10 ** asset.underlyingDecimals
-                ).replace("$", "")}{" "}
-                {tokenData?.symbol}
-              </Text>
+              <SimpleTooltip
+                label={t(
+                  "Total Value Lent (TVL) measures how much of this asset has been supplied in total. TVL does not account for how much of the lent assets have been borrowed, use 'liquidity' to determine the total unborrowed assets lent."
+                )}
+              >
+                <Text wordBreak={"keep-all"} fontSize="sm">
+                  {shortUsdFormatter(asset.totalSupplyUSD)} TVL
+                </Text>
+              </SimpleTooltip>
             </Column>
-          </Box>
-        </Tooltip>
-      </Row>
+          </Td>
+        )}
+
+        <Td isNumeric>
+          <Column mainAxisAlignment="flex-start" crossAxisAlignment="flex-end">
+            <Text
+              color={tokenData?.color ?? textColor}
+              fontWeight={"bold"}
+              fontSize="17px"
+            >
+              {smallUsdFormatter(asset.borrowBalanceUSD)}
+            </Text>
+
+            <Text fontSize={{ base: "2.5vw", md: "sm" }}>
+              {smallUsdFormatter(
+                asset.borrowBalance / 10 ** asset.underlyingDecimals
+              ).replace("$", "")}{" "}
+              {tokenData?.symbol ?? asset.underlyingSymbol}
+            </Text>
+          </Column>
+        </Td>
+
+        <Td>
+          <SimpleTooltip
+            label={t(
+              "Liquidity is the amount of this asset that is available to borrow (unborrowed). To see how much has been supplied and borrowed in total, navigate to the Pool Info tab."
+            )}
+            placement="top-end"
+          >
+            <Box>
+              <Column
+                mainAxisAlignment="flex-start"
+                crossAxisAlignment="flex-end"
+              >
+                <Text
+                  color={tokenData?.color ?? textColor}
+                  fontWeight={"bold"}
+                  fontSize="17px"
+                >
+                  {shortUsdFormatter(asset.liquidityUSD)}
+                </Text>
+
+                <Text fontSize={{ base: "2.5vw", md: "sm" }}>
+                  {shortUsdFormatter(
+                    asset.liquidity / 10 ** asset.underlyingDecimals
+                  ).replace("$", "")}{" "}
+                  {tokenData?.symbol}
+                </Text>
+              </Column>
+            </Box>
+          </SimpleTooltip>
+        </Td>
+        {/* </Row> */}
+      </Tr>
     </>
   );
 };
