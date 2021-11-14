@@ -31,7 +31,6 @@ import {
   Tbody,
   Td,
   Thead,
-  TableCaption,
 } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
@@ -414,13 +413,7 @@ const SupplyList = ({
   const isMobile = useIsMobile();
 
   return (
-    <Table
-      // mainAxisAlignment="flex-start"
-      // crossAxisAlignment="flex-start"
-      // height="100%"
-      variant={"simple"}
-      size={"sm"}
-    >
+    <Table variant={"simple"} size={"sm"}>
       <Thead>
         <Tr>
           <Td colSpan={4}>
@@ -435,58 +428,26 @@ const SupplyList = ({
           </Td>
         </Tr>
         {assets.length > 0 ? (
-          <Tr
-          // mainAxisAlignment="flex-start"
-          // crossAxisAlignment="flex-start"
-          // width="100%"
-          // px={4}
-          // mt={4}
-          >
-            <Th
-              // width={isMobile ? "38%" : "30%"}
-              fontSize={{ base: "3.8vw", sm: "lg" }}
-              // pl={1}
-            >
-              Asset
-            </Th>
+          <Tr>
+            <Th fontSize={{ base: "3.8vw", sm: "lg" }}>Asset</Th>
 
             {isMobile ? null : (
-              <Th
-                fontSize={{ base: "3.8vw", sm: "lg" }}
-                // width="50%"
-                // fontWeight="bold"
-                // textAlign="right"
-                isNumeric
-              >
+              <Th fontSize={{ base: "3.8vw", sm: "lg" }} isNumeric>
                 APY/LTV
               </Th>
             )}
 
-            <Th
-              // width={isMobile ? "40%" : "20%"}
-              // textAlign="right"
-              isNumeric
-              fontSize={{ base: "3.8vw", sm: "lg" }}
-            >
+            <Th isNumeric fontSize={{ base: "3.8vw", sm: "lg" }}>
               Balance
             </Th>
 
-            <Th
-              // width={isMobile ? "25%" : "20%"}
-              textAlign="center"
-              fontSize={{ base: "3.8vw", sm: "lg" }}
-            >
+            <Th textAlign="center" fontSize={{ base: "3.8vw", sm: "lg" }}>
               Collateral
             </Th>
           </Tr>
         ) : null}
       </Thead>
-      <Tbody
-      // mainAxisAlignment="flex-start"
-      // crossAxisAlignment="flex-start"
-      // expand
-      // mt={1}
-      >
+      <Tbody>
         {assets.length > 0 ? (
           <>
             {suppliedAssets.map((asset, index) => {
@@ -630,16 +591,6 @@ const AssetSupplyRow = ({
         cursor={"pointer"}
         _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
       >
-        {/* <Row
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        width="100%"
-        px={4}
-        py={tokenData?.extraData?.hasAPY ? "2" : "1.5"}
-        _hover={{
-          bgColor: useColorModeValue("gray.200", "gray.700"),
-        }}
-      > */}
         <Td maxW={isMobile ? "110px" : "180px"}>
           <Row
             mainAxisAlignment="flex-start"
@@ -656,11 +607,7 @@ const AssetSupplyRow = ({
               }
             />
 
-            <Text
-              fontWeight="bold"
-              fontSize={{ base: "3vw", sm: "md" }}
-              mx={2}
-            >
+            <Text fontWeight="bold" fontSize={{ base: "3vw", sm: "md" }} mx={2}>
               {tokenData?.symbol ?? asset.underlyingSymbol}
             </Text>
             {isMobile ? null : tokenData?.symbol !== undefined ? (
@@ -701,9 +648,6 @@ const AssetSupplyRow = ({
             <Column
               mainAxisAlignment="flex-start"
               crossAxisAlignment="flex-end"
-              // width="35%"
-              // as="button"
-              // onClick={authedOpenModal}
             >
               <SimpleTooltip
                 label={
@@ -725,8 +669,6 @@ const AssetSupplyRow = ({
               </SimpleTooltip>
               {tokenData?.extraData?.hasAPY && (
                 <Row
-                  // ml={1}
-                  // mb={.5}
                   crossAxisAlignment="center"
                   mainAxisAlignment="flex-end"
                   py={1}
@@ -768,14 +710,7 @@ const AssetSupplyRow = ({
         )}
 
         <Td isNumeric>
-          <Column
-            mainAxisAlignment="flex-end"
-            crossAxisAlignment="flex-end"
-            // width={isMobile ? "35%" : "20%"}
-            // as="button"
-            // onClick={authedOpenModal}
-            // flexWrap={"wrap"}
-          >
+          <Column mainAxisAlignment="flex-end" crossAxisAlignment="flex-end">
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight="bold"
@@ -808,7 +743,6 @@ const AssetSupplyRow = ({
             />
           </Row>
         </Td>
-        {/* </Row> */}
       </Tr>
     </>
   );
@@ -831,14 +765,7 @@ const BorrowList = ({
   const isMobile = useIsMobile();
 
   return (
-    <Table
-      // mainAxisAlignment="flex-start"
-      // crossAxisAlignment="flex-start"
-      // height="100%"
-      // pb={1}
-      variant={"simple"}
-      size={"sm"}
-    >
+    <Table variant={"simple"} size={"sm"}>
       <Thead>
         <Tr>
           <Td colSpan={4}>
