@@ -429,21 +429,43 @@ const SupplyList = ({
         </Tr>
         {assets.length > 0 ? (
           <Tr>
-            <Th fontSize={{ base: "3.8vw", sm: "lg" }}>Asset</Th>
+            <Td
+              color={"gray.100"}
+              fontWeight={"bold"}
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+            >
+              Asset
+            </Td>
 
             {isMobile ? null : (
-              <Th fontSize={{ base: "3.8vw", sm: "lg" }} isNumeric>
+              <Td
+                color={"gray.100"}
+                fontWeight={"bold"}
+                fontSize={{ base: "3.8vw", sm: "lg" }}
+                isNumeric
+              >
                 APY/LTV
-              </Th>
+              </Td>
             )}
 
-            <Th isNumeric fontSize={{ base: "3.8vw", sm: "lg" }}>
+            <Td
+              color={"gray.100"}
+              fontWeight={"bold"}
+              isNumeric
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+            >
               Balance
-            </Th>
+            </Td>
 
-            <Th textAlign="center" fontSize={{ base: "3.8vw", sm: "lg" }}>
+            <Td
+              color={"gray.100"}
+              fontWeight={"bold"}
+              maxW={isMobile ? "80px" : "180px"}
+              textAlign="center"
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+            >
               Collateral
-            </Th>
+            </Td>
           </Tr>
         ) : null}
       </Thead>
@@ -591,7 +613,7 @@ const AssetSupplyRow = ({
         cursor={"pointer"}
         _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
       >
-        <Td maxW={isMobile ? "110px" : "180px"}>
+        <Td maxW={isMobile ? "100px" : "180px"}>
           <Row
             mainAxisAlignment="flex-start"
             crossAxisAlignment="center"
@@ -657,7 +679,7 @@ const AssetSupplyRow = ({
                 <Text
                   color={tokenData?.color ?? "#FF"}
                   fontWeight="bold"
-                  fontSize="17px"
+                  fontSize={{ base: "3.2vw", sm: "md" }}
                 >
                   {isStakedOHM
                     ? stakedOHMApyData
@@ -674,7 +696,7 @@ const AssetSupplyRow = ({
                   py={1}
                   pt={"0.5"}
                 >
-                  <Text fontWeight="bold" fontSize="lg" mr={1}>
+                  <Text fontWeight="bold" fontSize={{ base: "3.2vw", sm: "md" }} mr={1}>
                     +
                   </Text>
                   <AvatarGroup size="xs" max={30} ml={2} mr={1} spacing={1}>
@@ -714,7 +736,7 @@ const AssetSupplyRow = ({
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight="bold"
-              fontSize="17px"
+              fontSize={{ base: "3.2vw", sm: "md" }}
             >
               {smallUsdFormatter(asset.supplyBalanceUSD)}
             </Text>
@@ -781,23 +803,42 @@ const BorrowList = ({
         </Tr>
         {assets.length > 0 ? (
           <Tr>
-            <Th>
-              <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Asset</Text>
-            </Th>
+            <Td
+              color={"gray.100"}
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              fontWeight={"bold"}
+            >
+              Asset
+            </Td>
 
             {isMobile ? null : (
-              <Th isNumeric>
-                <Text fontSize={{ base: "3.8vw", sm: "lg" }}>APR/TVL</Text>
-              </Th>
+              <Td
+                color={"gray.100"}
+                fontSize={{ base: "3.8vw", sm: "lg" }}
+                fontWeight={"bold"}
+                isNumeric
+              >
+                APR/TVL
+              </Td>
             )}
 
-            <Th isNumeric>
-              <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Balance</Text>
-            </Th>
+            <Td
+              color={"gray.100"}
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              fontWeight={"bold"}
+              isNumeric
+            >
+              Balance
+            </Td>
 
-            <Th isNumeric>
-              <Text fontSize={{ base: "3.8vw", sm: "lg" }}>Liquidity</Text>
-            </Th>
+            <Td
+              color={"gray.100"}
+              fontSize={{ base: "3.8vw", sm: "lg" }}
+              fontWeight={"bold"}
+              isNumeric
+            >
+              Liquidity
+            </Td>
           </Tr>
         ) : null}
       </Thead>
@@ -940,7 +981,7 @@ const AssetBorrowRow = ({
             >
               <Text
                 color={tokenData?.color ?? "#FF"}
-                fontSize="17px"
+                fontSize={{ base: "3.2vw", sm: "md" }}
                 fontWeight={"bold"}
               >
                 {borrowAPR.toFixed(3)}%
@@ -964,7 +1005,7 @@ const AssetBorrowRow = ({
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight={"bold"}
-              fontSize="17px"
+              fontSize={{ base: "3.2vw", sm: "md" }}
             >
               {smallUsdFormatter(asset.borrowBalanceUSD)}
             </Text>
@@ -993,7 +1034,7 @@ const AssetBorrowRow = ({
                 <Text
                   color={tokenData?.color ?? textColor}
                   fontWeight={"bold"}
-                  fontSize="17px"
+                  fontSize={{ base: "3.2vw", sm: "md" }}
                 >
                   {shortUsdFormatter(asset.liquidityUSD)}
                 </Text>
