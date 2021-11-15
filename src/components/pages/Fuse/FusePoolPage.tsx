@@ -431,7 +431,7 @@ const SupplyList = ({
             <Td
               colSpan={isMobile ? 1 : 3}
               fontWeight={"bold"}
-              fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
               maxW={isMobile ? "100px" : "250px"}
             >
               Asset
@@ -440,7 +440,7 @@ const SupplyList = ({
             {isMobile ? null : (
               <Td
                 fontWeight={"bold"}
-                fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+                fontSize={{ base: "2.9vw", sm: "0.9rem" }}
                 textAlign={"right"}
               >
                 APY
@@ -451,7 +451,7 @@ const SupplyList = ({
               isNumeric
               fontWeight={"bold"}
               textAlign={"right"}
-              fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
             >
               Balance
             </Td>
@@ -460,7 +460,7 @@ const SupplyList = ({
               maxW={isMobile ? "80px" : "140px"}
               fontWeight={"bold"}
               textAlign="center"
-              fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
             >
               Collateral
             </Td>
@@ -634,7 +634,7 @@ const AssetSupplyRow = ({
               <Text
                 fontWeight="bold"
                 textAlign={"left"}
-                fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                fontSize={{ base: "2.8vw", sm: "0.9rem" }}
                 mx={2}
               >
                 {tokenData?.symbol ?? asset.underlyingSymbol}
@@ -723,7 +723,7 @@ const AssetSupplyRow = ({
                   <Text
                     color={tokenData?.color ?? "#FF"}
                     fontWeight="bold"
-                    fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                    fontSize={{ base: "2.8vw", sm: "0.9rem" }}
                   >
                     {isStakedOHM
                       ? stakedOHMApyData
@@ -769,7 +769,7 @@ const AssetSupplyRow = ({
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight="bold"
-              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.8vw", sm: "0.9rem" }}
             >
               {smallUsdFormatter(asset.supplyBalanceUSD)}
             </Text>
@@ -838,7 +838,7 @@ const BorrowList = ({
           <Tr>
             <Td
               colSpan={isMobile ? 1 : 2}
-              fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
               fontWeight={"bold"}
             >
               Asset
@@ -846,7 +846,7 @@ const BorrowList = ({
 
             {isMobile ? null : (
               <Td
-                fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+                fontSize={{ base: "2.9vw", sm: "0.9rem" }}
                 fontWeight={"bold"}
                 isNumeric
                 textAlign={"right"}
@@ -856,7 +856,7 @@ const BorrowList = ({
             )}
 
             <Td
-              fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
               fontWeight={"bold"}
               isNumeric
               textAlign={"right"}
@@ -865,7 +865,7 @@ const BorrowList = ({
             </Td>
 
             <Td
-              fontSize={{ base: "2.9vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
               fontWeight={"bold"}
               isNumeric
               textAlign={"right"}
@@ -983,7 +983,7 @@ const AssetBorrowRow = ({
             />
             <Text
               fontWeight="bold"
-              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.8vw", sm: "0.9rem" }}
               mx={2}
             >
               {tokenData?.symbol ?? asset.underlyingSymbol}
@@ -1015,7 +1015,7 @@ const AssetBorrowRow = ({
             >
               <Text
                 color={tokenData?.color ?? "#FF"}
-                fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                fontSize={{ base: "2.8vw", sm: "0.9rem" }}
                 fontWeight={"bold"}
               >
                 {borrowAPR.toFixed(3)}%
@@ -1042,7 +1042,7 @@ const AssetBorrowRow = ({
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight={"bold"}
-              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+              fontSize={{ base: "2.8vw", sm: "0.9rem" }}
             >
               {smallUsdFormatter(asset.borrowBalanceUSD)}
             </Text>
@@ -1071,7 +1071,7 @@ const AssetBorrowRow = ({
                 <Text
                   color={tokenData?.color ?? textColor}
                   fontWeight={"bold"}
-                  fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                  fontSize={{ base: "2.8vw", sm: "0.9rem" }}
                 >
                   {shortUsdFormatter(asset.liquidityUSD)}
                 </Text>
