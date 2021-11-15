@@ -254,7 +254,7 @@ const FusePoolPage = memo(() => {
           mt={4}
           isRow={!isMobile}
         >
-          <PoolDashboardBox width={isMobile ? "90%" : "50%"}>
+          <PoolDashboardBox pb={2} width={isMobile ? "90%" : "50%"}>
             {data ? (
               <SupplyList
                 assets={data.assets}
@@ -269,6 +269,7 @@ const FusePoolPage = memo(() => {
           <PoolDashboardBox
             ml={isMobile ? 0 : 4}
             mt={isMobile ? 4 : 0}
+            pb={2}
             width={isMobile ? "90%" : "50%"}
           >
             {data ? (
