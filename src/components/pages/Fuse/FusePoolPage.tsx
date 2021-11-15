@@ -30,6 +30,7 @@ import {
   Tbody,
   Td,
   Thead,
+  TableCaption,
 } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
@@ -413,19 +414,10 @@ const SupplyList = ({
 
   return (
     <Table variant={"unstyled"} size={"sm"}>
+      <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
+        Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
+      </TableCaption>
       <Thead>
-        <Tr>
-          <Td colSpan={4}>
-            <Text
-              textAlign={"left"}
-              fontSize={{ base: "3.8vw", sm: "lg" }}
-              fontWeight={"bold"}
-              py={3}
-            >
-              Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
-            </Text>
-          </Td>
-        </Tr>
         {assets.length > 0 ? (
           <Tr>
             <Td
@@ -821,19 +813,10 @@ const BorrowList = ({
 
   return (
     <Table variant={"unstyled"} size={"sm"}>
+      <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
+        Your Supply Balance: {smallUsdFormatter(borrowBalanceUSD)}
+      </TableCaption>
       <Thead>
-        <Tr>
-          <Td colSpan={4}>
-            <Text
-              fontWeight={"bold"}
-              fontSize={{ base: "3.8vw", sm: "lg" }}
-              size="md"
-              py={3}
-            >
-              Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
-            </Text>
-          </Td>
-        </Tr>
         {assets.length > 0 ? (
           <Tr>
             <Td
