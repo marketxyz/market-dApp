@@ -27,7 +27,6 @@ import {
   Button,
   Table,
   Tr,
-  Th,
   Tbody,
   Td,
   Thead,
@@ -1006,9 +1005,7 @@ const AssetBorrowRow = ({
           ) : (
             <Box></Box>
           )
-        ) : (
-          null
-        )}
+        ) : null}
 
         {isMobile ? null : (
           <Td isNumeric>
