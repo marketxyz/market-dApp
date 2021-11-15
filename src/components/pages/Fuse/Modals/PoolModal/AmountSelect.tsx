@@ -526,7 +526,7 @@ const AmountSelect = ({
     }
   };
   const bgColor = useColorModeValue("white", "mktgray.400");
-  const rowDivisionColor = useColorModeValue("gray.50", "mktgray.200")
+  const rowDivisionColor = useColorModeValue("gray.50", "mktgray.200");
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
@@ -582,7 +582,7 @@ const AmountSelect = ({
                 : asset.underlyingSymbol}
             </Heading>
           </Row>
-          
+
           <Column
             mainAxisAlignment="flex-start"
             crossAxisAlignment="center"
@@ -599,11 +599,7 @@ const AmountSelect = ({
             >
               <TabBar color={bgColor} mode={mode} setMode={setMode} />
 
-              <DashboardBox
-                bg={bgColor}
-                width="100%"
-                mt={4}
-              >
+              <DashboardBox bg={bgColor} width="100%" mt={4}>
                 <Row
                   p={4}
                   mainAxisAlignment="space-between"
@@ -642,12 +638,7 @@ const AmountSelect = ({
             />
 
             {showEnableAsCollateral ? (
-              <DashboardBox
-                bg={rowDivisionColor}
-                p={2}
-                px={4}
-                width="100%"
-                >
+              <DashboardBox bg={rowDivisionColor} p={2} px={4} width="100%">
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
@@ -739,10 +730,11 @@ const TabBar = ({
   // Does that make sense? Everything I described above is basically a way to get around the tab component's understanding that it only has 2 tabs under it to make it fit into our 4 value enum setup.
   // Still confused? DM me on Twitter (@transmissions11) for help.
 
-  const tabText = useColorModeValue("gray.500", "gray.100")
-  const tabColor = useColorModeValue("gray.100", "mktgray.700")
-  const selectedText = useColorModeValue("#2f2f2f", "white")
-  const selectedBg = "linear(to-br, rgba(202, 0, 102, 0.08), rgba(144, 49, 217, 0.08))"
+  const tabText = useColorModeValue("gray.500", "gray.100");
+  const tabColor = useColorModeValue("gray.100", "mktgray.700");
+  const selectedText = useColorModeValue("#2f2f2f", "white");
+  const selectedBg =
+    "linear(to-br, rgba(202, 0, 102, 0.08), rgba(144, 49, 217, 0.08))";
 
   return (
     <>
@@ -763,19 +755,71 @@ const TabBar = ({
           <TabList border={"0px"}>
             {isSupplySide ? (
               <>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
+                <Tab
+                  m={1}
+                  fontSize={14}
+                  color={tabText}
+                  bgColor={tabColor}
+                  borderRadius={12}
+                  fontWeight="bold"
+                  _selected={{
+                    border: "1px",
+                    borderColor: "pink.600",
+                    color: selectedText,
+                    bgGradient: selectedBg,
+                  }}
+                >
                   {t("Supply")}
                 </Tab>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
+                <Tab
+                  m={1}
+                  fontSize={14}
+                  color={tabText}
+                  bgColor={tabColor}
+                  borderRadius={12}
+                  fontWeight="bold"
+                  _selected={{
+                    border: "1px",
+                    borderColor: "pink.600",
+                    color: selectedText,
+                    bgGradient: selectedBg,
+                  }}
+                >
                   {t("Withdraw")}
                 </Tab>
               </>
             ) : (
               <>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
+                <Tab
+                  m={1}
+                  fontSize={14}
+                  color={tabText}
+                  bgColor={tabColor}
+                  borderRadius={12}
+                  fontWeight="bold"
+                  _selected={{
+                    border: "1px",
+                    borderColor: "pink.600",
+                    color: selectedText,
+                    bgGradient: selectedBg,
+                  }}
+                >
                   {t("Borrow")}
                 </Tab>
-                <Tab m={1} fontSize={14} color={tabText} bgColor={tabColor} borderRadius={12} fontWeight="bold" _selected={{ border: "1px", borderColor: "pink.600", color: selectedText, bgGradient: selectedBg}}>
+                <Tab
+                  m={1}
+                  fontSize={14}
+                  color={tabText}
+                  bgColor={tabColor}
+                  borderRadius={12}
+                  fontWeight="bold"
+                  _selected={{
+                    border: "1px",
+                    borderColor: "pink.600",
+                    color: selectedText,
+                    bgGradient: selectedBg,
+                  }}
+                >
                   {t("Repay")}
                 </Tab>
               </>
@@ -975,7 +1019,7 @@ const StatsColumn = ({
     ? Math.abs(updatedSupplyAPY - supplyAPY) > 0.1
     : Math.abs(updatedBorrowAPR - borrowAPR) > 0.1;
 
-  const propertyText = useColorModeValue("black", "gray.300")
+  const propertyText = useColorModeValue("black", "gray.300");
 
   return (
     <DashboardBox
@@ -997,7 +1041,7 @@ const StatsColumn = ({
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
             width="100%"
-            flexWrap={"wrap"}
+            // flexWrap={"wrap"}
             my={2}
           >
             <Text color={propertyText} flexShrink={0}>
@@ -1008,7 +1052,7 @@ const StatsColumn = ({
               flexShrink={0}
               wordBreak={"break-word"}
               textAlign={"right"}
-              width={"max-content"}
+              maxW={"60%"}
             >
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
@@ -1036,9 +1080,7 @@ const StatsColumn = ({
             <Text fontWeight="normal" color={propertyText} flexShrink={0}>
               {isSupplyingOrWithdrawing ? t("Supply APY") : t("Borrow APR")}:
             </Text>
-            <Text
-              fontWeight="bold"
-            >
+            <Text fontWeight="bold">
               {isSupplyingOrWithdrawing
                 ? supplyAPY.toFixed(2)
                 : borrowAPR.toFixed(2)}
@@ -1061,7 +1103,6 @@ const StatsColumn = ({
             crossAxisAlignment="center"
             width="100%"
             my={2}
-            flexWrap={"wrap"}
           >
             <Text color={propertyText} fontWeight="normal" flexShrink={0}>
               {t("Borrow Limit")}:
@@ -1071,6 +1112,7 @@ const StatsColumn = ({
               wordBreak={"break-word"}
               textAlign={"right"}
               width={"max-content"}
+              maxW={"60%"}
             >
               {smallUsdFormatter(borrowLimit)}
               {isSupplyingOrWithdrawing ? (
@@ -1080,17 +1122,17 @@ const StatsColumn = ({
               ) : null}{" "}
             </Text>
           </Row>
-                <Divider />
+          <Divider />
           <Row
             mainAxisAlignment="space-between"
             crossAxisAlignment="center"
             my={2}
             width="100%"
           >
-            <Text color={propertyText} fontWeight="normal">{t("Debt Balance")}:</Text>
-            <Text
-              fontWeight="bold"
-            >
+            <Text color={propertyText} fontWeight="normal">
+              {t("Debt Balance")}:
+            </Text>
+            <Text maxW={"60%"} fontWeight="bold">
               {smallUsdFormatter(asset.borrowBalanceUSD)}
               {!isSupplyingOrWithdrawing ? (
                 <>
@@ -1162,8 +1204,8 @@ const TokenNameAndMaxButton = ({
   };
 
   const { t } = useTranslation();
-  const maxBg = useColorModeValue("gray.50", "gray.900")
-  const maxBorder = useColorModeValue("gray.200", "gray.800")
+  const maxBg = useColorModeValue("gray.50", "gray.900");
+  const maxBorder = useColorModeValue("gray.200", "gray.800");
 
   return (
     <Row
@@ -1171,19 +1213,6 @@ const TokenNameAndMaxButton = ({
       crossAxisAlignment="center"
       flexShrink={0}
     >
-      <Row mainAxisAlignment="flex-start" crossAxisAlignment="center">
-        {/* <Box height="25px" width="25px" mb="2px" mr={2}>
-          <Image
-            width="100%"
-            height="100%"
-            borderRadius="50%"
-            backgroundImage={"/static/small-white-circle.png"}
-            src={logoURL}
-            alt=""
-          />
-        </Box> */}
-      </Row>
-
       <Button
         ml={1}
         height="28px"
@@ -1209,7 +1238,7 @@ const AmountInput = ({
   displayAmount,
   updateAmount,
   color,
-  symbol
+  symbol,
 }: {
   displayAmount: string;
   updateAmount: (symbol: string) => any;
@@ -1217,8 +1246,6 @@ const AmountInput = ({
   symbol: string;
 }) => {
   return (
-    // <Box mt={1}>
-    // <Row mainAxisAlignment={"flex-start"} crossAxisAlignment={"center"}>
     <Input
       type="number"
       inputMode="decimal"
@@ -1233,10 +1260,5 @@ const AmountInput = ({
       onChange={(event) => updateAmount(event.target.value)}
       mr={2}
     />
-  //   <Text fontSize="15px" mr={2} flexShrink={0} wordBreak={"break-all"}>
-  //   {symbol}
-  // </Text>
-  // </Row>
-  // </Box>
   );
 };
