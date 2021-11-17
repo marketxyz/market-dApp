@@ -116,6 +116,7 @@ module.exports = {
         "0xCc5F01efd5647C77861Ce15C923731f9e27E3132",
       MasterPriceOracle_V2_BEEFY_LP:
         "0x606AF64e16bF85F587E9ac27Fa2e8461C5258321",
+      MasterPriceOracle_V2_KLIMA: "0xd9b7b49a2e95c56c115ecf3d3f2546aaaa8f0a35",
     },
     DAI_POT: "",
     DAI_JUG: "",
@@ -127,7 +128,7 @@ module.exports = {
     PRICE_ORACLE_RUNTIME_BYTECODE_HASHES: {
       "PreferredPriceOracleV2 Quickswap USDC":
         "0xe6a7eb0795fc9c5e05048d191246ac01efaff82eac6c8c981ed0b475e89e77a9",
-      "MasterPriceOracleV2 BeefyLP":
+      MasterPriceOracleV2:
         "0x567982b74679a69cfb2ae6b114951562cc80d6790d0c2fdb9a4c1fb46733138d",
     },
     ORACLES: [
