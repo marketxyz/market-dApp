@@ -427,7 +427,7 @@ const SupplyList = ({
               fontSize={{ base: "2.9vw", sm: "0.9rem" }}
               maxW={isMobile ? "100px" : "250px"}
             >
-              Asset
+              Asset/LTV
             </Td>
 
             {isMobile ? null : (
@@ -436,7 +436,7 @@ const SupplyList = ({
                 fontSize={{ base: "2.9vw", sm: "0.9rem" }}
                 textAlign={"right"}
               >
-                APY
+                APY/Reward
               </Td>
             )}
 
@@ -525,6 +525,8 @@ const AssetSupplyRow = ({
   const queryClient = useQueryClient();
 
   const toast = useToast();
+
+  const bottomTextColor = useColorModeValue("gray.800", "gray.400")
 
   const onToggleCollateral = async () => {
     const comptroller = createComptroller(comptrollerAddress, fuse);
@@ -640,7 +642,8 @@ const AssetSupplyRow = ({
                 <Text
                   textAlign={"right"}
                   mx={2}
-                  color={useColorModeValue("gray.800", "gray.400")}
+                  mt={1}
+                  color={bottomTextColor}
                   fontSize={{ base: "2.8vw", sm: "0.8rem" }}
                 >
                   {asset.collateralFactor / 1e16}% LTV
@@ -728,7 +731,7 @@ const AssetSupplyRow = ({
                   <SimpleTooltip
                     label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
                   >
-                    <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+                    <Text mt={1} color={bottomTextColor} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
                       {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
                     </Text>
                   </SimpleTooltip>
@@ -766,7 +769,7 @@ const AssetSupplyRow = ({
             >
               {smallUsdFormatter(asset.supplyBalanceUSD)}
             </Text>
-            <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+            <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -815,7 +818,7 @@ const BorrowList = ({
   return (
     <Table variant={"unstyled"} size={"sm"}>
       <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
-        Your Supply Balance: {smallUsdFormatter(borrowBalanceUSD)}
+        Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </TableCaption>
       <Thead>
         {assets.length > 0 ? (
@@ -932,6 +935,7 @@ const AssetBorrowRow = ({
   const isMobile = useIsMobile();
 
   const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
+  const bottomTextColor = useColorModeValue("gray.800", "gray.400")
 
   return (
     <>
@@ -1013,6 +1017,7 @@ const AssetBorrowRow = ({
                 <Text
                 mt={1}
                   wordBreak={"keep-all"}
+                  color={bottomTextColor}
                   fontSize={{ base: "2.8vw", sm: "0.8rem" }}
                 >
                   {shortUsdFormatter(asset.totalSupplyUSD)} TVL
@@ -1032,7 +1037,7 @@ const AssetBorrowRow = ({
               {smallUsdFormatter(asset.borrowBalanceUSD)}
             </Text>
 
-            <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+            <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
               {smallUsdFormatter(
                 asset.borrowBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -1061,7 +1066,7 @@ const AssetBorrowRow = ({
                   {shortUsdFormatter(asset.liquidityUSD)}
                 </Text>
 
-                <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+                <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
                   {shortUsdFormatter(
                     asset.liquidity / 10 ** asset.underlyingDecimals
                   ).replace("$", "")}{" "}
