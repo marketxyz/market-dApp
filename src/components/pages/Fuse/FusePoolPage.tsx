@@ -641,7 +641,7 @@ const AssetSupplyRow = ({
                   textAlign={"right"}
                   mx={2}
                   color={useColorModeValue("gray.800", "gray.400")}
-                  fontSize={{ base: "2.8vw", sm: "0.7rem" }}
+                  fontSize={{ base: "2.8vw", sm: "0.8rem" }}
                 >
                   {asset.collateralFactor / 1e16}% LTV
                 </Text>
@@ -693,7 +693,7 @@ const AssetSupplyRow = ({
               <Row crossAxisAlignment="center" mainAxisAlignment="flex-end">
                 <Text
                   fontWeight="bold"
-                  fontSize={{ base: "3.2vw", sm: "sm" }}
+                  fontSize={{ base: "3.2vw", sm: "0.9rem" }}
                   mr={1}
                 >
                   +
@@ -716,7 +716,7 @@ const AssetSupplyRow = ({
                   <Text
                     color={tokenData?.color ?? "#FF"}
                     fontWeight="bold"
-                    fontSize={{ base: "2.8vw", sm: "0.9rem" }}
+                    fontSize={{ base: "2.8vw", sm: "md" }}
                   >
                     {isStakedOHM
                       ? stakedOHMApyData
@@ -728,7 +728,7 @@ const AssetSupplyRow = ({
                   <SimpleTooltip
                     label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
                   >
-                    <Text fontSize={{ base: "2.8vw", sm: "0.7rem" }}>
+                    <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
                       {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
                     </Text>
                   </SimpleTooltip>
@@ -743,7 +743,7 @@ const AssetSupplyRow = ({
                 <Text
                   color={tokenData?.color ?? "#FF"}
                   fontWeight="bold"
-                  fontSize={{ base: "2.8vw", sm: "sm" }}
+                  fontSize={{ base: "2.8vw", sm: "1.1rem" }}
                 >
                   {isStakedOHM
                     ? stakedOHMApyData
@@ -762,11 +762,11 @@ const AssetSupplyRow = ({
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight="bold"
-              fontSize={{ base: "2.8vw", sm: "0.9rem" }}
+              fontSize={{ base: "2.8vw", sm: "md" }}
             >
               {smallUsdFormatter(asset.supplyBalanceUSD)}
             </Text>
-            <Text fontSize={{ base: "2.8vw", sm: "0.7rem" }}>
+            <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -999,7 +999,7 @@ const AssetBorrowRow = ({
             >
               <Text
                 color={tokenData?.color ?? "#FF"}
-                fontSize={{ base: "2.8vw", sm: "0.9rem" }}
+                fontSize={{ base: "2.8vw", sm: "md" }}
                 fontWeight={"bold"}
               >
                 {borrowAPR.toFixed(3)}%
@@ -1011,8 +1011,9 @@ const AssetBorrowRow = ({
                 )}
               >
                 <Text
+                mt={1}
                   wordBreak={"keep-all"}
-                  fontSize={{ base: "2.8vw", sm: "0.7rem" }}
+                  fontSize={{ base: "2.8vw", sm: "0.8rem" }}
                 >
                   {shortUsdFormatter(asset.totalSupplyUSD)} TVL
                 </Text>
@@ -1026,12 +1027,12 @@ const AssetBorrowRow = ({
             <Text
               color={tokenData?.color ?? textColor}
               fontWeight={"bold"}
-              fontSize={{ base: "2.8vw", sm: "0.9rem" }}
+              fontSize={{ base: "2.8vw", sm: "md" }}
             >
               {smallUsdFormatter(asset.borrowBalanceUSD)}
             </Text>
 
-            <Text fontSize={{ base: "2.8vw", sm: "0.7rem" }}>
+            <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
               {smallUsdFormatter(
                 asset.borrowBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -1055,12 +1056,12 @@ const AssetBorrowRow = ({
                 <Text
                   color={tokenData?.color ?? textColor}
                   fontWeight={"bold"}
-                  fontSize={{ base: "2.8vw", sm: "0.9rem" }}
+                  fontSize={{ base: "2.8vw", sm: "md" }}
                 >
                   {shortUsdFormatter(asset.liquidityUSD)}
                 </Text>
 
-                <Text fontSize={{ base: "2.8vw", sm: "0.7rem" }}>
+                <Text mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
                   {shortUsdFormatter(
                     asset.liquidity / 10 ** asset.underlyingDecimals
                   ).replace("$", "")}{" "}
