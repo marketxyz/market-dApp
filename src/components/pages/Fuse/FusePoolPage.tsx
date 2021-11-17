@@ -654,7 +654,7 @@ const AssetSupplyRow = ({
           >
             {tokenData?.symbol ?? asset.underlyingSymbol}
           </Text>
-          {tokenData?.symbol !== undefined ? (
+          {isMobile ? null : tokenData?.symbol !== undefined ? (
             asset.underlyingSymbol.toLowerCase() !==
             tokenData?.symbol?.toLowerCase() ? (
               <SimpleTooltip placement="auto" label={asset.underlyingSymbol}>
