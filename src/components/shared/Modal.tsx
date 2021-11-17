@@ -4,7 +4,7 @@ import { Row } from "utils/chakraUtils";
 export const MODAL_PROPS = {
   width: { md: "450px", base: "92%" },
   color: "#000000",
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "transparent",
   borderRadius: "10px",
 };
 

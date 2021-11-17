@@ -36,6 +36,13 @@ const requestBeefy = cacheFetch(async () => {
   return json;
 });
 
+const requestKlima = cacheFetch(async () => {
+  const data = await fetch(`${uriProtocol}://${vercelURL}/api/klimaAPY`);
+  const json = await data.json();
+
+  return json.stakingAPY;
+});
+
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Cache-Control", "max-age=3600, s-maxage=3600");
@@ -270,6 +277,18 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     ) {
       symbol = "MAI";
     }
+
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0xb0C22d8D350C67420f06F48936654f567C73E8C8")
+    ) {
+      logoURL = `${uriProtocol}://${vercelURL}/static/klima.png`;
+      const apyData = await requestKlima();
+      if (apyData) {
+        extraData.hasAPY = true;
+        extraData.apy = apyData;
+      }
+    }
     const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;
     const sushiResponse = await fetch(sushiURL);
 
@@ -314,7 +333,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     });
   }
 
-  response.json({
+  return response.json({
     ...basicTokenInfo,
     color: color.Vibrant.getHex(),
     overlayTextColor: color.Vibrant.getTitleTextColor(),

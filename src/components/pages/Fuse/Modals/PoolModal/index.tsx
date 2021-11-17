@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Modal, ModalOverlay, ModalContent } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalBody } from "@chakra-ui/react";
 
 import AmountSelect from "./AmountSelect";
 import { MODAL_PROPS } from "../../../../shared/Modal";
@@ -37,7 +37,8 @@ const DepositModal = (props: Props) => {
       isCentered
     >
       <ModalOverlay />
-      <ModalContent bg="#FFF" {...MODAL_PROPS}>
+      <ModalContent {...MODAL_PROPS}>
+      <ModalBody borderRadius={16} p={0}>
         <AmountSelect
           comptrollerAddress={props.comptrollerAddress}
           onClose={props.onClose}
@@ -46,6 +47,7 @@ const DepositModal = (props: Props) => {
           mode={mode}
           setMode={setMode}
         />
+      </ModalBody>
       </ModalContent>
     </Modal>
   );

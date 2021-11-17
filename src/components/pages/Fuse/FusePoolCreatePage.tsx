@@ -242,6 +242,15 @@ export const CreatePoolConfiguration = () => {
                     >
                       MasterPriceOracle Beefy LP
                     </option>
+                    <option
+                      className="white-bg-option"
+                      value={
+                        Fuse.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES
+                          .MasterPriceOracle_V2_KLIMA
+                      }
+                    >
+                      MasterPriceOracle KLIMA
+                    </option>
                   </>
                 )}
               </Select>
