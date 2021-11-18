@@ -187,6 +187,7 @@ const FuseNavbar = () => {
             ml={"1.5"}
             href="https://docs.market.xyz"
             as={"a"}
+            target="_blank"
             textDecor="underline"
           >
             docs.market.xyz
