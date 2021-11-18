@@ -128,8 +128,10 @@ module.exports = {
     PRICE_ORACLE_RUNTIME_BYTECODE_HASHES: {
       "PreferredPriceOracleV2 Quickswap USDC":
         "0xe6a7eb0795fc9c5e05048d191246ac01efaff82eac6c8c981ed0b475e89e77a9",
-      MasterPriceOracleV2:
+      "MasterPriceOracleV2 Beefy":
         "0x567982b74679a69cfb2ae6b114951562cc80d6790d0c2fdb9a4c1fb46733138d",
+      "MasterPriceOracleV2 Klima":
+        "0x17a4e51aa4284da1b2ced8254eac606175ceaf9b810a48c0a336fc0195c95a4a",
     },
     ORACLES: [
       "PreferredPriceOracle",
