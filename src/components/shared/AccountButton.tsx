@@ -11,6 +11,7 @@ import {
   Spinner,
   useColorModeValue,
   Image,
+  ButtonProps,
 } from "@chakra-ui/react";
 
 import { Row, Column } from "utils/chakraUtils";
@@ -31,6 +32,7 @@ import MoonpayModal from "../pages/MoonpayModal";
 import { useIsSmallScreen } from "../../hooks/useIsSmallScreen";
 import { useAuthedCallback } from "../../hooks/useAuthedCallback";
 import { networkData } from "constants/networkData";
+import { motion } from "framer-motion";
 
 export const AccountButton = memo(() => {
   const {
@@ -115,16 +117,24 @@ const Buttons = ({
     rari.isAuthed &&
     rari.userWallet?.appChainId !== rari.userWallet?.chainId;
 
+  const MotionBox = motion<ButtonProps>(Button);
+
   return (
     <Row mainAxisAlignment="center" crossAxisAlignment="center">
       {isNetworkChangeable ? (
-        <Button
+        <MotionBox
           justifyContent="left"
+          borderRadius={"12px"}
+          border={"2px"}
+          borderColor={"#DF2EAC"}
+          animate={{
+            scale: [1, 1, 1.5, 1],
+          }}
           onClick={() => switchChainId(rari.userWallet?.appChainId)}
         >
           <Image src="/static/metamask.svg" h={"7"} mr={"2"} />
           Switch to {chainIdToName[rari.userWallet?.appChainId]}
-        </Button>
+        </MotionBox>
       ) : (
         <DashboardBox
           mx={isMobile ? 0 : 2}

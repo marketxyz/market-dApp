@@ -176,9 +176,19 @@ const FuseNavbar = () => {
   const bgColor = useColorModeValue("white", "gray.900");
   const isMobile = useIsSmallScreen();
 
+  const rari = useRari();
+
+  const isNetworkChangeable =
+    rari.userWallet?.isMetaMask &&
+    rari.isAuthed &&
+    rari.userWallet?.appChainId !== rari.userWallet?.chainId;
+
+  console.log(isNetworkChangeable);
+
+  // console.log(chainName)
   return (
     <>
-      <Alert width="100vw" status="warning">
+      <Alert p={2} width="100vw" status="warning">
         <AlertIcon />
         <Text>
           Market is currently in beta mode. Please be mindful of the
@@ -194,6 +204,15 @@ const FuseNavbar = () => {
           </Link>
         </Text>
       </Alert>
+      {isNetworkChangeable ? (
+        <Alert p={2} width="100vw" status="error">
+          <AlertIcon />
+          <Text>
+            To be able to use the Market Protocol, switch to Polygon network
+            using your Wallet.
+          </Text>
+        </Alert>
+      ) : null}
       <Box bgColor={bgColor} overflowX="hidden" mx="auto" w={"100%"}>
         <Flex
           mx="auto"
@@ -233,7 +252,12 @@ const FuseNavbar = () => {
           </Button> */}
             <NetworkSwitcher />
             <AccountButton />
-            <Button bgColor={"transparent"} borderRadius="12px" onClick={toggleColorMode} m={2}>
+            <Button
+              bgColor={"transparent"}
+              borderRadius="12px"
+              onClick={toggleColorMode}
+              m={2}
+            >
               {colorMode === "light" ? (
                 <MoonIcon color="gray.700" w={5} h={5} />
               ) : (
