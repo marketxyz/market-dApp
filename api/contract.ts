@@ -8,11 +8,15 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
   const queryBody = <Record<string, string>>request.query;
   const address = queryBody.address;
-  
-  const data = await fetch(
-    `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}`
-  );
-  const json = await data.json();
 
-  return response.json(json);
+  if (address) {
+    const data = await fetch(
+      `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}`
+    );
+    const json = await data.json();
+
+    return response.json(json);
+  } else {
+    return response.status(404).json({ "Error message: ": "Provide address along with the query" });
+  }
 };
