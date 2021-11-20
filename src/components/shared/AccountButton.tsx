@@ -272,17 +272,17 @@ export const SettingsModal = ({
             mt={4}
             width="100%"
           >
-            <Link isExternal href="https://docs.rari.capital/">
+            <Link isExternal href="https://docs.market.xyz/">
               <Text mx={2} text="sm" textDecoration="underline">
                 {t("Developer Docs")}
               </Text>
             </Link>
             <Link
               isExternal
-              href="https://www.notion.so/Rari-Capital-3d762a07d2c9417e9cd8c2e4f719e4c3"
+              href="https://marketxyz.medium.com/"
             >
               <Text mx={2} text="sm" textDecoration="underline">
-                {t("Learn")}
+                {t("Read")}
               </Text>
             </Link>
             <Link isExternal href="https://docs.market.xyz/audit-reports">

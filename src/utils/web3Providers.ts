@@ -9,10 +9,11 @@ export function chooseBestWeb3Provider() {
   if (typeof window === "undefined") {
     return infuraURL;
   }
-
-  if (window.ethereum) {
-    return window.ethereum;
-  } else if (window.web3) {
+  
+  // if (window.ethereum) {
+  //   return window.ethereum;
+  // } else 
+  if (window.web3 && window.web3.currentProvider.chainId === "0x89") {
     return window.web3.currentProvider;
   } else {
     return infuraURL;
