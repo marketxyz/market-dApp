@@ -185,11 +185,12 @@ const FuseNavbar = () => {
           SmartContract risks, Learn more at:
           <Link
             ml={"1.5"}
-            href="https://docs.rari.capital"
+            href="https://docs.market.xyz"
             as={"a"}
+            target="_blank"
             textDecor="underline"
           >
-            docs.rari.capital
+            docs.market.xyz
           </Link>
         </Text>
       </Alert>

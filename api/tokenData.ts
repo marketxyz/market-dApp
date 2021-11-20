@@ -36,6 +36,13 @@ const requestBeefy = cacheFetch(async () => {
   return json;
 });
 
+const requestKlima = cacheFetch(async () => {
+  const data = await fetch(`${uriProtocol}://${vercelURL}/api/klimaAPY`);
+  const json = await data.json();
+
+  return json.stakingAPY;
+});
+
 export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Cache-Control", "max-age=3600, s-maxage=3600");
@@ -158,6 +165,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       web3.utils.toChecksumAddress("0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f")
     ) {
       symbol = "mCrvATC3";
+      extraData.shortName = "mCrvLP";
       logoURL = `${uriProtocol}://${vercelURL}/static/aTriCrypto3.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["curve-poly-atricrypto3"]) {
@@ -173,6 +181,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       web3.utils.toChecksumAddress("0xAA7C2879DaF8034722A0977f13c343aF0883E92e")
     ) {
       symbol = "mCrvAM3";
+      extraData.shortName = "mCrvLP";
       name = "Moo Crv DAI/USDC/USDT";
       logoURL = `${uriProtocol}://${vercelURL}/static/am3CRV.png`;
       const apyData = await requestBeefy();
@@ -189,6 +198,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       web3.utils.toChecksumAddress("0x8c9d3bc4425773bd2f00c4a2ac105c5ad73c8141")
     ) {
       symbol = "mCrvRen";
+      extraData.shortName = "mCrvLP";
       logoURL = `${uriProtocol}://${vercelURL}/static/renBTC.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["curve-poly-ren"]) {
@@ -203,7 +213,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       address ===
       web3.utils.toChecksumAddress("0xC1A2e8274D390b67A7136708203D71BF3877f158")
     ) {
-      symbol = "mQLP-MU";
+      symbol = "mQLP-MATIC/USDC";
+      extraData.shortName = "mQLP";
       logoURL = `${uriProtocol}://${vercelURL}/static/MATIC-USDC-QLP.png`;
       const apyData = await requestBeefy();
       if (apyData && apyData["quick-matic-usdc"]) {
@@ -216,9 +227,67 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
     if (
       address ===
+      web3.utils.toChecksumAddress("0xE4DB97A2AAFbfef40D1a4AE8B709f61d6756F8e1")
+    ) {
+      symbol = "mSLP-USDC/ETH";
+      extraData.shortName = "mSLP";
+      logoURL = `${uriProtocol}://${vercelURL}/static/mSLP-USDC-ETH.png`;
+      const apyData = await requestBeefy();
+      if (apyData && apyData["sushi-usdc-eth"]) {
+        extraData.hasAPY = true;
+        extraData.apy = apyData["sushi-usdc-eth"];
+      }
+      extraData.partnerURL =
+        "https://app.beefy.finance/#/polygon/vault/sushi-usdc-eth";
+    }
+
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0xC8e809a9180d637Cc23dAf60b41B70CA1ad5Fc08")
+    ) {
+      symbol = "mSLP-MATIC/ETH";
+      extraData.shortName = "mSLP";
+      const apyData = await requestBeefy();
+      logoURL = `${uriProtocol}://${vercelURL}/static/mSLP-MATIC-ETH.png`;
+      if (apyData && apyData["sushi-matic-eth"]) {
+        extraData.hasAPY = true;
+        extraData.apy = apyData["sushi-matic-eth"];
+      }
+      extraData.partnerURL =
+        "https://app.beefy.finance/#/polygon/vault/sushi-matic-eth";
+    }
+
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0x45c32fA6DF82ead1e2EF74d17b76547EDdFaFF89")
+    ) {
+      logoURL = `${uriProtocol}://${vercelURL}/static/frax.png`;
+    }
+
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0x1a3acf6D19267E2d3e7f898f42803e90C9219062")
+    ) {
+      logoURL = `${uriProtocol}://${vercelURL}/static/fxs.png`;
+    }
+
+    if (
+      address ===
       web3.utils.toChecksumAddress("0xa3fa99a148fa48d14ed51d610c367c61876997f1")
     ) {
       symbol = "MAI";
+    }
+
+    if (
+      address ===
+      web3.utils.toChecksumAddress("0xb0C22d8D350C67420f06F48936654f567C73E8C8")
+    ) {
+      logoURL = `${uriProtocol}://${vercelURL}/static/klima.png`;
+      const apyData = await requestKlima();
+      if (apyData) {
+        extraData.hasAPY = true;
+        extraData.apy = apyData;
+      }
     }
     const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;
     const sushiResponse = await fetch(sushiURL);
@@ -237,6 +306,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     symbol,
     name,
     decimals,
+    extraData,
   };
 
   let color: Palette;
@@ -263,12 +333,11 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     });
   }
 
-  response.json({
+  return response.json({
     ...basicTokenInfo,
     color: color.Vibrant.getHex(),
     overlayTextColor: color.Vibrant.getTitleTextColor(),
     logoURL,
     address,
-    extraData,
   });
 };
