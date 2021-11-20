@@ -8,7 +8,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   response.setHeader("Cache-Control", "max-age=1200, s-maxage=1200");
   const queryBody = <Record<string, string>>request.query;
   const address = queryBody.address;
-  
+
   const data = await fetch(
     `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=30`
   )
@@ -16,5 +16,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     .then((data) => data.prices.map(([, price]) => price))
     .then((prices) => variance(prices));
 
-  return response.json(data);
+  const jsonBody = { assetVariance: data };
+
+  return response.json(jsonBody);
 };

@@ -15,5 +15,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     .then((data) => data.prices.map(([, price]) => price))
     .then((prices) => variance(prices));
 
-  return response.json(data);
+  const jsonBody = { ethVariance: data };
+
+  return response.json(jsonBody);
 };
