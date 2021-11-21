@@ -103,6 +103,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
 
   const toast = useToast();
   const [web3ModalProvider, setWeb3ModalProvider] = useState<any | null>(null);
+  const [isMetaMask, setIsMetaMask] = useState<boolean>(false);
 
   // Check the user's network:
   useEffect(() => {
@@ -110,9 +111,8 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       const userWallet = {
         appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "137") || 137,
         chainId,
-        isMetaMask: web3ModalProvider?.isMetaMask ?? false,
+        isMetaMask: isMetaMask ?? false,
       };
-      console.log(userWallet);
       if (userWallet.isMetaMask) {
         window.ethereum.on("chainChanged", (chainId: string) => {
           setUserWallet({
@@ -124,7 +124,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
 
       setUserWallet(userWallet);
     });
-  }, [rari, toast]);
+  }, [rari, toast, userWallet?.chainId]);
 
   const [address, setAddress] = useState<string>(EmptyAddress);
 
@@ -165,6 +165,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
         setIsAttemptingLogin(true);
         const provider = await launchModalLazy(t, cacheProvider);
         setWeb3ModalProvider(provider);
+        setIsMetaMask(provider?.isMetaMask ?? false);
         setRariAndAddressFromModal(provider);
         setIsAttemptingLogin(false);
       } catch (err) {
