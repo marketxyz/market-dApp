@@ -43,7 +43,6 @@ async function launchModalLazy(
       package: WalletConnectProvider.default,
       options: {
         rpc: {
-          1: infuraURL,
           137: infuraURL,
         },
       },
@@ -103,19 +102,17 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   const [isAttemptingLogin, setIsAttemptingLogin] = useState<boolean>(false);
 
   const toast = useToast();
+  const [web3ModalProvider, setWeb3ModalProvider] = useState<any | null>(null);
 
   // Check the user's network:
   useEffect(() => {
     rari.web3.eth.getChainId().then((chainId) => {
       const userWallet = {
-        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "1") || 1,
+        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "137") || 137,
         chainId,
-        isMetaMask:
-          typeof window !== "undefined" &&
-          window.ethereum &&
-          window.ethereum.isMetaMask,
+        isMetaMask: web3ModalProvider?.isMetaMask ?? false,
       };
-
+      console.log(userWallet);
       if (userWallet.isMetaMask) {
         window.ethereum.on("chainChanged", (chainId: string) => {
           setUserWallet({
@@ -130,8 +127,6 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   }, [rari, toast]);
 
   const [address, setAddress] = useState<string>(EmptyAddress);
-
-  const [web3ModalProvider, setWeb3ModalProvider] = useState<any | null>(null);
 
   const queryClient = useQueryClient();
 

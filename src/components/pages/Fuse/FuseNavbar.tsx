@@ -179,16 +179,11 @@ const FuseNavbar = () => {
   const rari = useRari();
 
   const isNetworkChangeable =
-    rari.userWallet?.isMetaMask &&
-    rari.isAuthed &&
-    rari.userWallet?.appChainId !== rari.userWallet?.chainId;
+    rari.isAuthed && rari.userWallet?.appChainId !== rari.userWallet?.chainId;
 
-  console.log(isNetworkChangeable);
-
-  // console.log(chainName)
   return (
     <>
-      <Alert p={2} width="100vw" status="warning">
+      <Alert width="100vw" status="warning">
         <AlertIcon />
         <Text>
           Market is currently in beta mode. Please be mindful of the
@@ -205,7 +200,7 @@ const FuseNavbar = () => {
         </Text>
       </Alert>
       {isNetworkChangeable ? (
-        <Alert p={2} width="100vw" status="error">
+        <Alert width="100vw" status="error" style={{ marginTop: "0" }}>
           <AlertIcon />
           <Text>
             To be able to use the Market Protocol, switch to Polygon network

@@ -97,7 +97,8 @@ const Buttons = ({
   openModal: () => any;
   openMoonpayModal: () => any;
 }) => {
-  const { address, isAuthed, login, isAttemptingLogin } = useRari();
+  const { address, isAuthed, login, isAttemptingLogin, userWallet, logout } =
+    useRari();
 
   const { t } = useTranslation();
 
@@ -111,11 +112,8 @@ const Buttons = ({
     } else login();
   }, [isAuthed, login, openModal]);
 
-  const rari = useRari();
   const isNetworkChangeable =
-    rari.userWallet?.isMetaMask &&
-    rari.isAuthed &&
-    rari.userWallet?.appChainId !== rari.userWallet?.chainId;
+    isAuthed && userWallet?.appChainId !== userWallet?.chainId;
 
   const MotionBox = motion<ButtonProps>(Button);
 
@@ -130,10 +128,20 @@ const Buttons = ({
           animate={{
             scale: [1, 1, 1.5, 1],
           }}
-          onClick={() => switchChainId(rari.userWallet?.appChainId)}
+          onClick={() =>
+            userWallet?.isMetaMask
+              ? switchChainId(userWallet?.appChainId)
+              : logout()
+          }
         >
-          <Image src="/static/metamask.svg" h={"7"} mr={"2"} />
-          Switch to {chainIdToName[rari.userWallet?.appChainId]}
+          <Image
+            src={
+              userWallet?.isMetaMask ? "/static/metamask.svg" : "/static/wc.png"
+            }
+            h={"7"}
+            mr={"2"}
+          />
+          Switch to {chainIdToName[userWallet?.appChainId]}
         </MotionBox>
       ) : (
         <DashboardBox
@@ -287,10 +295,7 @@ export const SettingsModal = ({
                 {t("Developer Docs")}
               </Text>
             </Link>
-            <Link
-              isExternal
-              href="https://marketxyz.medium.com/"
-            >
+            <Link isExternal href="https://marketxyz.medium.com/">
               <Text mx={2} text="sm" textDecoration="underline">
                 {t("Read")}
               </Text>
