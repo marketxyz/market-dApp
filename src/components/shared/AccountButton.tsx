@@ -17,9 +17,6 @@ import {
 import { Row, Column } from "utils/chakraUtils";
 import DashboardBox from "./DashboardBox";
 
-// @ts-ignore
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-
 import { shortAddress } from "../../utils/shortAddress";
 
 import { useTranslation } from "react-i18next";
@@ -97,8 +94,15 @@ const Buttons = ({
   openModal: () => any;
   openMoonpayModal: () => any;
 }) => {
-  const { address, isAuthed, login, isAttemptingLogin, userWallet, logout } =
-    useRari();
+  const {
+    address,
+    isAuthed,
+    login,
+    isAttemptingLogin,
+    userWallet,
+    logout,
+    web3ModalProvider,
+  } = useRari();
 
   const { t } = useTranslation();
 
@@ -136,8 +140,11 @@ const Buttons = ({
         >
           <Image
             src={
-              userWallet?.isMetaMask ? "/static/metamask.svg" : "/static/wc.png"
+              userWallet?.isMetaMask
+                ? "/static/metamask.svg"
+                : web3ModalProvider?.walletMeta?.icons?.[0] || "/static/wc.png"
             }
+            rounded="lg"
             h={"7"}
             mr={"2"}
           />
@@ -176,7 +183,16 @@ const Buttons = ({
               )
             ) : (
               <>
-                <Jazzicon diameter={23} seed={jsNumberForAddress(address)} />
+                <Image
+                  src={
+                    userWallet?.isMetaMask
+                      ? "/static/metamask.svg"
+                      : web3ModalProvider?.walletMeta?.icons?.[0] ||
+                        "/static/wc.png"
+                  }
+                  rounded="lg"
+                  h={"7"}
+                />
                 <Text ml={2} fontWeight="semibold">
                   {shortAddress(address)}
                 </Text>

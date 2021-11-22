@@ -19,16 +19,6 @@ export const networkData: Record<string, any> = {
       blockExplorerUrls: ["https://polygonscan.com/"],
     },
   },
-  // mainnet: {
-  //   chainId: 1,
-  //   chainIdHex: "0x1",
-  //   name: "Ethereum",
-  //   shortName: "Ethereum",
-  //   img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg",
-  //   url: "https://eth.market.xyz",
-  //   addData: null,
-  //   enabled: true,
-  // },
   optimism: {
     chainId: 10,
     name: "Optimism",
@@ -43,6 +33,14 @@ export const networkData: Record<string, any> = {
     shortName: "Arbitrum",
     img: "/static/arbitrum.png",
     url: "arb.market.xyz",
+    enabled: false,
+  },
+  fantom: {
+    chainId: 250,
+    name: "Fantom",
+    shortName: "Fantom",
+    img: "/static/fantom.png",
+    url: "fantom.market.xyz",
     enabled: false,
   },
 };
