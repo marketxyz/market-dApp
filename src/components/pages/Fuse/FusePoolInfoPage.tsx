@@ -1,3 +1,4 @@
+import { ExternalLinkIcon, LinkIcon } from "@chakra-ui/icons";
 import {
   Box,
   Heading,
@@ -12,6 +13,7 @@ import {
   Tr,
   Td,
   Tbody,
+  Icon,
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
@@ -230,11 +232,12 @@ const OracleAndInterestRates = ({
           ml="auto"
           href={`https://metrics.market.xyz/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
         >
-          <PoolDashboardBox height="35px">
+          <Box p={5} borderRadius={"lg"} bgColor={useColorModeValue("gray.50", "mktgray.700")} height="35px">
             <Center expand px={2} fontWeight="bold">
               Metrics
+              <ExternalLinkIcon ml={2}/>
             </Center>
-          </PoolDashboardBox>
+          </Box>
         </Link>
 
         {data?.isPowerfulAdmin ? (
