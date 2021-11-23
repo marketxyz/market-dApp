@@ -17,6 +17,7 @@ import {
   Spinner,
   useColorModeValue,
   Divider,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 
 import BigNumber from "bignumber.js";
@@ -581,6 +582,7 @@ const AmountSelect = ({
                 ? asset.underlyingName
                 : asset.underlyingSymbol}
             </Heading>
+            <ModalCloseButton />
           </Row>
 
           <Column
