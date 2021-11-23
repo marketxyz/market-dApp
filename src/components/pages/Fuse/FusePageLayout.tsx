@@ -16,7 +16,7 @@ const FusePageLayout = ({ children }: FusePageLayoutProps) => {
       bgColor={useColorModeValue("white", "gray.900")}
       justifyContent="flex-start"
     >
-      <VStack overflowY="hidden" position="relative" w="100%">
+      {/* <VStack overflowY="hidden" position="relative" w="100%"> */}
         {/* <chakra.div
           bgColor="#ff00b3"
           h="800px"
@@ -40,9 +40,9 @@ const FusePageLayout = ({ children }: FusePageLayoutProps) => {
           transform="translate(-50%, -50%)"
         /> */}
         <FuseNavbar />
-        <Divider orientation="horizontal" />
+        {/* <Divider /> */}
         {/* <FuseHeader /> */}
-      </VStack>
+      {/* </VStack> */}
       {children}
     </Flex>
   );

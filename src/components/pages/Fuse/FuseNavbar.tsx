@@ -21,6 +21,7 @@ import {
   Link,
   Alert,
   AlertIcon,
+  Divider,
 } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
@@ -175,7 +176,7 @@ const FuseNavbar = () => {
 
   return (
     <>
-      {/* <Alert width="100vw" status="warning">
+      <Alert width="100vw" status="warning">
         <AlertIcon />
         <Text>
           Market is currently in beta mode. Please be mindful of the
@@ -190,14 +191,14 @@ const FuseNavbar = () => {
             docs.market.xyz
           </Link>
         </Text>
-      </Alert> */}
+      </Alert>
       <Box bgColor={bgColor} overflowX="hidden" mx="auto" w={"100%"}>
         <Flex
           mx="auto"
           alignItems="center"
           justifyContent="space-between"
           w={"90%"}
-          py={1}
+          py={2}
         >
           <Link href="/">
             <chakra.img
@@ -239,6 +240,7 @@ const FuseNavbar = () => {
           </Box>
         </Flex>
       </Box>
+      <Divider />
     </>
   );
 };

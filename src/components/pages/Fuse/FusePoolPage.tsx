@@ -128,7 +128,6 @@ const FusePoolPage = memo(() => {
         justifyContent="flex-start"
       >
         <FuseNavbar />
-        <Divider />
         <HStack
           width={"90%"}
           my={8}
