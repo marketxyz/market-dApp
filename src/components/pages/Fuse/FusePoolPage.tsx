@@ -325,9 +325,19 @@ const CollateralRatioBar = ({
 }) => {
   const { t } = useTranslation();
 
+  const wantedAsset = assets.find(
+    (asset) =>
+      asset.underlyingToken === "0xb0C22d8D350C67420f06F48936654f567C73E8C8"
+  );
+
   const maxBorrow = useBorrowLimit(assets);
 
   const ratio = (borrowUSD / maxBorrow) * 100;
+
+  const ltv = wantedAsset!.collateralFactor / 1e16;
+  const borrowed = wantedAsset?.borrowBalanceUSD;
+
+  const liquidationPrice = (borrowed! * 100) / ltv;
 
   useEffect(() => {
     if (ratio > 95) {
@@ -337,62 +347,75 @@ const CollateralRatioBar = ({
 
   return (
     <PoolDashboardBox
-      width={{ base: "90%", md: "95%", lg: "100%" }}
+      width={"90%"}
       maxW={{ lg: "1200px" }}
-      height="65px"
+      // height="85px"
       mt={4}
       p={4}
       mx="auto"
     >
-      <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
-        <Tooltip
-          label={"Keep this bar from filling up to avoid being liquidated!"}
+      <Column
+        mainAxisAlignment={"flex-start"}
+        crossAxisAlignment={"flex-start"}
+      >
+        <Row
+          my={3}
+          mainAxisAlignment="flex-start"
+          crossAxisAlignment="center"
+          expand
         >
-          <Text flexShrink={0} mr={4}>
-            Borrow Limit
-          </Text>
-        </Tooltip>
+          <Tooltip
+            label={"Keep this bar from filling up to avoid being liquidated!"}
+          >
+            <Text flexShrink={0} mr={4}>
+              Borrow Limit
+            </Text>
+          </Tooltip>
 
-        <Tooltip label={"This is how much you have borrowed."}>
-          <Text flexShrink={0} mt="2px" mr={3} fontSize="10px">
-            {smallUsdFormatter(borrowUSD)}
-          </Text>
-        </Tooltip>
+          <Tooltip label={"This is how much you have borrowed."}>
+            <Text flexShrink={0} mt="2px" mr={3} fontSize="10px">
+              {smallUsdFormatter(borrowUSD)}
+            </Text>
+          </Tooltip>
 
-        <Tooltip
-          label={`You're using ${ratio.toFixed(1)}% of your ${smallUsdFormatter(
-            maxBorrow
-          )} borrow limit.`}
-        >
-          <Box width="100%">
-            <Progress
-              size="xs"
-              width="100%"
-              colorScheme={
-                ratio <= 40
-                  ? "whatsapp"
-                  : ratio <= 60
-                  ? "yellow"
-                  : ratio <= 80
-                  ? "orange"
-                  : "red"
-              }
-              borderRadius="10px"
-              value={ratio}
-            />
-          </Box>
-        </Tooltip>
+          <Tooltip
+            label={`You're using ${ratio.toFixed(
+              1
+            )}% of your ${smallUsdFormatter(maxBorrow)} borrow limit.`}
+          >
+            <Box width="100%">
+              <Progress
+                size="xs"
+                width="100%"
+                colorScheme={
+                  ratio <= 40
+                    ? "whatsapp"
+                    : ratio <= 60
+                    ? "yellow"
+                    : ratio <= 80
+                    ? "orange"
+                    : "red"
+                }
+                borderRadius="10px"
+                value={ratio}
+              />
+            </Box>
+          </Tooltip>
 
-        <Tooltip
-          label={t(
-            "If your borrow amount reaches this value, you will be liquidated."
-          )}
-        >
-          <Text flexShrink={0} mt="2px" ml={3} fontSize="10px">
-            {smallUsdFormatter(maxBorrow)}
-          </Text>
-        </Tooltip>
-      </Row>
+          <Tooltip
+            label={t(
+              "If your borrow amount reaches this value, you will be liquidated."
+            )}
+          >
+            <Text flexShrink={0} mt="2px" ml={3} fontSize="10px">
+              {smallUsdFormatter(maxBorrow)}
+            </Text>
+          </Tooltip>
+        </Row>
+        <Box my={3}>
+          <Text>KLIMA Liquidation {liquidationPrice}</Text>
+        </Box>
+      </Column>
     </PoolDashboardBox>
   );
 };
@@ -415,7 +438,12 @@ const SupplyList = ({
 
   return (
     <Table variant={"unstyled"} size={"sm"}>
-      <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
+      <TableCaption
+        mt="0"
+        placement="top"
+        textAlign={"left"}
+        fontSize={{ base: "3.8vw", sm: "lg" }}
+      >
         Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </TableCaption>
       <Thead>
@@ -526,7 +554,7 @@ const AssetSupplyRow = ({
 
   const toast = useToast();
 
-  const bottomTextColor = useColorModeValue("gray.800", "gray.400")
+  const bottomTextColor = useColorModeValue("gray.800", "gray.400");
 
   const onToggleCollateral = async () => {
     const comptroller = createComptroller(comptrollerAddress, fuse);
@@ -731,7 +759,11 @@ const AssetSupplyRow = ({
                   <SimpleTooltip
                     label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
                   >
-                    <Text mt={1} color={bottomTextColor} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+                    <Text
+                      mt={1}
+                      color={bottomTextColor}
+                      fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                    >
                       {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
                     </Text>
                   </SimpleTooltip>
@@ -769,7 +801,11 @@ const AssetSupplyRow = ({
             >
               {smallUsdFormatter(asset.supplyBalanceUSD)}
             </Text>
-            <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+            <Text
+              color={bottomTextColor}
+              mt={1}
+              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+            >
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -817,7 +853,12 @@ const BorrowList = ({
 
   return (
     <Table variant={"unstyled"} size={"sm"}>
-      <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
+      <TableCaption
+        mt="0"
+        placement="top"
+        textAlign={"left"}
+        fontSize={{ base: "3.8vw", sm: "lg" }}
+      >
         Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </TableCaption>
       <Thead>
@@ -935,7 +976,7 @@ const AssetBorrowRow = ({
   const isMobile = useIsMobile();
 
   const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
-  const bottomTextColor = useColorModeValue("gray.800", "gray.400")
+  const bottomTextColor = useColorModeValue("gray.800", "gray.400");
 
   return (
     <>
@@ -1015,7 +1056,7 @@ const AssetBorrowRow = ({
                 )}
               >
                 <Text
-                mt={1}
+                  mt={1}
                   wordBreak={"keep-all"}
                   color={bottomTextColor}
                   fontSize={{ base: "2.8vw", sm: "0.8rem" }}
@@ -1037,7 +1078,11 @@ const AssetBorrowRow = ({
               {smallUsdFormatter(asset.borrowBalanceUSD)}
             </Text>
 
-            <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+            <Text
+              color={bottomTextColor}
+              mt={1}
+              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+            >
               {smallUsdFormatter(
                 asset.borrowBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -1066,7 +1111,11 @@ const AssetBorrowRow = ({
                   {shortUsdFormatter(asset.liquidityUSD)}
                 </Text>
 
-                <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+                <Text
+                  color={bottomTextColor}
+                  mt={1}
+                  fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                >
                   {shortUsdFormatter(
                     asset.liquidity / 10 ** asset.underlyingDecimals
                   ).replace("$", "")}{" "}
