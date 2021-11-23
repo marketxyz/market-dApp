@@ -169,7 +169,7 @@ const FusePoolPage = memo(() => {
         </HStack>
         <Box
           as="section"
-          bg={bgColor}
+          bg={"bgColor"}
           py="4"
           width={{ base: "90%", xl: "100%" }}
           alignSelf={"center"}
@@ -178,8 +178,8 @@ const FusePoolPage = memo(() => {
             <Heading marginBottom={"4"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
             </Heading>
-            <SimpleGrid columns={{ base: 2, md: 4 }} spacing="3">
-              <Stat>
+            <SimpleGrid columns={{ base: 2, md: 4 }} spacing="4">
+              <Stat borderRadius={12}>
                 <StatLabel>{"Total Supply"}</StatLabel>
                 <StatNumber>
                   {data ? (
@@ -189,7 +189,7 @@ const FusePoolPage = memo(() => {
                   )}
                 </StatNumber>
               </Stat>
-              <Stat>
+              <Stat borderRadius={12}>
                 <StatLabel>{"Total Borrow"}</StatLabel>
                 <StatNumber>
                   {data ? (
@@ -199,7 +199,7 @@ const FusePoolPage = memo(() => {
                   )}
                 </StatNumber>
               </Stat>
-              <Stat>
+              <Stat borderRadius={12}>
                 <StatLabel>{"Liquidity"}</StatLabel>
                 <StatNumber>
                   {data ? (
@@ -209,7 +209,7 @@ const FusePoolPage = memo(() => {
                   )}
                 </StatNumber>
               </Stat>
-              <Stat>
+              <Stat borderRadius={12}>
                 <StatLabel>{"Pool Utilization"}</StatLabel>
                 <StatNumber>
                   {data ? (
@@ -254,7 +254,7 @@ const FusePoolPage = memo(() => {
           mt={4}
           isRow={!isMobile}
         >
-          <PoolDashboardBox pb={2} width={isMobile ? "90%" : "50%"}>
+          <PoolDashboardBox pb={2} width={isMobile ? "90%" : "50%"} borderRadius={12}>
             {data ? (
               <SupplyList
                 assets={data.assets}
@@ -270,6 +270,7 @@ const FusePoolPage = memo(() => {
             ml={isMobile ? 0 : 4}
             mt={isMobile ? 4 : 0}
             pb={2}
+            borderRadius={12}
             width={isMobile ? "90%" : "50%"}
           >
             {data ? (

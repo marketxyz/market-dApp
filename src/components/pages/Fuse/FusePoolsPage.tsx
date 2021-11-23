@@ -90,7 +90,7 @@ const PoolList = () => {
           w={"90%"}
           mx="auto"
           gridGap="8"
-          gridRowGap="12"
+          gridRowGap="8"
         >
           {currentPools.map((pool: any) => {
             return <PoolCard data={pool} key={pool.id} />;

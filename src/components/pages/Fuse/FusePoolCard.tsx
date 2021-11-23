@@ -49,12 +49,12 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
   const bgColor = useColorModeValue("white", "#21262e");
   const dividerColor = useColorModeValue("gray.200", "gray.700");
   const boxShadow = useColorModeValue(
-    "0px 21px 44px rgba(71, 29, 97, 0.105141)",
-    "0px 2px 44px rgb(71 29 97 / 29%)"
+    "0px 0px 20px rgba(71, 29, 97, 0.105141)",
+    "0px 0px 20px rgb(71 29 97 / 19%)"
   );
   const hoverBoxShadow = useColorModeValue(
-    "0px 3px 29px rgb(71 0 97 / 21%)",
-    "0px 5px 44px rgb(242 21 139 / 19%)"
+    "0px 15px 25px rgb(71 0 97 / 21%)",
+    "0px 10px 25px rgb(242 21 139 / 8%)"
   );
 
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
         key={pool.id}
         pt={6}
         bgColor={bgColor}
-        borderRadius="20px"
+        borderRadius={12}
         boxShadow={boxShadow}
         _hover={{
           boxShadow: hoverBoxShadow,
@@ -166,7 +166,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           to={"/pool/" + pool.id}
           w="100%"
           py="4"
-          _hover={{ bgColor: useColorModeValue("gray.100", "#2a303a") }}
+          _hover={{ bgColor: useColorModeValue("gray.100", "#2a303a"), borderBottomRadius: 12 }}
           display="flex"
           justifyContent="center"
           alignItems="center"

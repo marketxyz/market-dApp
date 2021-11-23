@@ -154,27 +154,37 @@ const PoolButtons = ({
     "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)",
     "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)"
   );
-  const whiteAlpha = useColorModeValue("gray.200", "rgba(255, 255, 255, 0.08)");
+  const whiteAlpha = "";
   const selectedTextColor = "white";
   const unselectedTextColor = useColorModeValue("black", "white");
   const isAllPoolSelected = searchText === "";
   const isMyPoolSelected = searchText === "my-pools";
+
+  const tabText = useColorModeValue("gray.500", "gray.100");
+  const tabColor = useColorModeValue("gray.100", "mktgray.700");
+  const selectedText = useColorModeValue("white", "white");
+  const selectedBg =
+    "linear(to-br, rgba(202, 0, 102, 0.9), rgba(144, 49, 217, 1.7))";
+
   return (
     <ButtonGroup spacing={3} mt={{ base: 4, lg: 0 }}>
       <Button
+        as={"button"}
         borderRadius={"xl"}
-        background={isAllPoolSelected ? gradient : whiteAlpha}
+        px={4}
+        bgGradient={isAllPoolSelected ? selectedBg : whiteAlpha}
         opacity={isAllPoolSelected ? "1" : "0.8"}
         fontFamily={"heading"}
         _hover={{
           opacity: isAllPoolSelected ? "0.8" : "1",
         }}
+        fontWeight={"bold"}
+        color={selectedText}
+        bgClip={"border-box"}
         _active={{
-          background: gradient,
           opacity: "1",
-          color: selectedTextColor,
+          color: selectedText,
         }}
-        color={isAllPoolSelected ? selectedTextColor : unselectedTextColor}
         onClick={() => setSearchText("")}
       >
         All Pools

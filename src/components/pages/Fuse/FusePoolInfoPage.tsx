@@ -8,6 +8,10 @@ import {
   useClipboard,
   Skeleton,
   useColorModeValue,
+  Table,
+  Tr,
+  Td,
+  Tbody,
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
@@ -17,7 +21,6 @@ import {
   Center,
   Column,
   Row,
-  RowOnDesktopColumnOnMobile,
   RowOrColumn,
   useIsMobile,
 } from "utils/chakraUtils";
@@ -141,6 +144,7 @@ export const PoolInfoBox = ({
       bgColor={bgColor}
     >
       <PoolDashboardBox
+        borderRadius={12}
         width={isMobile ? "100%" : "50%"}
         mt={4}
         height={isMobile ? "auto" : "450px"}
@@ -161,8 +165,9 @@ export const PoolInfoBox = ({
       <PoolDashboardBox
         ml={isMobile ? 0 : 4}
         width={isMobile ? "100%" : "50%"}
+        borderRadius={12}
         mt={4}
-        height={isMobile ? "500px" : "450px"}
+        height={"100%"}
       >
         {data ? (
           data.assets.length > 0 ? (
@@ -207,6 +212,7 @@ const OracleAndInterestRates = ({
       crossAxisAlignment="flex-start"
       height="100%"
       width="100%"
+      pb={2}
     >
       <Row
         mainAxisAlignment="space-between"
@@ -247,14 +253,14 @@ const OracleAndInterestRates = ({
           </Link>
         ) : null}
       </Row>
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="flex-start"
-        my={5}
-        px={4}
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
+      <Table
+        variant={"simple"}
+        size={"sm"}
         width="100%"
+        height={"100%"}
       >
+        <Tbody>
         <StatRow
           statATitle={"Total Supplied"}
           statA={shortUsdFormatter(totalSuppliedUSD)}
@@ -316,7 +322,8 @@ const OracleAndInterestRates = ({
           statBTitle={"Whitelist"}
           statB={data ? (data.enforceWhitelist ? "Yes" : "No") : "?"}
         />
-      </Column>
+        </Tbody>
+      </Table>
     </Column>
   );
 };
@@ -335,21 +342,20 @@ const StatRow = ({
   [key: string]: any;
 }) => {
   return (
-    <RowOnDesktopColumnOnMobile
-      mainAxisAlignment="center"
-      crossAxisAlignment="center"
-      width="100%"
-      mb={4}
+    <Tr
+      // border={"1px"}
+      // borderColor={useColorModeValue("gray.50", "gray.700")}
+      // p={4}
       {...other}
     >
-      <Text width="50%" textAlign="center">
+      <Td fontSize={{base: "3vw", sm: "0.9rem"}} wordBreak={"break-all"} width={"50%"} lineHeight={1.5} textAlign="left">
         {statATitle}: <b>{statA}</b>
-      </Text>
+      </Td>
 
-      <Text width="50%" textAlign="center">
+      <Td fontSize={{base: "3vw", sm: "0.9rem"}} wordBreak={"break-all"} width={"50%"} lineHeight={1.5} textAlign="left">
         {statBTitle}: <b>{statB}</b>
-      </Text>
-    </RowOnDesktopColumnOnMobile>
+      </Td>
+    </Tr>
   );
 };
 
@@ -401,6 +407,8 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 
   const isMobile = useIsMobile();
   const borrowLineColor = useColorModeValue("#2D3748", "#fff");
+  const bgColor = useColorModeValue("gray.50", "mktgray.700")
+  const textColor = useColorModeValue("#2f2f2f", "white")
 
   return (
     <Column
@@ -424,8 +432,8 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Heading>
 
         <Select
-          bgColor="white"
-          textColor="black"
+          bgColor={bgColor}
+          textColor={textColor}
           borderRadius="7px"
           fontWeight="bold"
           width="130px"
@@ -444,7 +452,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Select>
       </Row>
 
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
 
       <Box
         height="200px"
@@ -531,7 +539,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         )}
       </Box>
 
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
 
       <Row
         mainAxisAlignment="space-around"
@@ -561,7 +569,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         />
       </Row>
 
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
 
       <Row
         mainAxisAlignment="space-around"
