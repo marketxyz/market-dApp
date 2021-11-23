@@ -150,21 +150,13 @@ const PoolButtons = ({
   searchText: string;
   setSearchText: Dispatch<string>;
 }) => {
-  const gradient = useColorModeValue(
-    "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)",
-    "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)"
-  );
-  const whiteAlpha = "";
+  const whiteAlpha = "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
   const selectedTextColor = "white";
-  const unselectedTextColor = useColorModeValue("black", "white");
   const isAllPoolSelected = searchText === "";
   const isMyPoolSelected = searchText === "my-pools";
-
-  const tabText = useColorModeValue("gray.500", "gray.100");
-  const tabColor = useColorModeValue("gray.100", "mktgray.700");
   const selectedText = useColorModeValue("white", "white");
   const selectedBg =
-    "linear(to-br, rgba(202, 0, 102, 0.9), rgba(144, 49, 217, 1.7))";
+    "linear(to-br, rgba(202, 0, 102, 0.6), rgba(144, 49, 217, 0.75))";
 
   return (
     <ButtonGroup spacing={3} mt={{ base: 4, lg: 0 }}>
@@ -182,7 +174,7 @@ const PoolButtons = ({
         color={selectedText}
         bgClip={"border-box"}
         _active={{
-          opacity: "1",
+          opacity: isMyPoolSelected ? "0.8" : "1",
           color: selectedText,
         }}
         onClick={() => setSearchText("")}
@@ -191,16 +183,16 @@ const PoolButtons = ({
       </Button>
       <Button
         onClick={() => setSearchText("my-pools")}
-        background={isMyPoolSelected ? gradient : whiteAlpha}
+        bgGradient={isMyPoolSelected ? selectedBg : whiteAlpha}
         opacity={isMyPoolSelected ? "1" : "0.8"}
         fontFamily={"heading"}
-        color={isMyPoolSelected ? selectedTextColor : unselectedTextColor}
+        color={isMyPoolSelected ? selectedText : whiteAlpha}
         _hover={{
           opacity: isMyPoolSelected ? "0.8" : "1",
         }}
         borderRadius={"xl"}
         _active={{
-          background: gradient,
+          background: selectedBg,
           opacity: "1",
           color: selectedTextColor,
         }}

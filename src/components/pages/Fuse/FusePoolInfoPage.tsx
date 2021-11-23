@@ -147,6 +147,7 @@ export const PoolInfoBox = ({
         borderRadius={12}
         width={isMobile ? "100%" : "50%"}
         height={isMobile ? "auto" : "450px"}
+        mt={4}
       >
         {data ? (
           <OracleAndInterestRates
@@ -166,6 +167,7 @@ export const PoolInfoBox = ({
         width={isMobile ? "100%" : "50%"}
         borderRadius={12}
         height={"100%"}
+        mt={4}
       >
         {data ? (
           data.assets.length > 0 ? (
