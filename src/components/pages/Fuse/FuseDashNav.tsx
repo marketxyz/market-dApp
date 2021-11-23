@@ -1,5 +1,4 @@
 import { Dispatch, useState } from "react";
-
 import {
   Text,
   Box,
@@ -150,7 +149,8 @@ const PoolButtons = ({
   searchText: string;
   setSearchText: Dispatch<string>;
 }) => {
-  const whiteAlpha = "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
+  const whiteAlpha =
+    "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
   const selectedTextColor = "white";
   const isAllPoolSelected = searchText === "";
   const isMyPoolSelected = searchText === "my-pools";

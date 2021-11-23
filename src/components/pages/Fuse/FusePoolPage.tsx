@@ -254,7 +254,11 @@ const FusePoolPage = memo(() => {
           pb={4}
           isRow={!isMobile}
         >
-          <PoolDashboardBox pb={2} width={isMobile ? "90%" : "50%"} borderRadius={12}>
+          <PoolDashboardBox
+            pb={2}
+            width={isMobile ? "90%" : "50%"}
+            borderRadius={12}
+          >
             {data ? (
               <SupplyList
                 assets={data.assets}
@@ -416,7 +420,12 @@ const SupplyList = ({
 
   return (
     <Table variant={"unstyled"} size={"sm"}>
-      <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
+      <TableCaption
+        mt="0"
+        placement="top"
+        textAlign={"left"}
+        fontSize={{ base: "3.8vw", sm: "lg" }}
+      >
         Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
       </TableCaption>
       <Thead>
@@ -527,7 +536,7 @@ const AssetSupplyRow = ({
 
   const toast = useToast();
 
-  const bottomTextColor = useColorModeValue("gray.800", "gray.400")
+  const bottomTextColor = useColorModeValue("gray.800", "gray.400");
 
   const onToggleCollateral = async () => {
     const comptroller = createComptroller(comptrollerAddress, fuse);
@@ -732,7 +741,11 @@ const AssetSupplyRow = ({
                   <SimpleTooltip
                     label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
                   >
-                    <Text mt={1} color={bottomTextColor} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+                    <Text
+                      mt={1}
+                      color={bottomTextColor}
+                      fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                    >
                       {(tokenData?.extraData.apy * 100).toFixed(1)}% APY
                     </Text>
                   </SimpleTooltip>
@@ -770,7 +783,11 @@ const AssetSupplyRow = ({
             >
               {smallUsdFormatter(asset.supplyBalanceUSD)}
             </Text>
-            <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+            <Text
+              color={bottomTextColor}
+              mt={1}
+              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+            >
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -818,7 +835,12 @@ const BorrowList = ({
 
   return (
     <Table variant={"unstyled"} size={"sm"}>
-      <TableCaption mt="0" placement="top" textAlign={"left"} fontSize={{ base: "3.8vw", sm: "lg" }}>
+      <TableCaption
+        mt="0"
+        placement="top"
+        textAlign={"left"}
+        fontSize={{ base: "3.8vw", sm: "lg" }}
+      >
         Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
       </TableCaption>
       <Thead>
@@ -936,7 +958,7 @@ const AssetBorrowRow = ({
   const isMobile = useIsMobile();
 
   const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
-  const bottomTextColor = useColorModeValue("gray.800", "gray.400")
+  const bottomTextColor = useColorModeValue("gray.800", "gray.400");
 
   return (
     <>
@@ -1016,7 +1038,7 @@ const AssetBorrowRow = ({
                 )}
               >
                 <Text
-                mt={1}
+                  mt={1}
                   wordBreak={"keep-all"}
                   color={bottomTextColor}
                   fontSize={{ base: "2.8vw", sm: "0.8rem" }}
@@ -1038,7 +1060,11 @@ const AssetBorrowRow = ({
               {smallUsdFormatter(asset.borrowBalanceUSD)}
             </Text>
 
-            <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+            <Text
+              color={bottomTextColor}
+              mt={1}
+              fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+            >
               {smallUsdFormatter(
                 asset.borrowBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
@@ -1067,7 +1093,11 @@ const AssetBorrowRow = ({
                   {shortUsdFormatter(asset.liquidityUSD)}
                 </Text>
 
-                <Text color={bottomTextColor} mt={1} fontSize={{ base: "2.8vw", sm: "0.8rem" }}>
+                <Text
+                  color={bottomTextColor}
+                  mt={1}
+                  fontSize={{ base: "2.8vw", sm: "0.8rem" }}
+                >
                   {shortUsdFormatter(
                     asset.liquidity / 10 ** asset.underlyingDecimals
                   ).replace("$", "")}{" "}

@@ -230,7 +230,12 @@ const FuseNavbar = () => {
           </Button> */}
             <NetworkSwitcher />
             <AccountButton />
-            <Button bgColor={"transparent"} borderRadius="12px" onClick={toggleColorMode} m={2}>
+            <Button
+              bgColor={"transparent"}
+              borderRadius="12px"
+              onClick={toggleColorMode}
+              m={2}
+            >
               {colorMode === "light" ? (
                 <MoonIcon color="gray.700" w={5} h={5} />
               ) : (

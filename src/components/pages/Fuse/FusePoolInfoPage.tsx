@@ -1,4 +1,4 @@
-import { ExternalLinkIcon, LinkIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Box,
   Heading,
@@ -13,7 +13,6 @@ import {
   Tr,
   Td,
   Tbody,
-  Icon,
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
@@ -232,10 +231,15 @@ const OracleAndInterestRates = ({
           ml="auto"
           href={`https://metrics.market.xyz/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
         >
-          <Box p={5} borderRadius={"lg"} bgColor={useColorModeValue("gray.50", "mktgray.700")} height="35px">
+          <Box
+            p={5}
+            borderRadius={"lg"}
+            bgColor={useColorModeValue("gray.50", "mktgray.700")}
+            height="35px"
+          >
             <Center expand px={2} fontWeight="bold">
               Metrics
-              <ExternalLinkIcon ml={2}/>
+              <ExternalLinkIcon ml={2} />
             </Center>
           </Box>
         </Link>
@@ -257,74 +261,69 @@ const OracleAndInterestRates = ({
         ) : null}
       </Row>
       <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
-      <Table
-        variant={"simple"}
-        size={"sm"}
-        width="100%"
-        height={"100%"}
-      >
+      <Table variant={"simple"} size={"sm"} width="100%" height={"100%"}>
         <Tbody>
-        <StatRow
-          statATitle={"Total Supplied"}
-          statA={shortUsdFormatter(totalSuppliedUSD)}
-          statBTitle={"Total Borrowed"}
-          statB={shortUsdFormatter(totalBorrowedUSD)}
-        />
+          <StatRow
+            statATitle={"Total Supplied"}
+            statA={shortUsdFormatter(totalSuppliedUSD)}
+            statBTitle={"Total Borrowed"}
+            statB={shortUsdFormatter(totalBorrowedUSD)}
+          />
 
-        <StatRow
-          statATitle={"Available Liquidity"}
-          statA={shortUsdFormatter(totalLiquidityUSD)}
-          statBTitle={"Pool Utilization"}
-          statB={
-            totalSuppliedUSD.toString() === "0"
-              ? "0%"
-              : ((totalBorrowedUSD / totalSuppliedUSD) * 100).toFixed(2) + "%"
-          }
-        />
+          <StatRow
+            statATitle={"Available Liquidity"}
+            statA={shortUsdFormatter(totalLiquidityUSD)}
+            statBTitle={"Pool Utilization"}
+            statB={
+              totalSuppliedUSD.toString() === "0"
+                ? "0%"
+                : ((totalBorrowedUSD / totalSuppliedUSD) * 100).toFixed(2) + "%"
+            }
+          />
 
-        <StatRow
-          statATitle={"Upgradeable"}
-          statA={data ? (data.upgradeable ? "Yes" : "No") : "?"}
-          statBTitle={hasCopied ? "Admin (copied!)" : "Admin (click to copy)"}
-          statB={data?.admin ? shortAddress(data.admin) : "?"}
-          onClick={onCopy}
-        />
+          <StatRow
+            statATitle={"Upgradeable"}
+            statA={data ? (data.upgradeable ? "Yes" : "No") : "?"}
+            statBTitle={hasCopied ? "Admin (copied!)" : "Admin (click to copy)"}
+            statB={data?.admin ? shortAddress(data.admin) : "?"}
+            onClick={onCopy}
+          />
 
-        <StatRow
-          statATitle={"Platform Fee"}
-          statA={
-            assets.length > 0
-              ? (assets[0].fuseFee / 1e16).toPrecision(2) + "%"
-              : "10%"
-          }
-          statBTitle={"Average Admin Fee"}
-          statB={
-            assets
-              .reduce(
-                (a, b, _, { length }) => a + b.adminFee / 1e16 / length,
-                0
-              )
-              .toFixed(1) + "%"
-          }
-        />
+          <StatRow
+            statATitle={"Platform Fee"}
+            statA={
+              assets.length > 0
+                ? (assets[0].fuseFee / 1e16).toPrecision(2) + "%"
+                : "10%"
+            }
+            statBTitle={"Average Admin Fee"}
+            statB={
+              assets
+                .reduce(
+                  (a, b, _, { length }) => a + b.adminFee / 1e16 / length,
+                  0
+                )
+                .toFixed(1) + "%"
+            }
+          />
 
-        <StatRow
-          statATitle={"Close Factor"}
-          statA={data?.closeFactor ? data.closeFactor / 1e16 + "%" : "?%"}
-          statBTitle={"Liquidation Incentive"}
-          statB={
-            data?.liquidationIncentive
-              ? data.liquidationIncentive / 1e16 - 100 + "%"
-              : "?%"
-          }
-        />
+          <StatRow
+            statATitle={"Close Factor"}
+            statA={data?.closeFactor ? data.closeFactor / 1e16 + "%" : "?%"}
+            statBTitle={"Liquidation Incentive"}
+            statB={
+              data?.liquidationIncentive
+                ? data.liquidationIncentive / 1e16 - 100 + "%"
+                : "?%"
+            }
+          />
 
-        <StatRow
-          statATitle={"Oracle"}
-          statA={data ? data.oracle ?? "Unrecognized Oracle" : "?"}
-          statBTitle={"Whitelist"}
-          statB={data ? (data.enforceWhitelist ? "Yes" : "No") : "?"}
-        />
+          <StatRow
+            statATitle={"Oracle"}
+            statA={data ? data.oracle ?? "Unrecognized Oracle" : "?"}
+            statBTitle={"Whitelist"}
+            statB={data ? (data.enforceWhitelist ? "Yes" : "No") : "?"}
+          />
         </Tbody>
       </Table>
     </Column>
@@ -351,11 +350,23 @@ const StatRow = ({
       // p={4}
       {...other}
     >
-      <Td fontSize={{base: "3vw", sm: "0.9rem"}} wordBreak={"break-all"} width={"50%"} lineHeight={1.5} textAlign="left">
+      <Td
+        fontSize={{ base: "3vw", sm: "0.9rem" }}
+        wordBreak={"break-all"}
+        width={"50%"}
+        lineHeight={1.5}
+        textAlign="left"
+      >
         {statATitle}: <b>{statA}</b>
       </Td>
 
-      <Td fontSize={{base: "3vw", sm: "0.9rem"}} wordBreak={"break-all"} width={"50%"} lineHeight={1.5} textAlign="left">
+      <Td
+        fontSize={{ base: "3vw", sm: "0.9rem" }}
+        wordBreak={"break-all"}
+        width={"50%"}
+        lineHeight={1.5}
+        textAlign="left"
+      >
         {statBTitle}: <b>{statB}</b>
       </Td>
     </Tr>
@@ -410,8 +421,8 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 
   const isMobile = useIsMobile();
   const borrowLineColor = useColorModeValue("#2D3748", "#fff");
-  const bgColor = useColorModeValue("gray.50", "mktgray.700")
-  const textColor = useColorModeValue("#2f2f2f", "white")
+  const bgColor = useColorModeValue("gray.50", "mktgray.700");
+  const textColor = useColorModeValue("#2f2f2f", "white");
 
   return (
     <Column
