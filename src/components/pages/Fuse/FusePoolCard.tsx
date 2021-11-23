@@ -54,7 +54,7 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
   );
   const hoverBoxShadow = useColorModeValue(
     "0px 15px 25px rgb(71 0 97 / 21%)",
-    "0px 10px 25px rgb(242 21 139 / 8%)"
+    "0px 0px 30px rgb(242 21 139 / 16%)"
   );
 
   const navigate = useNavigate();

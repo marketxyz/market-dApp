@@ -146,7 +146,6 @@ export const PoolInfoBox = ({
       <PoolDashboardBox
         borderRadius={12}
         width={isMobile ? "100%" : "50%"}
-        mt={4}
         height={isMobile ? "auto" : "450px"}
       >
         {data ? (
@@ -166,7 +165,6 @@ export const PoolInfoBox = ({
         ml={isMobile ? 0 : 4}
         width={isMobile ? "100%" : "50%"}
         borderRadius={12}
-        mt={4}
         height={"100%"}
       >
         {data ? (

@@ -252,6 +252,7 @@ const FusePoolPage = memo(() => {
           bgColor={bgColor}
           mx="auto"
           mt={4}
+          pb={4}
           isRow={!isMobile}
         >
           <PoolDashboardBox pb={2} width={isMobile ? "90%" : "50%"} borderRadius={12}>
@@ -306,8 +307,8 @@ export const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
       )}
       _hover={{
         boxShadow: useColorModeValue(
-          "0px 3px 29px rgb(71 0 97 / 21%)",
-          "0px 5px 44px rgb(242 21 139 / 19%)"
+          "0px 0px 30px rgb(71 0 97 / 15%)",
+          "0px 0px 30px rgb(242 21 139 / 15%)"
         ),
       }}
       {...props}
