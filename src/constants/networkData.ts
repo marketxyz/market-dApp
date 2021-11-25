@@ -39,7 +39,7 @@ export const networkData: Record<string, any> = {
     chainId: 250,
     name: "Fantom",
     shortName: "Fantom",
-    img: "/static/fantom.png",
+    img: "/static/fantom.jpeg",
     url: "fantom.market.xyz",
     enabled: false,
   },
