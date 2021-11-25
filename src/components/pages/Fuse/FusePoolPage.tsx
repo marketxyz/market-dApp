@@ -327,17 +327,12 @@ const CollateralRatioBar = ({
 
   const wantedAsset = assets.find(
     (asset) =>
-      asset.underlyingToken === "0xb0C22d8D350C67420f06F48936654f567C73E8C8"
+      asset.underlyingToken === "0xb0C22d8D350C67420f06F48936654f567C73E8C8" &&
+      asset.supplyBalanceUSD > 1
   );
 
   const maxBorrow = useBorrowLimit(assets);
-
   const ratio = (borrowUSD / maxBorrow) * 100;
-
-  const ltv = wantedAsset!.collateralFactor / 1e16;
-  const borrowed = wantedAsset?.borrowBalanceUSD;
-
-  const liquidationPrice = (borrowed! * 100) / ltv;
 
   useEffect(() => {
     if (ratio > 95) {
@@ -412,9 +407,16 @@ const CollateralRatioBar = ({
             </Text>
           </Tooltip>
         </Row>
-        <Box my={3}>
-          <Text>KLIMA Liquidation {liquidationPrice}</Text>
-        </Box>
+        {wantedAsset ? (
+          <Box my={3}>
+            <Text>
+              sKLIMA Liquidation Price:
+              {shortUsdFormatter(
+                (borrowUSD * 100) / (wantedAsset!.collateralFactor / 1e16)
+              )}
+            </Text>
+          </Box>
+        ) : null}
       </Column>
     </PoolDashboardBox>
   );
