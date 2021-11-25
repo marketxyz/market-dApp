@@ -410,10 +410,15 @@ const CollateralRatioBar = ({
         {wantedAsset ? (
           <Box my={3}>
             <Text>
-              sKLIMA Liquidation Price:
-              {shortUsdFormatter(
-                (borrowUSD * 100) / (wantedAsset!.collateralFactor / 1e16)
-              )}
+              sKLIMA Liquidation Price:{" "}
+              <SimpleTooltip placement="auto" label="This is the price of sKLIMA at which your position might get liquidated. Note: This feature is in beta and will be significantly improved in the next coming weeks.">
+                <b>
+                  {" "}
+                  {shortUsdFormatter(
+                    (borrowUSD * 100) / (wantedAsset!.collateralFactor / 1e16)
+                  )}
+                </b>
+              </SimpleTooltip>
             </Text>
           </Box>
         ) : null}
