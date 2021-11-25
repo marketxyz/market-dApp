@@ -174,6 +174,11 @@ const FuseNavbar = () => {
   const bgColor = useColorModeValue("white", "gray.900");
   const isMobile = useIsSmallScreen();
 
+  const rari = useRari();
+
+  const isNetworkChangeable =
+    rari.isAuthed && rari.userWallet?.appChainId !== rari.userWallet?.chainId;
+
   return (
     <>
       <Alert width="100vw" status="warning">
@@ -192,6 +197,15 @@ const FuseNavbar = () => {
           </Link>
         </Text>
       </Alert>
+      {isNetworkChangeable ? (
+        <Alert width="100vw" status="error" style={{ marginTop: "0" }}>
+          <AlertIcon />
+          <Text>
+            To be able to use the Market Protocol, switch to Polygon network
+            using your Wallet.
+          </Text>
+        </Alert>
+      ) : null}
       <Box bgColor={bgColor} overflowX="hidden" mx="auto" w={"100%"}>
         <Flex
           mx="auto"

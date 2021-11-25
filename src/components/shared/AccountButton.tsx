@@ -11,13 +11,11 @@ import {
   Spinner,
   useColorModeValue,
   Image,
+  ButtonProps,
 } from "@chakra-ui/react";
 
 import { Row, Column } from "utils/chakraUtils";
 import DashboardBox from "./DashboardBox";
-
-// @ts-ignore
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import { shortAddress } from "../../utils/shortAddress";
 
@@ -31,6 +29,7 @@ import MoonpayModal from "../pages/MoonpayModal";
 import { useIsSmallScreen } from "../../hooks/useIsSmallScreen";
 import { useAuthedCallback } from "../../hooks/useAuthedCallback";
 import { networkData } from "constants/networkData";
+import { motion } from "framer-motion";
 
 export const AccountButton = memo(() => {
   const {
@@ -95,7 +94,15 @@ const Buttons = ({
   openModal: () => any;
   openMoonpayModal: () => any;
 }) => {
-  const { address, isAuthed, login, isAttemptingLogin } = useRari();
+  const {
+    address,
+    isAuthed,
+    login,
+    isAttemptingLogin,
+    userWallet,
+    logout,
+    web3ModalProvider,
+  } = useRari();
 
   const { t } = useTranslation();
 
@@ -109,22 +116,40 @@ const Buttons = ({
     } else login();
   }, [isAuthed, login, openModal]);
 
-  const rari = useRari();
   const isNetworkChangeable =
-    rari.userWallet?.isMetaMask &&
-    rari.isAuthed &&
-    rari.userWallet?.appChainId !== rari.userWallet?.chainId;
+    isAuthed && userWallet?.appChainId !== userWallet?.chainId;
+
+  const MotionBox = motion<ButtonProps>(Button);
 
   return (
     <Row mainAxisAlignment="center" crossAxisAlignment="center">
       {isNetworkChangeable ? (
-        <Button
+        <MotionBox
           justifyContent="left"
-          onClick={() => switchChainId(rari.userWallet?.appChainId)}
+          borderRadius={"12px"}
+          border={"2px"}
+          borderColor={"#DF2EAC"}
+          animate={{
+            scale: [1, 1, 1.5, 1],
+          }}
+          onClick={() =>
+            userWallet?.isMetaMask
+              ? switchChainId(userWallet?.appChainId)
+              : logout()
+          }
         >
-          <Image src="/static/metamask.svg" h={"7"} mr={"2"} />
-          Switch to {chainIdToName[rari.userWallet?.appChainId]}
-        </Button>
+          <Image
+            src={
+              userWallet?.isMetaMask
+                ? "/static/metamask.svg"
+                : web3ModalProvider?.walletMeta?.icons?.[0] || "/static/wc.png"
+            }
+            rounded="lg"
+            h={"7"}
+            mr={"2"}
+          />
+          Switch to {chainIdToName[userWallet?.appChainId]}
+        </MotionBox>
       ) : (
         <DashboardBox
           mx={isMobile ? 0 : 2}
@@ -158,7 +183,16 @@ const Buttons = ({
               )
             ) : (
               <>
-                <Jazzicon diameter={23} seed={jsNumberForAddress(address)} />
+                <Image
+                  src={
+                    userWallet?.isMetaMask
+                      ? "/static/metamask.svg"
+                      : web3ModalProvider?.walletMeta?.icons?.[0] ||
+                        "/static/wc.png"
+                  }
+                  rounded="lg"
+                  h={"7"}
+                />
                 <Text ml={2} fontWeight="semibold">
                   {shortAddress(address)}
                 </Text>
@@ -272,17 +306,14 @@ export const SettingsModal = ({
             mt={4}
             width="100%"
           >
-            <Link isExternal href="https://docs.rari.capital/">
+            <Link isExternal href="https://docs.market.xyz/">
               <Text mx={2} text="sm" textDecoration="underline">
                 {t("Developer Docs")}
               </Text>
             </Link>
-            <Link
-              isExternal
-              href="https://www.notion.so/Rari-Capital-3d762a07d2c9417e9cd8c2e4f719e4c3"
-            >
+            <Link isExternal href="https://marketxyz.medium.com/">
               <Text mx={2} text="sm" textDecoration="underline">
-                {t("Learn")}
+                {t("Read")}
               </Text>
             </Link>
             <Link isExternal href="https://docs.market.xyz/audit-reports">
