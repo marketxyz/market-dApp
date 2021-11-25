@@ -328,7 +328,7 @@ const CollateralRatioBar = ({
   const wantedAsset = assets.find(
     (asset) =>
       asset.underlyingToken === "0xb0C22d8D350C67420f06F48936654f567C73E8C8" &&
-      asset.supplyBalanceUSD > 1
+      asset.supplyBalanceUSD > 0
   );
 
   const maxBorrow = useBorrowLimit(assets);
