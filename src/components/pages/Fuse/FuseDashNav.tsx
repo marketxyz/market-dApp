@@ -155,8 +155,10 @@ const PoolButtons = ({
   const isAllPoolSelected = searchText === "";
   const isMyPoolSelected = searchText === "my-pools";
   const selectedText = useColorModeValue("white", "white");
-  const selectedBg =
-    "linear(to-br, rgba(202, 0, 102, 0.6), rgba(144, 49, 217, 0.75))";
+  const selectedBg = useColorModeValue(
+    "linear(to-br, rgba(202, 0, 102, 1), rgba(144, 49, 217, 0.75))",
+    "linear(to-br, rgba(202, 0, 102, 0.6), rgba(144, 49, 217, 0.75))"
+  );
 
   return (
     <ButtonGroup spacing={3} mt={{ base: 4, lg: 0 }}>

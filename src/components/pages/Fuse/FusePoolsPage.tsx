@@ -143,7 +143,7 @@ const Pagination = ({
   }
 
   const selectedProps: TextProps = {
-    bgGradient: "linear(to-bl, #9b61cd, #f21587)",
+    bgGradient: useColorModeValue("linear(to-br, rgba(202, 0, 102, 1), rgba(144, 49, 217, 0.75))", "linear(to-br, rgba(202, 0, 102, 0.6), rgba(144, 49, 217, 0.75))"),
     color: "#FFF",
   };
   const unSelectedProps: TextProps = {
@@ -166,6 +166,7 @@ const Pagination = ({
           cursor="pointer"
           shadow="lg"
           mx="2"
+          fontWeight={"bold"}
           borderColor={"black"}
           key={num}
         >

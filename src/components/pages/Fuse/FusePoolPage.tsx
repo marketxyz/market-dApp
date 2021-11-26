@@ -342,7 +342,7 @@ const CollateralRatioBar = ({
 
   return (
     <PoolDashboardBox
-      width={{ base: "90%", md: "95%", lg: "100%" }}
+      width={"90%"}
       maxW={{ lg: "1200px" }}
       height="65px"
       mt={4}
