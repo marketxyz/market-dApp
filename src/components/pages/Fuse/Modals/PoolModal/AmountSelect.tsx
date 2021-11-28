@@ -737,7 +737,7 @@ const TabBar = ({
   const selectedText = useColorModeValue("white", "white");
   const borderColor = useColorModeValue("pink.400", "pink.700")
   const selectedBg = useColorModeValue(
-    "linear(to-br, rgba(202, 0, 102, 1), rgba(144, 49, 217, 0.5))",
+    "linear(to-br, rgba(202, 0, 102, 0.95), rgba(144, 49, 217, 0.55))",
     "linear(to-br, rgba(202, 0, 102, 0.18), rgba(144, 49, 217, 0.28))"
   );
 

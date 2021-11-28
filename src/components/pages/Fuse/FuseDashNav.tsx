@@ -151,13 +151,14 @@ const PoolButtons = ({
 }) => {
   const whiteAlpha =
     "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
+  const inactiveText = useColorModeValue("gray.600", "gray.400");
   const selectedTextColor = "white";
   const isAllPoolSelected = searchText === "";
   const isMyPoolSelected = searchText === "my-pools";
   const selectedText = useColorModeValue("white", "white");
   const selectedBg = useColorModeValue(
-    "linear(to-br, rgba(202, 0, 102, 1), rgba(144, 49, 217, 0.75))",
-    "linear(to-br, rgba(202, 0, 102, 0.6), rgba(144, 49, 217, 0.75))"
+    "linear(to-br, rgba(202, 0, 102, 1.25), rgba(144, 49, 217, 0.75))",
+    "linear(to-br, rgba(202, 0, 102, 2.6), rgba(144, 49, 217, 3.75))"
   );
 
   return (
@@ -173,11 +174,11 @@ const PoolButtons = ({
           opacity: isAllPoolSelected ? "0.8" : "1",
         }}
         fontWeight={"bold"}
-        color={selectedText}
+        color={isAllPoolSelected ? selectedText : inactiveText}
         bgClip={"border-box"}
         _active={{
           opacity: isMyPoolSelected ? "0.8" : "1",
-          color: selectedText,
+          // color: selectedTextColor,
         }}
         onClick={() => setSearchText("")}
       >
@@ -188,7 +189,7 @@ const PoolButtons = ({
         bgGradient={isMyPoolSelected ? selectedBg : whiteAlpha}
         opacity={isMyPoolSelected ? "1" : "0.8"}
         fontFamily={"heading"}
-        color={isMyPoolSelected ? selectedText : whiteAlpha}
+        color={isMyPoolSelected ? selectedText : inactiveText}
         _hover={{
           opacity: isMyPoolSelected ? "0.8" : "1",
         }}
