@@ -24,7 +24,7 @@ const Footer = () => {
           mt={4}
           width="100%"
         >
-          <Link isExternal href="https://docs.rari.capital/fuse">
+          <Link isExternal href="https://docs.market.xyz">
             <Text color={textColor} mx={2} text="sm" textDecoration="underline">
               {t("Developer Docs")}
             </Text>

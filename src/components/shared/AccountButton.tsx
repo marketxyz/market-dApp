@@ -12,6 +12,9 @@ import {
   useColorModeValue,
   Image,
   ButtonProps,
+  Divider,
+  ModalCloseButton,
+  ModalHeader,
 } from "@chakra-ui/react";
 
 import { Row, Column } from "utils/chakraUtils";
@@ -239,19 +242,26 @@ export const SettingsModal = ({
       isCentered
     >
       <ModalOverlay />
-      <ModalContent {...MODAL_PROPS} bgColor={bgColor} textColor={textColor}>
-        <ModalTitleWithCloseButton text={t("Account")} onClose={onClose} />
-
-        <ModalDivider />
-
+      <ModalContent
+        bg={useColorModeValue("gray.50", "mktgray.700")}
+        borderRadius="20px"
+        border="1px"
+        px={6}
+        py={2}
+        borderColor={"rgba(184, 50, 123, 0.5)"}
+        textColor={textColor}
+      >
+        <ModalHeader pl={4} fontSize="1.5rem">Account</ModalHeader>
+        <ModalCloseButton onClick={onClose} />
         <Column
           width="100%"
           mainAxisAlignment="flex-start"
           crossAxisAlignment="center"
+          alignSelf={"center"}
           p={4}
         >
           <Button
-            bg="cyan.500"
+            bg={useColorModeValue("cyan.600", "cyan.700")}
             color="white"
             width="100%"
             height="45px"
@@ -267,7 +277,7 @@ export const SettingsModal = ({
           </Button>
 
           <Button
-            bg={"whatsapp.500"}
+            bg={useColorModeValue("whatsapp.500", "whatsapp.700")}
             color={"white"}
             width="100%"
             height="45px"
@@ -283,7 +293,7 @@ export const SettingsModal = ({
           </Button>
 
           <Button
-            bg="red.500"
+            bg={useColorModeValue("red.500", "red.600")}
             color={"white"}
             width="100%"
             height="45px"

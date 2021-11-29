@@ -21,6 +21,7 @@ import {
   Link,
   Alert,
   AlertIcon,
+  Divider,
 } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
@@ -78,7 +79,7 @@ const NetworkSwitcher = () => {
   const chainName = chainId === 1 ? "mainnet" : "polygon";
   const { userWallet, isAuthed } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
-  const btnBgActive = useColorModeValue("", "gray.800");
+  const btnBgActive = useColorModeValue("", "mktgray.200");
 
   return (
     <>
@@ -98,11 +99,10 @@ const NetworkSwitcher = () => {
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
         <ModalContent
-          bg={useColorModeValue("gray.100", "gray.800")}
-          border={"medium"}
-          borderColor="#DF2EAC"
-          borderStyle="solid"
+          bg={useColorModeValue("gray.50", "mktgray.700")}
           borderRadius="20px"
+          border="1px"
+          borderColor={"rgba(184, 50, 123, 0.5)"}
         >
           <ModalHeader fontSize="1.5rem">Select a Network</ModalHeader>
           <ModalCloseButton />
@@ -214,23 +214,22 @@ const FuseNavbar = () => {
           alignItems="center"
           justifyContent="space-between"
           w={"90%"}
-          py={{ base: 2, lg: 4 }}
+          py={2}
         >
           <Link href="/">
             <chakra.img
               src={
                 colorMode === "light"
                   ? isMobile
-                    ? "/static/market-logo.png"
-                    : "/static/logo-black-text.png"
+                    ? "/static/market-symbol.svg"
+                    : "/static/blacktext-market.svg"
                   : isMobile
-                  ? "/static/market-logo.png"
-                  : "/static/logo-text.png"
+                  ? "/static/market-symbol.svg"
+                  : "/static/whitetext-market.svg"
               }
               alt="market logo"
-              w={isMobile ? "auto" : "40"}
-              h={isMobile ? "36px" : "auto"}
-              mt={isMobile ? 0 : 2}
+              w={isMobile ? "auto" : "30"}
+              h={isMobile ? "40px" : "auto"}
             />
           </Link>
           <Box display="flex" flexDir="row">
@@ -262,6 +261,7 @@ const FuseNavbar = () => {
           </Box>
         </Flex>
       </Box>
+      <Divider />
     </>
   );
 };

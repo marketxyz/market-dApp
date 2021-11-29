@@ -17,6 +17,7 @@ import {
   Spinner,
   useColorModeValue,
   Divider,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 
 import BigNumber from "bignumber.js";
@@ -581,13 +582,14 @@ const AmountSelect = ({
                 ? asset.underlyingName
                 : asset.underlyingSymbol}
             </Heading>
+            <ModalCloseButton />
           </Row>
 
           <Column
             mainAxisAlignment="flex-start"
             crossAxisAlignment="center"
             px={4}
-            pb={3}
+            pb={7}
             pt={1}
             height="100%"
             width={"100%"}
@@ -666,7 +668,7 @@ const AmountSelect = ({
               fontWeight="extrabold"
               fontSize={15}
               borderRadius={12}
-              width="100%"
+              width="94%"
               height="60px"
               bgGradient="linear(to-br, #CA0066, #9031D9)"
               color={"white"}
@@ -732,9 +734,12 @@ const TabBar = ({
 
   const tabText = useColorModeValue("gray.500", "gray.100");
   const tabColor = useColorModeValue("gray.100", "mktgray.700");
-  const selectedText = useColorModeValue("#2f2f2f", "white");
-  const selectedBg =
-    "linear(to-br, rgba(202, 0, 102, 0.08), rgba(144, 49, 217, 0.08))";
+  const selectedText = useColorModeValue("white", "white");
+  const borderColor = useColorModeValue("pink.400", "pink.700")
+  const selectedBg = useColorModeValue(
+    "linear(to-br, rgba(202, 0, 102, 0.95), rgba(144, 49, 217, 0.55))",
+    "linear(to-br, rgba(202, 0, 102, 0.18), rgba(144, 49, 217, 0.28))"
+  );
 
   return (
     <>
@@ -764,7 +769,7 @@ const TabBar = ({
                   fontWeight="bold"
                   _selected={{
                     border: "1px",
-                    borderColor: "pink.600",
+                    borderColor: borderColor,
                     color: selectedText,
                     bgGradient: selectedBg,
                   }}
@@ -780,7 +785,7 @@ const TabBar = ({
                   fontWeight="bold"
                   _selected={{
                     border: "1px",
-                    borderColor: "pink.600",
+                    borderColor: borderColor,
                     color: selectedText,
                     bgGradient: selectedBg,
                   }}
@@ -799,7 +804,7 @@ const TabBar = ({
                   fontWeight="bold"
                   _selected={{
                     border: "1px",
-                    borderColor: "pink.600",
+                    borderColor: borderColor,
                     color: selectedText,
                     bgGradient: selectedBg,
                   }}
@@ -815,7 +820,7 @@ const TabBar = ({
                   fontWeight="bold"
                   _selected={{
                     border: "1px",
-                    borderColor: "pink.600",
+                    borderColor: borderColor,
                     color: selectedText,
                     bgGradient: selectedBg,
                   }}
@@ -1080,7 +1085,7 @@ const StatsColumn = ({
             <Text fontWeight="normal" color={propertyText} flexShrink={0}>
               {isSupplyingOrWithdrawing ? t("Supply APY") : t("Borrow APR")}:
             </Text>
-            <Text fontWeight="bold">
+            <Text textAlign={"right"} fontWeight="bold">
               {isSupplyingOrWithdrawing
                 ? supplyAPY.toFixed(2)
                 : borrowAPR.toFixed(2)}

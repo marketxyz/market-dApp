@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Box,
   Heading,
@@ -8,6 +9,10 @@ import {
   useClipboard,
   Skeleton,
   useColorModeValue,
+  Table,
+  Tr,
+  Td,
+  Tbody,
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import Chart from "react-apexcharts";
@@ -17,7 +22,6 @@ import {
   Center,
   Column,
   Row,
-  RowOnDesktopColumnOnMobile,
   RowOrColumn,
   useIsMobile,
 } from "utils/chakraUtils";
@@ -141,9 +145,10 @@ export const PoolInfoBox = ({
       bgColor={bgColor}
     >
       <PoolDashboardBox
+        borderRadius={12}
         width={isMobile ? "100%" : "50%"}
-        mt={4}
         height={isMobile ? "auto" : "450px"}
+        mt={4}
       >
         {data ? (
           <OracleAndInterestRates
@@ -161,8 +166,9 @@ export const PoolInfoBox = ({
       <PoolDashboardBox
         ml={isMobile ? 0 : 4}
         width={isMobile ? "100%" : "50%"}
+        borderRadius={12}
+        height={"100%"}
         mt={4}
-        height={isMobile ? "500px" : "450px"}
       >
         {data ? (
           data.assets.length > 0 ? (
@@ -207,6 +213,7 @@ const OracleAndInterestRates = ({
       crossAxisAlignment="flex-start"
       height="100%"
       width="100%"
+      pb={2}
     >
       <Row
         mainAxisAlignment="space-between"
@@ -224,11 +231,17 @@ const OracleAndInterestRates = ({
           ml="auto"
           href={`https://metrics.market.xyz/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
         >
-          <PoolDashboardBox height="35px">
+          <Box
+            p={5}
+            borderRadius={"lg"}
+            bgColor={useColorModeValue("gray.50", "mktgray.700")}
+            height="35px"
+          >
             <Center expand px={2} fontWeight="bold">
               Metrics
+              <ExternalLinkIcon ml={2} />
             </Center>
-          </PoolDashboardBox>
+          </Box>
         </Link>
 
         {data?.isPowerfulAdmin ? (
@@ -247,76 +260,72 @@ const OracleAndInterestRates = ({
           </Link>
         ) : null}
       </Row>
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="flex-start"
-        my={5}
-        px={4}
-        width="100%"
-      >
-        <StatRow
-          statATitle={"Total Supplied"}
-          statA={shortUsdFormatter(totalSuppliedUSD)}
-          statBTitle={"Total Borrowed"}
-          statB={shortUsdFormatter(totalBorrowedUSD)}
-        />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
+      <Table variant={"simple"} size={"sm"} width="100%" height={"100%"}>
+        <Tbody>
+          <StatRow
+            statATitle={"Total Supplied"}
+            statA={shortUsdFormatter(totalSuppliedUSD)}
+            statBTitle={"Total Borrowed"}
+            statB={shortUsdFormatter(totalBorrowedUSD)}
+          />
 
-        <StatRow
-          statATitle={"Available Liquidity"}
-          statA={shortUsdFormatter(totalLiquidityUSD)}
-          statBTitle={"Pool Utilization"}
-          statB={
-            totalSuppliedUSD.toString() === "0"
-              ? "0%"
-              : ((totalBorrowedUSD / totalSuppliedUSD) * 100).toFixed(2) + "%"
-          }
-        />
+          <StatRow
+            statATitle={"Available Liquidity"}
+            statA={shortUsdFormatter(totalLiquidityUSD)}
+            statBTitle={"Pool Utilization"}
+            statB={
+              totalSuppliedUSD.toString() === "0"
+                ? "0%"
+                : ((totalBorrowedUSD / totalSuppliedUSD) * 100).toFixed(2) + "%"
+            }
+          />
 
-        <StatRow
-          statATitle={"Upgradeable"}
-          statA={data ? (data.upgradeable ? "Yes" : "No") : "?"}
-          statBTitle={hasCopied ? "Admin (copied!)" : "Admin (click to copy)"}
-          statB={data?.admin ? shortAddress(data.admin) : "?"}
-          onClick={onCopy}
-        />
+          <StatRow
+            statATitle={"Upgradeable"}
+            statA={data ? (data.upgradeable ? "Yes" : "No") : "?"}
+            statBTitle={hasCopied ? "Admin (copied!)" : "Admin (click to copy)"}
+            statB={data?.admin ? shortAddress(data.admin) : "?"}
+            onClick={onCopy}
+          />
 
-        <StatRow
-          statATitle={"Platform Fee"}
-          statA={
-            assets.length > 0
-              ? (assets[0].fuseFee / 1e16).toPrecision(2) + "%"
-              : "10%"
-          }
-          statBTitle={"Average Admin Fee"}
-          statB={
-            assets
-              .reduce(
-                (a, b, _, { length }) => a + b.adminFee / 1e16 / length,
-                0
-              )
-              .toFixed(1) + "%"
-          }
-        />
+          <StatRow
+            statATitle={"Platform Fee"}
+            statA={
+              assets.length > 0
+                ? (assets[0].fuseFee / 1e16).toPrecision(2) + "%"
+                : "10%"
+            }
+            statBTitle={"Average Admin Fee"}
+            statB={
+              assets
+                .reduce(
+                  (a, b, _, { length }) => a + b.adminFee / 1e16 / length,
+                  0
+                )
+                .toFixed(1) + "%"
+            }
+          />
 
-        <StatRow
-          statATitle={"Close Factor"}
-          statA={data?.closeFactor ? data.closeFactor / 1e16 + "%" : "?%"}
-          statBTitle={"Liquidation Incentive"}
-          statB={
-            data?.liquidationIncentive
-              ? data.liquidationIncentive / 1e16 - 100 + "%"
-              : "?%"
-          }
-        />
+          <StatRow
+            statATitle={"Close Factor"}
+            statA={data?.closeFactor ? data.closeFactor / 1e16 + "%" : "?%"}
+            statBTitle={"Liquidation Incentive"}
+            statB={
+              data?.liquidationIncentive
+                ? data.liquidationIncentive / 1e16 - 100 + "%"
+                : "?%"
+            }
+          />
 
-        <StatRow
-          statATitle={"Oracle"}
-          statA={data ? data.oracle ?? "Unrecognized Oracle" : "?"}
-          statBTitle={"Whitelist"}
-          statB={data ? (data.enforceWhitelist ? "Yes" : "No") : "?"}
-        />
-      </Column>
+          <StatRow
+            statATitle={"Oracle"}
+            statA={data ? data.oracle ?? "Unrecognized Oracle" : "?"}
+            statBTitle={"Whitelist"}
+            statB={data ? (data.enforceWhitelist ? "Yes" : "No") : "?"}
+          />
+        </Tbody>
+      </Table>
     </Column>
   );
 };
@@ -335,21 +344,32 @@ const StatRow = ({
   [key: string]: any;
 }) => {
   return (
-    <RowOnDesktopColumnOnMobile
-      mainAxisAlignment="center"
-      crossAxisAlignment="center"
-      width="100%"
-      mb={4}
+    <Tr
+      // border={"1px"}
+      // borderColor={useColorModeValue("gray.50", "gray.700")}
+      // p={4}
       {...other}
     >
-      <Text width="50%" textAlign="center">
+      <Td
+        fontSize={{ base: "3vw", sm: "0.9rem" }}
+        wordBreak={"break-all"}
+        width={"50%"}
+        lineHeight={1.5}
+        textAlign="left"
+      >
         {statATitle}: <b>{statA}</b>
-      </Text>
+      </Td>
 
-      <Text width="50%" textAlign="center">
+      <Td
+        fontSize={{ base: "3vw", sm: "0.9rem" }}
+        wordBreak={"break-all"}
+        width={"50%"}
+        lineHeight={1.5}
+        textAlign="left"
+      >
         {statBTitle}: <b>{statB}</b>
-      </Text>
-    </RowOnDesktopColumnOnMobile>
+      </Td>
+    </Tr>
   );
 };
 
@@ -401,6 +421,8 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 
   const isMobile = useIsMobile();
   const borrowLineColor = useColorModeValue("#2D3748", "#fff");
+  const bgColor = useColorModeValue("gray.50", "mktgray.700");
+  const textColor = useColorModeValue("#2f2f2f", "white");
 
   return (
     <Column
@@ -424,8 +446,8 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Heading>
 
         <Select
-          bgColor="white"
-          textColor="black"
+          bgColor={bgColor}
+          textColor={textColor}
           borderRadius="7px"
           fontWeight="bold"
           width="130px"
@@ -444,7 +466,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         </Select>
       </Row>
 
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
 
       <Box
         height="200px"
@@ -531,7 +553,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         )}
       </Box>
 
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
 
       <Row
         mainAxisAlignment="space-around"
@@ -561,7 +583,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
         />
       </Row>
 
-      <ModalDivider bg={useColorModeValue("gray.200", "gray.600")} />
+      <ModalDivider bg={useColorModeValue("gray.200", "gray.700")} />
 
       <Row
         mainAxisAlignment="space-around"

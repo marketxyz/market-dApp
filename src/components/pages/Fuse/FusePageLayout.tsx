@@ -1,4 +1,4 @@
-import { Divider, Flex, useColorModeValue, VStack } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import FuseNavbar from "./FuseNavbar";
 
@@ -16,7 +16,6 @@ const FusePageLayout = ({ children }: FusePageLayoutProps) => {
       bgColor={useColorModeValue("white", "gray.900")}
       justifyContent="flex-start"
     >
-      <VStack overflowY="hidden" position="relative" w="100%">
         {/* <chakra.div
           bgColor="#ff00b3"
           h="800px"
@@ -40,9 +39,6 @@ const FusePageLayout = ({ children }: FusePageLayoutProps) => {
           transform="translate(-50%, -50%)"
         /> */}
         <FuseNavbar />
-        <Divider orientation="horizontal" />
-        {/* <FuseHeader /> */}
-      </VStack>
       {children}
     </Flex>
   );

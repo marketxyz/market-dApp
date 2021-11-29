@@ -1,5 +1,4 @@
 import { Dispatch, useState } from "react";
-
 import {
   Text,
   Box,
@@ -150,47 +149,53 @@ const PoolButtons = ({
   searchText: string;
   setSearchText: Dispatch<string>;
 }) => {
-  const gradient = useColorModeValue(
-    "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)",
-    "linear-gradient(109.28deg, #F21587 1.05%, #B476EA 89.98%)"
-  );
-  const whiteAlpha = useColorModeValue("gray.200", "rgba(255, 255, 255, 0.08)");
+  const whiteAlpha =
+    "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
+  const inactiveText = useColorModeValue("gray.600", "gray.400");
   const selectedTextColor = "white";
-  const unselectedTextColor = useColorModeValue("black", "white");
   const isAllPoolSelected = searchText === "";
   const isMyPoolSelected = searchText === "my-pools";
+  const selectedText = useColorModeValue("white", "white");
+  const selectedBg = useColorModeValue(
+    "linear(to-br, rgba(202, 0, 102, 1.25), rgba(144, 49, 217, 0.75))",
+    "linear(to-br, rgba(202, 0, 102, 2.6), rgba(144, 49, 217, 3.75))"
+  );
+
   return (
     <ButtonGroup spacing={3} mt={{ base: 4, lg: 0 }}>
       <Button
+        as={"button"}
         borderRadius={"xl"}
-        background={isAllPoolSelected ? gradient : whiteAlpha}
+        px={4}
+        bgGradient={isAllPoolSelected ? selectedBg : whiteAlpha}
         opacity={isAllPoolSelected ? "1" : "0.8"}
         fontFamily={"heading"}
         _hover={{
           opacity: isAllPoolSelected ? "0.8" : "1",
         }}
+        fontWeight={"bold"}
+        color={isAllPoolSelected ? selectedText : inactiveText}
+        bgClip={"border-box"}
         _active={{
-          background: gradient,
-          opacity: "1",
-          color: selectedTextColor,
+          opacity: isMyPoolSelected ? "0.8" : "1",
+          // color: selectedTextColor,
         }}
-        color={isAllPoolSelected ? selectedTextColor : unselectedTextColor}
         onClick={() => setSearchText("")}
       >
         All Pools
       </Button>
       <Button
         onClick={() => setSearchText("my-pools")}
-        background={isMyPoolSelected ? gradient : whiteAlpha}
+        bgGradient={isMyPoolSelected ? selectedBg : whiteAlpha}
         opacity={isMyPoolSelected ? "1" : "0.8"}
         fontFamily={"heading"}
-        color={isMyPoolSelected ? selectedTextColor : unselectedTextColor}
+        color={isMyPoolSelected ? selectedText : inactiveText}
         _hover={{
           opacity: isMyPoolSelected ? "0.8" : "1",
         }}
         borderRadius={"xl"}
         _active={{
-          background: gradient,
+          background: selectedBg,
           opacity: "1",
           color: selectedTextColor,
         }}
