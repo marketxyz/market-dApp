@@ -77,7 +77,6 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
-import { isMobile } from "web3modal";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -135,7 +134,7 @@ const FusePoolPage = memo(() => {
       >
         <FuseNavbar />
         <HStack
-          width={isMobile ? "90%" : "100%"}
+          width={"90%"}
           my={8}
           mx="auto"
           maxW={{ lg: "1200px" }}
@@ -176,7 +175,7 @@ const FusePoolPage = memo(() => {
           as="section"
           bg={"bgColor"}
           py="4"
-          width={isMobile ? "90%" : "100%"}
+          width={"90%"}
           alignSelf={"center"}
         >
           <Box maxW="1200px" mx="auto">
@@ -240,7 +239,7 @@ const FusePoolPage = memo(() => {
             </SimpleGrid>
           </Box>
         </Box>
-        <Tabs alignSelf={"center"} mt={4} width={"100%"} maxW={{ lg: "1200px" }} variant="soft-rounded" colorScheme="blue">
+        <Tabs alignSelf={"center"} mt={4} width={"90%"} maxW={{ lg: "1200px" }} variant="soft-rounded" colorScheme="blue">
           <TabList>
             <Tab borderRadius={"xl"}>Supply/Borrow</Tab>
             <Tab borderRadius={"xl"}>Pool Info</Tab>
@@ -257,7 +256,7 @@ const FusePoolPage = memo(() => {
                 ) : null
               }
               <RowOrColumn
-                width={isMobile ? "100%" : "100%"}
+                width={"100%"}
                 mainAxisAlignment="flex-start"
                 crossAxisAlignment={isMobile ? "center" : "flex-start"}
                 maxW={{ lg: "1200px" }}
@@ -269,7 +268,7 @@ const FusePoolPage = memo(() => {
               >
                 <PoolDashboardBox
                   pb={2}
-                  width={isMobile ? "90%" : "50%"}
+                  width={isMobile ? "100%" : "50%"}
                   borderRadius={12}
                 >
                   {data ? (
@@ -288,7 +287,7 @@ const FusePoolPage = memo(() => {
                   mt={isMobile ? 4 : 0}
                   pb={2}
                   borderRadius={12}
-                  width={isMobile ? "90%" : "50%"}
+                  width={isMobile ? "100%" : "50%"}
                 >
                   {data ? (
                     <BorrowList
@@ -358,11 +357,9 @@ const CollateralRatioBar = ({
     }
   }, [ratio]);
 
-  const isMobile = useIsSemiSmallScreen();
-
   return (
     <PoolDashboardBox
-      width={isMobile ? "90%" : "100%"}
+      width={"100%"}
       maxW={{ lg: "1200px" }}
       height="65px"
       mt={4}
