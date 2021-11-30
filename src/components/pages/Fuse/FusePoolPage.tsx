@@ -31,6 +31,11 @@ import {
   Td,
   Thead,
   TableCaption,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
@@ -72,6 +77,7 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { isMobile } from "web3modal";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -129,7 +135,7 @@ const FusePoolPage = memo(() => {
       >
         <FuseNavbar />
         <HStack
-          width={"90%"}
+          width={isMobile ? "90%" : "100%"}
           my={8}
           mx="auto"
           maxW={{ lg: "1200px" }}
@@ -170,11 +176,11 @@ const FusePoolPage = memo(() => {
           as="section"
           bg={"bgColor"}
           py="4"
-          width={{ base: "90%", xl: "100%" }}
+          width={isMobile ? "90%" : "100%"}
           alignSelf={"center"}
         >
           <Box maxW="1200px" mx="auto">
-            <Heading marginBottom={"4"} fontWeight="semibold" fontSize={"2xl"}>
+            <Heading mb={"4"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
             </Heading>
             <SimpleGrid columns={{ base: 2, md: 4 }} spacing="4">
@@ -234,61 +240,73 @@ const FusePoolPage = memo(() => {
             </SimpleGrid>
           </Box>
         </Box>
-        {
-          /* If they have some asset enabled as collateral, show the collateral ratio bar */
-          data && data.assets.some((asset) => asset.membership) ? (
-            <CollateralRatioBar
-              assets={data.assets}
-              borrowUSD={data.totalBorrowBalanceUSD}
-            />
-          ) : null
-        }
-        <RowOrColumn
-          width={isMobile ? "100%" : "90%"}
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment={isMobile ? "center" : "flex-start"}
-          maxW={{ lg: "1200px" }}
-          bgColor={bgColor}
-          mx="auto"
-          mt={4}
-          pb={4}
-          isRow={!isMobile}
-        >
-          <PoolDashboardBox
-            pb={2}
-            width={isMobile ? "90%" : "50%"}
-            borderRadius={12}
-          >
-            {data ? (
-              <SupplyList
-                assets={data.assets}
-                comptrollerAddress={data.comptroller}
-                supplyBalanceUSD={data.totalSupplyBalanceUSD}
-              />
-            ) : (
-              <TableSkeleton tableHeading="Your Supply Balance" />
-            )}
-          </PoolDashboardBox>
+        <Tabs alignSelf={"center"} mt={4} width={"100%"} maxW={{ lg: "1200px" }} variant="soft-rounded" colorScheme="blue">
+          <TabList>
+            <Tab borderRadius={"xl"}>Supply/Borrow</Tab>
+            <Tab borderRadius={"xl"}>Pool Info</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel px={0}>
+              {
+                /* If they have some asset enabled as collateral, show the collateral ratio bar */
+                data && data.assets.some((asset) => asset.membership) ? (
+                  <CollateralRatioBar
+                    assets={data.assets}
+                    borrowUSD={data.totalBorrowBalanceUSD}
+                  />
+                ) : null
+              }
+              <RowOrColumn
+                width={isMobile ? "100%" : "100%"}
+                mainAxisAlignment="flex-start"
+                crossAxisAlignment={isMobile ? "center" : "flex-start"}
+                maxW={{ lg: "1200px" }}
+                bgColor={bgColor}
+                mx="auto"
+                mt={4}
+                pb={4}
+                isRow={!isMobile}
+              >
+                <PoolDashboardBox
+                  pb={2}
+                  width={isMobile ? "90%" : "50%"}
+                  borderRadius={12}
+                >
+                  {data ? (
+                    <SupplyList
+                      assets={data.assets}
+                      comptrollerAddress={data.comptroller}
+                      supplyBalanceUSD={data.totalSupplyBalanceUSD}
+                    />
+                  ) : (
+                    <TableSkeleton tableHeading="Your Supply Balance" />
+                  )}
+                </PoolDashboardBox>
 
-          <PoolDashboardBox
-            ml={isMobile ? 0 : 4}
-            mt={isMobile ? 4 : 0}
-            pb={2}
-            borderRadius={12}
-            width={isMobile ? "90%" : "50%"}
-          >
-            {data ? (
-              <BorrowList
-                comptrollerAddress={data.comptroller}
-                assets={data.assets}
-                borrowBalanceUSD={data.totalBorrowBalanceUSD}
-              />
-            ) : (
-              <TableSkeleton tableHeading="Your Borrow Balance" />
-            )}
-          </PoolDashboardBox>
-        </RowOrColumn>
-        <PoolInfoBox data={data} />
+                <PoolDashboardBox
+                  ml={isMobile ? 0 : 4}
+                  mt={isMobile ? 4 : 0}
+                  pb={2}
+                  borderRadius={12}
+                  width={isMobile ? "90%" : "50%"}
+                >
+                  {data ? (
+                    <BorrowList
+                      comptrollerAddress={data.comptroller}
+                      assets={data.assets}
+                      borrowBalanceUSD={data.totalBorrowBalanceUSD}
+                    />
+                  ) : (
+                    <TableSkeleton tableHeading="Your Borrow Balance" />
+                  )}
+                </PoolDashboardBox>
+              </RowOrColumn>
+            </TabPanel>
+            <TabPanel px={0}>
+              <PoolInfoBox data={data} />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
         <Box h={"20"}></Box>
       </Flex>
     </PageTransitionLayout>
@@ -340,9 +358,11 @@ const CollateralRatioBar = ({
     }
   }, [ratio]);
 
+  const isMobile = useIsSemiSmallScreen();
+
   return (
     <PoolDashboardBox
-      width={"90%"}
+      width={isMobile ? "90%" : "100%"}
       maxW={{ lg: "1200px" }}
       height="65px"
       mt={4}
