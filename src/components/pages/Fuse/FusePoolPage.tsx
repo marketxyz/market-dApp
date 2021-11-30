@@ -239,7 +239,7 @@ const FusePoolPage = memo(() => {
             </SimpleGrid>
           </Box>
         </Box>
-        <Tabs alignSelf={"center"} mt={4} width={"90%"} maxW={{ lg: "1200px" }} variant="soft-rounded" colorScheme="blue">
+        <Tabs alignSelf={"center"} mt={4} width={"90%"} maxW={{ lg: "1200px" }} variant="soft-rounded" colorScheme="purple">
           <TabList>
             <Tab borderRadius={"xl"}>Supply/Borrow</Tab>
             <Tab borderRadius={"xl"}>Pool Info</Tab>
