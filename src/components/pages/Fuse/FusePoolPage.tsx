@@ -33,9 +33,10 @@ import {
   TableCaption,
   Tabs,
   TabList,
-  Tab,
   TabPanels,
   TabPanel,
+  useTab,
+  forwardRef,
 } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
@@ -47,7 +48,7 @@ import { useFusePoolData } from "hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "hooks/useIsSemiSmallScreen";
 import { useTokenData } from "hooks/useTokenData";
 import LogRocket from "logrocket";
-import { memo, useEffect } from "react";
+import React, { memo, useEffect } from "react";
 // Hooks
 import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "react-query";
@@ -109,6 +110,43 @@ const Stat = (props: StatProps) => (
     {...props}
   />
 );
+
+const MktTab = forwardRef((props, ref) => {
+  const activeBorder = useColorModeValue(
+    "linear(to-br, rgba(202, 0, 102, 1.25), rgba(144, 49, 217, 0.75))",
+    "linear(to-br, rgba(202, 0, 102, 2.6), rgba(144, 49, 217, 3.75))"
+  );
+
+  const inactiveBorder =
+    "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
+
+  // const styles = useStyles();
+  const tabProps = useTab({ ...props, ref });
+  const isSelected = !!tabProps["aria-selected"];
+
+  return (
+    <Box
+      mr={2}
+      p={"2px"}
+      borderRadius={"xl"}
+      bgGradient={isSelected ? activeBorder : inactiveBorder}
+      fontWeight={isSelected ? "bold" : "normal"}
+      cursor={"pointer"}
+      {...tabProps}
+    >
+      <Center
+        bg={isSelected ? "gray.800" : "gray.800"}
+        width={"10rem"}
+        height={"2.5rem"}
+        p={2}
+        borderRadius={"xl"}
+        fontSize={"14px"}
+      >
+        {tabProps.children}
+      </Center>
+    </Box>
+  );
+});
 
 const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
 const scanner =
@@ -239,10 +277,17 @@ const FusePoolPage = memo(() => {
             </SimpleGrid>
           </Box>
         </Box>
-        <Tabs alignSelf={"center"} mt={4} width={"90%"} maxW={{ lg: "1200px" }} variant="soft-rounded" colorScheme="purple">
+        <Tabs
+          alignSelf={"center"}
+          mt={4}
+          width={"90%"}
+          maxW={{ lg: "1200px" }}
+          variant="unstyled"
+          colorScheme="purple"
+        >
           <TabList>
-            <Tab borderRadius={"xl"}>Supply/Borrow</Tab>
-            <Tab borderRadius={"xl"}>Pool Info</Tab>
+            <MktTab>Supply/Borrow</MktTab>
+            <MktTab>Pool Info</MktTab>
           </TabList>
           <TabPanels>
             <TabPanel px={0}>
