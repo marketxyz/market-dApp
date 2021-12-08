@@ -102,7 +102,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       image: { small },
     } = rawData;
 
-    symbol = _symbol == _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
+    symbol = _symbol === _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
     name = _name;
     logoURL = small;
   }
