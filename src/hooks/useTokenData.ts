@@ -22,6 +22,7 @@ export interface TokenData {
   decimals: number | null;
   color: string | null;
   overlayTextColor: string | null;
+  currPrice: number | null;
   logoURL: string | null;
   extraData: Record<any, any>;
 }
@@ -65,6 +66,7 @@ export const fetchTokenData = async (address: string) => {
         color: null,
         overlayTextColor: null,
         logoURL: null,
+        currPrice: null,
         extraData: {},
       };
     }

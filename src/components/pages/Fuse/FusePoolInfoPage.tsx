@@ -14,7 +14,7 @@ import {
   Td,
   Tbody,
 } from "@chakra-ui/react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import Chart from "react-apexcharts";
 import { useQuery } from "react-query";
 import { Link as RouterLink, useParams } from "react-router-dom";
@@ -28,7 +28,6 @@ import {
 import { useRari } from "../../../context/RariContext";
 import Fuse from "../../../fuse-sdk";
 import { useFusePoolData } from "../../../hooks/useFusePoolData";
-import { useIsSemiSmallScreen } from "../../../hooks/useIsSemiSmallScreen";
 import { useTokenData } from "../../../hooks/useTokenData";
 import { shortUsdFormatter } from "../../../utils/bigUtils";
 import { FuseUtilizationChartOptions } from "../../../utils/chartOptions";
@@ -38,8 +37,6 @@ import { shortAddress } from "../../../utils/shortAddress";
 import CaptionedStat from "../../shared/CaptionedStat";
 import { ModalDivider } from "../../shared/Modal";
 import { PoolDashboardBox } from "./FusePoolPage";
-import FuseStatsBar from "./FuseStatsBar";
-import FuseTabBar from "./FuseTabBar";
 
 export const useExtraPoolInfo = (comptrollerAddress: string) => {
   const { fuse, address } = useRari();
@@ -102,30 +99,6 @@ export const useExtraPoolInfo = (comptrollerAddress: string) => {
   return data;
 };
 
-const FusePoolInfoPage = memo(() => {
-  const isMobile = useIsSemiSmallScreen();
-  const { poolId } = useParams();
-  const data = useFusePoolData(poolId);
-
-  return (
-    <>
-      <Column
-        mainAxisAlignment="flex-start"
-        crossAxisAlignment="center"
-        color="#FFFFFF"
-        mx="auto"
-        width={isMobile ? "100%" : "1150px"}
-        height="100%"
-        px={isMobile ? 4 : 0}
-      >
-        <FuseStatsBar />
-        <FuseTabBar />
-        <PoolInfoBox data={data} />
-      </Column>
-    </>
-  );
-});
-
 export const PoolInfoBox = ({
   data,
 }: {
@@ -183,8 +156,6 @@ export const PoolInfoBox = ({
     </RowOrColumn>
   );
 };
-
-export default FusePoolInfoPage;
 
 const OracleAndInterestRates = ({
   assets,

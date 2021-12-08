@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import Vibrant from "node-vibrant";
 import { Palette } from "node-vibrant/lib/color";
 import fetch from "node-fetch";
@@ -64,6 +65,16 @@ export default async (request: VercelRequest, response: VercelResponse) => {
         address
     ).then((res) => res.json()),
   ]);
+
+  let currPrice: number | undefined;
+
+  await fetch(
+    `https://api.coingecko.com/api/v3/simple/token_price/${coingeckoNetwork}?contract_addresses=${address}&vs_currencies=usd`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      if(data){currPrice = data[address.toLowerCase()].usd;}
+    });
 
   let name: string;
   let symbol: string;
@@ -311,21 +322,22 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
   let color: Palette;
   try {
-    if (logoURL == undefined) {
+    if (logoURL === undefined) {
       // If we have no logo no need to try to get the color
       // just go to the catch block and return the default logo.
-      throw "Go to the catch block";
+      throw Error("Go to the catch block");
     }
 
     color = await Vibrant.from(logoURL).getPalette();
     if (!color.Vibrant) {
-      throw "Go to the catch block";
+      throw Error("Go to the catch block");
     }
   } catch (error) {
     return response.json({
       ...basicTokenInfo,
       color: "#FFFFFF",
       overlayTextColor: "#000",
+      currPriceUSD: currPrice,
       logoURL:
         logoURL ??
         "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg",
@@ -337,6 +349,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     ...basicTokenInfo,
     color: color.Vibrant.getHex(),
     overlayTextColor: color.Vibrant.getTitleTextColor(),
+    currPriceUSD: currPrice,
     logoURL,
     address,
   });

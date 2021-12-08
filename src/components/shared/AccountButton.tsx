@@ -12,7 +12,6 @@ import {
   useColorModeValue,
   Image,
   ButtonProps,
-  Divider,
   ModalCloseButton,
   ModalHeader,
 } from "@chakra-ui/react";
@@ -23,7 +22,6 @@ import DashboardBox from "./DashboardBox";
 import { shortAddress } from "../../utils/shortAddress";
 
 import { useTranslation } from "react-i18next";
-import { MODAL_PROPS, ModalDivider, ModalTitleWithCloseButton } from "./Modal";
 import { LanguageSelect } from "./TranslateButton";
 
 import { version } from "../..";
