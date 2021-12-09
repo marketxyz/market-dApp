@@ -73,7 +73,9 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      if(data){currPrice = data[address.toLowerCase()].usd;}
+      if (data[address.toLowerCase()]) {
+        currPrice = data[address.toLowerCase()].usd;
+      }
     });
 
   let name: string;
@@ -102,7 +104,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       image: { small },
     } = rawData;
 
-    symbol = _symbol === _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
+    symbol =
+      _symbol === _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
     name = _name;
     logoURL = small;
   }
@@ -337,7 +340,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       ...basicTokenInfo,
       color: "#FFFFFF",
       overlayTextColor: "#000",
-      currPriceUSD: currPrice,
+      currPrice: currPrice,
       logoURL:
         logoURL ??
         "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg",
@@ -345,11 +348,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     });
   }
 
+  console.log("basicTokenInfo", basicTokenInfo)
+
   return response.json({
     ...basicTokenInfo,
     color: color.Vibrant.getHex(),
     overlayTextColor: color.Vibrant.getTitleTextColor(),
-    currPriceUSD: currPrice,
+    currPrice: currPrice,
     logoURL,
     address,
   });
