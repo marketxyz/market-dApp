@@ -10,7 +10,7 @@ export const useAssetRSS = (address: string) => {
         (process.env.NODE_ENV === "development"
           ? process.env.REACT_APP_DEV_API_HOST
           : "") +
-          "/api/rss?address=" +
+          "api/rss?address=" +
           address
       )
         .then((res) => res.json())
@@ -74,7 +74,7 @@ export const usePoolRSS = (poolId: string | number) => {
         (process.env.NODE_ENV === "development"
           ? process.env.REACT_APP_DEV_API_HOST
           : "") +
-          "/api/rss?poolID=" +
+          "api/rss?poolID=" +
           poolId
       )
         .then((res) => res.json())
