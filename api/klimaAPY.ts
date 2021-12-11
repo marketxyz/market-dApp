@@ -2,7 +2,7 @@ import { infuraURL } from "../src/utils/web3Providers";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import Web3 from "web3";
 /// @dev this is taken from:
-// https://github.com/KlimaDAO/klimadao/blob/9f87870b5822463e9ea0aa6b4214ce964cfdbf79/lib/utils/getStakingAPY/index.ts#L7
+// https://github.com/KlimaDAO/klimadao/blob/0f3841ac674c7f0de2d032c7a6ba2fcf0ea946bb/lib/utils/getStakingAPY/index.ts#L7
 
 const sklimaABI = [
   {
@@ -41,6 +41,30 @@ const distributorV4ABI = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "info",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "rate",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ];
 
 export default async (_req: VercelRequest, res: VercelResponse) => {
@@ -57,12 +81,16 @@ export default async (_req: VercelRequest, res: VercelResponse) => {
     "0x4cC7584C3f8FAABf734374ef129dF17c3517e9cB"
   );
 
+  const ESTIMATED_DAILY_REBASES = 3.28;
   const circSupply = await sKLIMA.methods.circulatingSupply().call();
-  const stakingReward = await distributorv4.methods.nextRewardAt(5000).call();
+  const { rate } = await distributorv4.methods.info(0).call();
+  const stakingReward = await distributorv4.methods.nextRewardAt(rate).call();
 
   const stakingRebase = Number(stakingReward) / Number(circSupply);
   const stakingAPY =
-    Math.floor(Math.pow(1 + stakingRebase, 365 * 3) * 100) / 100;
+    Math.floor(
+      Math.pow(1 + stakingRebase, 365 * ESTIMATED_DAILY_REBASES) * 100
+    ) / 100;
   console.log(stakingAPY);
 
   return res.json({
