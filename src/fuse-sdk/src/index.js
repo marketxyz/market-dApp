@@ -2,8 +2,6 @@
 import Web3 from "web3";
 
 import JumpRateModel from "./irm/JumpRateModel.js";
-import DAIInterestRateModelV2 from "./irm/DAIInterestRateModelV2.js";
-import WhitePaperInterestRateModel from "./irm/WhitePaperInterestRateModel.js";
 import JumpRateModelV2 from "./irm/JumpRateModelV2.js";
 
 import BigNumber from "bignumber.js";
@@ -31,33 +29,9 @@ export default class Fuse {
   static FUSE_POOL_LENS_CONTRACT_ADDRESS =
     addressList.FUSE_POOL_LENS_CONTRACT_ADDRESS;
 
-  static COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS =
-    addressList.COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS;
-  static CERC20_DELEGATE_CONTRACT_ADDRESS =
-    addressList.CERC20_DELEGATE_CONTRACT_ADDRESS;
-  static CETHER_DELEGATE_CONTRACT_ADDRESS =
-    addressList.CETHER_DELEGATE_CONTRACT_ADDRESS;
-
-  static OPEN_ORACLE_PRICE_DATA_CONTRACT_ADDRESS =
-    addressList.OPEN_ORACLE_PRICE_DATA_CONTRACT_ADDRESS;
-  static COINBASE_PRO_REPORTER_ADDRESS =
-    addressList.COINBASE_PRO_REPORTER_ADDRESS;
-
-  static PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES =
-    addressList.PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES;
-
-  static DAI_POT = addressList.DAI_POT;
-  static DAI_JUG = addressList.DAI_JUG;
-
-  static UNISWAP_V2_FACTORY_ADDRESS = addressList.UNISWAP_V2_FACTORY_ADDRESS;
-  static UNISWAP_V2_PAIR_INIT_CODE_HASH =
-    addressList.UNISWAP_V2_PAIR_INIT_CODE_HASH;
-  static WETH_ADDRESS = addressList.WETH_ADDRESS;
-
-  static PRICE_ORACLE_RUNTIME_BYTECODE_HASHES =
-    addressList.PRICE_ORACLE_RUNTIME_BYTECODE_HASHES;
-
   static ORACLES = addressList.ORACLES;
+
+  static BYTECODE_HASHES = addressList.BYTECODE_HASHES;
 
   static PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES =
     addressList.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES;
@@ -105,8 +79,6 @@ export default class Fuse {
       var interestRateModels = {
         JumpRateModel: JumpRateModel,
         JumpRateModelV2: JumpRateModelV2,
-        DAIInterestRateModelV2: DAIInterestRateModelV2,
-        WhitePaperInterestRateModel: WhitePaperInterestRateModel,
       };
 
       var runtimeBytecodeHash = Web3.utils.sha3(
@@ -170,13 +142,8 @@ export default class Fuse {
       var runtimeBytecodeHash = Web3.utils.sha3(
         await this.web3.eth.getCode(oracleAddress)
       );
-      for (const model of Object.keys(
-        Fuse.PRICE_ORACLE_RUNTIME_BYTECODE_HASHES
-      ))
-        if (
-          runtimeBytecodeHash ==
-          Fuse.PRICE_ORACLE_RUNTIME_BYTECODE_HASHES[model]
-        )
+      for (const model of Object.keys(Fuse.BYTECODE_HASHES.oracle))
+        if (runtimeBytecodeHash == Fuse.BYTECODE_HASHES.oracle[model])
           return model;
       return null;
     };

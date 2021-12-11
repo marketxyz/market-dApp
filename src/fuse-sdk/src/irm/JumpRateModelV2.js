@@ -2,12 +2,12 @@ import Web3 from "web3";
 
 var contracts = require(__dirname +
   "/../abi/compound-protocol.min.json").contracts;
+var addrs = require(__dirname + "/../addrs.js");
 
+const chainId = parseInt(process.env.REACT_APP_CHAIN_ID) || 137;
 export default class JumpRateModelV2 {
   static RUNTIME_BYTECODE_HASH =
-    process.env.REACT_APP_CHAIN_ID === "1"
-      ? "0xc6df64d77d18236fa0e3a1bb939e979d14453af5c8287891decfb67710972c3c"
-      : "0xaa796b4e95fc4a251be212a81f0d67e43755807201603524833361f538f204b5";
+    addrs[chainId].BYTECODE_HASHES.irm.JumpRateModelV2;
 
   initialized;
 

@@ -8,35 +8,23 @@ module.exports = {
       "0xB1205172AAdaAd4c67318EA77A34C1F1CaA784EE",
     FUSE_POOL_LENS_CONTRACT_ADDRESS:
       "0xe4D84b252308645098846312286E6c6D2846DbB0",
-    COMPTROLLER_IMPLEMENTATION_CONTRACT_ADDRESS:
-      "0x2f6d8Ff753886AE2b49E0c3bB6504867F2977078",
-    CERC20_DELEGATE_CONTRACT_ADDRESS:
-      "0xCFA81742393B52c493b8d76E55FFE4992A5cfFd9",
-    PUBLIC_PRICE_ORACLE_CONTRACT_ADDRESSES: {
-      PreferredPriceOracle_V2_Quick_USDC:
-        "0xCc5F01efd5647C77861Ce15C923731f9e27E3132",
-      MasterPriceOracle_V2_BEEFY_LP:
-        "0x606AF64e16bF85F587E9ac27Fa2e8461C5258321",
-      MasterPriceOracle_V2_KLIMA: "0xd9b7b49a2e95c56c115ecf3d3f2546aaaa8f0a35",
+    BYTECODE_HASHES: {
+      oracle: {
+        "PreferredPriceOracleV2 Quickswap USDC":
+          "0xe6a7eb0795fc9c5e05048d191246ac01efaff82eac6c8c981ed0b475e89e77a9",
+        "MasterPriceOracleV2 Beefy":
+          "0x567982b74679a69cfb2ae6b114951562cc80d6790d0c2fdb9a4c1fb46733138d",
+        "MasterPriceOracleV2 Klima":
+          "0x17a4e51aa4284da1b2ced8254eac606175ceaf9b810a48c0a336fc0195c95a4a",
+      },
+      irm: {
+        JumpRateModel: [
+          "0x9bfc6cf245214461b587a493c5d558cb6a4580fc597a6af1d0543a89dc4e2b4c",
+        ],
+        JumpRateModelV2:
+          "0xaa796b4e95fc4a251be212a81f0d67e43755807201603524833361f538f204b5",
+      },
     },
-    // SUSHI
-    UNISWAP_V2_FACTORY_ADDRESS: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
-    UNISWAP_V2_PAIR_INIT_CODE_HASH:
-      "0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303",
-    WETH_ADDRESS: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
-    PRICE_ORACLE_RUNTIME_BYTECODE_HASHES: {
-      "PreferredPriceOracleV2 Quickswap USDC":
-        "0xe6a7eb0795fc9c5e05048d191246ac01efaff82eac6c8c981ed0b475e89e77a9",
-      "MasterPriceOracleV2 Beefy":
-        "0x567982b74679a69cfb2ae6b114951562cc80d6790d0c2fdb9a4c1fb46733138d",
-      "MasterPriceOracleV2 Klima":
-        "0x17a4e51aa4284da1b2ced8254eac606175ceaf9b810a48c0a336fc0195c95a4a",
-    },
-    ORACLES: [
-      "PreferredPriceOracle",
-      "ChainlinkPriceOracleV2",
-      "UniswapTwapPriceOracle_SushiSwap",
-    ],
     PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES: {
       JumpRateModel_Cream_Stables_Majors:
         "0xa80F8CC22b4Ff9442B7F188D96E9B75d6cFd80F6",
