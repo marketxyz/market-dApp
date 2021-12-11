@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { NowRequest, NowResponse, VercelRequest, VercelResponse } from "@vercel/node";
 import {
   initFuseWithProviders,
   turboGethURL,
@@ -30,7 +30,8 @@ function formatPools(pools) {
   return _pools;
 }
 
-export default async (req: NowRequest, res: NowResponse) => {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   let pools = await fuse.contracts.FusePoolLens.methods
