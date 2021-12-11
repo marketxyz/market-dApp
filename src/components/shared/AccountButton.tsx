@@ -12,7 +12,6 @@ import {
   useColorModeValue,
   Image,
   ButtonProps,
-  Divider,
   ModalCloseButton,
   ModalHeader,
 } from "@chakra-ui/react";
@@ -23,7 +22,6 @@ import DashboardBox from "./DashboardBox";
 import { shortAddress } from "../../utils/shortAddress";
 
 import { useTranslation } from "react-i18next";
-import { MODAL_PROPS, ModalDivider, ModalTitleWithCloseButton } from "./Modal";
 import { LanguageSelect } from "./TranslateButton";
 
 import { version } from "../..";
@@ -231,7 +229,6 @@ export const SettingsModal = ({
     logout();
   };
 
-  const bgColor = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
@@ -251,7 +248,9 @@ export const SettingsModal = ({
         borderColor={"rgba(184, 50, 123, 0.5)"}
         textColor={textColor}
       >
-        <ModalHeader pl={4} fontSize="1.5rem">Account</ModalHeader>
+        <ModalHeader pl={4} fontSize="1.5rem">
+          Account
+        </ModalHeader>
         <ModalCloseButton onClick={onClose} />
         <Column
           width="100%"

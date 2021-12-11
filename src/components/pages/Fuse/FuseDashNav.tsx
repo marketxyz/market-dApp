@@ -20,8 +20,6 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { useNavigate } from "react-router-dom";
 
-// import { AddPoolButton } from "./AddPoolButton";
-import { CreatePoolConfiguration } from "./FusePoolCreatePage";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { useEffect } from "react";
 
@@ -72,9 +70,7 @@ export const FuseDashNav = (props: any) => {
         onClose={() => setCreatePoolModal(!createPoolModal)}
       >
         <ModalOverlay />
-        <ModalContent p="5">
-          <CreatePoolConfiguration />
-        </ModalContent>
+        <ModalContent p="5"></ModalContent>
       </Modal>
       <Box
         color={textColor}
