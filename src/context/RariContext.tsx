@@ -22,6 +22,7 @@ import {
   initFuseWithProviders,
 } from "../utils/web3Providers";
 import { useLocation } from "react-router-dom";
+import { CHAIN_ID } from "utils/chainId";
 
 async function launchModalLazy(
   t: (text: string, extra?: any) => string,
@@ -58,7 +59,7 @@ async function launchModalLazy(
   }
 
   const web3Modal = new Web3Modal.default({
-    network: process.env.REACT_APP_CHAIN_ID === "137" ? "matic" : "mainnet",
+    network: CHAIN_ID === 137 ? "matic" : "mainnet",
     cacheProvider,
     providerOptions,
     theme: "dark",
@@ -232,7 +233,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       address,
       isAttemptingLogin,
       userWallet,
-      appChainId: parseInt(process.env.REACT_APP_CHAIN_ID!) || 137,
+      appChainId: CHAIN_ID,
     }),
     [
       rari,
