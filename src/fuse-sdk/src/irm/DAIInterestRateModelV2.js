@@ -3,7 +3,7 @@ import Web3 from "web3";
 import JumpRateModel from "./JumpRateModel.js";
 
 var contracts = require(__dirname +
-  "/../contracts/mainnet/compound-protocol.min.json").contracts;
+  "/../abi/compound-protocol.min.json").contracts;
 
 export default class DAIInterestRateModelV2 extends JumpRateModel {
   static RUNTIME_BYTECODE_HASH =

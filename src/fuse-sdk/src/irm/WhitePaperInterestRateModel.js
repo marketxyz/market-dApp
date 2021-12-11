@@ -1,7 +1,7 @@
 import Web3 from "web3";
 
 var contracts = require(__dirname +
-  "/../contracts/mainnet/compound-protocol.min.json").contracts;
+  "/../abi/compound-protocol.min.json").contracts;
 
 export default class WhitePaperInterestRateModel {
   static RUNTIME_BYTECODE_HASH =
