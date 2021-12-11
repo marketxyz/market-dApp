@@ -8,6 +8,7 @@ module.exports = {
       "0xB1205172AAdaAd4c67318EA77A34C1F1CaA784EE",
     FUSE_POOL_LENS_CONTRACT_ADDRESS:
       "0xe4D84b252308645098846312286E6c6D2846DbB0",
+    BLOCKS_PER_MIN: 60 / 2, // 2 blocks per second
     BYTECODE_HASHES: {
       oracle: {
         "PreferredPriceOracleV2 Quickswap USDC":

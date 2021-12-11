@@ -36,6 +36,8 @@ export default class Fuse {
   static PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES =
     addressList.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES;
 
+  static BLOCKS_PER_MIN = addressList.BLOCKS_PER_MIN;
+
   constructor(web3Provider) {
     this.web3 = new Web3(web3Provider);
 
