@@ -58,7 +58,7 @@ async function launchModalLazy(
   }
 
   const web3Modal = new Web3Modal.default({
-    network: process.env.REACT_APP_CHAIN_ID === "1" ? "mainnet" : "matic",
+    network: process.env.REACT_APP_CHAIN_ID === "137" ? "matic" : "mainnet",
     cacheProvider,
     providerOptions,
     theme: "dark",
@@ -109,7 +109,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     rari.web3.eth.getChainId().then((chainId) => {
       const userWallet = {
-        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "137") || 137,
+        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID!) || 137,
         chainId,
         isMetaMask: isMetaMask ?? false,
       };
@@ -232,7 +232,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       address,
       isAttemptingLogin,
       userWallet,
-      appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "1") || 1,
+      appChainId: parseInt(process.env.REACT_APP_CHAIN_ID!) || 137,
     }),
     [
       rari,

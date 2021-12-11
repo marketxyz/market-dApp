@@ -24,7 +24,7 @@ const weightedCalculation = async (
 };
 
 const fuse = initFuseWithProviders(turboGethURL);
-const appChainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
+const appChainId = parseInt(process.env.REACT_APP_CHAIN_ID!) || 137;
 
 async function computeAssetRSS_1(address: string) {
   // swap sOHM to OHM with a penalty.

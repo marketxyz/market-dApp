@@ -637,7 +637,7 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
 export const convertIRMtoCurve = (interestRateModel: any, fuse: Fuse) => {
   let borrowerRates = [];
   let supplierRates = [];
-  const blocksPerMin = process.env.REACT_APP_CHAIN_ID === "1" ? 4 : 30;
+  const blocksPerMin = process.env.REACT_APP_CHAIN_ID === "137" ? 30 : 4;
   for (var i = 0; i <= 100; i++) {
     const supplyLevel =
       (Math.pow(

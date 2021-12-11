@@ -6,7 +6,7 @@ import JumpRateModelV2 from "./irm/JumpRateModelV2.js";
 
 import BigNumber from "bignumber.js";
 
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID) ?? 137;
+const chainId = parseInt(process.env.REACT_APP_CHAIN_ID) || 137;
 
 var fusePoolDirectoryAbi = require(__dirname + "/abi/FusePoolDirectory.json");
 var fusePoolLensAbi = require(__dirname + "/abi/FusePoolLens.json");
@@ -87,12 +87,7 @@ export default class Fuse {
       console.log("runtime bytecode hash: ", runtimeBytecodeHash);
       var interestRateModel = null;
 
-      outerLoop: for (const model of [
-        "JumpRateModel",
-        "JumpRateModelV2",
-        "DAIInterestRateModelV2",
-        "WhitePaperInterestRateModel",
-      ]) {
+      outerLoop: for (const model of Object.keys(interestRateModels)) {
         if (interestRateModels[model].RUNTIME_BYTECODE_HASHES !== undefined) {
           for (const hash of interestRateModels[model]
             .RUNTIME_BYTECODE_HASHES) {

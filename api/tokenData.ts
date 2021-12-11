@@ -50,7 +50,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   const address = web3.utils.toChecksumAddress(request.query.address as string);
 
   const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
-  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
+  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) || 137;
   const coingeckoNetwork = chainId === 1 ? "ethereum" : "polygon-pos";
 
   const [decimals, rawData] = await Promise.all([

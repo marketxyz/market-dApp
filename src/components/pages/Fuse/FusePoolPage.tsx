@@ -105,7 +105,7 @@ const Stat = (props: StatProps) => (
   />
 );
 
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
+const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) || 137;
 const scanner =
   chainId === 1
     ? "https://etherscan.io/token"

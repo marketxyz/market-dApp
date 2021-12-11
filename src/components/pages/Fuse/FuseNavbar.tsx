@@ -75,7 +75,7 @@ const changeNetworkWithUrl = async (
 
 const NetworkSwitcher = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) ?? 1;
+  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) || 137;
   const chainName = chainId === 1 ? "mainnet" : "polygon";
   const { userWallet, isAuthed } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
