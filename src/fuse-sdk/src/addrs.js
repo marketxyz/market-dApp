@@ -32,5 +32,11 @@ module.exports = {
       JumpRateModel_Cream_Major: "0x8dbf1250c805fc2ed29fc0d3aed31ec69a928ffe",
       JumpRateModel_Cream_Gov: "0x46c54c7D214117c79f2f6F368549776F00c0a6c4",
     },
+
+    OWNED_ACCOUNTS: [
+      "0xd6f81D154D0532906140ef37268BC8eD2A17e008",
+      "0x1359a50627EDB02a092352671566206dF12Aa095",
+      "0x34abBf25fA4b792716f7C2A8880d65270d895B44",
+    ],
   },
 };

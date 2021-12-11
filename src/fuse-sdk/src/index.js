@@ -5,8 +5,7 @@ import JumpRateModel from "./irm/JumpRateModel.js";
 import JumpRateModelV2 from "./irm/JumpRateModelV2.js";
 
 import BigNumber from "bignumber.js";
-
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID) || 137;
+import { CHAIN_ID } from "./utils.js";
 
 var fusePoolDirectoryAbi = require(__dirname + "/abi/FusePoolDirectory.json");
 var fusePoolLensAbi = require(__dirname + "/abi/FusePoolLens.json");
@@ -17,7 +16,7 @@ var contracts = require(__dirname +
 
 const axios = require("axios");
 const chainAddress = require("./addrs");
-const addressList = chainAddress[chainId];
+const addressList = chainAddress[CHAIN_ID];
 
 export default class Fuse {
   static FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS =
@@ -54,7 +53,7 @@ export default class Fuse {
           .toFixed(0)
       );
     };
-
+    this.OWNED_ACCOUNTS = addressList.OWNED_ACCOUNTS;
     this.contracts = {
       FusePoolDirectory: new this.web3.eth.Contract(
         fusePoolDirectoryAbi,
