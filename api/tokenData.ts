@@ -101,16 +101,6 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   if (rawData.error) {
     name = await tokenContract.methods.name().call();
     symbol = await tokenContract.methods.symbol().call();
-
-    // Fetch the logo from yearn if possible:
-    const yearnLogoURL = `https://raw.githubusercontent.com/yearn/yearn-assets/master/icons/tokens/${address}/logo-128.png`;
-    const yearnLogoResponse = await fetch(yearnLogoURL);
-    if (yearnLogoResponse.ok) {
-      // A lot of the yearn tokens are curve tokens with long names,
-      // so we flatten them here and just remove the Curve part
-      symbol = symbol.replace("Curve-", "");
-      tokenObj.logoURL = yearnLogoURL;
-    }
   } else {
     let {
       symbol: _symbol,
@@ -127,9 +117,9 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   //////////////////
   // Edge cases: //
   /////////////////
-  if (chainId === 137) {
-    if (tokenInfo[137][address]) {
-      tokenObj = { ...tokenInfo[137][address] };
+  if (tokenInfo?.[chainId]?.[address]) {
+    if (tokenInfo[chainId][address]) {
+      tokenObj = { ...tokenInfo[chainId][address] };
       if (tokenObj.extraData && tokenObj.extraData.metaDataFn !== "") {
         tokenObj.extraData = await fns[tokenObj.extraData.metaDataFn](
           ...tokenObj.extraData.metaDataArgs
