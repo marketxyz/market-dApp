@@ -7,9 +7,7 @@ import ERC20ABI from "../src/common/abi/ERC20.json";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { infuraURL } from "../src/utils/web3Providers";
-import { add, chain } from "mathjs";
-
-const tokenInfo = require("./tokenJSON.js");
+import tokenInfo from "./tokenJSON";
 
 const web3 = new Web3(infuraURL);
 const cacheFetch = (fetcher: () => any) => {
@@ -40,7 +38,7 @@ const requestBeefy = cacheFetch(async () => {
   return json;
 });
 
-export const requestKlima = cacheFetch(async () => {
+const requestKlima = cacheFetch(async () => {
   const data = await fetch(`${uriProtocol}://${vercelURL}/api/klimaAPY`);
   const json = await data.json();
 
