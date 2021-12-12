@@ -129,9 +129,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       tokenObj.extraData = {
         ...apyData,
         ...tokenInfo[chainId][address].extraData,
+        metaDataArgs: undefined,
+        metaDataFn: undefined,
       };
     } else {
-      tokenObj.extraData = { ...tokenInfo[chainId][address].extraData };
+      tokenObj.extraData = {
+        ...tokenInfo[chainId][address].extraData,
+      };
     }
     tokenObj.decimals = decimals;
     tokenObj.name = name;
