@@ -72,6 +72,7 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { CHAIN_ID } from "utils/chainId";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -105,9 +106,8 @@ const Stat = (props: StatProps) => (
   />
 );
 
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
 const scanner =
-  chainId === 1
+  CHAIN_ID === 1
     ? "https://etherscan.io/token"
     : "https://polygonscan.com/token";
 

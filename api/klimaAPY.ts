@@ -91,7 +91,6 @@ export default async (_req: VercelRequest, res: VercelResponse) => {
     Math.floor(
       Math.pow(1 + stakingRebase, 365 * ESTIMATED_DAILY_REBASES) * 100
     ) / 100;
-  console.log(stakingAPY);
 
   return res.json({
     stakingAPY,

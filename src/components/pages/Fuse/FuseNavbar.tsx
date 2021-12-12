@@ -27,6 +27,7 @@ import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
 import { networkData } from "../../../constants/networkData";
 import { useRari } from "context/RariContext";
+import { CHAIN_ID } from "../../../utils/chainId";
 
 const selectedNetworkBorder = "1px solid #DF2EAC";
 const ethereumColor = "#0993ec";
@@ -75,8 +76,7 @@ const changeNetworkWithUrl = async (
 
 const NetworkSwitcher = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) ?? 1;
-  const chainName = chainId === 1 ? "mainnet" : "polygon";
+  const chainName = CHAIN_ID === 1 ? "mainnet" : "polygon";
   const { userWallet, isAuthed } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
   const btnBgActive = useColorModeValue("", "mktgray.200");
@@ -120,7 +120,7 @@ const NetworkSwitcher = () => {
               on the{" "}
               <Text
                 as="span"
-                color={chainId === 1 ? ethereumColor : polygonColor}
+                color={CHAIN_ID === 1 ? ethereumColor : polygonColor}
                 fontWeight={"extrabold"}
               >
                 {networkData[chainName].shortName}
@@ -138,10 +138,10 @@ const NetworkSwitcher = () => {
                   h={"12"}
                   justifyContent={"flex-start"}
                   fontSize={"md"}
-                  border={chainId === d.chainId ? selectedNetworkBorder : ""}
+                  border={CHAIN_ID === d.chainId ? selectedNetworkBorder : ""}
                   borderRadius="12px"
                   disabled={!d.enabled}
-                  bg={chainId === d.chainId ? btnBgActive : btnBg}
+                  bg={CHAIN_ID === d.chainId ? btnBgActive : btnBg}
                   onClick={() =>
                     changeNetworkWithUrl(userWallet, isAuthed, networkName)
                   }
