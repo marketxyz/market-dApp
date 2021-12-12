@@ -23,6 +23,8 @@ export interface TokenData {
   color: string | null;
   overlayTextColor: string | null;
   logoURL: string | null;
+  shortName: string | null;
+  partnerURL: string | null;
   extraData: Record<any, any>;
 }
 
@@ -65,6 +67,8 @@ export const fetchTokenData = async (address: string) => {
         color: null,
         overlayTextColor: null,
         logoURL: null,
+        shortName: null,
+        partnerURL: null,
         extraData: {},
       };
     }

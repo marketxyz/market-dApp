@@ -674,23 +674,23 @@ const AssetSupplyRow = ({
               ""
             )}
           </Td>
-        ) : null}
+        ) : (
+          <Td></Td>
+        )}
 
         {isMobile ? null : (
           <Td maxW={"30px"}>
             <SimpleTooltip
               placement="top-start"
               label={
-                tokenData?.extraData?.partnerURL ??
-                `${scanner}/${asset.underlyingToken}`
+                tokenData?.partnerURL ?? `${scanner}/${asset.underlyingToken}`
               }
             >
               <Button
                 variant={"link"}
                 as={ChakraLink}
                 href={
-                  tokenData?.extraData?.partnerURL ??
-                  `${scanner}/${asset.underlyingToken}`
+                  tokenData?.partnerURL ?? `${scanner}/${asset.underlyingToken}`
                 }
                 isExternal
               >
@@ -702,7 +702,7 @@ const AssetSupplyRow = ({
 
         {isMobile ? null : (
           <Td isNumeric textAlign={"right"} minW={"140px"}>
-            {tokenData?.extraData?.hasAPY ? (
+            {tokenData?.extraData?.hasApy ? (
               <Row crossAxisAlignment="center" mainAxisAlignment="flex-end">
                 <Text
                   fontWeight="bold"
@@ -791,8 +791,8 @@ const AssetSupplyRow = ({
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
-              {tokenData?.extraData?.shortName ??
-                tokenData?.symbol ??
+              {tokenData?.shortName ||
+                tokenData?.symbol ||
                 asset.underlyingSymbol}
             </Text>
           </Column>
@@ -1016,7 +1016,9 @@ const AssetBorrowRow = ({
           ) : (
             <Box></Box>
           )
-        ) : null}
+        ) : (
+          <Td></Td>
+        )}
 
         {isMobile ? null : (
           <Td isNumeric>
