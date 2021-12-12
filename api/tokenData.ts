@@ -30,16 +30,17 @@ const vercelURL = process.env.VERCEL_URL!.toLowerCase();
 const isLocal =
   vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
 const uriProtocol = isLocal ? "http" : "https";
+const URL = `${uriProtocol}://${vercelURL}`;
 
 const requestBeefy = cacheFetch(async () => {
-  const data = await fetch(`${uriProtocol}://${vercelURL}/api/beefyAPY`);
+  const data = await fetch(`${URL}/api/beefyAPY`);
   const json = await data.json();
 
   return json;
 });
 
 const requestKlima = cacheFetch(async () => {
-  const data = await fetch(`${uriProtocol}://${vercelURL}/api/klimaAPY`);
+  const data = await fetch(`${URL}/api/klimaAPY`);
   const json = await data.json();
 
   return json.stakingAPY;
