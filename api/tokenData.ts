@@ -90,9 +90,9 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     name: "",
     decimals: "",
     logoURL: "",
-    shortName: "",
-    partnerURL: "",
     extraData: {
+      shortName: "",
+      partnerURL: "",
       metaDataFn: "",
       metaDataArgs: [],
     },
@@ -117,22 +117,28 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   //////////////////
   // Edge cases: //
   /////////////////
+
   if (tokenInfo?.[chainId]?.[address]) {
-    if (tokenInfo[chainId][address]) {
-      tokenObj = { ...tokenInfo[chainId][address] };
-      if (tokenObj.extraData && tokenObj.extraData.metaDataFn !== "") {
-        tokenObj.extraData = await fns[tokenObj.extraData.metaDataFn](
-          ...tokenObj.extraData.metaDataArgs
-        );
-      }
-      tokenObj.decimals = decimals;
-      tokenObj.name = name;
+    tokenObj = { ...tokenInfo[chainId][address] };
+    if (tokenObj.extraData?.metaDataFn) {
+      const apyData = await fns[tokenObj.extraData.metaDataFn](
+        ...tokenObj.extraData.metaDataArgs
+      );
+
+      tokenObj.extraData = {
+        ...apyData,
+        ...tokenInfo[chainId][address].extraData,
+      };
     } else {
-      tokenObj.name = name;
-      tokenObj.symbol = symbol;
-      tokenObj.decimals = decimals;
-      tokenObj.logoURL = logoURL ?? "";
+      tokenObj.extraData = { ...tokenInfo[chainId][address].extraData };
     }
+    tokenObj.decimals = decimals;
+    tokenObj.name = name;
+  } else {
+    tokenObj.name = name;
+    tokenObj.symbol = symbol;
+    tokenObj.decimals = decimals;
+    tokenObj.logoURL = logoURL ?? "";
   }
 
   const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;

@@ -683,14 +683,16 @@ const AssetSupplyRow = ({
             <SimpleTooltip
               placement="top-start"
               label={
-                tokenData?.partnerURL ?? `${scanner}/${asset.underlyingToken}`
+                tokenData?.extraData?.partnerURL ??
+                `${scanner}/${asset.underlyingToken}`
               }
             >
               <Button
                 variant={"link"}
                 as={ChakraLink}
                 href={
-                  tokenData?.partnerURL ?? `${scanner}/${asset.underlyingToken}`
+                  tokenData?.extraData?.partnerURL ??
+                  `${scanner}/${asset.underlyingToken}`
                 }
                 isExternal
               >
@@ -791,7 +793,7 @@ const AssetSupplyRow = ({
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
-              {tokenData?.shortName ||
+              {tokenData?.extraData?.shortName ||
                 tokenData?.symbol ||
                 asset.underlyingSymbol}
             </Text>
