@@ -29,7 +29,7 @@ import { version } from "../..";
 import MoonpayModal from "../pages/MoonpayModal";
 import { useIsSmallScreen } from "../../hooks/useIsSmallScreen";
 import { useAuthedCallback } from "../../hooks/useAuthedCallback";
-import { networkData } from "constants/networkData";
+import { chainIdToData, networkData } from "constants/networkData";
 import { motion } from "framer-motion";
 
 export const AccountButton = memo(() => {
@@ -65,16 +65,6 @@ export const AccountButton = memo(() => {
   );
 });
 
-const chainIdToName: Record<number, string> = {
-  1: "Ethereum",
-  137: "Polygon",
-  250: "Fantom"
-};
-const chainIdToChainName: Record<number, string> = {
-  1: "mainnet",
-  137: "polygon",
-  250: "fantom"
-};
 
 const switchChainId = async (chainId: number) => {
   if (chainId === 1) {
@@ -85,7 +75,7 @@ const switchChainId = async (chainId: number) => {
   } else {
     await window.ethereum.request({
       method: "wallet_addEthereumChain",
-      params: [networkData[chainIdToChainName[chainId]].addData],
+      params: [networkData[chainIdToData[chainId].chainName].addData],
     });
   }
 };
@@ -151,7 +141,7 @@ const Buttons = ({
             h={"7"}
             mr={"2"}
           />
-          Switch to {chainIdToName[userWallet?.appChainId]}
+          Switch to {chainIdToData[userWallet?.appChainId].name}
         </MotionBox>
       ) : (
         <DashboardBox

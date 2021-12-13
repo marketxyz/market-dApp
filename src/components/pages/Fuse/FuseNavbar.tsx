@@ -25,13 +25,12 @@ import {
 } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { networkData } from "../../../constants/networkData";
+import { networkData, chainIdToData } from '../../../constants/networkData';
 import { useRari } from "context/RariContext";
 import { CHAIN_ID } from "../../../utils/chainId";
 
 const selectedNetworkBorder = "1px solid #DF2EAC";
-const ethereumColor = "#0993ec";
-const polygonColor = "#a557fe";
+
 
 const changeNetworkWithUrl = async (
   userWallet: Record<string, any> | null,
@@ -76,7 +75,7 @@ const changeNetworkWithUrl = async (
 
 const NetworkSwitcher = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const chainName = CHAIN_ID === 1 ? "mainnet" : "polygon";
+  const chainName = chainIdToData[CHAIN_ID].chainName;
   const { userWallet, isAuthed } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
   const btnBgActive = useColorModeValue("", "mktgray.200");
@@ -120,7 +119,7 @@ const NetworkSwitcher = () => {
               on the{" "}
               <Text
                 as="span"
-                color={CHAIN_ID === 1 ? ethereumColor : polygonColor}
+                color={chainIdToData[CHAIN_ID].color}
                 fontWeight={"extrabold"}
               >
                 {networkData[chainName].shortName}

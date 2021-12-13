@@ -1,3 +1,21 @@
+export const chainIdToData: Record<
+  number,
+  { name: string; chainName: string; color: string; scanner: string }
+> = {
+  137: {
+    name: "Polygon",
+    chainName: "matic",
+    color: "#a557fe",
+    scanner: "https://polygonscan.com/token",
+  },
+  250: {
+    name: "Fantom",
+    chainName: "fantom",
+    color: "#1969ff",
+    scanner: "https://ftmscan.com/token",
+  },
+};
+
 export const networkData: Record<string, any> = {
   polygon: {
     chainId: 137,

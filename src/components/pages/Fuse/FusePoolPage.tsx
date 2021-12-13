@@ -73,6 +73,7 @@ import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { CHAIN_ID } from "utils/chainId";
+import { chainIdToData } from '../../../constants/networkData';
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -106,10 +107,7 @@ const Stat = (props: StatProps) => (
   />
 );
 
-const scanner =
-  CHAIN_ID === 1
-    ? "https://etherscan.io/token"
-    : "https://polygonscan.com/token";
+const scanner = chainIdToData[CHAIN_ID].scanner;
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();

@@ -23,6 +23,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { CHAIN_ID } from "utils/chainId";
 import rpc from "../rpc";
+import { chainIdToData } from '../constants/networkData';
 
 async function launchModalLazy(
   t: (text: string, extra?: any) => string,
@@ -59,13 +60,9 @@ async function launchModalLazy(
     localStorage.removeItem("walletconnect");
   }
 
-  const chainIdToName: Record<number, string> = {
-    137: "matic",
-    250: "fantom"
-  }
 
   const web3Modal = new Web3Modal.default({
-    network: chainIdToName[CHAIN_ID],
+    network: chainIdToData[CHAIN_ID].chainName,
     cacheProvider,
     providerOptions,
     theme: "dark",
