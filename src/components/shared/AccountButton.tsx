@@ -68,10 +68,12 @@ export const AccountButton = memo(() => {
 const chainIdToName: Record<number, string> = {
   1: "Ethereum",
   137: "Polygon",
+  250: "Fantom"
 };
 const chainIdToChainName: Record<number, string> = {
   1: "mainnet",
   137: "polygon",
+  250: "fantom"
 };
 
 const switchChainId = async (chainId: number) => {

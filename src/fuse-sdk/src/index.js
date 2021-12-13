@@ -5,6 +5,7 @@ import JumpRateModel from "./irm/JumpRateModel.js";
 import JumpRateModelV2 from "./irm/JumpRateModelV2.js";
 
 import BigNumber from "bignumber.js";
+import axios from 'axios'
 import { CHAIN_ID } from "./utils.js";
 
 var fusePoolDirectoryAbi = require(__dirname + "/abi/FusePoolDirectory.json");
@@ -12,7 +13,6 @@ var fusePoolLensAbi = require(__dirname + "/abi/FusePoolLens.json");
 var contracts = require(__dirname +
   `/abi/compound-protocol.min.json`).contracts;
 
-const axios = require("axios");
 const chainAddress = require("./addrs");
 const addressList = chainAddress[CHAIN_ID];
 

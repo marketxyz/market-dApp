@@ -18,11 +18,11 @@ import { useToast } from "@chakra-ui/react";
 import Fuse from "../fuse-sdk/src";
 import {
   chooseBestWeb3Provider,
-  primaryRPC,
   initFuseWithProviders,
 } from "../utils/web3Providers";
 import { useLocation } from "react-router-dom";
 import { CHAIN_ID } from "utils/chainId";
+import rpc from "../rpc";
 
 async function launchModalLazy(
   t: (text: string, extra?: any) => string,
@@ -44,7 +44,8 @@ async function launchModalLazy(
       package: WalletConnectProvider.default,
       options: {
         rpc: {
-          137: primaryRPC,
+          137: rpc[137].primary,
+          250: rpc[250].primary,
         },
       },
       display: {
@@ -58,8 +59,13 @@ async function launchModalLazy(
     localStorage.removeItem("walletconnect");
   }
 
+  const chainIdToName: Record<number, string> = {
+    137: "matic",
+    250: "fantom"
+  }
+
   const web3Modal = new Web3Modal.default({
-    network: CHAIN_ID === 137 ? "matic" : "mainnet",
+    network: chainIdToName[CHAIN_ID],
     cacheProvider,
     providerOptions,
     theme: "dark",
