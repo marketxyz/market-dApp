@@ -18,7 +18,7 @@ import { useToast } from "@chakra-ui/react";
 import Fuse from "../fuse-sdk/src";
 import {
   chooseBestWeb3Provider,
-  infuraURL,
+  primaryRPC,
   initFuseWithProviders,
 } from "../utils/web3Providers";
 import { useLocation } from "react-router-dom";
@@ -44,7 +44,7 @@ async function launchModalLazy(
       package: WalletConnectProvider.default,
       options: {
         rpc: {
-          137: infuraURL,
+          137: primaryRPC,
         },
       },
       display: {

@@ -9,8 +9,6 @@ import { CHAIN_ID } from "./utils.js";
 
 var fusePoolDirectoryAbi = require(__dirname + "/abi/FusePoolDirectory.json");
 var fusePoolLensAbi = require(__dirname + "/abi/FusePoolLens.json");
-var fuseSafeLiquidatorAbi = require(__dirname + "/abi/FuseSafeLiquidator.json");
-var fuseFeeDistributorAbi = require(__dirname + "/abi/FuseFeeDistributor.json");
 var contracts = require(__dirname +
   `/abi/compound-protocol.min.json`).contracts;
 
@@ -21,19 +19,12 @@ const addressList = chainAddress[CHAIN_ID];
 export default class Fuse {
   static FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS =
     addressList.FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS;
-  static FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS =
-    addressList.FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS;
-  static FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS =
-    addressList.FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS;
   static FUSE_POOL_LENS_CONTRACT_ADDRESS =
     addressList.FUSE_POOL_LENS_CONTRACT_ADDRESS;
 
   static ORACLES = addressList.ORACLES;
 
   static BYTECODE_HASHES = addressList.BYTECODE_HASHES;
-
-  static PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES =
-    addressList.PUBLIC_INTEREST_RATE_MODEL_CONTRACT_ADDRESSES;
 
   static BLOCKS_PER_MIN = addressList.BLOCKS_PER_MIN;
 
@@ -62,14 +53,6 @@ export default class Fuse {
       FusePoolLens: new this.web3.eth.Contract(
         fusePoolLensAbi,
         Fuse.FUSE_POOL_LENS_CONTRACT_ADDRESS
-      ),
-      FuseSafeLiquidator: new this.web3.eth.Contract(
-        fuseSafeLiquidatorAbi,
-        Fuse.FUSE_SAFE_LIQUIDATOR_CONTRACT_ADDRESS
-      ),
-      FuseFeeDistributor: new this.web3.eth.Contract(
-        fuseFeeDistributorAbi,
-        Fuse.FUSE_FEE_DISTRIBUTOR_CONTRACT_ADDRESS
       ),
     };
 

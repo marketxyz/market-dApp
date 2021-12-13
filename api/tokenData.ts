@@ -6,10 +6,10 @@ import Web3 from "web3";
 import ERC20ABI from "../src/common/abi/ERC20.json";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { infuraURL } from "../src/utils/web3Providers";
+import { primaryRPC } from "../src/utils/web3Providers";
 import tokenInfo from "./tokenJSON";
 
-const web3 = new Web3(infuraURL);
+const web3 = new Web3(primaryRPC);
 const cacheFetch = (fetcher: () => any) => {
   let jsonData;
   return async () => {

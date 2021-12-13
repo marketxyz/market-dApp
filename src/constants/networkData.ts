@@ -19,6 +19,25 @@ export const networkData: Record<string, any> = {
       blockExplorerUrls: ["https://polygonscan.com/"],
     },
   },
+  fantom: {
+    chainId: 250,
+    name: "Fantom",
+    shortName: "Fantom",
+    img: "/static/fantom.jpeg",
+    url: "https://fantom.market.xyz",
+    enabled: true,
+    addData: {
+      chainId: "0xFA",
+      chainName: "Fantom",
+      nativeCurrency: {
+        name: "Fantom",
+        symbol: "FTM",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc.ftm.tools/"],
+      blockExplorerUrls: ["https://ftmscan.com/"],
+    },
+  },
   optimism: {
     chainId: 10,
     name: "Optimism",
@@ -33,14 +52,6 @@ export const networkData: Record<string, any> = {
     shortName: "Arbitrum",
     img: "/static/arbitrum.png",
     url: "arb.market.xyz",
-    enabled: false,
-  },
-  fantom: {
-    chainId: 250,
-    name: "Fantom",
-    shortName: "Fantom",
-    img: "/static/fantom.jpeg",
-    url: "fantom.market.xyz",
     enabled: false,
   },
 };

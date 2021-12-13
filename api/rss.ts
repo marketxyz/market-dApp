@@ -8,7 +8,7 @@ import { CHAIN_ID } from "../src/fuse-sdk/src/utils";
 import { fetchFusePoolData } from "../src/utils/fetchFusePoolData";
 import {
   initFuseWithProviders,
-  turboGethURL,
+  secondaryRPC,
 } from "../src/utils/web3Providers";
 
 function clamp(num, min, max) {
@@ -24,7 +24,7 @@ const weightedCalculation = async (
   return clamp((await calculation()) ?? 0, 0, 1) * weight;
 };
 
-const fuse = initFuseWithProviders(turboGethURL);
+const fuse = initFuseWithProviders(secondaryRPC);
 const appChainId = CHAIN_ID;
 
 async function computeAssetRSS_137(address: string) {

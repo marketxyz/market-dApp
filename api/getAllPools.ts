@@ -1,10 +1,10 @@
 import { NowRequest, NowResponse } from "@vercel/node";
 import {
   initFuseWithProviders,
-  turboGethURL,
+  secondaryRPC,
 } from "../src/utils/web3Providers";
 
-const fuse = initFuseWithProviders(turboGethURL);
+const fuse = initFuseWithProviders(secondaryRPC);
 
 function formatPools(pools) {
   if (!(pools["0"] && pools["0"].length)) {

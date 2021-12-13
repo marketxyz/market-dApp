@@ -1,4 +1,4 @@
-import { infuraURL } from "../src/utils/web3Providers";
+import { primaryRPC } from "../src/utils/web3Providers";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import Web3 from "web3";
 /// @dev this is taken from:
@@ -71,7 +71,7 @@ export default async (_req: VercelRequest, res: VercelResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cache-Control", "max-age=600, s-maxage=600");
 
-  const web3 = new Web3(infuraURL);
+  const web3 = new Web3(primaryRPC);
   const sKLIMA = new web3.eth.Contract(
     sklimaABI as any,
     "0xb0C22d8D350C67420f06F48936654f567C73E8C8"

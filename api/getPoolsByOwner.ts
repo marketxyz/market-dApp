@@ -1,10 +1,10 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   initFuseWithProviders,
-  turboGethURL,
+  secondaryRPC,
 } from "../src/utils/web3Providers";
 
-const fuse = initFuseWithProviders(turboGethURL);
+const fuse = initFuseWithProviders(secondaryRPC);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: VercelRequest, res: VercelResponse) => {
