@@ -1,10 +1,12 @@
+import Web3 from "web3";
+
 const vercelURL = process.env.VERCEL_URL!.toLowerCase();
 const isLocal =
   vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
 const uriProtocol = isLocal ? "http" : "https";
 const URL = `${uriProtocol}://${vercelURL}`;
-import Web3 from "web3";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   137: {
     [Web3.utils.toChecksumAddress(

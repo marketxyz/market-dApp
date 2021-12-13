@@ -23,6 +23,12 @@ import {
 } from "../utils/web3Providers";
 import { useLocation } from "react-router-dom";
 import { CHAIN_ID } from "utils/chainId";
+import activeAddress from "../fuse-sdk/src/addrs";
+import { e } from "mathjs";
+
+type fuseData = {
+  [key in number]: Record<string, any>;
+};
 
 async function launchModalLazy(
   t: (text: string, extra?: any) => string,
@@ -73,6 +79,7 @@ export interface RariContextData {
   fuse: Fuse;
   web3ModalProvider: any | null;
   isAuthed: boolean;
+  isNetworkSupported: boolean;
   login: (cacheProvider?: boolean) => Promise<any>;
   logout: () => any;
   address: string;
@@ -106,6 +113,8 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   const [web3ModalProvider, setWeb3ModalProvider] = useState<any | null>(null);
   const [isMetaMask, setIsMetaMask] = useState<boolean>(false);
 
+  const [isNetworkSupported, setNetworkSupport] = useState(true);
+
   // Check the user's network:
   useEffect(() => {
     rari.web3.eth.getChainId().then((chainId) => {
@@ -123,9 +132,15 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
         });
       }
 
+      if ((activeAddress as fuseData)?.[chainId]) {
+        localStorage.setItem("userChainId", chainId.toString());
+        setNetworkSupport(true);
+      } else {
+        setNetworkSupport(false);
+      }
       setUserWallet(userWallet);
     });
-  }, [rari, toast, userWallet?.chainId]);
+  }, [rari, toast, userWallet?.chainId, isMetaMask]);
 
   const [address, setAddress] = useState<string>(EmptyAddress);
 
@@ -230,6 +245,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       isAuthed: address !== EmptyAddress,
       login,
       logout,
+      isNetworkSupported,
       address,
       isAttemptingLogin,
       userWallet,
@@ -240,6 +256,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       web3ModalProvider,
       login,
       logout,
+      isNetworkSupported,
       address,
       fuse,
       isAttemptingLogin,

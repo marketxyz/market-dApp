@@ -77,24 +77,34 @@ const changeNetworkWithUrl = async (
 const NetworkSwitcher = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const chainName = CHAIN_ID === 1 ? "mainnet" : "polygon";
-  const { userWallet, isAuthed } = useRari();
+  const { userWallet, isAuthed, isNetworkSupported } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
   const btnBgActive = useColorModeValue("", "mktgray.200");
 
   return (
     <>
-      <Button borderRadius="12px" m={2} onClick={onOpen}>
-        <Image
-          src={networkData[chainName].img}
-          h={"6"}
-          borderRadius={"50%"}
-          justifyContent="flex-start"
-          mr={{ base: "none", md: "2" }}
-        ></Image>
-        <Text display={{ base: "none", md: "block" }}>
-          {networkData[chainName].name}
-        </Text>
-      </Button>
+      {isNetworkSupported ? (
+        <Button
+          borderRadius="12px"
+          m={2}
+          onClick={onOpen}
+        >
+          <Image
+            src={networkData[chainName].img}
+            h={"6"}
+            borderRadius={"50%"}
+            justifyContent="flex-start"
+            mr={{ base: "none", md: "2" }}
+          ></Image>
+          <Text display={{ base: "none", md: "block" }}>
+            {networkData[chainName].name}
+          </Text>
+        </Button>
+      ) : (
+        <Button disabled borderRadius="12px" m={2}>
+          <Text>Please change your network</Text>
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
