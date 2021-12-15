@@ -1014,7 +1014,7 @@ const AssetBorrowRow = ({
               </SimpleTooltip>
             </Td>
           ) : (
-            <Box></Box>
+            <Td></Td>
           )
         ) : null}
 

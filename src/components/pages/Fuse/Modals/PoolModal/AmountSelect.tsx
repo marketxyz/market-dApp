@@ -165,7 +165,9 @@ async function fetchMaxAmount(
       address
     );
 
-    return balance;
+    const finalBalance = balance.muln(0.9999);
+
+    return finalBalance;
   }
 
   if (mode === Mode.REPAY) {
@@ -640,7 +642,7 @@ const AmountSelect = ({
             />
 
             {showEnableAsCollateral ? (
-              <DashboardBox bg={rowDivisionColor} p={2} px={4} width="100%">
+              <DashboardBox bg={rowDivisionColor} p={2} px={4} width="94%">
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
@@ -735,7 +737,7 @@ const TabBar = ({
   const tabText = useColorModeValue("gray.500", "gray.100");
   const tabColor = useColorModeValue("gray.100", "mktgray.700");
   const selectedText = useColorModeValue("white", "white");
-  const borderColor = useColorModeValue("pink.400", "pink.700")
+  const borderColor = useColorModeValue("pink.400", "pink.700");
   const selectedBg = useColorModeValue(
     "linear(to-br, rgba(202, 0, 102, 0.95), rgba(144, 49, 217, 0.55))",
     "linear(to-br, rgba(202, 0, 102, 0.18), rgba(144, 49, 217, 0.28))"
