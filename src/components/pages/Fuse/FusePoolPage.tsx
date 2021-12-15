@@ -194,7 +194,9 @@ const CollateralRatioBar = ({
   );
 };
 
-
+// MktTab is a custom tab component, can be reused where ever required.
+// This is built to provide better composability going forward and a linear co-relation between
+// design and code.
 const MktTab = forwardRef((props, ref) => {
   const activeBorder = useColorModeValue(
     "linear(to-br, rgba(202, 0, 102, 1.25), rgba(144, 49, 217, 0.75))",
@@ -433,7 +435,7 @@ const FusePoolPage = memo(() => {
               </RowOrColumn>
             </TabPanel>
             <TabPanel px={0}>
-              <FusePositions data={data}/>
+              <FusePositions data={data} />
             </TabPanel>
             <TabPanel px={0}>
               <PoolInfoBox data={data} />
