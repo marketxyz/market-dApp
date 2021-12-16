@@ -29,7 +29,7 @@ import { version } from "../..";
 import MoonpayModal from "../pages/MoonpayModal";
 import { useIsSmallScreen } from "../../hooks/useIsSmallScreen";
 import { useAuthedCallback } from "../../hooks/useAuthedCallback";
-import { chainIdToData, networkData } from "constants/networkData";
+import { networkData } from "constants/networkData";
 import { motion } from "framer-motion";
 
 export const AccountButton = memo(() => {
@@ -65,7 +65,6 @@ export const AccountButton = memo(() => {
   );
 });
 
-
 const switchChainId = async (chainId: number) => {
   if (chainId === 1) {
     await window.ethereum.request({
@@ -75,7 +74,7 @@ const switchChainId = async (chainId: number) => {
   } else {
     await window.ethereum.request({
       method: "wallet_addEthereumChain",
-      params: [networkData[chainIdToData[chainId].chainName].addData],
+      params: [networkData[chainId]?.addData],
     });
   }
 };
@@ -141,7 +140,7 @@ const Buttons = ({
             h={"7"}
             mr={"2"}
           />
-          Switch to {chainIdToData[userWallet?.appChainId].name}
+          Switch to {networkData[userWallet?.appChainId].name}
         </MotionBox>
       ) : (
         <DashboardBox

@@ -25,12 +25,11 @@ import {
 } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { networkData, chainIdToData } from '../../../constants/networkData';
+import { networkData } from "../../../constants/networkData";
 import { useRari } from "context/RariContext";
 import { CHAIN_ID } from "../../../utils/chainId";
 
 const selectedNetworkBorder = "1px solid #DF2EAC";
-
 
 const changeNetworkWithUrl = async (
   userWallet: Record<string, any> | null,
@@ -75,7 +74,6 @@ const changeNetworkWithUrl = async (
 
 const NetworkSwitcher = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const chainName = chainIdToData[CHAIN_ID].chainName;
   const { userWallet, isAuthed } = useRari();
   const btnBg = useColorModeValue("gray.300", "#2c313d");
   const btnBgActive = useColorModeValue("", "mktgray.200");
@@ -84,14 +82,14 @@ const NetworkSwitcher = () => {
     <>
       <Button borderRadius="12px" m={2} onClick={onOpen}>
         <Image
-          src={networkData[chainName].img}
+          src={networkData[CHAIN_ID].img}
           h={"6"}
           borderRadius={"50%"}
           justifyContent="flex-start"
           mr={{ base: "none", md: "2" }}
         ></Image>
         <Text display={{ base: "none", md: "block" }}>
-          {networkData[chainName].name}
+          {networkData[CHAIN_ID].name}
         </Text>
       </Button>
 
@@ -119,10 +117,10 @@ const NetworkSwitcher = () => {
               on the{" "}
               <Text
                 as="span"
-                color={chainIdToData[CHAIN_ID].color}
+                color={networkData[CHAIN_ID]?.color}
                 fontWeight={"extrabold"}
               >
-                {networkData[chainName].shortName}
+                {networkData[CHAIN_ID].shortName}
               </Text>{" "}
               network.
             </Heading>
@@ -202,8 +200,9 @@ const FuseNavbar = () => {
         <Alert width="100vw" status="error" style={{ marginTop: "0" }}>
           <AlertIcon />
           <Text>
-            To be able to use the Market Protocol, switch to Polygon network
-            using your Wallet.
+            To be able to use the Market Protocol on{" "}
+            {networkData[CHAIN_ID].name}, switch to {networkData[CHAIN_ID].name}{" "}
+            on your Wallet or use the network switcher!
           </Text>
         </Alert>
       ) : null}

@@ -1,12 +1,9 @@
 import Fuse from "../fuse-sdk/src";
-import rpcData from "../rpc";
+import { RPC } from "../rpc";
 import { CHAIN_ID } from "./chainId";
 
-type RpcData = { [key in number]: Record<string, any> };
-const rpc = rpcData as RpcData;
-
-export const primaryRPC = rpc[CHAIN_ID].primary!;
-export const secondaryRPC = rpc[CHAIN_ID].secondary!;
+export const primaryRPC = RPC[CHAIN_ID].primary!;
+export const secondaryRPC = RPC[CHAIN_ID].secondary!;
 
 declare let window: any;
 

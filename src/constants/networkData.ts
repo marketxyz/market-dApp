@@ -1,25 +1,9 @@
-export const chainIdToData: Record<
-  number,
-  { name: string; chainName: string; color: string; scanner: string }
-> = {
+export const networkData: Record<string, any> = {
   137: {
-    name: "Polygon",
+    chainIdHex: "0x89",
     chainName: "matic",
     color: "#a557fe",
     scanner: "https://polygonscan.com/token",
-  },
-  250: {
-    name: "Fantom",
-    chainName: "fantom",
-    color: "#1969ff",
-    scanner: "https://ftmscan.com/token",
-  },
-};
-
-export const networkData: Record<string, any> = {
-  polygon: {
-    chainId: 137,
-    chainIdHex: "0x89",
     name: "Polygon (Matic)",
     shortName: "Polygon",
     img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/polygon.jpg",
@@ -37,9 +21,11 @@ export const networkData: Record<string, any> = {
       blockExplorerUrls: ["https://polygonscan.com/"],
     },
   },
-  fantom: {
-    chainId: 250,
+  250: {
     name: "Fantom",
+    chainName: "fantom",
+    color: "#1969ff",
+    scanner: "https://ftmscan.com/token",
     shortName: "Fantom",
     img: "/static/fantom.jpeg",
     url: "https://fantom.market.xyz",
@@ -56,16 +42,14 @@ export const networkData: Record<string, any> = {
       blockExplorerUrls: ["https://ftmscan.com/"],
     },
   },
-  optimism: {
-    chainId: 10,
+  10: {
     name: "Optimism",
     shortName: "Optimism",
     img: "/static/optimism.png",
     url: "optimism.market.xyz",
     enabled: false,
   },
-  arbitrum: {
-    chainId: 42161,
+  42161: {
     name: "Arbitrum",
     shortName: "Arbitrum",
     img: "/static/arbitrum.png",
