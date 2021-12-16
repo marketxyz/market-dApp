@@ -39,10 +39,10 @@ module.exports = {
       oracle: {},
       irm: {
         JumpRateModel: [
-          "0x29be2b615ae1796821d13de2f7ef12e23b15771d088472e2bbd5d9e2e9d4b8ba",
+          "0xa2856fd51d1b1e990ea5aab4e72700a8d97b980359b90ffa122019473d19ea8d",
         ],
         JumpRateModelV2:
-          "0xa33fc86123224f6c1a827acc8d7c593fb24b19d4a8dc99186f07bc1161cffa77",
+          "0x5e625b4a3fbc487d3217172baf779ebb5c36ff49d393fca7e1c3d5191b8d6e44",
       },
     },
     OWNED_ACCOUNTS: [
