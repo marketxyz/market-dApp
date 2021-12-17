@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { AccountButton } from "../../shared/AccountButton";
 import { useIsSmallScreen } from "hooks/useIsSmallScreen";
-import { networkData } from "../../../constants/networkData";
+import { networkData, chainIdOrder } from "../../../constants/networkData";
 import { useRari } from "context/RariContext";
 import { CHAIN_ID } from "../../../utils/chainId";
 
@@ -34,11 +34,11 @@ const selectedNetworkBorder = "1px solid #DF2EAC";
 const changeNetworkWithUrl = async (
   userWallet: Record<string, any> | null,
   isAuthed: boolean,
-  networkName: string
+  chainId: number
 ) => {
-  console.log(userWallet, isAuthed, networkName);
+  console.log(userWallet, isAuthed, chainId);
 
-  const _network = networkData[networkName];
+  const _network = networkData[chainId];
 
   if (!_network.enabled) {
     return;
@@ -129,30 +129,34 @@ const NetworkSwitcher = () => {
               gap={{ base: 4, sm: 6 }}
               mt={6}
             >
-              {Object.entries(networkData).map(([networkName, d]) => (
-                <Button
-                  key={d.chainId}
-                  h={"12"}
-                  justifyContent={"flex-start"}
-                  fontSize={"md"}
-                  border={CHAIN_ID === d.chainId ? selectedNetworkBorder : ""}
-                  borderRadius="12px"
-                  disabled={!d.enabled}
-                  bg={CHAIN_ID === d.chainId ? btnBgActive : btnBg}
-                  onClick={() =>
-                    changeNetworkWithUrl(userWallet, isAuthed, networkName)
-                  }
-                >
-                  <Image
-                    h={"8"}
-                    mr={"4"}
-                    borderRadius={"50%"}
-                    src={d.img}
-                  ></Image>
-                  {d.name}
-                  {d.enabled ? "" : " (Soon)"}
-                </Button>
-              ))}
+              {chainIdOrder.map((chainId) => {
+                const d = networkData[chainId];
+
+                return (
+                  <Button
+                    key={d.chainId}
+                    h={"12"}
+                    justifyContent={"flex-start"}
+                    fontSize={"md"}
+                    border={CHAIN_ID === d.chainId ? selectedNetworkBorder : ""}
+                    borderRadius="12px"
+                    disabled={!d.enabled}
+                    bg={CHAIN_ID === d.chainId ? btnBgActive : btnBg}
+                    onClick={() =>
+                      changeNetworkWithUrl(userWallet, isAuthed, chainId)
+                    }
+                  >
+                    <Image
+                      h={"8"}
+                      mr={"4"}
+                      borderRadius={"50%"}
+                      src={d.img}
+                    ></Image>
+                    {d.name}
+                    {d.enabled ? "" : " (Soon)"}
+                  </Button>
+                );
+              })}
             </Grid>
           </ModalBody>
 
