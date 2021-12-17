@@ -1,6 +1,6 @@
-import { primaryRPC } from "../src/utils/web3Providers";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import Web3 from "web3";
+import { primaryRPC } from "../../../src/utils/web3Providers";
 /// @dev this is taken from:
 // https://github.com/KlimaDAO/klimadao/blob/0f3841ac674c7f0de2d032c7a6ba2fcf0ea946bb/lib/utils/getStakingAPY/index.ts#L7
 

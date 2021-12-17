@@ -8,56 +8,24 @@ import ERC20ABI from "../src/common/abi/ERC20.json";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { primaryRPC } from "../src/utils/web3Providers";
 import tokenInfo from "./tokenJSON";
+import { APIExtraFunctions } from "./utils/functions";
+import { CHAIN_ID } from "../src/utils/chainId";
+import { networkData } from "../src/constants/networkData";
 
 const web3 = new Web3(primaryRPC);
-const cacheFetch = (fetcher: () => any) => {
-  let jsonData;
-  return async () => {
-    if (jsonData) {
-      return jsonData;
-    }
-    try {
-      const data = await fetcher();
-      jsonData = data;
-      return data;
-    } catch (e) {
-      return null;
-    }
+const fns = APIExtraFunctions[CHAIN_ID];
+
+type TokenData = {
+  symbol: string;
+  name: string;
+  decimals: string;
+  logoURL: string;
+  extraData: null | {
+    shortName: string;
+    partnerURL: string;
+    metaDataFn: string;
+    metaDataArgs: any[];
   };
-};
-
-const vercelURL = process.env.VERCEL_URL!.toLowerCase();
-const isLocal =
-  vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
-const uriProtocol = isLocal ? "http" : "https";
-const URL = `${uriProtocol}://${vercelURL}`;
-
-const requestBeefy = cacheFetch(async () => {
-  const data = await fetch(`${URL}/api/beefyAPY`);
-  const json = await data.json();
-
-  return json;
-});
-
-const requestKlima = cacheFetch(async () => {
-  const data = await fetch(`${URL}/api/klimaAPY`);
-  const json = await data.json();
-
-  return json.stakingAPY;
-});
-
-const fns = {
-  requestBeefy: async (name) => {
-    const APYs = await requestBeefy();
-    return { apy: APYs[name], hasApy: true };
-  },
-  requestKlima: async () => {
-    const klimaAPY = await requestKlima();
-    return {
-      apy: klimaAPY,
-      hasApy: true,
-    };
-  },
 };
 
 export default async (request: VercelRequest, response: VercelResponse) => {
@@ -67,8 +35,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   const address = web3.utils.toChecksumAddress(request.query.address as string);
 
   const tokenContract = new web3.eth.Contract(ERC20ABI as any, address);
-  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID!) || 137;
-  const coingeckoNetwork = chainId === 1 ? "ethereum" : "polygon-pos";
+  const coingeckoNetwork = networkData[CHAIN_ID].extraData.coingeckoNetwork;
 
   const [decimals, rawData] = await Promise.all([
     tokenContract.methods
@@ -78,7 +45,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
     fetch(
       `https://api.coingecko.com/api/v3/coins/${coingeckoNetwork}/contract/` +
-        address
+        address.toLowerCase()
     ).then((res) => res.json()),
   ]);
 
@@ -86,17 +53,12 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   let symbol: string;
   let logoURL: string | undefined;
 
-  let tokenObj = {
+  let tokenObj: TokenData = {
     symbol: "",
     name: "",
     decimals: "",
     logoURL: "",
-    extraData: {
-      shortName: "",
-      partnerURL: "",
-      metaDataFn: "",
-      metaDataArgs: [],
-    },
+    extraData: null,
   };
 
   if (rawData.error) {
@@ -115,12 +77,17 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     logoURL = small;
   }
 
+  tokenObj.name = name;
+  tokenObj.symbol = symbol;
+  tokenObj.decimals = decimals;
+  tokenObj.logoURL = logoURL ?? "";
+
   //////////////////
   // Edge cases: //
   /////////////////
 
-  if (tokenInfo?.[chainId]?.[address]) {
-    tokenObj = { ...tokenInfo[chainId][address] };
+  if (tokenInfo?.[CHAIN_ID]?.[address]) {
+    tokenObj = { ...tokenObj, ...tokenInfo[CHAIN_ID][address] };
     if (tokenObj.extraData?.metaDataFn) {
       const apyData = await fns[tokenObj.extraData.metaDataFn](
         ...tokenObj.extraData.metaDataArgs
@@ -128,25 +95,18 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
       tokenObj.extraData = {
         ...apyData,
-        ...tokenInfo[chainId][address].extraData,
+        ...tokenInfo[CHAIN_ID][address].extraData,
         metaDataArgs: undefined,
         metaDataFn: undefined,
       };
     } else {
       tokenObj.extraData = {
-        ...tokenInfo[chainId][address].extraData,
+        ...tokenInfo[CHAIN_ID][address].extraData,
       };
     }
-    tokenObj.decimals = decimals;
-    tokenObj.name = name;
-  } else {
-    tokenObj.name = name;
-    tokenObj.symbol = symbol;
-    tokenObj.decimals = decimals;
-    tokenObj.logoURL = logoURL ?? "";
   }
 
-  const sushiURL = `https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json`;
+  const sushiURL = networkData[CHAIN_ID].extraData.sushiURL;
   const sushiResponse = await fetch(sushiURL);
 
   if (sushiResponse.ok) {

@@ -20,6 +20,11 @@ export const networkData: Record<string, any> = {
       rpcUrls: ["https://polygon-rpc.com"],
       blockExplorerUrls: ["https://polygonscan.com/"],
     },
+    extraData: {
+      coingeckoNetwork: "polygon-pos",
+      sushiURL:
+        "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/matic.json",
+    },
   },
   250: {
     name: "Fantom",
@@ -40,6 +45,11 @@ export const networkData: Record<string, any> = {
       },
       rpcUrls: ["https://rpc.ftm.tools/"],
       blockExplorerUrls: ["https://ftmscan.com/"],
+    },
+    extraData: {
+      coingeckoNetwork: "fantom",
+      sushiURL:
+        "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/fantom.json",
     },
   },
   10: {

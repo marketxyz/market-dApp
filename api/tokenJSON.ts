@@ -1,11 +1,7 @@
-const vercelURL = process.env.VERCEL_URL!.toLowerCase();
-const isLocal =
-  vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
-const uriProtocol = isLocal ? "http" : "https";
-const URL = `${uriProtocol}://${vercelURL}`;
 import Web3 from "web3";
+import { vercelURL as URL } from "./utils/getVercelURL";
 
-export default {
+const tokens = {
   137: {
     [Web3.utils.toChecksumAddress(
       "0x5A0801BAd20B6c62d86C566ca90688A6b9ea1d3f"
@@ -117,4 +113,14 @@ export default {
       },
     },
   },
+  250: {
+    [Web3.utils.toChecksumAddress(
+      "0xfB98B335551a418cD0737375a2ea0ded62Ea213b"
+    )]: {
+      symbol: "MAI",
+      extraData: { shortName: "MAI" },
+    },
+  },
 };
+
+export default tokens;
