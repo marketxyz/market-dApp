@@ -10,6 +10,7 @@ import {
   initFuseWithProviders,
   secondaryRPC,
 } from "../src/utils/web3Providers";
+import { vercelURL } from "./utils/getVercelURL";
 
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
@@ -294,7 +295,9 @@ async function computeAssetRSS(address: string): Promise<RSSOutput> {
   }
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (request: NowRequest, response: NowResponse) => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const { address, poolID } = <Record<string, string>>request.query;
 
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -322,10 +325,6 @@ export default async (request: NowRequest, response: NowResponse) => {
     }, 25);
 
     const collateralFactor = await weightedCalculation(async () => {
-      if (parseInt(poolID) == 3) {
-        return 0.8;
-      }
-
       // @ts-ignore
       const avgCollatFactor = assets.reduce(
         (a, b, _, { length }) => a + b.collateralFactor / 1e16 / length,
@@ -374,15 +373,8 @@ export default async (request: NowRequest, response: NowResponse) => {
 
       console.time(asset.underlyingSymbol);
 
-      const vercelURL = process.env.VERCEL_URL!.toLowerCase();
-      const isLocal =
-        vercelURL.includes("localhost") || vercelURL.includes("127.0.0.1");
-
       promises.push(
-        fetch(
-          `${isLocal ? "http" : "https"}://${vercelURL}/api/rss?address=` +
-            asset.underlyingToken
-        )
+        fetch(`${vercelURL}/api/rss?address=` + asset.underlyingToken)
           .then((res) => res.json())
           .then((rss) => {
             assetsRSS[i] = rss;
