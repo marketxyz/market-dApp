@@ -1,4 +1,4 @@
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Text,
   Box,
@@ -88,9 +88,10 @@ const NetworkSwitcher = () => {
           justifyContent="flex-start"
           mr={{ base: "none", md: "2" }}
         ></Image>
-        <Text display={{ base: "none", md: "block" }}>
+        <Text mr={3} display={{ base: "none", md: "block" }}>
           {networkData[CHAIN_ID].name}
         </Text>
+        <ChevronDownIcon fontSize={"25px"}/>
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
