@@ -37,6 +37,7 @@ export const FusePositions = ({
       crossAxisAlignment={"flex-start"}
       mainAxisAlignment={"center"}
       isRow={!isMobile}
+      mt={4}
     >
       <PoolDashboardBox
         mt={isMobile ? 4 : 0}
