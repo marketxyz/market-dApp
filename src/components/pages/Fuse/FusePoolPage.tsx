@@ -31,6 +31,13 @@ import {
   Td,
   Thead,
   TableCaption,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  useTab,
+  forwardRef,
+  Th,
 } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
 import { ModalDivider } from "components/shared/Modal";
@@ -42,7 +49,7 @@ import { useFusePoolData } from "hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "hooks/useIsSemiSmallScreen";
 import { useTokenData } from "hooks/useTokenData";
 import LogRocket from "logrocket";
-import { memo, useEffect } from "react";
+import React, { memo, useEffect } from "react";
 // Hooks
 import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "react-query";
@@ -72,6 +79,7 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { FusePositions } from "./FusePositions";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -104,6 +112,128 @@ const Stat = (props: StatProps) => (
     {...props}
   />
 );
+
+const CollateralRatioBar = ({
+  assets,
+  borrowUSD,
+}: {
+  assets: USDPricedFuseAsset[];
+  borrowUSD: number;
+}) => {
+  const { t } = useTranslation();
+
+  const maxBorrow = useBorrowLimit(assets);
+
+  const ratio = (borrowUSD / maxBorrow) * 100;
+
+  useEffect(() => {
+    if (ratio > 95) {
+      LogRocket.track("Fuse-AtRiskOfLiquidation");
+    }
+  }, [ratio]);
+
+  return (
+    <PoolDashboardBox
+      width={"100%"}
+      maxW={{ lg: "1200px" }}
+      height="65px"
+      mt={4}
+      p={4}
+      mx="auto"
+    >
+      <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
+        <Tooltip
+          label={"Keep this bar from filling up to avoid being liquidated!"}
+        >
+          <Text flexShrink={0} mr={4}>
+            Borrow Limit
+          </Text>
+        </Tooltip>
+
+        <Tooltip label={"This is how much you have borrowed."}>
+          <Text flexShrink={0} mt="2px" mr={3} fontSize="10px">
+            {smallUsdFormatter(borrowUSD)}
+          </Text>
+        </Tooltip>
+
+        <Tooltip
+          label={`You're using ${ratio.toFixed(1)}% of your ${smallUsdFormatter(
+            maxBorrow
+          )} borrow limit.`}
+        >
+          <Box width="100%">
+            <Progress
+              size="xs"
+              width="100%"
+              colorScheme={
+                ratio <= 40
+                  ? "whatsapp"
+                  : ratio <= 60
+                  ? "yellow"
+                  : ratio <= 80
+                  ? "orange"
+                  : "red"
+              }
+              borderRadius="10px"
+              value={ratio}
+            />
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          label={t(
+            "If your borrow amount reaches this value, you will be liquidated."
+          )}
+        >
+          <Text flexShrink={0} mt="2px" ml={3} fontSize="10px">
+            {smallUsdFormatter(maxBorrow)}
+          </Text>
+        </Tooltip>
+      </Row>
+    </PoolDashboardBox>
+  );
+};
+
+// MktTab is a custom tab component, can be reused where ever required.
+// This is built to provide better composability going forward and a linear co-relation between
+// design and code.
+const MktTab = forwardRef((props, ref) => {
+  const activeBorder = useColorModeValue(
+    "linear(to-br, rgba(202, 0, 102, 1.25), rgba(144, 49, 217, 0.75))",
+    "linear(to-br, rgba(202, 0, 102, 2.6), rgba(144, 49, 217, 3.75))"
+  );
+
+  const inactiveBorder =
+    "linear(to-br, rgba(33, 38, 46, 0.09), rgba(33, 38, 46, 0.05))";
+
+  // const styles = useStyles();
+  const tabProps = useTab({ ...props, ref });
+  const isSelected = !!tabProps["aria-selected"];
+
+  return (
+    <Box
+      mr={2}
+      p={"2px"}
+      borderRadius={"xl"}
+      bgGradient={isSelected ? activeBorder : inactiveBorder}
+      fontWeight={isSelected ? "bold" : "normal"}
+      cursor={"pointer"}
+      {...tabProps}
+    >
+      <Center
+        bg={isSelected ? "gray.800" : "gray.800"}
+        width={"10rem"}
+        height={"2.5rem"}
+        letterSpacing={"0.8px"}
+        p={2}
+        borderRadius={"xl"}
+        fontSize={"14px"}
+      >
+        {tabProps.children}
+      </Center>
+    </Box>
+  );
+});
 
 const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
 const scanner =
@@ -170,11 +300,11 @@ const FusePoolPage = memo(() => {
           as="section"
           bg={"bgColor"}
           py="4"
-          width={{ base: "90%", xl: "100%" }}
+          width={"90%"}
           alignSelf={"center"}
         >
           <Box maxW="1200px" mx="auto">
-            <Heading marginBottom={"4"} fontWeight="semibold" fontSize={"2xl"}>
+            <Heading mb={"4"} fontWeight="semibold" fontSize={"2xl"}>
               Pool Statistics
             </Heading>
             <SimpleGrid columns={{ base: 2, md: 4 }} spacing="4">
@@ -234,61 +364,84 @@ const FusePoolPage = memo(() => {
             </SimpleGrid>
           </Box>
         </Box>
-        {
-          /* If they have some asset enabled as collateral, show the collateral ratio bar */
-          data && data.assets.some((asset) => asset.membership) ? (
-            <CollateralRatioBar
-              assets={data.assets}
-              borrowUSD={data.totalBorrowBalanceUSD}
-            />
-          ) : null
-        }
-        <RowOrColumn
-          width={isMobile ? "100%" : "90%"}
-          mainAxisAlignment="flex-start"
-          crossAxisAlignment={isMobile ? "center" : "flex-start"}
-          maxW={{ lg: "1200px" }}
-          bgColor={bgColor}
-          mx="auto"
+        <Tabs
+          alignSelf={"center"}
           mt={4}
-          pb={4}
-          isRow={!isMobile}
+          width={"90%"}
+          maxW={{ lg: "1200px" }}
+          variant="unstyled"
+          colorScheme="purple"
         >
-          <PoolDashboardBox
-            pb={2}
-            width={isMobile ? "90%" : "50%"}
-            borderRadius={12}
-          >
-            {data ? (
-              <SupplyList
-                assets={data.assets}
-                comptrollerAddress={data.comptroller}
-                supplyBalanceUSD={data.totalSupplyBalanceUSD}
-              />
-            ) : (
-              <TableSkeleton tableHeading="Your Supply Balance" />
-            )}
-          </PoolDashboardBox>
+          <TabList>
+            <MktTab>Supply/Borrow</MktTab>
+            <MktTab>Positions</MktTab>
+            <MktTab>Pool Info</MktTab>
+          </TabList>
+          <TabPanels>
+            <TabPanel px={0}>
+              {
+                /* If they have some asset enabled as collateral, show the collateral ratio bar */
+                data && data.assets.some((asset) => asset.membership) ? (
+                  <CollateralRatioBar
+                    assets={data.assets}
+                    borrowUSD={data.totalBorrowBalanceUSD}
+                  />
+                ) : null
+              }
+              <RowOrColumn
+                width={"100%"}
+                mainAxisAlignment="flex-start"
+                crossAxisAlignment={isMobile ? "center" : "flex-start"}
+                maxW={{ lg: "1200px" }}
+                bgColor={bgColor}
+                mx="auto"
+                mt={4}
+                pb={4}
+                isRow={!isMobile}
+              >
+                <PoolDashboardBox
+                  pb={2}
+                  width={isMobile ? "100%" : "50%"}
+                  borderRadius={12}
+                >
+                  {data ? (
+                    <SupplyList
+                      assets={data.assets}
+                      comptrollerAddress={data.comptroller}
+                      supplyBalanceUSD={data.totalSupplyBalanceUSD}
+                    />
+                  ) : (
+                    <TableSkeleton tableHeading="Your Supply Balance" />
+                  )}
+                </PoolDashboardBox>
 
-          <PoolDashboardBox
-            ml={isMobile ? 0 : 4}
-            mt={isMobile ? 4 : 0}
-            pb={2}
-            borderRadius={12}
-            width={isMobile ? "90%" : "50%"}
-          >
-            {data ? (
-              <BorrowList
-                comptrollerAddress={data.comptroller}
-                assets={data.assets}
-                borrowBalanceUSD={data.totalBorrowBalanceUSD}
-              />
-            ) : (
-              <TableSkeleton tableHeading="Your Borrow Balance" />
-            )}
-          </PoolDashboardBox>
-        </RowOrColumn>
-        <PoolInfoBox data={data} />
+                <PoolDashboardBox
+                  ml={isMobile ? 0 : 4}
+                  mt={isMobile ? 4 : 0}
+                  pb={2}
+                  borderRadius={12}
+                  width={isMobile ? "100%" : "50%"}
+                >
+                  {data ? (
+                    <BorrowList
+                      comptrollerAddress={data.comptroller}
+                      assets={data.assets}
+                      borrowBalanceUSD={data.totalBorrowBalanceUSD}
+                    />
+                  ) : (
+                    <TableSkeleton tableHeading="Your Borrow Balance" />
+                  )}
+                </PoolDashboardBox>
+              </RowOrColumn>
+            </TabPanel>
+            <TabPanel px={0}>
+              <FusePositions data={data} />
+            </TabPanel>
+            <TabPanel px={0}>
+              <PoolInfoBox data={data} />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
         <Box h={"20"}></Box>
       </Flex>
     </PageTransitionLayout>
@@ -296,111 +449,6 @@ const FusePoolPage = memo(() => {
 });
 
 export default FusePoolPage;
-
-export const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
-  return (
-    <Box
-      backgroundColor={useColorModeValue("white", "#21262e")}
-      borderRadius="10px"
-      border="1px"
-      borderColor={useColorModeValue("gray.200", "gray.700")}
-      boxShadow={useColorModeValue(
-        "0px 21px 44px rgba(71, 29, 97, 0.105141)",
-        "0px 2px 44px rgb(71 29 97 / 29%)"
-      )}
-      _hover={{
-        boxShadow: useColorModeValue(
-          "0px 0px 30px rgb(71 0 97 / 15%)",
-          "0px 0px 30px rgb(242 21 139 / 15%)"
-        ),
-      }}
-      {...props}
-    >
-      {children}
-    </Box>
-  );
-};
-
-const CollateralRatioBar = ({
-  assets,
-  borrowUSD,
-}: {
-  assets: USDPricedFuseAsset[];
-  borrowUSD: number;
-}) => {
-  const { t } = useTranslation();
-
-  const maxBorrow = useBorrowLimit(assets);
-
-  const ratio = (borrowUSD / maxBorrow) * 100;
-
-  useEffect(() => {
-    if (ratio > 95) {
-      LogRocket.track("Fuse-AtRiskOfLiquidation");
-    }
-  }, [ratio]);
-
-  return (
-    <PoolDashboardBox
-      width={"90%"}
-      maxW={{ lg: "1200px" }}
-      height="65px"
-      mt={4}
-      p={4}
-      mx="auto"
-    >
-      <Row mainAxisAlignment="flex-start" crossAxisAlignment="center" expand>
-        <Tooltip
-          label={"Keep this bar from filling up to avoid being liquidated!"}
-        >
-          <Text flexShrink={0} mr={4}>
-            Borrow Limit
-          </Text>
-        </Tooltip>
-
-        <Tooltip label={"This is how much you have borrowed."}>
-          <Text flexShrink={0} mt="2px" mr={3} fontSize="10px">
-            {smallUsdFormatter(borrowUSD)}
-          </Text>
-        </Tooltip>
-
-        <Tooltip
-          label={`You're using ${ratio.toFixed(1)}% of your ${smallUsdFormatter(
-            maxBorrow
-          )} borrow limit.`}
-        >
-          <Box width="100%">
-            <Progress
-              size="xs"
-              width="100%"
-              colorScheme={
-                ratio <= 40
-                  ? "whatsapp"
-                  : ratio <= 60
-                  ? "yellow"
-                  : ratio <= 80
-                  ? "orange"
-                  : "red"
-              }
-              borderRadius="10px"
-              value={ratio}
-            />
-          </Box>
-        </Tooltip>
-
-        <Tooltip
-          label={t(
-            "If your borrow amount reaches this value, you will be liquidated."
-          )}
-        >
-          <Text flexShrink={0} mt="2px" ml={3} fontSize="10px">
-            {smallUsdFormatter(maxBorrow)}
-          </Text>
-        </Tooltip>
-      </Row>
-    </PoolDashboardBox>
-  );
-};
 
 const SupplyList = ({
   assets,
@@ -421,9 +469,10 @@ const SupplyList = ({
   return (
     <Table variant={"unstyled"} size={"sm"}>
       <TableCaption
-        mt="0"
+        my="2"
         placement="top"
         textAlign={"left"}
+        fontWeight={"bold"}
         fontSize={{ base: "3.8vw", sm: "lg" }}
       >
         Your Supply Balance: {smallUsdFormatter(supplyBalanceUSD)}
@@ -431,42 +480,19 @@ const SupplyList = ({
       <Thead>
         {assets.length > 0 ? (
           <Tr>
-            <Td
-              colSpan={isMobile ? 1 : 3}
-              fontWeight={"bold"}
-              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-              maxW={isMobile ? "100px" : "250px"}
-            >
+            <Th colSpan={isMobile ? 1 : 3} maxW={isMobile ? "100px" : "250px"}>
               Asset/LTV
-            </Td>
+            </Th>
 
-            {isMobile ? null : (
-              <Td
-                fontWeight={"bold"}
-                fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-                textAlign={"right"}
-              >
-                APY/Reward
-              </Td>
-            )}
+            {isMobile ? null : <Th textAlign={"right"}>APY/Reward</Th>}
 
-            <Td
-              isNumeric
-              fontWeight={"bold"}
-              textAlign={"right"}
-              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-            >
+            <Th isNumeric textAlign={"right"}>
               Balance
-            </Td>
+            </Th>
 
-            <Td
-              maxW={isMobile ? "80px" : "140px"}
-              fontWeight={"bold"}
-              textAlign="center"
-              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-            >
+            <Th maxW={isMobile ? "80px" : "140px"} textAlign="center">
               Collateral
-            </Td>
+            </Th>
           </Tr>
         ) : null}
       </Thead>
@@ -836,9 +862,10 @@ const BorrowList = ({
   return (
     <Table variant={"unstyled"} size={"sm"}>
       <TableCaption
-        mt="0"
+        my="2"
         placement="top"
         textAlign={"left"}
+        fontWeight={"bold"}
         fontSize={{ base: "3.8vw", sm: "lg" }}
       >
         Your Borrow Balance: {smallUsdFormatter(borrowBalanceUSD)}
@@ -846,42 +873,21 @@ const BorrowList = ({
       <Thead>
         {assets.length > 0 ? (
           <Tr>
-            <Td
-              colSpan={isMobile ? 1 : 2}
-              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-              fontWeight={"bold"}
-            >
-              Asset
-            </Td>
+            <Th colSpan={isMobile ? 1 : 2}>Asset</Th>
 
             {isMobile ? null : (
-              <Td
-                fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-                fontWeight={"bold"}
-                isNumeric
-                textAlign={"right"}
-              >
+              <Th isNumeric textAlign={"right"}>
                 APR/TVL
-              </Td>
+              </Th>
             )}
 
-            <Td
-              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-              fontWeight={"bold"}
-              isNumeric
-              textAlign={"right"}
-            >
+            <Th isNumeric textAlign={"right"}>
               Balance
-            </Td>
+            </Th>
 
-            <Td
-              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
-              fontWeight={"bold"}
-              isNumeric
-              textAlign={"right"}
-            >
+            <Th isNumeric textAlign={"right"}>
               Liquidity
-            </Td>
+            </Th>
           </Tr>
         ) : null}
       </Thead>
@@ -1129,3 +1135,27 @@ const TableSkeleton = ({ tableHeading }: any) => (
     <Skeleton w="100%" h="40" />
   </Column>
 );
+
+export const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
+  return (
+    <Box
+      backgroundColor={useColorModeValue("white", "#21262e")}
+      borderRadius="10px"
+      border="1px"
+      borderColor={useColorModeValue("gray.200", "gray.700")}
+      boxShadow={useColorModeValue(
+        "0px 21px 44px rgba(71, 29, 97, 0.105141)",
+        "0px 2px 44px rgb(71 29 97 / 29%)"
+      )}
+      _hover={{
+        boxShadow: useColorModeValue(
+          "0px 0px 30px rgb(71 0 97 / 15%)",
+          "0px 0px 30px rgb(242 21 139 / 15%)"
+        ),
+      }}
+      {...props}
+    >
+      {children}
+    </Box>
+  );
+};

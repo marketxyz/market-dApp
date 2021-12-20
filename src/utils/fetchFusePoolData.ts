@@ -3,7 +3,7 @@ import Rari from "../rari-sdk/index";
 
 // @ts-ignore
 import Filter from "bad-words";
-import { TokenData } from "hooks/useTokenData";
+import { TokenData } from "../hooks/useTokenData";
 import { createComptroller } from "./createComptroller";
 import { fromEntries } from "@chakra-ui/utils";
 export const filter = new Filter({ placeHolder: " " });

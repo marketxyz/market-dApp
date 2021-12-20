@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import Vibrant from "node-vibrant";
 import { Palette } from "node-vibrant/lib/color";
 import fetch from "node-fetch";
@@ -65,6 +66,18 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     ).then((res) => res.json()),
   ]);
 
+  let currPrice: number | undefined;
+
+  await fetch(
+    `https://api.coingecko.com/api/v3/simple/token_price/${coingeckoNetwork}?contract_addresses=${address}&vs_currencies=usd`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      if (data[address.toLowerCase()]) {
+        currPrice = data[address.toLowerCase()].usd;
+      }
+    });
+
   let name: string;
   let symbol: string;
   let logoURL: string | undefined;
@@ -91,7 +104,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       image: { small },
     } = rawData;
 
-    symbol = _symbol == _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
+    symbol =
+      _symbol === _symbol.toLowerCase() ? _symbol.toUpperCase() : _symbol;
     name = _name;
     logoURL = small;
   }
@@ -311,21 +325,22 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
   let color: Palette;
   try {
-    if (logoURL == undefined) {
+    if (logoURL === undefined) {
       // If we have no logo no need to try to get the color
       // just go to the catch block and return the default logo.
-      throw "Go to the catch block";
+      throw Error("Go to the catch block");
     }
 
     color = await Vibrant.from(logoURL).getPalette();
     if (!color.Vibrant) {
-      throw "Go to the catch block";
+      throw Error("Go to the catch block");
     }
   } catch (error) {
     return response.json({
       ...basicTokenInfo,
       color: "#FFFFFF",
       overlayTextColor: "#000",
+      currPrice: currPrice,
       logoURL:
         logoURL ??
         "https://raw.githubusercontent.com/feathericons/feather/master/icons/help-circle.svg",
@@ -333,10 +348,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     });
   }
 
+  console.log("basicTokenInfo", basicTokenInfo)
+
   return response.json({
     ...basicTokenInfo,
     color: color.Vibrant.getHex(),
     overlayTextColor: color.Vibrant.getTitleTextColor(),
+    currPrice: currPrice,
     logoURL,
     address,
   });
