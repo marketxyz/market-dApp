@@ -12,7 +12,6 @@ import {
   useColorModeValue,
   Image,
   ButtonProps,
-  Divider,
   ModalCloseButton,
   ModalHeader,
 } from "@chakra-ui/react";
@@ -23,7 +22,6 @@ import DashboardBox from "./DashboardBox";
 import { shortAddress } from "../../utils/shortAddress";
 
 import { useTranslation } from "react-i18next";
-import { MODAL_PROPS, ModalDivider, ModalTitleWithCloseButton } from "./Modal";
 import { LanguageSelect } from "./TranslateButton";
 
 import { version } from "../..";
@@ -67,15 +65,6 @@ export const AccountButton = memo(() => {
   );
 });
 
-const chainIdToName: Record<number, string> = {
-  1: "Ethereum",
-  137: "Polygon",
-};
-const chainIdToChainName: Record<number, string> = {
-  1: "mainnet",
-  137: "polygon",
-};
-
 const switchChainId = async (chainId: number) => {
   if (chainId === 1) {
     await window.ethereum.request({
@@ -85,7 +74,7 @@ const switchChainId = async (chainId: number) => {
   } else {
     await window.ethereum.request({
       method: "wallet_addEthereumChain",
-      params: [networkData[chainIdToChainName[chainId]].addData],
+      params: [networkData[chainId]?.addData],
     });
   }
 };
@@ -151,7 +140,7 @@ const Buttons = ({
             h={"7"}
             mr={"2"}
           />
-          Switch to {chainIdToName[userWallet?.appChainId]}
+          Switch to {networkData[userWallet?.appChainId].name}
         </MotionBox>
       ) : (
         <DashboardBox
@@ -231,7 +220,6 @@ export const SettingsModal = ({
     logout();
   };
 
-  const bgColor = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
@@ -251,7 +239,9 @@ export const SettingsModal = ({
         borderColor={"rgba(184, 50, 123, 0.5)"}
         textColor={textColor}
       >
-        <ModalHeader pl={4} fontSize="1.5rem">Account</ModalHeader>
+        <ModalHeader pl={4} fontSize="1.5rem">
+          Account
+        </ModalHeader>
         <ModalCloseButton onClick={onClose} />
         <Column
           width="100%"

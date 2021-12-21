@@ -1,10 +1,10 @@
 import { NowRequest, NowResponse } from "@vercel/node";
 import {
   initFuseWithProviders,
-  turboGethURL,
+  secondaryRPC,
 } from "../src/utils/web3Providers";
 
-const fuse = initFuseWithProviders(turboGethURL);
+const fuse = initFuseWithProviders(secondaryRPC);
 
 function formatPools(pools) {
   if (!(pools["0"] && pools["0"].length)) {
@@ -30,6 +30,7 @@ function formatPools(pools) {
   return _pools;
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NowRequest, res: NowResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -39,7 +40,7 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   res.setHeader("Cache-Control", "maxage=300, s-maxage=300");
 
-  if (!req.query?.format || parseInt(req.query?.format as string) != 1)
+  if (!req.query?.format || parseInt(req.query?.format as string) !== 1)
     return res.json(pools);
   else return res.json(formatPools(pools));
 };

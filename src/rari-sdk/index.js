@@ -7,7 +7,7 @@ import Cache from "./cache.js";
 export default class Rari {
   constructor(web3Provider) {
     this.web3 = new Web3(web3Provider);
-    this.cache = new Cache({ allTokens: 86400, ethUsdPrice: 300 });
+    this.cache = new Cache({ allTokens: 86400, ethUsdPrice: 4000 });
     var self = this;
 
     this.getEthUsdPriceBN = async function () {

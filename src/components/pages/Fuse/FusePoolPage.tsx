@@ -72,6 +72,8 @@ import PoolModal, { Mode } from "./Modals/PoolModal";
 import { Link } from "react-router-dom";
 import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
+import { CHAIN_ID } from "utils/chainId";
+import { networkData } from "../../../constants/networkData";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -105,11 +107,7 @@ const Stat = (props: StatProps) => (
   />
 );
 
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID ?? "1");
-const scanner =
-  chainId === 1
-    ? "https://etherscan.io/token"
-    : "https://polygonscan.com/token";
+const scanner = networkData[CHAIN_ID].scanner;
 
 const FusePoolPage = memo(() => {
   const isMobile = useIsSemiSmallScreen();
@@ -674,7 +672,9 @@ const AssetSupplyRow = ({
               ""
             )}
           </Td>
-        ) : null}
+        ) : (
+          <Td></Td>
+        )}
 
         {isMobile ? null : (
           <Td maxW={"30px"}>
@@ -702,7 +702,7 @@ const AssetSupplyRow = ({
 
         {isMobile ? null : (
           <Td isNumeric textAlign={"right"} minW={"140px"}>
-            {tokenData?.extraData?.hasAPY ? (
+            {tokenData?.extraData?.hasApy ? (
               <Row crossAxisAlignment="center" mainAxisAlignment="flex-end">
                 <Text
                   fontWeight="bold"
@@ -791,8 +791,8 @@ const AssetSupplyRow = ({
               {smallUsdFormatter(
                 asset.supplyBalance / 10 ** asset.underlyingDecimals
               ).replace("$", "")}{" "}
-              {tokenData?.extraData?.shortName ??
-                tokenData?.symbol ??
+              {tokenData?.extraData?.shortName ||
+                tokenData?.symbol ||
                 asset.underlyingSymbol}
             </Text>
           </Column>
@@ -1016,7 +1016,9 @@ const AssetBorrowRow = ({
           ) : (
             <Box></Box>
           )
-        ) : null}
+        ) : (
+          <Td></Td>
+        )}
 
         {isMobile ? null : (
           <Td isNumeric>

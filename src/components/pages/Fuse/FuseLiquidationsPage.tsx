@@ -158,8 +158,6 @@ const FuseLiquidationsPage = memo(() => {
     for (let poolID = 0; poolID < pools.length; poolID++) {
       const pool = pools[poolID];
 
-      console.log(pool.comptroller, poolID);
-
       poolFetches.push(
         fuse.contracts.FusePoolLens.methods
           .getPoolAssetsWithData(pool.comptroller)

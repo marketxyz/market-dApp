@@ -18,10 +18,12 @@ import { useToast } from "@chakra-ui/react";
 import Fuse from "../fuse-sdk/src";
 import {
   chooseBestWeb3Provider,
-  infuraURL,
   initFuseWithProviders,
 } from "../utils/web3Providers";
 import { useLocation } from "react-router-dom";
+import { CHAIN_ID } from "utils/chainId";
+import { RPC as rpc } from "../rpc";
+import { networkData } from "../constants/networkData";
 
 async function launchModalLazy(
   t: (text: string, extra?: any) => string,
@@ -43,7 +45,8 @@ async function launchModalLazy(
       package: WalletConnectProvider.default,
       options: {
         rpc: {
-          137: infuraURL,
+          137: rpc[137].primary,
+          250: rpc[250].primary,
         },
       },
       display: {
@@ -58,8 +61,8 @@ async function launchModalLazy(
   }
 
   const web3Modal = new Web3Modal.default({
-    network: process.env.REACT_APP_CHAIN_ID === "1" ? "mainnet" : "matic",
-    cacheProvider,
+    network: networkData[CHAIN_ID].chainName,
+    cacheProvider: true,
     providerOptions,
     theme: "dark",
   });
@@ -109,7 +112,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     rari.web3.eth.getChainId().then((chainId) => {
       const userWallet = {
-        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "137") || 137,
+        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID!) || 137,
         chainId,
         isMetaMask: isMetaMask ?? false,
       };
@@ -124,7 +127,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
 
       setUserWallet(userWallet);
     });
-  }, [rari, toast, userWallet?.chainId]);
+  }, [rari, toast, userWallet?.chainId, userWallet?.isMetaMask]);
 
   const [address, setAddress] = useState<string>(EmptyAddress);
 
@@ -232,7 +235,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
       address,
       isAttemptingLogin,
       userWallet,
-      appChainId: parseInt(process.env.REACT_APP_CHAIN_ID ?? "1") || 1,
+      appChainId: CHAIN_ID,
     }),
     [
       rari,
