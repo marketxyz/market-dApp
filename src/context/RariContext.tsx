@@ -62,7 +62,7 @@ async function launchModalLazy(
 
   const web3Modal = new Web3Modal.default({
     network: networkData[CHAIN_ID].chainName,
-    cacheProvider,
+    cacheProvider: true,
     providerOptions,
     theme: "dark",
   });
@@ -127,7 +127,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
 
       setUserWallet(userWallet);
     });
-  }, [rari, toast, userWallet?.chainId]);
+  }, [rari, toast, userWallet?.chainId, userWallet?.isMetaMask]);
 
   const [address, setAddress] = useState<string>(EmptyAddress);
 
