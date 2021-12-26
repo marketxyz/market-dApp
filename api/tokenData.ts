@@ -89,9 +89,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   if (tokenInfo?.[CHAIN_ID]?.[address]) {
     tokenObj = { ...tokenObj, ...tokenInfo[CHAIN_ID][address] };
     if (tokenObj.extraData?.metaDataFn) {
-      const apyData = await fns[tokenObj.extraData.metaDataFn](
-        ...tokenObj.extraData.metaDataArgs
-      );
+      let apyData = {};
+      try {
+        apyData = await fns[tokenObj.extraData.metaDataFn](
+          ...tokenObj.extraData.metaDataArgs
+        );
+      } catch (e) {
+        console.log("failed to capture apyData because: ", e);
+      }
 
       tokenObj.extraData = {
         ...apyData,

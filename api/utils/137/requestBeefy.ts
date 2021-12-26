@@ -1,9 +1,9 @@
-import { cacheFetch } from "../cacheFetch";
 import { vercelURL } from "../getVercelURL";
+import fetch from "node-fetch";
 
-export const requestBeefy = cacheFetch(async () => {
+export const requestBeefy = async () => {
   const data = await fetch(`${vercelURL}/api/chain/137/beefyAPY`);
   const json = await data.json();
 
   return json;
-});
+};
