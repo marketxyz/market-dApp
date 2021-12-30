@@ -22,7 +22,7 @@ import {
 } from "../utils/web3Providers";
 import { useLocation } from "react-router-dom";
 import { CHAIN_ID } from "utils/chainId";
-import { RPC as rpc } from "../rpc";
+import { getRPC } from "../rpc";
 import { networkData } from "../constants/networkData";
 
 async function launchModalLazy(
@@ -45,8 +45,9 @@ async function launchModalLazy(
       package: WalletConnectProvider.default,
       options: {
         rpc: {
-          137: rpc[137].primary,
-          250: rpc[250].primary,
+          137: getRPC(137, false),
+          250: getRPC(137, false),
+          43114: getRPC(43114, false),
         },
       },
       display: {
@@ -112,7 +113,7 @@ export const RariProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     rari.web3.eth.getChainId().then((chainId) => {
       const userWallet = {
-        appChainId: parseInt(process.env.REACT_APP_CHAIN_ID!) || 137,
+        appChainId: CHAIN_ID,
         chainId,
         isMetaMask: isMetaMask ?? false,
       };

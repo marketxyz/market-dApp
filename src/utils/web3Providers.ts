@@ -1,9 +1,9 @@
 import Fuse from "../fuse-sdk/src";
-import { RPC } from "../rpc";
+import { getRPC } from "../rpc";
 import { CHAIN_ID } from "./chainId";
 
-export const primaryRPC = RPC[CHAIN_ID].primary!;
-export const secondaryRPC = RPC[CHAIN_ID].secondary!;
+export const primaryRPC = getRPC(CHAIN_ID, false);
+export const secondaryRPC = getRPC(CHAIN_ID, true);
 
 declare let window: any;
 

@@ -1,4 +1,4 @@
-export const chainIdOrder = [137, 250, 10, 42161];
+export const chainIdOrder = [137, 250, 43114, 10, 42161];
 export const networkData: Record<string, any> = {
   137: {
     chainIdHex: "0x89",
@@ -51,6 +51,32 @@ export const networkData: Record<string, any> = {
       coingeckoNetwork: "fantom",
       sushiURL:
         "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/fantom.json",
+    },
+  },
+  43114: {
+    name: "Avalanche",
+    chainName: "avalanche",
+    color: "#e84142",
+    scanner: "https://snowtrace.io/token",
+    shortName: "AVAX",
+    img: "/static/avax.png",
+    url: "https://avax.market.xyz",
+    enabled: true,
+    addData: {
+      chainId: "0xA86A",
+      chainName: "Avalanche",
+      nativeCurrency: {
+        name: "AVAX",
+        symbol: "AVAX",
+        decimals: 18,
+      },
+      rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+      blockExplorerUrls: ["https://snowtrace.io/"],
+    },
+    extraData: {
+      coingeckoNetwork: "avalanche",
+      sushiURL:
+        "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/avalanche.json",
     },
   },
   10: {

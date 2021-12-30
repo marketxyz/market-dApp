@@ -121,6 +121,14 @@ const tokens = {
       extraData: { shortName: "MAI" },
     },
   },
+  43114: {
+    [Web3.utils.toChecksumAddress(
+      "0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b"
+    )]: {
+      logoURL:
+        "https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/polygon/assets/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/logo.png",
+    },
+  },
 };
 
 export default tokens;
