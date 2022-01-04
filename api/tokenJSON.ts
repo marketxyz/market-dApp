@@ -138,6 +138,32 @@ const tokens = {
     )]: {
       logoURL: `${URL}/static/fantom/xBOO.png`,
     },
+    [Web3.utils.toChecksumAddress(
+      "0x27c77411074ba90cA35e6f92A79dAd577c05A746"
+    )]: {
+      symbol: "mSPLP-TOMB/FTM",
+      logoURL: `${URL}/static/fantom/TOMB-FTM-SPLP.png`,
+      name: "Moo TOMB TOMB/FTM",
+      extraData: {
+        shortName: "mSPLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/tomb-tomb-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["tomb-tomb-ftm"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xae94e96bF81b3a43027918b138B71a771D381150"
+    )]: {
+      symbol: "mSPLP-TSHARE/FTM",
+      logoURL: `${URL}/static/fantom/TSHARE-FTM-SPLP.png`,
+      name: "Moo TOMB TSHARE/FTM",
+      extraData: {
+        shortName: "mSPLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/tomb-tshare-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["tomb-tshare-ftm"],
+      },
+    },
   },
 };
 
