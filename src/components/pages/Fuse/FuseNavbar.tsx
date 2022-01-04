@@ -91,7 +91,7 @@ const NetworkSwitcher = () => {
         <Text mr={3} display={{ base: "none", md: "block" }}>
           {networkData[CHAIN_ID].name}
         </Text>
-        <ChevronDownIcon fontSize={"25px"}/>
+        <ChevronDownIcon fontSize={"25px"} />
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
@@ -99,8 +99,8 @@ const NetworkSwitcher = () => {
         <ModalContent
           bg={useColorModeValue("gray.50", "mktgray.700")}
           borderRadius="20px"
-          border="1px"
-          borderColor={"rgba(184, 50, 123, 0.5)"}
+          border="2px"
+          borderColor={"rgba(184, 50, 123, 1)"}
         >
           <ModalHeader fontSize="1.5rem">Select a Network</ModalHeader>
           <ModalCloseButton />
@@ -127,7 +127,7 @@ const NetworkSwitcher = () => {
             </Heading>
             <Grid
               templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)" }}
-              gap={{ base: 4, sm: 6 }}
+              gap={4}
               mt={6}
             >
               {chainIdOrder.map((chainId) => {
