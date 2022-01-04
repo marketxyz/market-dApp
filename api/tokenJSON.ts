@@ -120,6 +120,24 @@ const tokens = {
       symbol: "MAI",
       extraData: { shortName: "MAI" },
     },
+    [Web3.utils.toChecksumAddress(
+      "0xee3a7c885fd3cc5358ff583f2dab3b8bc473316f"
+    )]: {
+      symbol: "mSPLP-BOO/FTM",
+      logoURL: `${URL}/static/fantom/BOO-FTM-SPLP.png`,
+      name: "Moo Boo Boo/FTM",
+      extraData: {
+        shortName: "mSPLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-boo-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-boo-ftm"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xa48d959AE2E88f1dAA7D5F611E01908106dE7598"
+    )]: {
+      logoURL: `${URL}/static/fantom/xBOO.png`,
+    },
   },
 };
 
