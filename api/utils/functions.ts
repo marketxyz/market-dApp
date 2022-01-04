@@ -5,4 +5,5 @@ export const APIExtraFunctions = {
   137: PolygonAPIFunctions,
   250: FantomAPIFunctions,
   43114: {},
+  56: {},
 };
