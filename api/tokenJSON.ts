@@ -146,6 +146,67 @@ const tokens = {
       logoURL:
         "https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/polygon/assets/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/logo.png",
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64"
+    )]: {
+      logoURL: `${URL}/static/avax/frax.png`,
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xea75ff4F580418A1430Bd3EBaF26B03C096D9489"
+    )]: {
+      logoURL: "/static/avax/mooJoeUsdc.png",
+      symbol: "mJLP-JOE/USDC",
+      name: "Moo Joe/USDC",
+      extraData: {
+        shortName: "mJLP",
+        partnerURL:
+          "https://app.beefy.finance/#/avalanche/vault/joe-joe-usdc.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe-usdc.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xD0B0B19f2DC29a17175A2afc47b29C6DDd74d3D4"
+    )]: {
+      logoURL: "/static/avax/mooJoeUSDT.png",
+      symbol: "mJLP-JOE/USDT",
+      name: "Moo Joe/USDT",
+      extraData: {
+        shortName: "mJLP",
+        partnerURL:
+          "https://app.beefy.finance/#/avalanche/vault/joe-joe-usdt.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe-usdt.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x3D81A269E05e6057e4dF9E2D76E254E65a65Eb66"
+    )]: {
+      logoURL: "/static/avax/mooJoeAvax.png",
+      symbol: "mJLP-JOE/AVAX",
+      name: "Moo Joe/Avax",
+      extraData: {
+        shortName: "mJLP",
+        partnerURL: "https://app.beefy.finance/#/avalanche/vault/joe-joe-wavax",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe-wavax"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x282B11E65f0B49363D4505F91c7A44fBEe6bCc0b"
+    )]: {
+      logoURL: "/static/avax/mooxJoe.png",
+      symbol: "moo-xJOE",
+      name: "Moo xJOE",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avalanche/vault/joe-joe",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe"],
+      },
+    },
   },
 };
 

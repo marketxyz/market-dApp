@@ -1,32 +1,5 @@
-export const chainIdOrder = [137, 250, 56, 43114, 10, 42161];
+export const chainIdOrder = [137, 250, 43114, 10, 42161];
 export const networkData: Record<string, any> = {
-  56: {
-    chainIdHex: "0x38",
-    chainName: "bsc",
-    color: "#f8cf2e",
-    scanner: "https://bscscan.com/token",
-    name: "Binance Chain (BSC)",
-    shortName: "BSC",
-    img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/bsc.jpg",
-    url: "https://bsc.market.xyz",
-    enabled: true,
-    addData: {
-      chainId: "0x38",
-      chainName: "Binance Smart Chain",
-      nativeCurrency: {
-        name: "BNB",
-        symbol: "BNB",
-        decimals: 18,
-      },
-      rpcUrls: ["https://bsc-dataseed1.binance.org"],
-      blockExplorerUrls: ["https://bscscan.com/"],
-    },
-    extraData: {
-      coingeckoNetwork: "binance-smart-chain",
-      sushiURL:
-        "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/bsc.json",
-    },
-  },
   137: {
     chainIdHex: "0x89",
     chainName: "matic",
