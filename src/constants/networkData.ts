@@ -52,19 +52,5 @@ export const networkData: Record<string, any> = {
       sushiURL:
         "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/fantom.json",
     },
-  },
-  10: {
-    name: "Optimism",
-    shortName: "Optimism",
-    img: "/static/optimism.png",
-    url: "optimism.market.xyz",
-    enabled: false,
-  },
-  42161: {
-    name: "Arbitrum",
-    shortName: "Arbitrum",
-    img: "/static/arbitrum.png",
-    url: "arb.market.xyz",
-    enabled: false,
-  },
+  }
 };
