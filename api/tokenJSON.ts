@@ -164,6 +164,19 @@ const tokens = {
         metaDataArgs: ["tomb-tshare-ftm"],
       },
     },
+    [Web3.utils.toChecksumAddress(
+      "0x15DD4398721733D8273FD4Ed9ac5eadC6c018866"
+    )]: {
+      symbol: "mBOO",
+      logoURL: `${URL}/static/fantom/MOO-BOO.png`,
+      name: "Moo Boo",
+      extraData: {
+        shortName: "mBOO",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-boo",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-boo"],
+      },
+    },
   },
 };
 
