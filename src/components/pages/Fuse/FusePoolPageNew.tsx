@@ -74,6 +74,7 @@ import PageTransitionLayout from "components/shared/PageTransitionLayout";
 import { SimpleTooltip } from "components/shared/SimpleTooltip";
 import { CHAIN_ID } from "utils/chainId";
 import { networkData } from "../../../constants/networkData";
+import { useLiquidationPriceForBorrowedAsset, useLiquidationPriceForSuppliedAsset } from "hooks/useLiquidationPrice";
 
 const StatLabel = (props: StatLabelProps) => (
   <ChakraStatLabel
@@ -109,7 +110,7 @@ const Stat = (props: StatProps) => (
 
 const scanner = networkData[CHAIN_ID].scanner;
 
-const FusePoolPage = memo(() => {
+const FusePoolPageNew = memo(() => {
   const isMobile = useIsSemiSmallScreen();
   const { poolId } = useParams();
   const data = useFusePoolData(poolId);
@@ -293,7 +294,7 @@ const FusePoolPage = memo(() => {
   );
 });
 
-export default FusePoolPage;
+export default FusePoolPageNew;
 
 export const PoolDashboardBox = ({ children, ...props }: BoxProps) => {
   return (
@@ -454,9 +455,18 @@ const SupplyList = ({
               textAlign={"right"}
               fontSize={{ base: "2.9vw", sm: "0.9rem" }}
             >
-              Balance
+              Supplied
             </Td>
-
+            
+            <Td
+              isNumeric
+              fontWeight={"bold"}
+              textAlign={"right"}
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
+            >
+              Liq. Price
+            </Td>
+{/* 
             <Td
               maxW={isMobile ? "80px" : "140px"}
               fontWeight={"bold"}
@@ -464,32 +474,19 @@ const SupplyList = ({
               fontSize={{ base: "2.9vw", sm: "0.9rem" }}
             >
               Collateral
-            </Td>
+            </Td> */}
           </Tr>
         ) : null}
       </Thead>
       <Tbody>
         {assets.length > 0 ? (
           <>
-            {suppliedAssets.map((asset, index) => {
+            {assets.map((asset, index) => {
               return (
                 <AssetSupplyRow
                   comptrollerAddress={comptrollerAddress}
                   key={asset.underlyingToken}
-                  assets={suppliedAssets}
-                  index={index}
-                />
-              );
-            })}
-
-            {suppliedAssets.length > 0 ? <ModalDivider my={2} /> : null}
-
-            {nonSuppliedAssets.map((asset, index) => {
-              return (
-                <AssetSupplyRow
-                  comptrollerAddress={comptrollerAddress}
-                  key={asset.underlyingToken}
-                  assets={nonSuppliedAssets}
+                  assets={assets}
                   index={index}
                 />
               );
@@ -598,6 +595,10 @@ const AssetSupplyRow = ({
   const { t } = useTranslation();
 
   const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
+  
+  const borrowBalanceUSD = assets.reduce(((sum, asset) => sum + asset.borrowBalanceUSD), 0);
+
+  const liquidationPrice = useLiquidationPriceForSuppliedAsset(asset, assets, borrowBalanceUSD);
 
   return (
     <>
@@ -798,6 +799,18 @@ const AssetSupplyRow = ({
           </Column>
         </Td>
 
+        <Td minW={isMobile ? "20px" : "110px"} isNumeric textAlign={"right"}>
+          <Column mainAxisAlignment="center" crossAxisAlignment="flex-end">
+            <Text
+              color={tokenData?.color ?? textColor}
+              fontWeight="bold"
+              fontSize={{ base: "2.8vw", sm: "md" }}
+            >
+              {smallUsdFormatter(liquidationPrice)}
+            </Text>
+          </Column>
+        </Td>
+{/* 
         <Td>
           <Row mainAxisAlignment={"center"} crossAxisAlignment="center">
             <SwitchCSS
@@ -811,7 +824,7 @@ const AssetSupplyRow = ({
               size={isMobile ? "sm" : "md"}
             />
           </Row>
-        </Td>
+        </Td> */}
       </Tr>
     </>
   );
@@ -880,6 +893,15 @@ const BorrowList = ({
               isNumeric
               textAlign={"right"}
             >
+              Liq. Price
+            </Td>
+
+            <Td
+              fontSize={{ base: "2.9vw", sm: "0.9rem" }}
+              fontWeight={"bold"}
+              isNumeric
+              textAlign={"right"}
+            >
               Liquidity
             </Td>
           </Tr>
@@ -888,7 +910,7 @@ const BorrowList = ({
       <Tbody>
         {assets.length > 0 ? (
           <>
-            {borrowedAssets.map((asset, index) => {
+            {assets.map((asset, index) => {
               // Don't show paused assets.
               if (asset.isPaused) {
                 return null;
@@ -898,23 +920,7 @@ const BorrowList = ({
                 <AssetBorrowRow
                   comptrollerAddress={comptrollerAddress}
                   key={asset.underlyingToken}
-                  assets={borrowedAssets}
-                  index={index}
-                />
-              );
-            })}
-
-            {borrowedAssets.length > 0 ? <ModalDivider my={2} /> : null}
-            {nonBorrowedAssets.map((asset, index) => {
-              // Don't show paused assets.
-              if (asset.isPaused) {
-                return null;
-              }
-              return (
-                <AssetBorrowRow
-                  comptrollerAddress={comptrollerAddress}
-                  key={asset.underlyingToken}
-                  assets={nonBorrowedAssets}
+                  assets={assets}
                   index={index}
                 />
               );
@@ -959,6 +965,9 @@ const AssetBorrowRow = ({
 
   const textColor = useColorModeValue("#2f2f2f", "#f2f2f2");
   const bottomTextColor = useColorModeValue("gray.800", "gray.400");
+  
+  const borrowBalanceUSD = assets.reduce(((sum, asset) => sum + asset.borrowBalanceUSD), 0);
+  const liquidationPrice = useLiquidationPriceForBorrowedAsset(asset, assets, borrowBalanceUSD);
 
   return (
     <>
@@ -1074,6 +1083,18 @@ const AssetBorrowRow = ({
             </Text>
           </Column>
         </Td>
+      
+        <Td isNumeric>
+          <Column mainAxisAlignment="flex-start" crossAxisAlignment="flex-end">
+            <Text
+              color={tokenData?.color ?? textColor}
+              fontWeight={"bold"}
+              fontSize={{ base: "2.8vw", sm: "md" }}
+            >
+              {smallUsdFormatter(liquidationPrice)}
+            </Text>
+          </Column>
+        </Td>
 
         <Td>
           <SimpleTooltip
@@ -1131,3 +1152,4 @@ const TableSkeleton = ({ tableHeading }: any) => (
     <Skeleton w="100%" h="40" />
   </Column>
 );
+
