@@ -217,16 +217,24 @@ const tokens = {
       },
     },
     [Web3.utils.toChecksumAddress(
-      "0x5d2EF803D6e255eF4D1c66762CBc8845051B54dB"
+      "0x30A9Eb3EC69eD8e68c147B47b9C2E826380024a3"
     )]: {
-      symbol: "mSpirit-DAI/USDC",
-      logoURL: `${URL}/static/fantom/SPIRIT-DAI-USDC.png`,
-      name: "Moo Spirit DAI-USDC",
+      symbol: "rf-FTM/TSHARE",
+      logoURL: `${URL}/static/fantom/TSHARE-FTM-REAPER.png`,
+      name: "Reaper FTM/TSHARE",
       extraData: {
-        shortName: "mSpiritLP",
-        partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-dai/usdc",
-        metaDataFn: "requestBeefy",
-        metaDataArgs: ["spirit-dai-usdc"],
+        shortName: "rfBooLP",
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xAD48320c7e3D3e9fF0c7e51608869cbbfFE7422C"
+    )]: {
+      symbol: "rf-FTM/CREDIT",
+      logoURL: `${URL}/static/fantom/FTM-CREDIT-REAPER.png`,
+      name: "Reaper FTM/CREDIT",
+      extraData: {
+        shortName: "rfBooLP",
       },
     },
   },
