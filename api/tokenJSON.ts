@@ -127,7 +127,7 @@ const tokens = {
       logoURL: `${URL}/static/fantom/BOO-FTM-SPLP.png`,
       name: "Moo Boo Boo/FTM",
       extraData: {
-        shortName: "mSPLP",
+        shortName: "mBooLP",
         partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-boo-ftm",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["boo-boo-ftm"],
@@ -145,7 +145,7 @@ const tokens = {
       logoURL: `${URL}/static/fantom/TOMB-FTM-SPLP.png`,
       name: "Moo TOMB TOMB/FTM",
       extraData: {
-        shortName: "mSPLP",
+        shortName: "mBooLP",
         partnerURL: "https://app.beefy.finance/#/fantom/vault/tomb-tomb-ftm",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["tomb-tomb-ftm"],
@@ -158,7 +158,7 @@ const tokens = {
       logoURL: `${URL}/static/fantom/TSHARE-FTM-SPLP.png`,
       name: "Moo TOMB TSHARE/FTM",
       extraData: {
-        shortName: "mSPLP",
+        shortName: "mBooLP",
         partnerURL: "https://app.beefy.finance/#/fantom/vault/tomb-tshare-ftm",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["tomb-tshare-ftm"],
@@ -171,10 +171,62 @@ const tokens = {
       logoURL: `${URL}/static/fantom/MOO-BOO.png`,
       name: "Moo Boo",
       extraData: {
-        shortName: "mBOO",
+        shortName: "mBooLP",
         partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-boo",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["boo-boo"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xA4e2EE5a7fF51224c27C98098D8DB5C770bAAdbE"
+    )]: {
+      symbol: "mSpirit-USDC/FTM",
+      logoURL: `${URL}/static/fantom/SPIRIT-FTM-USDC.png`,
+      name: "Moo Spirit USDC-FTM",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-ftm-usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-ftm-usdc"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xD8dd2EA228968F7f043474Db610A20aF887866c7"
+    )]: {
+      symbol: "mSpirit-fUSDT/FTM",
+      logoURL: `${URL}/static/fantom/SPIRIT-FUSDT-FTM.png`,
+      name: "Moo Spirit fUSDT-FTM",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-fusdt-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-fusdt-ftm"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x11d4D27364952b972AC74Fb6676DbbFa67fDa72F"
+    )]: {
+      symbol: "mSpirit-FRAX/USDC",
+      logoURL: `${URL}/static/fantom/SPIRIT-FRAX-USDC.png`,
+      name: "Moo Spirit FRAX-USDC",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-frax-usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-frax-usdc"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x5d2EF803D6e255eF4D1c66762CBc8845051B54dB"
+    )]: {
+      symbol: "mSpirit-DAI/USDC",
+      logoURL: `${URL}/static/fantom/SPIRIT-DAI-USDC.png`,
+      name: "Moo Spirit DAI-USDC",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-dai/usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-dai-usdc"],
       },
     },
   },
