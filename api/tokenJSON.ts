@@ -237,6 +237,54 @@ const tokens = {
         shortName: "rfBooLP",
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355"
+    )]: {
+      logoURL: `${URL}/static/fantom/FRAX.png`,
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x38Da23Ef41333bE0d309Cd63166035FF3b7E2000"
+    )]: {
+      symbol: "rvWFTM",
+      logoURL: `https://raw.githubusercontent.com/sushiswap/icons/master/token/ftm.jpg`,
+      name: "RoboVault WFTM",
+      extraData: {
+        shortName: "rvWFTM",
+        // partnerURL: "",
+        // metaDataFn: "",
+        // metaDataArgs: [""],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x92D2DdF8eed6f2bdB9a7890a00B07a48C9c7A658"
+    )]: {
+      symbol: "rvMIM",
+      logoURL: `https://raw.githubusercontent.com/sushiswap/logos/main/token/mim.jpg`,
+      name: "RoboVault MIM",
+      extraData: {
+        shortName: "rvMIM",
+        // partnerURL: "",
+        // metaDataFn: "",
+        // metaDataArgs: [""],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x1B6ecdA7Fd559793c0Def1F1D90A2Df4887B9718"
+    )]: {
+      symbol: "rvUSDC",
+      logoURL: `https://raw.githubusercontent.com/sushiswap/logos/main/token/usdc.jpg`,
+      name: "RoboVault USDC",
+      extraData: {
+        shortName: "rvUSDC",
+        // partnerURL: "",
+        // metaDataFn: "",
+        // metaDataArgs: [""],
+      },
+    },
   },
 };
 
