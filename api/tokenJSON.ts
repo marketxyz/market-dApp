@@ -100,6 +100,8 @@ const tokens = {
       "0xa3Fa99A148fA48D14Ed51d610c367C61876997F1"
     )]: {
       symbol: "MAI",
+      logoURL:
+        "https://assets.coingecko.com/coins/images/15264/small/mimatic-red.png",
       extraData: { shortName: "MAI" },
     },
 
@@ -284,6 +286,12 @@ const tokens = {
         // metaDataFn: "",
         // metaDataArgs: [""],
       },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x82f0B8B456c1A451378467398982d4834b6829c1"
+    )]: {
+      logoURL: `https://raw.githubusercontent.com/sushiswap/logos/main/token/mim.jpg`,
     },
   },
 };
