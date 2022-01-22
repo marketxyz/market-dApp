@@ -293,6 +293,76 @@ const tokens = {
     )]: {
       logoURL: `https://raw.githubusercontent.com/sushiswap/logos/main/token/mim.jpg`,
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0x41D44B276904561Ac51855159516FD4cB2c90968"
+    )]: {
+      symbol: "mSPLP-FTM/USDC",
+      logoURL: `${URL}/static/fantom/BOO-USDC-FTM.png`,
+      name: "Moo Spooky FTM-USDC",
+      extraData: {
+        shortName: "mBooLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-ftm-usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-ftm-usdc"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x5d89017d2465115007AbA00da1E6446dF2C19f34"
+    )]: {
+      symbol: "mSPLP-FTM/fUSDT",
+      logoURL: `${URL}/static/fantom/BOO-fUSDT-FTM.png`,
+      name: "Moo Spooky FTM-fUSDT",
+      extraData: {
+        shortName: "mBooLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-usdt-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-usdt-ftm"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x2a30C5e0d577108F694d2A96179cd73611Ee069b"
+    )]: {
+      symbol: "mSPLP-ETH/FTM",
+      logoURL: `${URL}/static/fantom/BOO-ETH-FTM.png`,
+      name: "Moo Spooky ETH-FTM",
+      extraData: {
+        shortName: "mBooLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-eth-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-eth-ftm"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xA3e3Af161943CfB3941B631676134bb048739727"
+    )]: {
+      symbol: "mSPLP-BTC/FTM",
+      logoURL: `${URL}/static/fantom/BOO-BTC-FTM.png`,
+      name: "Moo Spooky BTC-FTM",
+      extraData: {
+        shortName: "mBooLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-btc-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-btc-ftm"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x8316b990De26eB530B7B1bb0d87f5b0a304637cd"
+    )]: {
+      symbol: "mSPLP-DAI/FTM",
+      logoURL: `${URL}/static/fantom/BOO-DAI-FTM.png`,
+      name: "Moo Spooky DAI-FTM",
+      extraData: {
+        shortName: "mBooLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/boo-dai-ftm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["boo-dai-ftm"],
+      },
+    },
   },
 };
 
