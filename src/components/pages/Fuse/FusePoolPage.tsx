@@ -538,6 +538,11 @@ const AssetSupplyRow = ({
 
   const bottomTextColor = useColorModeValue("gray.800", "gray.400");
 
+  const onLinkTap = async (event: MouseEvent) => {
+    event.stopPropagation();
+    return;
+  };
+
   const onToggleCollateral = async (event: MouseEvent) => {
     event.stopPropagation();
     const comptroller = createComptroller(comptrollerAddress, fuse);
@@ -689,6 +694,7 @@ const AssetSupplyRow = ({
               <Button
                 variant={"link"}
                 as={ChakraLink}
+                onClick={onLinkTap}
                 href={
                   tokenData?.extraData?.partnerURL ??
                   `${scanner}/${asset.underlyingToken}`
