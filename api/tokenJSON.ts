@@ -199,12 +199,63 @@ const tokens = {
       "0x282B11E65f0B49363D4505F91c7A44fBEe6bCc0b"
     )]: {
       logoURL: "/static/avax/mooxJoe.png",
-      symbol: "moo-xJOE",
+      symbol: "mooXJOE",
       name: "Moo xJOE",
       extraData: {
         partnerURL: "https://app.beefy.finance/#/avalanche/vault/joe-joe",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["joe-joe"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x670AF270FeE3BbC89e32DDd7B8ec43663A910793"
+    )]: {
+      logoURL: "/static/avax/mooxPNG.png",
+      symbol: "MooXPNG",
+      name: "Moo Staked PNG",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/png-png",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["png-png"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xAf9f33df60CA764307B17E62dde86e9F7090426c"
+    )]: {
+      logoURL: "/static/avax/mooADAI.png",
+      symbol: "MooADAI.e",
+      name: "Moo Aave DAI.e",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/aave-dai.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["aave-dai.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xb6767518b205ea8B312d2EF4d992A2a08C2f2416"
+    )]: {
+      logoURL: "/static/avax/mooAUSDT.png",
+      symbol: "MooAUSDT.e",
+      name: "Moo Aave USDT.e",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/aave-usdt.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["aave-usdt.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xD795d70ec3C7b990ffED7a725a18Be5A9579c3b9"
+    )]: {
+      logoURL: "/static/avax/mooAUSDC.png",
+      symbol: "MooAUSDC.e",
+      name: "Moo Aave USDC.e",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/aave-usdc.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["aave-usdc.e"],
       },
     },
   },
