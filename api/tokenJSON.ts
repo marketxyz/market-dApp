@@ -364,6 +364,126 @@ const tokens = {
       },
     },
   },
+  43114: {
+    [Web3.utils.toChecksumAddress(
+      "0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b"
+    )]: {
+      logoURL:
+        "https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/polygon/assets/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/logo.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64"
+    )]: {
+      logoURL: `${URL}/static/avax/frax.png`,
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xea75ff4F580418A1430Bd3EBaF26B03C096D9489"
+    )]: {
+      logoURL: "/static/avax/mooJoeUsdc.png",
+      symbol: "mJLP-JOE/USDC",
+      name: "Moo Joe/USDC",
+      extraData: {
+        shortName: "mJLP",
+        partnerURL:
+          "https://app.beefy.finance/#/avalanche/vault/joe-joe-usdc.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe-usdc.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xD0B0B19f2DC29a17175A2afc47b29C6DDd74d3D4"
+    )]: {
+      logoURL: "/static/avax/mooJoeUSDT.png",
+      symbol: "mJLP-JOE/USDT",
+      name: "Moo Joe/USDT",
+      extraData: {
+        shortName: "mJLP",
+        partnerURL:
+          "https://app.beefy.finance/#/avalanche/vault/joe-joe-usdt.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe-usdt.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x3D81A269E05e6057e4dF9E2D76E254E65a65Eb66"
+    )]: {
+      logoURL: "/static/avax/mooJoeAvax.png",
+      symbol: "mJLP-JOE/AVAX",
+      name: "Moo Joe/Avax",
+      extraData: {
+        shortName: "mJLP",
+        partnerURL: "https://app.beefy.finance/#/avalanche/vault/joe-joe-wavax",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe-wavax"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x282B11E65f0B49363D4505F91c7A44fBEe6bCc0b"
+    )]: {
+      logoURL: "/static/avax/mooxJoe.png",
+      symbol: "mooXJOE",
+      name: "Moo xJOE",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avalanche/vault/joe-joe",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-joe"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x670AF270FeE3BbC89e32DDd7B8ec43663A910793"
+    )]: {
+      logoURL: "/static/avax/mooxPNG.png",
+      symbol: "MooXPNG",
+      name: "Moo Staked PNG",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/png-png",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["png-png"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xAf9f33df60CA764307B17E62dde86e9F7090426c"
+    )]: {
+      logoURL: "/static/avax/mooADAI.png",
+      symbol: "MooADAI.e",
+      name: "Moo Aave DAI.e",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/aave-dai.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["aave-dai.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xb6767518b205ea8B312d2EF4d992A2a08C2f2416"
+    )]: {
+      logoURL: "/static/avax/mooAUSDT.png",
+      symbol: "MooAUSDT.e",
+      name: "Moo Aave USDT.e",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/aave-usdt.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["aave-usdt.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xD795d70ec3C7b990ffED7a725a18Be5A9579c3b9"
+    )]: {
+      logoURL: "/static/avax/mooAUSDC.png",
+      symbol: "MooAUSDC.e",
+      name: "Moo Aave USDC.e",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/aave-usdc.e",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["aave-usdc.e"],
+      },
+    },
+  },
 };
 
 export default tokens;

@@ -1,10 +1,5 @@
-export const RPC: Record<number, { primary: string; secondary: string }> = {
-  137: {
-    primary: process.env.REACT_APP_PRIMARY_RPC_137!,
-    secondary: process.env.REACT_APP_SECONDARY_RPC_137!,
-  },
-  250: {
-    primary: process.env.REACT_APP_PRIMARY_RPC_250!,
-    secondary: process.env.REACT_APP_SECONDARY_RPC_250!,
-  },
+export const getRPC = (chainId: number, secondary: boolean) => {
+  return process.env[
+    `REACT_APP_${!secondary ? "PRIMARY" : "SECONDARY"}_RPC_${chainId}`
+  ]!;
 };
