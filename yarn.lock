@@ -15318,9 +15318,10 @@ web3@^1.6.0:
     web3-shh "1.6.0"
     web3-utils "1.6.0"
 
-"web3modal@https://github.com/0xDaksh/web3modal":
+web3modal@^1.9.5:
   version "1.9.5"
-  resolved "https://github.com/0xDaksh/web3modal#0e91180ddc870d4bd59ec98892860c8865dd1e7a"
+  resolved "https://registry.yarnpkg.com/web3modal/-/web3modal-1.9.5.tgz#a1d6351a11358b376af5772f79f3dcdba6c38d1b"
+  integrity sha512-L5ME6zgoaCDa+T66skW9WpxGOJX6vU9v+7aLacoQJhU3AMTk784ionpX+Pg4UdhdM+UQW+odge32GkwEX11czQ==
   dependencies:
     detect-browser "^5.1.0"
     prop-types "^15.7.2"

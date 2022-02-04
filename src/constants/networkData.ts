@@ -55,7 +55,7 @@ export const networkData: Record<string, any> = {
   },
   43114: {
     name: "Avalanche",
-    chainName: "avalanche",
+    chainName: "avalanche-fuji-mainnet",
     color: "#e84142",
     scanner: "https://snowtrace.io/token",
     shortName: "AVAX",
