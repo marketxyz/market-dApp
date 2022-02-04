@@ -536,11 +536,11 @@ const AssetAndOtherInfo = ({ assets }: { assets: USDPricedFuseAsset[] }) => {
               height="100%"
               series={[
                 {
-                  name: "Borrow Rate",
+                  name: "Borrow APY",
                   data: data.borrowerRates,
                 },
                 {
-                  name: "Deposit Rate",
+                  name: "Deposit APY",
                   data: data.supplierRates,
                 },
               ]}

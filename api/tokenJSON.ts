@@ -219,6 +219,19 @@ const tokens = {
       },
     },
     [Web3.utils.toChecksumAddress(
+      "0x5d2EF803D6e255eF4D1c66762CBc8845051B54dB"
+    )]: {
+      symbol: "mSpirit-USDC/DAI",
+      logoURL: `${URL}/static/fantom/SPIRIT-DAI-USDC.png`,
+      name: "Moo Spirit USDC-DAI",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-dai-usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-dai-usdc"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
       "0x30A9Eb3EC69eD8e68c147B47b9C2E826380024a3"
     )]: {
       symbol: "rf-FTM/TSHARE",
