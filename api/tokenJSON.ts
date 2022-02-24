@@ -232,6 +232,33 @@ const tokens = {
       },
     },
     [Web3.utils.toChecksumAddress(
+      "0x7345a537A975d9Ca588eE631BEFdDfEF34fD5e8f"
+    )]: {
+      symbol: "MooBinSpirit",
+      logoURL: `${URL}/static/fantom/binSpirit.png`,
+      name: "Moo binSpirit",
+      extraData: {
+        shortName: "mBinSpirit",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/beefy-binspirit",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["beefy-binspirit"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x794cEaD3c864B5390254ffca7ecd6a9aE868661a"
+    )]: {
+      symbol: "binSpirit-Spirit",
+      logoURL: `${URL}/static/fantom/binSpirit-Spirit.png`,
+      name: "Moo BinSpirit-Spirit",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL:
+          "https://app.beefy.finance/#/fantom/vault/spirit-binspirit-spirit",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-binspirit-spirit"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
       "0x30A9Eb3EC69eD8e68c147B47b9C2E826380024a3"
     )]: {
       symbol: "rf-FTM/TSHARE",
