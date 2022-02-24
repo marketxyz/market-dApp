@@ -79,4 +79,29 @@ export const networkData: Record<string, any> = {
         "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/avalanche.json",
     },
   },
+  1285: {
+    name: "Moonriver",
+    chainName: "moonriver",
+    color: "",
+    scanner: "https://moonriver.moonscan.io/token",
+    shortName: "MOVR",
+    img: "/static/moonriver.jpg",
+    url: "https://moonriver.market.xyz",
+    enabled: true,
+    addData: {
+      chainId: "0x505",
+      chainName: "Moonriver",
+      nativeCurrency: {
+        name: "MOVR",
+        symbol: "MOVR",
+        decimals: 18,
+      },
+      rpcUrls: ["https://moonriver.api.onfinality.io/public"],
+      blockExplorerUrls: ["https://moonriver.moonscan.io/"],
+    },
+    extraData: {
+      coingeckoNetwork: "moonriver",
+      sushiURL: "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/moonriver.json"
+    }
+  }
 };
