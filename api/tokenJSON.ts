@@ -234,9 +234,9 @@ const tokens = {
     [Web3.utils.toChecksumAddress(
       "0x7345a537A975d9Ca588eE631BEFdDfEF34fD5e8f"
     )]: {
-      symbol: "MooBinSpirit",
+      symbol: "mooBinSpirit",
       logoURL: `${URL}/static/fantom/binSpirit.png`,
-      name: "Moo binSpirit",
+      name: "Moo BinSpirit",
       extraData: {
         shortName: "mBinSpirit",
         partnerURL: "https://app.beefy.finance/#/fantom/vault/beefy-binspirit",
@@ -247,9 +247,9 @@ const tokens = {
     [Web3.utils.toChecksumAddress(
       "0x794cEaD3c864B5390254ffca7ecd6a9aE868661a"
     )]: {
-      symbol: "binSpirit-Spirit",
+      symbol: "mBinSpirit/Spirit",
       logoURL: `${URL}/static/fantom/binSpirit-Spirit.png`,
-      name: "Moo BinSpirit-Spirit",
+      name: "Moo BinSpirit/Spirit",
       extraData: {
         shortName: "mSpiritLP",
         partnerURL:
