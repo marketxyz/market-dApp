@@ -114,6 +114,37 @@ const tokens = {
         metaDataArgs: [],
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0xa926db7a4CC0cb1736D5ac60495ca8Eb7214B503"
+    )]: {
+      logoURL: "/static/polygon/jSGD.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x8ca194A3b22077359b5732DE53373D4afC11DeE3"
+    )]: {
+      logoURL: "/static/polygon/jCAD.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x8343091F2499FD4b6174A46D067A920a3b851FF9"
+    )]: {
+      logoURL: "/static/polygon/jJPY.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xfdE69969f4527343D78F9C9AC797ded29098B215"
+    )]: {
+      symbol: "mSLP-JRT/ETH",
+      logoURL: `/static/polygon/mSLP-JRT-ETH.png`,
+      extraData: {
+        shortName: "mSLP",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/sushi-jrt-eth",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["sushi-jrt-eth"],
+      },
+    },
   },
   250: {
     [Web3.utils.toChecksumAddress(
