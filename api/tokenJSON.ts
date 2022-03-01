@@ -145,6 +145,32 @@ const tokens = {
         metaDataArgs: ["sushi-jrt-eth"],
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0x94F64bb5046Ee377bFBb664736547B7f78e5AE06"
+    )]: {
+      symbol: "m2JPY",
+      logoURL: `/static/polygon/m2JPY.png`,
+      extraData: {
+        shortName: "m2JPY",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2jpy",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["jarvis-2jpy"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xcf9Dd1de1D02158B3d422779bd5184032674A6D1"
+    )]: {
+      symbol: "m2CAD",
+      logoURL: `/static/polygon/m2CAD.png`,
+      extraData: {
+        shortName: "m2CAD",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2cad",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["jarvis-2cad"],
+      },
+    },
   },
   250: {
     [Web3.utils.toChecksumAddress(
