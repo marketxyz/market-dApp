@@ -172,7 +172,9 @@ const tokens = {
       },
     },
 
-    [Web3.utils.toChecksumAddress("")]: {
+    [Web3.utils.toChecksumAddress(
+      "0xf49cB3B72d170407AeD7ED5B34d6e7bbE58Ac917"
+    )]: {
       symbol: "mGohmEth",
       logoURL: `/static/polygon/mGohmEth.png`,
       extraData: {
