@@ -171,6 +171,17 @@ const tokens = {
         metaDataArgs: ["jarvis-2cad"],
       },
     },
+
+    [Web3.utils.toChecksumAddress("")]: {
+      symbol: "mGohmEth",
+      logoURL: `/static/polygon/mGohmEth.png`,
+      extraData: {
+        shortName: "mGohmEth",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/sushi-eth-gohm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["sushi-eth-gohm"],
+      },
+    },
   },
   250: {
     [Web3.utils.toChecksumAddress(
