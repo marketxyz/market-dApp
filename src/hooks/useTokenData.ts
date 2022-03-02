@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useQuery, useQueries } from "react-query";
 import ERC20ABI from "../../src/common/abi/ERC20.json";
 import { useRari } from "../context/RariContext";
+import { CHAIN_ID } from "../utils/chainId";
 
 export const ETH_TOKEN_DATA = {
   symbol: "ETH",
@@ -52,7 +53,7 @@ export const fetchTokenData = async (address: string) => {
           // Since running the vercel functions requires a Vercel account and is super slow,
           // just fetch this data from the live site in development:
 
-          "/api/tokenData?address=" + address
+          `https://sls.market.xyz/api/tokenData?chainId=${CHAIN_ID}&address=${address}`
         ).then((res) => res.json())),
         address: address,
       };
