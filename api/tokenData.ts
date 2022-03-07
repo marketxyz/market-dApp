@@ -20,6 +20,8 @@ type TokenData = {
   name: string;
   decimals: string;
   logoURL: string;
+  color: string;
+  overlayTextColor: string;
   extraData: null | {
     shortName: string;
     partnerURL: string;
@@ -58,6 +60,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     name: "",
     decimals: "",
     logoURL: "",
+    color: "",
+    overlayTextColor: "",
     extraData: null,
   };
 
@@ -123,31 +127,36 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       tokenObj.logoURL = sushiItem.logoURI;
   }
 
-  let color: Palette;
-  try {
-    if (tokenObj.logoURL === undefined) {
-      // If we have no logo no need to try to get the color
-      // just go to the catch block and return the default logo.
-      throw Error("Go to the catch block");
-    }
+  if (tokenObj.color === "") {
+    try {
+      let color: Palette;
+      if (tokenObj.logoURL === undefined) {
+        // If we have no logo no need to try to get the color
+        // just go to the catch block and return the default logo.
+        throw Error("Go to the catch block");
+      }
 
-    color = await Vibrant.from(tokenObj.logoURL).getPalette();
-    if (!color.Vibrant) {
-      throw Error("Go to the catch block");
+      color = await Vibrant.from(tokenObj.logoURL).getPalette();
+      if (!color.Vibrant) {
+        throw Error("Go to the catch block");
+      }
+
+      tokenObj.color = color.Vibrant.getHex();
+      tokenObj.overlayTextColor = color.Vibrant.getTitleTextColor();
+    } catch (error) {
+      return response.json({
+        ...tokenObj,
+        color: "#FFFFFF",
+        overlayTextColor: "#000",
+        address,
+      });
     }
-  } catch (error) {
-    return response.json({
-      ...tokenObj,
-      color: "#FFFFFF",
-      overlayTextColor: "#000",
-      address,
-    });
   }
 
   return response.json({
     ...tokenObj,
-    color: color.Vibrant.getHex(),
-    overlayTextColor: color.Vibrant.getTitleTextColor(),
+    color: tokenObj.color,
+    overlayTextColor: tokenObj.overlayTextColor,
     address,
   });
 };

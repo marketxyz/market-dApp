@@ -184,6 +184,13 @@ const tokens = {
         metaDataArgs: ["sushi-eth-gohm"],
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0x4e3Decbb3645551B8A19f0eA1678079FCB33fB4c"
+    )]: {
+      color: "#86a6ed",
+      overlayTextColor: "#000"
+    },
   },
   250: {
     [Web3.utils.toChecksumAddress(
