@@ -103,5 +103,31 @@ export const networkData: Record<string, any> = {
       coingeckoNetwork: "moonriver",
       sushiURL: "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/moonriver.json"
     }
-  }
+  },
+  1666600000: {
+    chainIdHex: "0x63564c40",
+    chainName: "harmony",
+    color: "",
+    scanner: "https://explorer.harmony.one/token",
+    name: "Harmony",
+    shortName: "Harmony",
+    img: "/static/harmonyone.jpg",
+    url: "https://harmony.market.xyz",
+    enabled: true,
+    addData: {
+      chainId: "0x63564c40",
+      chainName: "Harmony",
+      nativeCurrency: {
+        name: "ONE",
+        symbol: "ONE",
+        decimals: 18,
+      },
+      rpcUrls: ["https://api.harmony.one"],
+      blockExplorerUrls: ["https://explorer.harmony.one//"],
+    },
+    extraData: {
+      coingeckoNetwork: "harmony-shard-0",
+      sushiURL: "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/harmony.json"
+    }
+  },
 };

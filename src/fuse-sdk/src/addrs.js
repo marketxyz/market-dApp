@@ -75,7 +75,7 @@ module.exports = {
       "0x308cF87A7535205B929069B829341440e2655C16",
     FUSE_POOL_LENS_CONTRACT_ADDRESS:
       "0xFbF5396ADAd408e4Dff888ABBc4cF4d7a9a97E34",
-    BLOCKS_PER_MIN: Math.ceil(60 / 23.4), // 1 block per 2s
+    BLOCKS_PER_MIN: Math.ceil(60 / 23.4), // 1 block per 23.4s
     BYTECODE_HASHES: {
       oracle: {},
       irm: {
@@ -84,6 +84,25 @@ module.exports = {
         ],
         JumpRateModelV2:
           "0xc2a20d120a1e20aa4fefdc9662559f87e3a2a1568e1b76465f6ae0fc93b50e91",
+      },
+    },
+    OWNED_ACCOUNTS: ["0x79157e9fE9A9546FDe1C643dA226dE64aB6322CB"],
+  },
+
+  1666600000: {
+    FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS:
+      "0xDe2832C5854AFe8Ac4FceD7b33735ad1c6de375a",
+    FUSE_POOL_LENS_CONTRACT_ADDRESS:
+      "0xc60f26B48c22734490f2213794BA926222D708AD",
+    BLOCKS_PER_MIN: Math.ceil(60 / 2.01), // 1 block per 2.01s
+    BYTECODE_HASHES: {
+      oracle: {},
+      irm: {
+        JumpRateModel: [
+          "0x1ebd84c773a047371d53e74b8e8b3df3df78c05d5a90a4228c976061339a7c53",
+        ],
+        JumpRateModelV2:
+          "0x80d6af48c456a4fc1b41b5fe33f26464f40729d3931547551b7e75fa5d594915",
       },
     },
     OWNED_ACCOUNTS: ["0x79157e9fE9A9546FDe1C643dA226dE64aB6322CB"],
