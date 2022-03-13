@@ -75,15 +75,15 @@ module.exports = {
       "0x308cF87A7535205B929069B829341440e2655C16",
     FUSE_POOL_LENS_CONTRACT_ADDRESS:
       "0xFbF5396ADAd408e4Dff888ABBc4cF4d7a9a97E34",
-    BLOCKS_PER_MIN: Math.ceil(60 / 23.4), // 1 block per 2s
+    BLOCKS_PER_MIN: Math.ceil(60 / 18), // 1 block per 18s
     BYTECODE_HASHES: {
       oracle: {},
       irm: {
         JumpRateModel: [
-          "0x1219fbbe342dc0cc69561a6709da9f48a12983a78aba2f7fd371eaf3e17b9f2f",
+          "0x40e9fecaec17b0c3956db2a44ef0d7af90780774be5c9bd03d28b4afae062487",
         ],
         JumpRateModelV2:
-          "0xc2a20d120a1e20aa4fefdc9662559f87e3a2a1568e1b76465f6ae0fc93b50e91",
+          "0x09e23978d6f1b5e9d192d88a22774dc599a24d1ec197fbddee475090c9f34a4c",
       },
     },
     OWNED_ACCOUNTS: ["0x79157e9fE9A9546FDe1C643dA226dE64aB6322CB"],
