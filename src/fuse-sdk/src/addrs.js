@@ -69,13 +69,13 @@ module.exports = {
     },
     OWNED_ACCOUNTS: ["0x4237012403135F3f255d9F92065E7560739A7348"],
   },
-  
+
   1285: {
     FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS:
       "0x308cF87A7535205B929069B829341440e2655C16",
     FUSE_POOL_LENS_CONTRACT_ADDRESS:
       "0xFbF5396ADAd408e4Dff888ABBc4cF4d7a9a97E34",
-    BLOCKS_PER_MIN: Math.ceil(60 / 18), // 1 block per 18s
+    BLOCKS_PER_MIN: 60 / 18, // 1 block per 18s
     BYTECODE_HASHES: {
       oracle: {},
       irm: {
