@@ -69,4 +69,23 @@ module.exports = {
     },
     OWNED_ACCOUNTS: ["0x4237012403135F3f255d9F92065E7560739A7348"],
   },
+
+  1285: {
+    FUSE_POOL_DIRECTORY_CONTRACT_ADDRESS:
+      "0x308cF87A7535205B929069B829341440e2655C16",
+    FUSE_POOL_LENS_CONTRACT_ADDRESS:
+      "0xFbF5396ADAd408e4Dff888ABBc4cF4d7a9a97E34",
+    BLOCKS_PER_MIN: 60 / 18, // 1 block per 18s
+    BYTECODE_HASHES: {
+      oracle: {},
+      irm: {
+        JumpRateModel: [
+          "0x40e9fecaec17b0c3956db2a44ef0d7af90780774be5c9bd03d28b4afae062487",
+        ],
+        JumpRateModelV2:
+          "0x677c2aad3c69841f879a43b504df1de716842a55f7062a72bca4d3e6584184ff",
+      },
+    },
+    OWNED_ACCOUNTS: ["0x79157e9fE9A9546FDe1C643dA226dE64aB6322CB"],
+  },
 };
