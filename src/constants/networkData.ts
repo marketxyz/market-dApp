@@ -1,4 +1,4 @@
-export const chainIdOrder = [137, 250, 43114];
+export const chainIdOrder = [137, 250, 43114, 1285];
 export const networkData: Record<string, any> = {
   137: {
     chainIdHex: "0x89",
@@ -101,7 +101,8 @@ export const networkData: Record<string, any> = {
     },
     extraData: {
       coingeckoNetwork: "moonriver",
-      sushiURL: "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/moonriver.json"
-    }
-  }
+      sushiURL:
+        "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/moonriver.json",
+    },
+  },
 };
