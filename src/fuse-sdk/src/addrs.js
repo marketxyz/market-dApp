@@ -83,7 +83,7 @@ module.exports = {
           "0x40e9fecaec17b0c3956db2a44ef0d7af90780774be5c9bd03d28b4afae062487",
         ],
         JumpRateModelV2:
-          "0x09e23978d6f1b5e9d192d88a22774dc599a24d1ec197fbddee475090c9f34a4c",
+          "0x677c2aad3c69841f879a43b504df1de716842a55f7062a72bca4d3e6584184ff",
       },
     },
     OWNED_ACCOUNTS: ["0x79157e9fE9A9546FDe1C643dA226dE64aB6322CB"],
