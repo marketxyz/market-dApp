@@ -593,6 +593,45 @@ const tokens = {
         metaDataArgs: ["aave-usdc.e"],
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0xDf306fBdA58527729A8D5185aB8fEF96BFa94c7A"
+    )]: {
+      logoURL: "/static/avax/mPNG-UST_AVAX.png",
+      symbol: "mPNG-UST/AVAX",
+      name: "Moo PNG UST/AVAX",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/png-ust-wavax",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["png-ust-wavax"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xe6f6466E1cA56ab02eBb909C8228eD76534686D7"
+    )]: {
+      logoURL: "/static/avax/mJOE-UST_AVAX.png",
+      symbol: "mJOE-UST/AVAX",
+      name: "Moo JOE UST/AVAX",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/joe-ust-wavax",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-ust-wavax"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x6399A5E96CD627404b203Ea80517C3F8F9F78Fe6"
+    )]: {
+      logoURL: "/static/avax/mPNG-UST_USDC.png",
+      symbol: "mPNG-UST/USDC",
+      name: "Moo PNG UST/USDC",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/png-ust-usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["png-ust-usdc"],
+      },
+    },
   },
 };
 
