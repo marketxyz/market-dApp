@@ -48,6 +48,7 @@ async function launchModalLazy(
           137: getRPC(137, false),
           250: getRPC(250, false),
           43114: getRPC(43114, false),
+          1666600000: getRPC(1666600000, false),
         },
       },
       display: {

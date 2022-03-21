@@ -1,4 +1,4 @@
-export const chainIdOrder = [137, 250, 43114];
+export const chainIdOrder = [137, 250, 43114, 1666600000];
 export const networkData: Record<string, any> = {
   137: {
     chainIdHex: "0x89",
