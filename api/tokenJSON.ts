@@ -114,6 +114,76 @@ const tokens = {
         metaDataArgs: [],
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0xa926db7a4CC0cb1736D5ac60495ca8Eb7214B503"
+    )]: {
+      logoURL: "/static/polygon/jSGD.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x8ca194A3b22077359b5732DE53373D4afC11DeE3"
+    )]: {
+      logoURL: "/static/polygon/jCAD.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x8343091F2499FD4b6174A46D067A920a3b851FF9"
+    )]: {
+      logoURL: "/static/polygon/jJPY.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xfdE69969f4527343D78F9C9AC797ded29098B215"
+    )]: {
+      symbol: "mSLP-JRT/ETH",
+      logoURL: `/static/polygon/mSLP-JRT-ETH.png`,
+      extraData: {
+        shortName: "mSLP",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/sushi-jrt-eth",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["sushi-jrt-eth"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x94F64bb5046Ee377bFBb664736547B7f78e5AE06"
+    )]: {
+      symbol: "m2JPY",
+      logoURL: `/static/polygon/m2JPY.png`,
+      extraData: {
+        shortName: "m2JPY",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2jpy",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["jarvis-2jpy"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xcf9Dd1de1D02158B3d422779bd5184032674A6D1"
+    )]: {
+      symbol: "m2CAD",
+      logoURL: `/static/polygon/m2CAD.png`,
+      extraData: {
+        shortName: "m2CAD",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2cad",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["jarvis-2cad"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xf49cB3B72d170407AeD7ED5B34d6e7bbE58Ac917"
+    )]: {
+      symbol: "mGohmEth",
+      logoURL: `/static/polygon/mGohmEth.png`,
+      extraData: {
+        shortName: "mGohmEth",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/sushi-eth-gohm",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["sushi-eth-gohm"],
+      },
+    },
   },
   250: {
     [Web3.utils.toChecksumAddress(
@@ -229,6 +299,33 @@ const tokens = {
         partnerURL: "https://app.beefy.finance/#/fantom/vault/spirit-dai-usdc",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["spirit-dai-usdc"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x7345a537A975d9Ca588eE631BEFdDfEF34fD5e8f"
+    )]: {
+      symbol: "mooBinSpirit",
+      logoURL: `${URL}/static/fantom/binSpirit.png`,
+      name: "Moo BinSpirit",
+      extraData: {
+        shortName: "mBinSpirit",
+        partnerURL: "https://app.beefy.finance/#/fantom/vault/beefy-binspirit",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["beefy-binspirit"],
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0x794cEaD3c864B5390254ffca7ecd6a9aE868661a"
+    )]: {
+      symbol: "mBinSpirit/Spirit",
+      logoURL: `${URL}/static/fantom/binSpirit-Spirit.png`,
+      name: "Moo BinSpirit/Spirit",
+      extraData: {
+        shortName: "mSpiritLP",
+        partnerURL:
+          "https://app.beefy.finance/#/fantom/vault/spirit-binspirit-spirit",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["spirit-binspirit-spirit"],
       },
     },
     [Web3.utils.toChecksumAddress(
@@ -494,6 +591,45 @@ const tokens = {
         partnerURL: "https://app.beefy.finance/#/avax/vault/aave-usdc.e",
         metaDataFn: "requestBeefy",
         metaDataArgs: ["aave-usdc.e"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xDf306fBdA58527729A8D5185aB8fEF96BFa94c7A"
+    )]: {
+      logoURL: "/static/avax/mPNG-UST_AVAX.png",
+      symbol: "mPNG-UST/AVAX",
+      name: "Moo PNG UST/AVAX",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/png-ust-wavax",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["png-ust-wavax"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0xe6f6466E1cA56ab02eBb909C8228eD76534686D7"
+    )]: {
+      logoURL: "/static/avax/mJOE-UST_AVAX.png",
+      symbol: "mJOE-UST/AVAX",
+      name: "Moo JOE UST/AVAX",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/joe-ust-wavax",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["joe-ust-wavax"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x6399A5E96CD627404b203Ea80517C3F8F9F78Fe6"
+    )]: {
+      logoURL: "/static/avax/mPNG-UST_USDC.png",
+      symbol: "mPNG-UST/USDC",
+      name: "Moo PNG UST/USDC",
+      extraData: {
+        partnerURL: "https://app.beefy.finance/#/avax/vault/png-ust-usdc",
+        metaDataFn: "requestBeefy",
+        metaDataArgs: ["png-ust-usdc"],
       },
     },
   },
