@@ -1,4 +1,4 @@
-export const chainIdOrder = [137, 250, 43114, 1666600000];
+export const chainIdOrder = [137, 250, 43114, 1666600000, 25];
 export const networkData: Record<string, any> = {
   137: {
     chainIdHex: "0x89",
@@ -128,6 +128,31 @@ export const networkData: Record<string, any> = {
     extraData: {
       coingeckoNetwork: "harmony-shard-0",
       sushiURL: "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/harmony.json"
+    }
+  },
+  25: {
+    chainIdHex: "0x19",
+    chainName: "cronos",
+    color: "",
+    scanner: "https://cronoscan.com/token",
+    name: "Cronos",
+    shortName: "Cronos",
+    img: "/static/cronos.jpg",
+    url: "https://cronos.market.xyz",
+    enabled: true,
+    addData: {
+      chainId: "0x19",
+      chainName: "Cronos",
+      nativeCurrency: {
+        name: "CRO",
+        symbol: "CRO",
+        decimals: 18,
+      },
+      rpcUrls: ["https://evm.cronos.org/"],
+      blockExplorerUrls: ["https://cronoscan.com/"],
+    },
+    extraData: {
+      coingeckoNetwork: "cronos"
     }
   },
 };
