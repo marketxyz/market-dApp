@@ -184,6 +184,19 @@ const tokens = {
         metaDataArgs: ["sushi-eth-gohm"],
       },
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0x18DAdac6d0AAF37BaAAC811F6338427B46815a81"
+    )]: {
+      symbol: "m2SGD",
+      logoURL: "/static/polygon/m2SGD.png",
+      extraData: {
+        shortName: "m2SGD",
+        partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2sgd",
+        metaDataFn: ["requestBeefy"],
+        metaDataArgs: ["jarvis-2sgd"],
+      },
+    },
   },
   250: {
     [Web3.utils.toChecksumAddress(
