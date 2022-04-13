@@ -486,6 +486,11 @@ const tokens = {
         metaDataArgs: ["boo-dai-ftm"],
       },
     },
+    [Web3.utils.toChecksumAddress(
+      "0x3F569724ccE63F7F24C5F921D5ddcFe125Add96b"
+    )]: {
+      logoURL: `${URL}/static/fantom/slinSpirit.png`,
+    },
   },
   43114: {
     [Web3.utils.toChecksumAddress(
