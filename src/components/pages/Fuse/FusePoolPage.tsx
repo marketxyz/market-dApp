@@ -411,7 +411,7 @@ const SupplyList = ({
 }) => {
   const suppliedAssets = assets.filter((asset) => asset.supplyBalanceUSD > 1);
   const nonSuppliedAssets = assets.filter(
-    (asset) => asset.supplyBalanceUSD < 1 && !asset.isSupplyPaused
+    (asset) => asset.supplyBalanceUSD < 1
   );
 
   const isMobile = useIsMobile();
@@ -614,6 +614,7 @@ const AssetSupplyRow = ({
         cursor={"pointer"}
         height={"70px"}
         _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
+        opacity={asset.isSupplyPaused ? 0.5 : 1}
       >
         <Td maxW={isMobile ? "100px" : "140px"}>
           <Row
