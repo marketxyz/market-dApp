@@ -861,7 +861,7 @@ const BorrowList = ({
                 isNumeric
                 textAlign={"right"}
               >
-                APR/TVL
+                APY/TVL
               </Td>
             )}
 
@@ -951,7 +951,7 @@ const AssetBorrowRow = ({
 
   const tokenData = useTokenData(asset.underlyingToken);
 
-  const borrowAPR = convertMantissaToAPR(asset.borrowRatePerBlock);
+  const borrowAPR = convertMantissaToAPY(asset.borrowRatePerBlock, 365);
 
   const { t } = useTranslation();
 

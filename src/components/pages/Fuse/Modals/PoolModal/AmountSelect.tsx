@@ -302,7 +302,6 @@ const AmountSelect = ({
 
   let depositOrWithdrawAlert = null;
 
-  console.log(mode);
   if (mode === Mode.BORROW && asset.isPaused) {
     depositOrWithdrawAlert = t("This asset is paused for borrow.");
   } else if (mode === Mode.SUPPLY && asset.isSupplyPaused) {
