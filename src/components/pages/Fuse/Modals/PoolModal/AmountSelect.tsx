@@ -302,7 +302,12 @@ const AmountSelect = ({
 
   let depositOrWithdrawAlert = null;
 
-  if (amount === null || amount.isZero()) {
+  console.log(mode);
+  if (mode === Mode.BORROW && asset.isPaused) {
+    depositOrWithdrawAlert = t("This asset is paused for borrow.");
+  } else if (mode === Mode.SUPPLY && asset.isSupplyPaused) {
+    depositOrWithdrawAlert = t("This asset is paused for supply.");
+  } else if (amount === null || amount.isZero()) {
     if (mode === Mode.SUPPLY) {
       depositOrWithdrawAlert = t("Enter a valid amount to supply.");
     } else if (mode === Mode.BORROW) {
@@ -735,7 +740,7 @@ const TabBar = ({
   const tabText = useColorModeValue("gray.500", "gray.100");
   const tabColor = useColorModeValue("gray.100", "mktgray.700");
   const selectedText = useColorModeValue("white", "white");
-  const borderColor = useColorModeValue("pink.400", "pink.700")
+  const borderColor = useColorModeValue("pink.400", "pink.700");
   const selectedBg = useColorModeValue(
     "linear(to-br, rgba(202, 0, 102, 0.95), rgba(144, 49, 217, 0.55))",
     "linear(to-br, rgba(202, 0, 102, 0.18), rgba(144, 49, 217, 0.28))"
