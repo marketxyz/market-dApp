@@ -411,7 +411,7 @@ const SupplyList = ({
 }) => {
   const suppliedAssets = assets.filter((asset) => asset.supplyBalanceUSD > 1);
   const nonSuppliedAssets = assets.filter(
-    (asset) => asset.supplyBalanceUSD < 1 && !asset.isSupplyPaused
+    (asset) => asset.supplyBalanceUSD < 1
   );
 
   const isMobile = useIsMobile();
@@ -614,6 +614,7 @@ const AssetSupplyRow = ({
         cursor={"pointer"}
         height={"70px"}
         _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
+        opacity={asset.isSupplyPaused ? 0.5 : 1}
       >
         <Td maxW={isMobile ? "100px" : "140px"}>
           <Row
@@ -861,7 +862,7 @@ const BorrowList = ({
                 isNumeric
                 textAlign={"right"}
               >
-                APR/TVL
+                APY/TVL
               </Td>
             )}
 
@@ -889,10 +890,10 @@ const BorrowList = ({
         {assets.length > 0 ? (
           <>
             {borrowedAssets.map((asset, index) => {
-              // Don't show paused assets.
-              if (asset.isPaused) {
-                return null;
-              }
+              // // Don't show paused assets.
+              // if (asset.isPaused) {
+              //   return null;
+              // }
 
               return (
                 <AssetBorrowRow
@@ -907,9 +908,9 @@ const BorrowList = ({
             {borrowedAssets.length > 0 ? <ModalDivider my={2} /> : null}
             {nonBorrowedAssets.map((asset, index) => {
               // Don't show paused assets.
-              if (asset.isPaused) {
-                return null;
-              }
+              // if (asset.isPaused) {
+              //   return null;
+              // }
               return (
                 <AssetBorrowRow
                   comptrollerAddress={comptrollerAddress}
@@ -951,7 +952,7 @@ const AssetBorrowRow = ({
 
   const tokenData = useTokenData(asset.underlyingToken);
 
-  const borrowAPR = convertMantissaToAPR(asset.borrowRatePerBlock);
+  const borrowAPR = convertMantissaToAPY(asset.borrowRatePerBlock, 365);
 
   const { t } = useTranslation();
 
@@ -976,6 +977,7 @@ const AssetBorrowRow = ({
         height={"70px"}
         cursor={"pointer"}
         _hover={{ bgColor: useColorModeValue("gray.100", "gray.900") }}
+        opacity={assets[index].isPaused ? 0.5 : 1}
       >
         <Td maxW={isMobile ? "100px" : "140px"}>
           <Row
