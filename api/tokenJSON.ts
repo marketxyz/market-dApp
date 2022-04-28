@@ -491,6 +491,21 @@ const tokens = {
     )]: {
       logoURL: `${URL}/static/fantom/slinSpirit.png`,
     },
+
+    [Web3.utils.toChecksumAddress(
+      "0xaa67d669027adA5CD3B996c12394823FBb9dbA27"
+    )]: {
+      logoURL: `${URL}/static/fantom/rvSFTMx.png`,
+      name: "Reaper sFTMx/FTM",
+      extraData: {
+        shortName: "rfBooLP",
+      },
+    },
+    [Web3.utils.toChecksumAddress(
+      "0xd7028092c830b5C8FcE061Af2E593413EbbC1fc1"
+    )]: {
+      logoURL: `${URL}/static/fantom/sFTMx.png`,
+    },
   },
   43114: {
     [Web3.utils.toChecksumAddress(
