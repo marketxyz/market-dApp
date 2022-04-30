@@ -201,6 +201,24 @@ const FuseNavbar = () => {
           </Link>
         </Text>
       </Alert>
+      
+      <Alert width="100vw" status="error">
+        <AlertIcon />
+        <Text as="b">
+          We have paused borrowing of all assets in solidarity due to Tribe DAO's lending platform exploit 
+          <Link
+            ml={"1.5"}
+            href="https://twitter.com/feiprotocol/status/1520344430242254849"
+            as={"a"}
+            target="_blank"
+            textDecor="underline"
+          >
+            today
+          </Link>
+          . We are investigating and this is just a precaution.
+        </Text>
+      </Alert>
+
       {isNetworkChangeable ? (
         <Alert width="100vw" status="error" style={{ marginTop: "0" }}>
           <AlertIcon />
