@@ -201,6 +201,7 @@ const FuseNavbar = () => {
           </Link>
         </Text>
       </Alert>
+
       {isNetworkChangeable ? (
         <Alert width="100vw" status="error" style={{ marginTop: "0" }}>
           <AlertIcon />
