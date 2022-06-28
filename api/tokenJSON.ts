@@ -154,8 +154,6 @@ const tokens = {
       extraData: {
         shortName: "m2JPY",
         partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2jpy",
-        metaDataFn: "requestBeefy",
-        metaDataArgs: ["jarvis-2jpy"],
       },
     },
 
@@ -195,6 +193,38 @@ const tokens = {
         partnerURL: "https://app.beefy.finance/#/polygon/vault/jarvis-2sgd",
         metaDataFn: ["requestBeefy"],
         metaDataArgs: ["jarvis-2sgd"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x6b526Daf03B4C47AF2bcc5860B12151823Ff70E0"
+    )]: {
+      logoURL: "/static/polygon/jNZD.png",
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x6720c2b7fd7de1cad3242dd3e8a86d033d4ed3f9"
+    )]: {
+      symbol: "m2NZD",
+      logoURL: "/static/polygon/m2NZD.png",
+      extraData: {
+        shortName: "m2NZD",
+        partnerURL: "https://app.beefy.finance/polygon/vault/jarvis-2nzd",
+        metaDataFn: ["requestBeefy"],
+        metaDataArgs: ["jarvis-2nzd"],
+      },
+    },
+
+    [Web3.utils.toChecksumAddress(
+      "0x122e09fdd2ff73c8cea51d432c45a474baa1518a"
+    )]: {
+      symbol: "m2JPY2",
+      logoURL: "/static/polygon/m2JPY.png",
+      extraData: {
+        shortName: "m2JPY2",
+        partnerURL: "https://app.beefy.finance/vault/jarvis-2jpy2",
+        metaDataFn: ["requestBeefy"],
+        metaDataArgs: ["jarvis-2jpy2"],
       },
     },
   },
