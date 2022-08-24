@@ -50,7 +50,7 @@ if (isProd) {
     release: version,
   });
   Fathom.load(process.env.REACT_APP_FATHOM_SITE_ID!, {
-    url: "https://finch.market.xyz/script.js",
+    url: "https://finch.usemarket.xyz/script.js",
   });
 }
 

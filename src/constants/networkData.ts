@@ -8,7 +8,7 @@ export const networkData: Record<string, any> = {
     name: "Polygon (Matic)",
     shortName: "Polygon",
     img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/polygon.jpg",
-    url: "https://polygon.market.xyz",
+    url: "https://polygon.usemarket.xyz",
     enabled: true,
     addData: {
       chainId: "0x89",
@@ -34,7 +34,7 @@ export const networkData: Record<string, any> = {
     scanner: "https://ftmscan.com/token",
     shortName: "Fantom",
     img: "/static/fantom.jpeg",
-    url: "https://fantom.market.xyz",
+    url: "https://fantom.usemarket.xyz",
     enabled: true,
     addData: {
       chainId: "0xFA",
@@ -60,7 +60,7 @@ export const networkData: Record<string, any> = {
     scanner: "https://snowtrace.io/token",
     shortName: "AVAX",
     img: "/static/avax.png",
-    url: "https://avax.market.xyz",
+    url: "https://avax.usemarket.xyz",
     enabled: true,
     addData: {
       chainId: "0xA86A",
@@ -86,7 +86,7 @@ export const networkData: Record<string, any> = {
     scanner: "https://moonriver.moonscan.io/token",
     shortName: "MOVR",
     img: "/static/moonriver.jpg",
-    url: "https://moonriver.market.xyz",
+    url: "https://moonriver.usemarket.xyz",
     enabled: true,
     addData: {
       chainId: "0x505",

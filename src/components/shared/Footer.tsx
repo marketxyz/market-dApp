@@ -24,7 +24,7 @@ const Footer = () => {
           mt={4}
           width="100%"
         >
-          <Link isExternal href="https://docs.market.xyz">
+          <Link isExternal href="https://docs.usemarket.xyz">
             <Text color={textColor} mx={2} text="sm" textDecoration="underline">
               {t("Developer Docs")}
             </Text>
@@ -34,7 +34,7 @@ const Footer = () => {
             &middot;
           </Text>
 
-          <Link isExternal href="https://docs.market.xyz/audit-reports">
+          <Link isExternal href="https://docs.usemarket.xyz/audit-reports">
             <Text color={textColor} mx={2} text="sm" textDecoration="underline">
               {t("Audits")}
             </Text>

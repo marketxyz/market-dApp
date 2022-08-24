@@ -306,7 +306,7 @@ export const SettingsModal = ({
             mt={4}
             width="100%"
           >
-            <Link isExternal href="https://docs.market.xyz/">
+            <Link isExternal href="https://docs.usemarket.xyz/">
               <Text mx={2} text="sm" textDecoration="underline">
                 {t("Developer Docs")}
               </Text>
@@ -316,7 +316,7 @@ export const SettingsModal = ({
                 {t("Read")}
               </Text>
             </Link>
-            <Link isExternal href="https://docs.market.xyz/audit-reports">
+            <Link isExternal href="https://docs.usemarket.xyz/audit-reports">
               <Text mx={2} text="sm" textDecoration="underline">
                 {t("Audits")}
               </Text>
