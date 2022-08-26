@@ -229,7 +229,7 @@ const OracleAndInterestRates = ({
           className="no-underline"
           isExternal
           ml="auto"
-          href={`https://metrics.usemarket.xyz/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
+          href={`https://metrics.market.xyz/d/HChNahwGk/fuse-pool-details?orgId=1&refresh=10s&var-poolID=${poolId}`}
         >
           <Box
             p={5}
