@@ -581,18 +581,6 @@ const AssetSupplyRow = ({
     queryClient.refetchQueries();
   };
 
-  const isStakedOHM =
-    asset.underlyingToken.toLowerCase() ===
-    "0x04F2694C8fcee23e8Fd0dfEA1d4f5Bb8c352111F".toLowerCase();
-
-  const { data: stakedOHMApyData } = useQuery("sOHM_APY", async () => {
-    const data = (
-      await fetch("https://api.rari.capital/fuse/pools/18/apy")
-    ).json();
-
-    return data as Promise<{ supplyApy: number; supplyWpy: number }>;
-  });
-
   const isMobile = useIsMobile();
 
   const { t } = useTranslation();
@@ -732,12 +720,7 @@ const AssetSupplyRow = ({
                     fontWeight="bold"
                     fontSize={{ base: "2.8vw", sm: "md" }}
                   >
-                    {isStakedOHM
-                      ? stakedOHMApyData
-                        ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
-                        : "?"
-                      : supplyAPY.toFixed(2)}
-                    %
+                    {supplyAPY.toFixed(2)}%
                   </Text>
                   <SimpleTooltip
                     label={`The APY accrued by this auto-compounding asset and the value of each token grows in price. This is not controlled by Market!`}
@@ -763,12 +746,7 @@ const AssetSupplyRow = ({
                   fontWeight="bold"
                   fontSize={{ base: "2.8vw", sm: "1.1rem" }}
                 >
-                  {isStakedOHM
-                    ? stakedOHMApyData
-                      ? (stakedOHMApyData.supplyApy * 100).toFixed(3)
-                      : "?"
-                    : supplyAPY.toFixed(2)}
-                  %
+                  {supplyAPY.toFixed(2)}%
                 </Text>
               </SimpleTooltip>
             )}
