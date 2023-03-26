@@ -6,6 +6,7 @@ import Filter from "bad-words";
 import { TokenData } from "hooks/useTokenData";
 import { createComptroller } from "./createComptroller";
 import { fromEntries } from "@chakra-ui/utils";
+import { CHAIN_ID } from "./chainId";
 export const filter = new Filter({ placeHolder: " " });
 filter.addWords(...["R1", "R2", "R3", "R4", "R5", "R6", "R7"]);
 
@@ -123,11 +124,28 @@ export const fetchFusePoolData = async (
   // Remove any profanity from the pool name
   let name = filterPoolName(_unfiliteredName);
 
-  let assets: USDPricedFuseAsset[] = (
-    await fuse.contracts.FusePoolLens.methods
+  const troller = createComptroller(comptroller, fuse);
+  let assets: USDPricedFuseAsset[] = [];
+
+  if (CHAIN_ID === 250) {
+    const mkts = await troller.methods.getAllMarkets().call({ gas: 1e18 });
+
+    for (let i = 0; i < mkts.length; i++) {
+      let asset: USDPricedFuseAsset = await (
+        fuse.contracts as any
+      ).MarketLens.methods
+        .getPoolAssetWithData(comptroller, mkts[i], address)
+        .call({ from: address, gas: 1e18 });
+
+      assets.push(asset);
+    }
+  } else {
+    assets = await fuse.contracts.FusePoolLens.methods
       .getPoolAssetsWithData(comptroller)
-      .call({ from: address, gas: 1e18 })
-  ).map(filterOnlyObjectProperties);
+      .call({ from: address, gas: 1e18 });
+  }
+
+  assets = assets.map(filterOnlyObjectProperties);
 
   let totalLiquidityUSD = 0;
 

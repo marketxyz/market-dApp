@@ -5,11 +5,12 @@ import JumpRateModel from "./irm/JumpRateModel.js";
 import JumpRateModelV2 from "./irm/JumpRateModelV2.js";
 
 import BigNumber from "bignumber.js";
-import axios from 'axios'
+import axios from "axios";
 import { CHAIN_ID } from "./utils.js";
 
 var fusePoolDirectoryAbi = require(__dirname + "/abi/FusePoolDirectory.json");
 var fusePoolLensAbi = require(__dirname + "/abi/FusePoolLens.json");
+var marketLensAbi = require(__dirname + "/abi/MarketLens.json");
 var contracts = require(__dirname +
   `/abi/compound-protocol.min.json`).contracts;
 
@@ -54,7 +55,15 @@ export default class Fuse {
         fusePoolLensAbi,
         Fuse.FUSE_POOL_LENS_CONTRACT_ADDRESS
       ),
+      MarketLens: null,
     };
+
+    if (CHAIN_ID.toString() === "250") {
+      this.contracts.MarketLens = new this.web3.eth.Contract(
+        marketLensAbi,
+        addressList.MARKET_LENS
+      );
+    }
 
     this.compoundContracts = contracts;
 
