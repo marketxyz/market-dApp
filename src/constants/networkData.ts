@@ -7,7 +7,7 @@ export const networkData: Record<string, any> = {
     scanner: "https://polygonscan.com/token",
     name: "Polygon (Matic)",
     shortName: "Polygon",
-    img: "https://raw.githubusercontent.com/sushiswap/icons/master/network/polygon.jpg",
+    img: "https://raw.githubusercontent.com/sushiswap/list/master/logos/network-logos/polygon.jpg",
     url: "https://polygon.market.xyz",
     enabled: true,
     addData: {
