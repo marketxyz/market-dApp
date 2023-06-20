@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { MergedPool } from "hooks/fuse/useFusePools";
-import { usePoolRSS, letterScore } from "hooks/useRSS";
+import { letterScore } from "hooks/useRSS";
 import { useMemo } from "react";
 import { smallUsdFormatter } from "utils/bigUtils";
 import { Row, Column } from "utils/chakraUtils";
@@ -36,8 +36,7 @@ export const usePoolRiskScoreGradient = (
 };
 
 const PoolCard = ({ data: pool }: { data: MergedPool }) => {
-  const rss = usePoolRSS(pool.id);
-  const rssScore = rss ? letterScore(rss.totalScore) : "?";
+  const rssScore = "U";
   const tokens = useMemo(() => {
     const tokens = pool.underlyingTokens.map((address, index) => ({
       address,
@@ -103,27 +102,17 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
             </Tooltip>
           )}
           <Row mainAxisAlignment="center" crossAxisAlignment="center">
-            <Tooltip
-              label={
-                "Underlying RSS: " +
-                (rss ? rss.totalScore.toFixed(2) : "?") +
-                "%"
-              }
-              placement="top"
-              hasArrow
+            <Box
+              ml="4"
+              background={scoreGradient}
+              px="4"
+              py="2"
+              borderRadius="5px"
             >
-              <Box
-                ml="4"
-                background={scoreGradient}
-                px="4"
-                py="2"
-                borderRadius="5px"
-              >
-                <Text fontSize="lg" textColor="white" fontWeight="semibold">
-                  {rssScore}
-                </Text>
-              </Box>
-            </Tooltip>
+              <Text fontSize="lg" textColor="white" fontWeight="semibold">
+                {rssScore}
+              </Text>
+            </Box>
           </Row>
         </Row>
         <chakra.div w="100%" h="1px" bgColor={dividerColor} />
@@ -166,7 +155,10 @@ const PoolCard = ({ data: pool }: { data: MergedPool }) => {
           to={"/pool/" + pool.id}
           w="100%"
           py="4"
-          _hover={{ bgColor: useColorModeValue("gray.100", "#2a303a"), borderBottomRadius: 12 }}
+          _hover={{
+            bgColor: useColorModeValue("gray.100", "#2a303a"),
+            borderBottomRadius: 12,
+          }}
           display="flex"
           justifyContent="center"
           alignItems="center"
