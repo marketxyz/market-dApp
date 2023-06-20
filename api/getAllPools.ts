@@ -6,7 +6,7 @@ import {
 
 const fuse = initFuseWithProviders(secondaryRPC);
 
-function formatPools(pools) {
+function formatPools(pools: any) {
   if (!(pools["0"] && pools["0"].length)) {
     return [];
   }
