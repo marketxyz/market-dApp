@@ -52,7 +52,7 @@ export const fetchTokenData = async (address: string) => {
           // Since running the vercel functions requires a Vercel account and is super slow,
           // just fetch this data from the live site in development:
 
-          "/api/tokenData?address=" + address
+          `https://sls.market.xyz/api/tokenData?address=${address}&chainId=${process.env.REACT_APP_CHAIN_ID}`
         ).then((res) => res.json())),
         address: address,
       };
