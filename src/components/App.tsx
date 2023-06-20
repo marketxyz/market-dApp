@@ -20,6 +20,13 @@ const FusePoolPage = loadable(
   }
 );
 
+const FusePoolPageNew = loadable(
+  () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolPageNew"),
+  {
+    fallback: <FullPageSpinner />,
+  }
+);
+
 // const FusePoolInfoPage = loadable(
 //   () => import(/* webpackPrefetch: true */ "./pages/Fuse/FusePoolInfoPage"),
 //   {
@@ -77,6 +84,8 @@ const App = memo(() => {
           <Route path="/liquidations" element={<FuseLiquidationsPage />} />
           {/* <Route path="/new-pool" element={<FusePoolCreatePage />} /> */}
           <Route path="/pool/:poolId" element={<FusePoolPage />} />
+
+          <Route path="/staging/pool/:poolId" element={<FusePoolPageNew />} />
           {/* <Route path="/pool/:poolId/edit" element={<FusePoolEditPage />} /> */}
 
           {/* <Route path="/utils" element={<Navigate to="/" replace={true} />} />
