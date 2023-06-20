@@ -42,7 +42,7 @@ import { useFusePoolData } from "hooks/useFusePoolData";
 import { useIsSemiSmallScreen } from "hooks/useIsSemiSmallScreen";
 import { useTokenData } from "hooks/useTokenData";
 import LogRocket from "logrocket";
-import { memo, useEffect } from "react";
+import { memo, MouseEvent, useEffect } from "react";
 // Hooks
 import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "react-query";
@@ -536,7 +536,13 @@ const AssetSupplyRow = ({
 
   const bottomTextColor = useColorModeValue("gray.800", "gray.400");
 
-  const onToggleCollateral = async () => {
+  const onLinkTap = async (event: MouseEvent) => {
+    event.stopPropagation();
+    return;
+  };
+
+  const onToggleCollateral = async (event: MouseEvent) => {
+    event.stopPropagation();
     const comptroller = createComptroller(comptrollerAddress, fuse);
 
     let call;
@@ -677,6 +683,7 @@ const AssetSupplyRow = ({
               <Button
                 variant={"link"}
                 as={ChakraLink}
+                onClick={onLinkTap}
                 href={
                   tokenData?.extraData?.partnerURL ??
                   `${scanner}/${asset.underlyingToken}`
@@ -777,7 +784,7 @@ const AssetSupplyRow = ({
           </Column>
         </Td>
 
-        <Td>
+        <Td onClick={onToggleCollateral}>
           <Row mainAxisAlignment={"center"} crossAxisAlignment="center">
             <SwitchCSS
               symbol={asset.underlyingSymbol}
@@ -786,7 +793,6 @@ const AssetSupplyRow = ({
             <Switch
               isChecked={asset.membership}
               className={asset.underlyingSymbol + "-switch"}
-              onChange={onToggleCollateral}
               size={isMobile ? "sm" : "md"}
             />
           </Row>
