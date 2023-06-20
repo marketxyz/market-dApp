@@ -165,7 +165,9 @@ async function fetchMaxAmount(
       address
     );
 
-    return balance;
+    const finalBalance = balance.muln(0.9999);
+
+    return finalBalance;
   }
 
   if (mode === Mode.REPAY) {
@@ -644,7 +646,7 @@ const AmountSelect = ({
             />
 
             {showEnableAsCollateral ? (
-              <DashboardBox bg={rowDivisionColor} p={2} px={4} width="100%">
+              <DashboardBox bg={rowDivisionColor} p={2} px={4} width="94%">
                 <Row
                   mainAxisAlignment="space-between"
                   crossAxisAlignment="center"
