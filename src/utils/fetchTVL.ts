@@ -8,6 +8,7 @@ export const fetchFuseTVL = async (fuse: Fuse) => {
   return fuse.web3.utils.toBN(
     new BigNumber(
       totalSuppliedETH
+        .slice(1)
         .reduce((a: number, b: string) => a + parseInt(b), 0)
         .toString()
     ).toFixed(0)

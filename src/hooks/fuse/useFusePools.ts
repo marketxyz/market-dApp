@@ -40,7 +40,9 @@ const poolSort = (pools: MergedPool[]) => {
 };
 
 export const fetchPoolsAPI = async () => {
-  const res = await fetch("/api/getAllPools");
+  const res = await fetch(
+    `https://sls.market.xyz/api/getAllPools?chainId=${process.env.REACT_APP_CHAIN_ID}`
+  );
   const data = await res.json();
 
   return data;
